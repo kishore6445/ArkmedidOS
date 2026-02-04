@@ -331,35 +331,53 @@ export function PowerMoveModal({ open, onOpenChange, onSave, victoryTargets }: P
               {usersError ? <p className="text-sm text-rose-600">{usersError}</p> : null}
             </div>
 
-            {filteredVictoryTargets.length > 0 ? (
-              <div className="space-y-2">
-                <Label>Link to Victory Targets *</Label>
-                <Select
-                  value={formData.linkedVictoryTargets[0] || ""}
-                  onValueChange={(value) => {
-                    const nextTargets = value ? [value] : []
-                    setFormData({ ...formData, linkedVictoryTargets: nextTargets })
-                    validateField("linkedVictoryTargets", nextTargets)
-                  }}
+            <div className="space-y-2">
+              <Label>Link to Victory Targets *</Label>
+              <Select
+                value={formData.linkedVictoryTargets[0] || ""}
+                onValueChange={(value) => {
+                  const nextTargets = value ? [value] : []
+                  setFormData({ ...formData, linkedVictoryTargets: nextTargets })
+                  validateField("linkedVictoryTargets", nextTargets)
+                }}
+                disabled={!formData.owner || filteredVictoryTargets.length === 0}
+              >
+                <SelectTrigger
+                  className={errors.linkedVictoryTargets ? "border-red-500 focus-visible:ring-red-500" : ""}
                 >
-                  <SelectTrigger
-                    className={errors.linkedVictoryTargets ? "border-red-500 focus-visible:ring-red-500" : ""}
-                  >
-                    <SelectValue placeholder="Select victory target" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {filteredVictoryTargets.map((target) => (
-                      <SelectItem key={target.id} value={target.id}>
-                        {target.title}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                {errors.linkedVictoryTargets && (
-                  <p className="text-sm text-red-600">{errors.linkedVictoryTargets}</p>
-                )}
-              </div>
-            ) : null}
+                  <SelectValue
+                    placeholder={
+                      !formData.owner
+                        ? "Select owner first"
+                        : filteredVictoryTargets.length === 0
+                          ? "No victory targets for this owner"
+                          : "Select victory target"
+                    }
+                  />
+                </SelectTrigger>
+                <SelectContent>
+                  {filteredVictoryTargets.map((target) => (
+                    <SelectItem key={target.id} value={target.id}>
+                      {target.title}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              {formData.owner ? (
+                filteredVictoryTargets.length > 0 ? (
+                  <p className="text-xs text-stone-500">
+                    Available for {formData.owner}: {filteredVictoryTargets.map((target) => target.title).join(", ")}
+                  </p>
+                ) : (
+                  <p className="text-xs text-stone-500">No victory targets found for {formData.owner}.</p>
+                )
+              ) : (
+                <p className="text-xs text-stone-500">Choose an owner to load their victory targets.</p>
+              )}
+              {errors.linkedVictoryTargets && (
+                <p className="text-sm text-red-600">{errors.linkedVictoryTargets}</p>
+              )}
+            </div>
 
             <div className="space-y-2">
               <div className="flex items-center space-x-2">
