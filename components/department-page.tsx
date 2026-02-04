@@ -3,7 +3,7 @@
 import { Badge } from "@/components/ui/badge"
 
 import type React from "react"
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { useAppMode } from "@/hooks/use-app-mode"
 import { KeyboardShortcuts } from "@/components/keyboard-shortcuts"
@@ -15,7 +15,7 @@ import { PageTransition } from "@/components/page-transition"
 import { DepartmentExecutionHero } from "@/components/department-execution-hero"
 import { Plus, CheckCircle2 } from "lucide-react"
 import { VictoryTargetModal } from "@/components/victory-target-modal"
-import { PowerMoveModal } from "@/components/power-move-modal"
+import { PowerMoveModal, type PowerMoveFormData } from "@/components/power-move-modal"
 import { CreateTaskModal } from "@/components/create-task-modal"
 import { CreateCommitmentModal } from "@/components/create-commitment-modal"
 import { PowerMovesTable } from "@/components/power-moves-table"
@@ -25,6 +25,7 @@ import { calculateDepartmentScore } from "@/lib/score-calculations"
 import { cn } from "@/lib/utils"
 import { getCurrentQuarter } from "@/lib/brand-structure"
 import type { QuarterOption } from "@/components/quarter-selector"
+import { useBrand } from "@/lib/brand-context"
 
 export interface VictoryTarget {
   id: string
@@ -102,6 +103,7 @@ interface DepartmentPageProps {
 }
 
 export function DepartmentPage({ config, departmentKey }: DepartmentPageProps) {
+  const { currentBrand } = useBrand()
   const safeConfig = {
     ...config,
     commitments: config.commitments ?? [],
@@ -119,11 +121,11 @@ export function DepartmentPage({ config, departmentKey }: DepartmentPageProps) {
   const [isLoading, setIsLoading] = useState(false)
   const [activeTab, setActiveTab] = useState("execute")
   const [addAnotherVictory, setAddAnotherVictory] = useState(false)
-  const [addAnotherPowerMove, setAddAnotherPowerMove] = useState(false)
   const [addAnotherCommitment, setAddAnotherCommitment] = useState(false)
   const { mode } = useAppMode()
   const isSetupMode = mode === "setup"
   const currentUser = "Sarah M." // TODO: Get from auth context
+  const [powerMoves, setPowerMoves] = useState<PowerMove[]>(safeConfig.powerMoves)
   const [selectedVictoryTarget, setSelectedVictoryTarget] = useState<VictoryTarget | null>(null)
   const [showVictoryDetailModal, setShowVictoryDetailModal] = useState(false)
   const [timePeriod, setTimePeriod] = useState<"this-week" | "next-week">("this-week")
@@ -138,6 +140,10 @@ export function DepartmentPage({ config, departmentKey }: DepartmentPageProps) {
   const [showAllVictoryTargets, setShowAllVictoryTargets] = useState(false)
 
   const [selectedQuarter, setSelectedQuarter] = useState<QuarterOption>(getCurrentQuarter())
+
+  useEffect(() => {
+    setPowerMoves(safeConfig.powerMoves)
+  }, [safeConfig.powerMoves])
 
   const [selectedPeriod, setSelectedPeriod] = useState("this-week")
   const [currentWeekStart, setCurrentWeekStart] = useState(() => {
@@ -204,8 +210,8 @@ export function DepartmentPage({ config, departmentKey }: DepartmentPageProps) {
   }
 
   const calculatedDepartmentScore = useMemo(
-    () => calculateDepartmentScore(safeConfig.victoryTargets, safeConfig.powerMoves),
-    [safeConfig.victoryTargets, safeConfig.powerMoves],
+    () => calculateDepartmentScore(safeConfig.victoryTargets, powerMoves),
+    [safeConfig.victoryTargets, powerMoves],
   )
 
   const updatedVictoryTargets = calculatedDepartmentScore.updatedTargets ?? []
@@ -215,10 +221,9 @@ export function DepartmentPage({ config, departmentKey }: DepartmentPageProps) {
 
   const safeCommitments = safeConfig.commitments
   const safeTasks = safeConfig.tasks
-  const safePowerMoves = safeConfig.powerMoves
   const safeVictoryTargets = safeConfig.victoryTargets
 
-  const filteredPowerMoves = filterByMe ? safePowerMoves.filter((pm) => pm.owner === currentUser) : safePowerMoves
+  const filteredPowerMoves = filterByMe ? powerMoves.filter((pm) => pm.owner === currentUser) : powerMoves
 
   const filteredCommitments = safeCommitments.filter((c) => {
     const matchesUser = filterByMe ? c.owner === currentUser : true
@@ -299,6 +304,69 @@ export function DepartmentPage({ config, departmentKey }: DepartmentPageProps) {
       title: "Power Move Added",
       description: `"${suggestion.suggestedPowerMove}" has been added to your Power Moves`,
     })
+  }
+
+  const departmentCodeMap: Record<string, "M" | "A" | "S" | "T" | "E" | "R" | "Y"> = {
+    marketing: "M",
+    accounts: "A",
+    sales: "S",
+    team: "T",
+    execution: "E",
+    rnd: "R",
+    leadership: "Y",
+  }
+
+  const departmentCode = departmentKey ? departmentCodeMap[departmentKey] : undefined
+
+  const handleSavePowerMove = async (data: PowerMoveFormData) => {
+    if (!departmentCode) {
+      throw new Error("Unable to determine department for this Power Move.")
+    }
+
+    setIsLoading(true)
+    try {
+      const response = await fetch("/api/admin/power-moves", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          brandId: currentBrand,
+          department: departmentCode,
+          name: data.title,
+          frequency: data.frequency,
+          weeklyTarget: data.targetPerCycle,
+          owner: data.owner,
+          linkedVictoryTargetId: data.linkedVictoryTargets[0] ?? undefined,
+        }),
+      })
+
+      const result = await response.json().catch(() => ({}))
+
+      if (!response.ok) {
+        throw new Error(result?.error || "Unable to create power move.")
+      }
+
+      const linkedTargetTitle = safeVictoryTargets.find((vt) => vt.id === data.linkedVictoryTargets[0])?.title || ""
+
+      setPowerMoves((prev) => [
+        {
+          id: result?.id || `temp-${Date.now()}`,
+          name: data.title,
+          frequency: data.frequency,
+          targetPerCycle: data.targetPerCycle,
+          progress: 0,
+          owner: data.owner,
+          linkedVictoryTarget: linkedTargetTitle,
+          weeklyTarget: data.targetPerCycle,
+          weeklyActual: 0,
+          activityCompleted: false,
+        },
+        ...prev,
+      ])
+    } catch (error) {
+      throw error
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   const bprMetrics: BPRMetric[] = updatedVictoryTargets.map((vt) => {
@@ -409,10 +477,8 @@ export function DepartmentPage({ config, departmentKey }: DepartmentPageProps) {
       <PowerMoveModal
         open={showPowerMoveModal}
         onOpenChange={setShowPowerMoveModal}
-        onSuccess={() => setShowPowerMoveModal(false)}
+        onSave={handleSavePowerMove}
         victoryTargets={filteredVictoryTargets}
-        addAnother={addAnotherPowerMove}
-        setAddAnother={setAddAnotherPowerMove}
       />
       <CreateTaskModal
         open={showTaskModal}

@@ -14,7 +14,7 @@ import ConfirmationDialog from "@/components/confirmation-dialog"
 interface PowerMoveModalProps {
   open: boolean
   onOpenChange: (open: boolean) => void
-  onSave: (data: PowerMoveFormData) => void
+  onSave: (data: PowerMoveFormData) => void | Promise<void>
   victoryTargets: Array<{ id: string; title: string; owner?: string; department?: string }>
 }
 
@@ -116,9 +116,7 @@ export function PowerMoveModal({ open, onOpenChange, onSave, victoryTargets }: P
     setIsLoading(true)
 
     try {
-      await new Promise((resolve) => setTimeout(resolve, 800))
-
-      onSave(formData)
+      await onSave(formData)
 
       toast({
         title: "Success!",
