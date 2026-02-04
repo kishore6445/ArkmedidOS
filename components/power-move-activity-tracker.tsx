@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { CheckCircle2, Circle } from "lucide-react"
@@ -26,23 +26,33 @@ export function PowerMoveActivityTracker({
   weeklyActual = 0,
   onToggle,
 }: PowerMoveActivityTrackerProps) {
-  const [isCompleted, setIsCompleted] = useState(activityCompleted)
+  const targetCount = weeklyTarget && weeklyTarget > 0 ? weeklyTarget : 1
+  const [currentCount, setCurrentCount] = useState(weeklyActual)
+  const isCompleted = currentCount >= targetCount || activityCompleted
   const { toast } = useToast()
+
+  useEffect(() => {
+    setCurrentCount(weeklyActual)
+  }, [weeklyActual])
 
   const handleToggle = (e: React.MouseEvent) => {
     e.stopPropagation()
-    const newState = !isCompleted
-    setIsCompleted(newState)
+    if (isCompleted) return
+    const nextCount = Math.min(currentCount + 1, targetCount)
+    setCurrentCount(nextCount)
+    const completed = nextCount >= targetCount
 
     // TODO: Save to backend
-    console.log("[v0] Toggling Power Move activity:", powerMoveId, newState)
+    console.log("[v0] Updating Power Move activity:", powerMoveId, nextCount)
 
     toast({
-      title: newState ? "Lead Measure Completed!" : "Lead Measure Unchecked",
-      description: newState ? `Great work executing ${powerMoveName}` : `${powerMoveName} marked as incomplete`,
+      title: completed ? "Lead Measure Completed!" : "Progress Updated",
+      description: completed
+        ? `Great work executing ${powerMoveName}`
+        : `${powerMoveName}: ${nextCount}/${targetCount}`,
     })
 
-    onToggle?.(newState)
+    onToggle?.(completed)
   }
 
   return (
@@ -50,8 +60,8 @@ export function PowerMoveActivityTracker({
       {weeklyTarget && (
         <div className="flex items-center justify-between text-xs">
           <span className="text-muted-foreground">This Week's Activity</span>
-          <Badge variant={weeklyActual >= weeklyTarget ? "default" : "secondary"} className="text-xs">
-            {weeklyActual}/{weeklyTarget}
+          <Badge variant={currentCount >= targetCount ? "default" : "secondary"} className="text-xs">
+            {currentCount}/{targetCount}
           </Badge>
         </div>
       )}
@@ -60,9 +70,10 @@ export function PowerMoveActivityTracker({
         size="sm"
         onClick={handleToggle}
         className={cn("w-full gap-2", isCompleted && "bg-green-600 hover:bg-green-700")}
+        disabled={isCompleted}
       >
         {isCompleted ? <CheckCircle2 className="h-4 w-4" /> : <Circle className="h-4 w-4" />}
-        {isCompleted ? "Activity Done This Week" : "Mark Activity Complete"}
+        {isCompleted ? "Activity Done This Week" : `Mark 1 Complete (${currentCount}/${targetCount})`}
       </Button>
     </div>
   )

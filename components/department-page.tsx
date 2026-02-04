@@ -36,6 +36,7 @@ export interface VictoryTarget {
   status: "on-track" | "at-risk"
   description?: string
   owner: string
+  ownerId?: string
 }
 
 export interface PowerMove {
@@ -335,6 +336,7 @@ export function DepartmentPage({ config, departmentKey }: DepartmentPageProps) {
           frequency: data.frequency,
           weeklyTarget: data.targetPerCycle,
           owner: data.owner,
+          ownerId: data.ownerId,
           linkedVictoryTargetId: data.linkedVictoryTargets[0] ?? undefined,
         }),
       })
@@ -478,7 +480,7 @@ export function DepartmentPage({ config, departmentKey }: DepartmentPageProps) {
         open={showPowerMoveModal}
         onOpenChange={setShowPowerMoveModal}
         onSave={handleSavePowerMove}
-        victoryTargets={filteredVictoryTargets}
+        victoryTargets={updatedVictoryTargets}
       />
       <CreateTaskModal
         open={showTaskModal}

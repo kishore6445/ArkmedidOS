@@ -15,7 +15,7 @@ interface PowerMoveModalProps {
   open: boolean
   onOpenChange: (open: boolean) => void
   onSave: (data: PowerMoveFormData) => void | Promise<void>
-  victoryTargets: Array<{ id: string; title: string; owner?: string; department?: string }>
+  victoryTargets: Array<{ id: string; title: string; owner?: string; ownerId?: string; department?: string }>
 }
 
 export interface PowerMoveFormData {
@@ -23,6 +23,7 @@ export interface PowerMoveFormData {
   frequency: string
   targetPerCycle: number
   owner: string
+  ownerId?: string
   linkedVictoryTargets: string[]
   autoCreateTasks: boolean
   selectedDays: string[]
@@ -50,7 +51,6 @@ export function PowerMoveModal({ open, onOpenChange, onSave, victoryTargets }: P
 
   const validateField = (field: string, value: any) => {
     const newErrors = { ...errors }
-
     switch (field) {
       case "title":
         if (!value || value.trim().length === 0) {
@@ -76,7 +76,7 @@ export function PowerMoveModal({ open, onOpenChange, onSave, victoryTargets }: P
         }
         break
       case "linkedVictoryTargets":
-        if (filteredVictoryTargets.length > 0 && value.length === 0) {
+        if (availableVictoryTargets.length > 0 && value.length === 0) {
           newErrors.linkedVictoryTargets = "Please link at least one Victory Target"
         } else {
           delete newErrors.linkedVictoryTargets
@@ -99,7 +99,7 @@ export function PowerMoveModal({ open, onOpenChange, onSave, victoryTargets }: P
     if (formData.targetPerCycle <= 0) {
       newErrors.targetPerCycle = "Target must be greater than 0"
     }
-    if (filteredVictoryTargets.length > 0 && formData.linkedVictoryTargets.length === 0) {
+    if (availableVictoryTargets.length > 0 && formData.linkedVictoryTargets.length === 0) {
       newErrors.linkedVictoryTargets = "Please link at least one Victory Target"
     }
 
@@ -162,6 +162,7 @@ export function PowerMoveModal({ open, onOpenChange, onSave, victoryTargets }: P
     frequency: "weekly",
     targetPerCycle: 0,
     owner: "",
+    ownerId: undefined,
     linkedVictoryTargets: [],
     autoCreateTasks: false,
     selectedDays: [],
@@ -184,19 +185,26 @@ export function PowerMoveModal({ open, onOpenChange, onSave, victoryTargets }: P
     }
   }, [open])
 
-  const filteredVictoryTargets = victoryTargets.filter((target) => {
-    if (!formData.owner) return false
-    if (!target.owner) return false
-    return target.owner === formData.owner
+  const normalizeName = (value?: string) => value?.trim().toLowerCase() || ""
+
+  const ownerFilteredTargets = victoryTargets.filter((target) => {
+    if (!formData.owner && !formData.ownerId) return false
+    if (formData.ownerId && target.ownerId) {
+      return target.ownerId === formData.ownerId
+    }
+    if (!formData.owner || !target.owner) return false
+    return normalizeName(target.owner) === normalizeName(formData.owner)
   })
+
+  const availableVictoryTargets = ownerFilteredTargets
 
   useEffect(() => {
     if (!formData.linkedVictoryTargets[0]) return
-    const stillValid = filteredVictoryTargets.some((target) => target.id === formData.linkedVictoryTargets[0])
+    const stillValid = availableVictoryTargets.some((target) => target.id === formData.linkedVictoryTargets[0])
     if (!stillValid) {
       setFormData((prev) => ({ ...prev, linkedVictoryTargets: [] }))
     }
-  }, [filteredVictoryTargets, formData.linkedVictoryTargets])
+  }, [availableVictoryTargets, formData.linkedVictoryTargets])
 
   useEffect(() => {
     if (!open) return
@@ -308,23 +316,32 @@ export function PowerMoveModal({ open, onOpenChange, onSave, victoryTargets }: P
             <div className="space-y-2">
               <Label htmlFor="owner">Owner *</Label>
               <Select
-                value={formData.owner}
-                onValueChange={(v) => {
-                  setFormData({ ...formData, owner: v })
-                  validateField("owner", v)
+                value={formData.ownerId ?? formData.owner}
+                onValueChange={(value) => {
+                  const selected = users.find((user) => user.id === value || user.name === value)
+                  const nextOwner = selected?.name ?? value
+                  const nextOwnerId = selected?.id
+                  setFormData({
+                    ...formData,
+                    owner: nextOwner,
+                    ownerId: nextOwnerId,
+                    linkedVictoryTargets: [],
+                  })
+                  validateField("owner", nextOwner)
                 }}
               >
                 <SelectTrigger id="owner" className={errors.owner ? "border-red-500 focus-visible:ring-red-500" : ""}>
                   <SelectValue placeholder={isLoadingUsers ? "Loading users..." : "Select owner"} />
                 </SelectTrigger>
                 <SelectContent>
-                  {users
-                    .filter((user) => !user.role?.toLowerCase().includes("admin"))
-                    .map((user) => (
-                      <SelectItem key={user.id} value={user.name}>
-                        {user.name} ({user.email})
-                      </SelectItem>
-                    ))}
+                  {(users.filter((user) => !user.role?.toLowerCase().includes("admin")).length > 0
+                    ? users.filter((user) => !user.role?.toLowerCase().includes("admin"))
+                    : users
+                  ).map((user) => (
+                    <SelectItem key={user.id} value={user.id}>
+                      {user.name} ({user.email})
+                    </SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
               {errors.owner && <p className="text-sm text-red-600">{errors.owner}</p>}
@@ -340,7 +357,7 @@ export function PowerMoveModal({ open, onOpenChange, onSave, victoryTargets }: P
                   setFormData({ ...formData, linkedVictoryTargets: nextTargets })
                   validateField("linkedVictoryTargets", nextTargets)
                 }}
-                disabled={!formData.owner || filteredVictoryTargets.length === 0}
+                disabled={!formData.owner || availableVictoryTargets.length === 0}
               >
                 <SelectTrigger
                   className={errors.linkedVictoryTargets ? "border-red-500 focus-visible:ring-red-500" : ""}
@@ -349,14 +366,14 @@ export function PowerMoveModal({ open, onOpenChange, onSave, victoryTargets }: P
                     placeholder={
                       !formData.owner
                         ? "Select owner first"
-                        : filteredVictoryTargets.length === 0
+                        : availableVictoryTargets.length === 0
                           ? "No victory targets for this owner"
                           : "Select victory target"
                     }
                   />
                 </SelectTrigger>
                 <SelectContent>
-                  {filteredVictoryTargets.map((target) => (
+                  {availableVictoryTargets.map((target) => (
                     <SelectItem key={target.id} value={target.id}>
                       {target.title}
                     </SelectItem>
@@ -364,9 +381,9 @@ export function PowerMoveModal({ open, onOpenChange, onSave, victoryTargets }: P
                 </SelectContent>
               </Select>
               {formData.owner ? (
-                filteredVictoryTargets.length > 0 ? (
+                ownerFilteredTargets.length > 0 ? (
                   <p className="text-xs text-stone-500">
-                    Available for {formData.owner}: {filteredVictoryTargets.map((target) => target.title).join(", ")}
+                    Available for {formData.owner}: {ownerFilteredTargets.map((target) => target.title).join(", ")}
                   </p>
                 ) : (
                   <p className="text-xs text-stone-500">No victory targets found for {formData.owner}.</p>

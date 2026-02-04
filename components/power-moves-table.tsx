@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Target, TrendingUp, Plus, ArrowRight } from "lucide-react"
 import type { PowerMove } from "./department-page"
-import { getBPRStatus, getBPRStatusConfig, getProgressPercentage } from "@/lib/bpr-status"
+import { getBPRStatus, getProgressPercentage } from "@/lib/bpr-status"
 import { MicroCelebration } from "@/components/micro-celebration"
 import { cn } from "@/lib/utils"
 
@@ -39,9 +39,10 @@ export function PowerMovesTable({
   const incrementProgress = (id: string) => {
     setPowerMoves((prev) =>
       prev.map((pm) => {
-        if (pm.id === id && pm.progress < pm.targetPerCycle) {
+        const targetPerCycle = Math.max(pm.targetPerCycle || 0, 1)
+        if (pm.id === id && pm.progress < targetPerCycle) {
           const newProgress = pm.progress + 1
-          const isNowComplete = newProgress >= pm.targetPerCycle
+          const isNowComplete = newProgress >= targetPerCycle
 
           setCompletionCount((c) => c + 1)
 
@@ -50,10 +51,10 @@ export function PowerMovesTable({
               show: true,
               message: `${pm.name} Complete!`,
             })
-          } else if (newProgress === Math.floor(pm.targetPerCycle / 2)) {
+          } else if (newProgress === Math.floor(targetPerCycle / 2)) {
             setCelebration({
               show: true,
-              message: `Halfway there! ${newProgress}/${pm.targetPerCycle}`,
+              message: `Halfway there! ${newProgress}/${targetPerCycle}`,
             })
           } else if ((completionCount + 1) % 5 === 0) {
             setCelebration({
@@ -139,10 +140,11 @@ export function PowerMovesTable({
             </thead>
             <tbody>
               {activePowerMoves.map((pm) => {
-                const progress = getProgressPercentage(pm.progress, pm.targetPerCycle)
-                const status = getBPRStatus(pm.progress, pm.targetPerCycle)
-                const statusConfig = getBPRStatusConfig(status)
-                const isRowComplete = pm.progress >= pm.targetPerCycle
+                const targetPerCycle = Math.max(pm.targetPerCycle || 0, 1)
+                const progress = getProgressPercentage(pm.progress, targetPerCycle)
+                const status = getBPRStatus(pm.progress, targetPerCycle)
+                const isRowComplete = pm.progress >= targetPerCycle
+                const completionLabel = isRowComplete ? "COMPLETED" : "IN PROGRESS"
 
                 return (
                   <tr
@@ -184,13 +186,14 @@ export function PowerMovesTable({
                       <Badge
                         className={cn(
                           "font-bold text-xs px-3 py-1",
-                          status === "green" && "bg-emerald-100 text-emerald-700 border-emerald-300",
-                          status === "yellow" && "bg-amber-100 text-amber-700 border-amber-300",
-                          status === "red" && "bg-rose-100 text-rose-700 border-rose-300",
+                          isRowComplete
+                            ? "bg-emerald-100 text-emerald-700 border-emerald-300"
+                            : "bg-stone-100 text-stone-700 border-stone-300",
                         )}
                       >
-                        {statusConfig.label}
+                        {completionLabel}
                       </Badge>
+                      <p className="text-xs text-stone-500 mt-1 tabular-nums">{progress}%</p>
                     </td>
                     <td className="py-3 px-3 text-center">
                       <Button
@@ -231,9 +234,8 @@ export function PowerMovesTable({
                 <table className="w-full border-collapse min-w-[640px]">
                   <tbody>
                     {completedPowerMoves.map((pm) => {
-                      const progress = getProgressPercentage(pm.progress, pm.targetPerCycle)
-                      const status = getBPRStatus(pm.progress, pm.targetPerCycle)
-                      const statusConfig = getBPRStatusConfig(status)
+                      const targetPerCycle = Math.max(pm.targetPerCycle || 0, 1)
+                      const progress = getProgressPercentage(pm.progress, targetPerCycle)
 
                       return (
                         <tr
@@ -267,8 +269,9 @@ export function PowerMovesTable({
                           </td>
                           <td className="py-3 px-3 text-center">
                             <Badge className="font-bold text-xs px-3 py-1 bg-emerald-100 text-emerald-700 border-emerald-300">
-                              Complete
+                              COMPLETED
                             </Badge>
+                            <p className="text-xs text-stone-500 mt-1 tabular-nums">{progress}%</p>
                           </td>
                           <td className="py-3 px-3 text-center">
                             <div className="h-10 w-10 mx-auto rounded-full bg-emerald-100 flex items-center justify-center text-emerald-600 font-bold">
