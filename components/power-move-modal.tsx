@@ -51,6 +51,7 @@ export function PowerMoveModal({ open, onOpenChange, onSave, victoryTargets }: P
 
   const validateField = (field: string, value: any) => {
     const newErrors = { ...errors }
+    console.log("Validating field:", field, value)
     switch (field) {
       case "title":
         if (!value || value.trim().length === 0) {
@@ -76,6 +77,7 @@ export function PowerMoveModal({ open, onOpenChange, onSave, victoryTargets }: P
         }
         break
       case "linkedVictoryTargets":
+       // debugger;
         if (availableVictoryTargets.length > 0 && value.length === 0) {
           newErrors.linkedVictoryTargets = "Please link at least one Victory Target"
         } else {
@@ -188,6 +190,7 @@ export function PowerMoveModal({ open, onOpenChange, onSave, victoryTargets }: P
   const normalizeName = (value?: string) => value?.trim().toLowerCase() || ""
 
   const ownerFilteredTargets = victoryTargets.filter((target) => {
+    debugger;
     if (!formData.owner && !formData.ownerId) return false
     if (formData.ownerId && target.ownerId) {
       return target.ownerId === formData.ownerId
@@ -251,6 +254,10 @@ export function PowerMoveModal({ open, onOpenChange, onSave, victoryTargets }: P
     onOpenChange(false)
   }
 
+  const progressCycleCount = Math.max(0, Math.floor(formData.targetPerCycle || 0))
+  const progressCycleVisible = Math.min(progressCycleCount, 30)
+  const progressCycleOverflow = Math.max(0, progressCycleCount - progressCycleVisible)
+
   return (
     <>
       <Dialog open={open} onOpenChange={handleOpenChange}>
@@ -310,6 +317,30 @@ export function PowerMoveModal({ open, onOpenChange, onSave, victoryTargets }: P
                   className={errors.targetPerCycle ? "border-red-500 focus-visible:ring-red-500" : ""}
                 />
                 {errors.targetPerCycle && <p className="text-sm text-red-600">{errors.targetPerCycle}</p>}
+                <div className="rounded-md border border-stone-200 bg-stone-50 px-3 py-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-semibold uppercase tracking-wider text-stone-500">Progress</span>
+                    {progressCycleCount > 0 && (
+                      <span className="text-xs text-stone-500">Cycles: {progressCycleCount}</span>
+                    )}
+                  </div>
+                  <div className="mt-1 flex flex-wrap items-center gap-1">
+                    {progressCycleCount === 0 ? (
+                      <span className="text-xs text-stone-400">Enter a target to preview progress.</span>
+                    ) : (
+                      <>
+                        {Array.from({ length: progressCycleVisible }).map((_, index) => (
+                          <span key={index} className="text-lg font-semibold leading-none text-stone-400">
+                            -
+                          </span>
+                        ))}
+                        {progressCycleOverflow > 0 && (
+                          <span className="text-xs text-stone-500">+{progressCycleOverflow} more</span>
+                        )}
+                      </>
+                    )}
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -334,14 +365,13 @@ export function PowerMoveModal({ open, onOpenChange, onSave, victoryTargets }: P
                   <SelectValue placeholder={isLoadingUsers ? "Loading users..." : "Select owner"} />
                 </SelectTrigger>
                 <SelectContent>
-                  {(users.filter((user) => !user.role?.toLowerCase().includes("admin")).length > 0
-                    ? users.filter((user) => !user.role?.toLowerCase().includes("admin"))
-                    : users
-                  ).map((user) => (
-                    <SelectItem key={user.id} value={user.id}>
-                      {user.name} ({user.email})
-                    </SelectItem>
-                  ))}
+                  {users
+                    .filter((user) => !user.role?.toLowerCase().includes("admin"))
+                    .map((user) => (
+                      <SelectItem key={user.id} value={user.id}>
+                        {user.name} ({user.email})
+                      </SelectItem>
+                    ))}
                 </SelectContent>
               </Select>
               {errors.owner && <p className="text-sm text-red-600">{errors.owner}</p>}

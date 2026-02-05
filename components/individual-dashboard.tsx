@@ -229,16 +229,17 @@ export function IndividualDashboard({
     setPowerMoves((prev) =>
       prev.map((pm) => {
         if (pm.id !== id) return pm
-        const { target } = getTargetActualForPeriod(pm, selectedPeriod)
+        const { target, actual } = getTargetActualForPeriod(pm, selectedPeriod)
         const actualField = getActualFieldForPeriod(pm, selectedPeriod)
+        const nextActual = Math.min((actual || 0) + 1, target)
         trackingPayload = {
           powerMoveId: pm.id,
           period: selectedPeriod,
           target,
-          actual: target,
+          actual: nextActual,
           completedById: currentUserId || undefined,
         }
-        return { ...pm, [actualField]: target }
+        return { ...pm, [actualField]: nextActual }
       }),
     )
 
@@ -628,6 +629,10 @@ export function IndividualDashboard({
                   const { target, actual } = getTargetActualForPeriod(pm, selectedPeriod)
                   const percentage = target > 0 ? Math.round((actual / target) * 100) : 0
                   const executionStatus = percentage >= 100 ? 'Completed' : percentage > 0 ? 'In Progress' : 'Not Started'
+                  const cycleCount = Math.max(0, Math.floor(target || 0))
+                  const visibleCycles = Math.min(cycleCount, 30)
+                  const overflowCycles = Math.max(0, cycleCount - visibleCycles)
+                  const completedCycles = Math.min(Math.max(0, actual || 0), cycleCount)
 
                   return (
                     <tr key={pm.id} className='border-b border-stone-200 hover:bg-stone-50'>
@@ -651,15 +656,27 @@ export function IndividualDashboard({
                       <td className='px-6 py-4'>
                         <div className='flex items-center gap-3'>
                           <div className='flex-1 max-w-xs'>
-                            <div className='h-2 bg-stone-200 rounded-full overflow-hidden'>
-                              <div
-                                className='h-full transition-all duration-300'
-                                style={{
-                                  width: `${percentage}%`,
-                                  backgroundColor:
-                                    percentage >= 100 ? '#16A34A' : percentage >= 50 ? '#F59E0B' : '#DC2626',
-                                }}
-                              />
+                            <div className='flex flex-wrap items-center gap-1 text-stone-400'>
+                              {cycleCount === 0 ? (
+                                <span className='text-xs text-stone-400'>—</span>
+                              ) : (
+                                <>
+                                  {Array.from({ length: visibleCycles }).map((_, idx) => (
+                                    <span
+                                      key={idx}
+                                      className={cn(
+                                        'text-base leading-none font-black',
+                                        idx < completedCycles ? 'text-emerald-600' : 'text-stone-500'
+                                      )}
+                                    >
+                                      -
+                                    </span>
+                                  ))}
+                                  {overflowCycles > 0 && (
+                                    <span className='text-xs text-stone-500'>+{overflowCycles}</span>
+                                  )}
+                                </>
+                              )}
                             </div>
                           </div>
                           <span className='text-xs font-bold text-stone-600 w-12 text-right'>

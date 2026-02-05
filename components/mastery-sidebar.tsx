@@ -128,18 +128,18 @@ export function MasterySidebar({ defaultCollapsed = false }: MasterySidebarProps
 
       {/* Navigation */}
       <nav className="flex-1 overflow-y-auto py-4" ref={navRef}>
-        {/* Dashboard - Unified Entry (War Dashboard as default, My Dashboard accessible inside) */}
+        {/* Dashboard */}
         <div className={cn("px-3 mb-2", collapsed && "px-2")}>
           <TooltipProvider delayDuration={0}>
             <Tooltip>
               <TooltipTrigger asChild>
                 <Link
-                  href="/"
-                  aria-current={pathname === "/" || pathname === "/dashboard" ? "page" : undefined}
+                  href="/dashboard"
+                  aria-current={pathname === "/dashboard" ? "page" : undefined}
                   aria-label="Dashboard"
                   className={cn(
                     "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-150",
-                    pathname === "/" || pathname === "/dashboard"
+                    pathname === "/dashboard"
                       ? "bg-blue-600 text-white"
                       : "text-gray-700 hover:bg-blue-50 hover:text-blue-700",
                     "active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",

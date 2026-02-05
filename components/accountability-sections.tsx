@@ -2,7 +2,7 @@
 
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import type { PowerMove, Task, Commitment } from '@/components/department-page'
 
 interface AccountabilitySectionsProps {
@@ -22,7 +22,7 @@ export function AccountabilitySections({
   onAddTask,
   onAddCommitment,
 }: AccountabilitySectionsProps) {
-  const [completedCount, setCompletedCount] = useState<Record<string, number>>({})
+  const [trackingMap, setTrackingMap] = useState<Record<string, { actual: number; target: number }>>({})
 
   // Calculate week progress (assume 7-day week, show days remaining)
   const today = new Date()
@@ -30,17 +30,47 @@ export function AccountabilitySections({
   const daysRemaining = 7 - dayOfWeek
   const daysCompleted = dayOfWeek
 
-  const handleCompleteClick = (pmId: string, frequency: number) => {
-    setCompletedCount((prev) => ({
-      ...prev,
-      [pmId]: Math.min((prev[pmId] || 0) + 1, frequency),
-    }))
-  }
+  useEffect(() => {
+    const controller = new AbortController()
 
-  const getCompletionPercentage = (pmId: string, frequency: number) => {
-    const count = completedCount[pmId] || 0
-    return frequency > 0 ? (count / frequency) * 100 : 0
-  }
+    const loadTracking = async () => {
+      try {
+        if (powerMoves.length === 0) {
+          setTrackingMap({})
+          return
+        }
+
+        const powerMoveIds = powerMoves.map((pm) => pm.id).join(",")
+        const response = await fetch(
+          `/api/power-move-tracking?period=this-week&powerMoveIds=${encodeURIComponent(powerMoveIds)}`,
+          { signal: controller.signal, cache: "no-store" },
+        )
+
+        if (!response.ok) return
+
+        const result = await response.json()
+        const nextMap: Record<string, { actual: number; target: number }> = {}
+
+        if (Array.isArray(result?.tracking)) {
+          for (const row of result.tracking) {
+            if (!row?.power_move_id) continue
+            nextMap[row.power_move_id] = {
+              actual: Number(row.actual || 0),
+              target: Number(row.target || 0),
+            }
+          }
+        }
+
+        setTrackingMap(nextMap)
+      } catch {
+        // Ignore tracking failures
+      }
+    }
+
+    loadTracking()
+
+    return () => controller.abort()
+  }, [powerMoves])
 
   // Derive execution status from percentage
   const getExecutionStatus = (percentage: number) => {
@@ -108,7 +138,6 @@ export function AccountabilitySections({
                 <th className='px-6 py-3 text-left text-xs font-bold text-stone-600 uppercase tracking-wider'>Cadence</th>
                 <th className='px-6 py-3 text-center text-xs font-bold text-stone-600 uppercase tracking-wider'>Progress</th>
                 <th className='px-6 py-3 text-center text-xs font-bold text-stone-600 uppercase tracking-wider'>Status</th>
-                <th className='px-6 py-3 text-center text-xs font-bold text-stone-600 uppercase tracking-wider'>Action</th>
               </tr>
             </thead>
             <tbody>
@@ -124,10 +153,17 @@ export function AccountabilitySections({
                   frequency = isNaN(parsed) ? 1 : parsed
                 }
                 
-                const completed = completedCount[pm.id] || 0
-                const percentage = getCompletionPercentage(pm.id, frequency)
+                const tracked = trackingMap[pm.id]
+                const cycleBase = typeof pm.targetPerCycle === "number" && pm.targetPerCycle > 0 ? pm.targetPerCycle : frequency
+                const target = Math.max(0, Math.floor(cycleBase || 0))
+                const actual = typeof tracked?.actual === "number" ? tracked.actual : 0
+                const percentage = target > 0 ? (actual / target) * 100 : 0
                 const safePercentage = isNaN(percentage) ? 0 : percentage
                 const executionStatus = getExecutionStatus(safePercentage)
+                const cycleCount = target
+                const visibleCycles = Math.min(cycleCount, 30)
+                const overflowCycles = Math.max(0, cycleCount - visibleCycles)
+                const completedCycles = Math.min(Math.max(0, actual || 0), cycleCount)
 
                 return (
                   <tr key={pm.id} className='border-b border-stone-200 hover:bg-stone-50'>
@@ -150,15 +186,27 @@ export function AccountabilitySections({
                     <td className='px-6 py-4'>
                       <div className='flex items-center gap-3'>
                         <div className='flex-1 max-w-xs'>
-                          <div className='h-2 bg-stone-200 rounded-full overflow-hidden'>
-                            <div
-                              className='h-full transition-all duration-300'
-                              style={{
-                                width: `${safePercentage}%`,
-                                backgroundColor:
-                                  safePercentage >= 100 ? '#16A34A' : safePercentage >= 50 ? '#F59E0B' : '#DC2626',
-                              }}
-                            />
+                          <div className='flex flex-wrap items-center gap-1 text-stone-400'>
+                            {cycleCount === 0 ? (
+                              <span className='text-xs text-stone-400'>—</span>
+                            ) : (
+                              <>
+                                {Array.from({ length: visibleCycles }).map((_, idx) => (
+                                  <span
+                                    key={idx}
+                                    className={cn(
+                                      'text-base leading-none font-black',
+                                      idx < completedCycles ? 'text-emerald-600' : 'text-stone-500'
+                                    )}
+                                  >
+                                    -
+                                  </span>
+                                ))}
+                                {overflowCycles > 0 && (
+                                  <span className='text-xs text-stone-500'>+{overflowCycles}</span>
+                                )}
+                              </>
+                            )}
                           </div>
                         </div>
                         <span className='text-xs font-bold text-stone-600 w-12 text-right'>
@@ -175,21 +223,6 @@ export function AccountabilitySections({
                       )}>
                         {executionStatus}
                       </span>
-                    </td>
-                    <td className='px-6 py-4 text-center'>
-                      <Button
-                        size='sm'
-                        onClick={() => handleCompleteClick(pm.id, frequency)}
-                        disabled={completed >= frequency}
-                        className={cn(
-                          'text-xs font-bold',
-                          completed >= frequency
-                            ? 'bg-stone-200 text-stone-500 cursor-not-allowed'
-                            : 'bg-[#16A34A] hover:bg-[#15803d] text-white'
-                        )}
-                      >
-                        {completed >= frequency ? '✓ Done' : 'Complete_test'}
-                      </Button>
                     </td>
                   </tr>
                 )

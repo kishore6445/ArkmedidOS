@@ -27,8 +27,8 @@ export function WeeklyPowerMoveScore({
 }: WeeklyPowerMoveScoreProps) {
   const [showStreak, setShowStreak] = useState(false)
 
-  const completedThisWeek = powerMoves.filter((pm) => pm.progress >= pm.targetPerCycle).length
-  const totalPowerMoves = powerMoves.length
+  const completedThisWeek = powerMoves.reduce((sum, pm) => sum + Math.min(pm.progress, pm.targetPerCycle), 0)
+  const totalPowerMoves = powerMoves.reduce((sum, pm) => sum + pm.targetPerCycle, 0)
   const weeklyPercentage = totalPowerMoves > 0 ? Math.round((completedThisWeek / totalPowerMoves) * 100) : 0
 
   // Mock streak data
@@ -118,7 +118,7 @@ export function WeeklyPowerMoveScore({
 
         {totalPowerMoves > 0 && (
           <p className="text-sm text-center mt-3 text-stone-500">
-            {completedThisWeek} of {totalPowerMoves} Power Moves completed this week.
+            {completedThisWeek} of {totalPowerMoves} cycles completed this week.
           </p>
         )}
       </div>
