@@ -62,7 +62,7 @@ export default function HomePage() {
               <div className="grid grid-cols-2 gap-4 md:gap-8 py-8 animate-slide-up" style={{animationDelay: '0.2s'}}>
                 <div className="group bg-gradient-to-br from-blue-500/20 to-blue-600/10 border border-blue-400/30 rounded-2xl p-6 hover:border-blue-400/60 hover:shadow-xl hover:shadow-blue-500/20 transition-all">
                   <p className="text-sm uppercase tracking-widest font-bold text-blue-600 mb-2">Warrior Systems</p>
-                  <p className="text-4xl md:text-5xl font-black text-blue-600 group-hover:scale-110 transition-transform">30</p>
+                  <p className="text-4xl md:text-5xl font-black text-blue-600 group-hover:scale-110 transition-transform">20</p>
                   <p className="text-xs md:text-sm text-foreground/70 font-semibold mt-3">Enterprise Clients</p>
                 </div>
                 <div className="group bg-gradient-to-br from-pink-500/20 to-pink-600/10 border border-pink-400/30 rounded-2xl p-6 hover:border-pink-400/60 hover:shadow-xl hover:shadow-pink-500/20 transition-all">
@@ -95,7 +95,115 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Three Brands Section */}
+        {/* ArkMedis Hub Visualization */}
+        <section className="mx-auto w-full max-w-6xl px-6 py-20 relative">
+          <div className="flex flex-col items-center justify-center min-h-[600px] relative">
+            {/* Central Hub */}
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              {/* Animated connecting lines */}
+              <svg className="absolute inset-0 w-full h-full" style={{filter: 'drop-shadow(0 0 10px rgba(59, 130, 246, 0.2))'}}>
+                {/* Line to Warrior (top-left) */}
+                <line x1="50%" y1="50%" x2="20%" y2="25%" stroke="url(#lineGradient1)" strokeWidth="2" strokeDasharray="8,4" opacity="0.6"/>
+                {/* Line to Story Marketing (top-right) */}
+                <line x1="50%" y1="50%" x2="80%" y2="25%" stroke="url(#lineGradient2)" strokeWidth="2" strokeDasharray="8,4" opacity="0.6"/>
+                {/* Line to MetaGurukul (bottom) */}
+                <line x1="50%" y1="50%" x2="50%" y2="85%" stroke="url(#lineGradient3)" strokeWidth="2" strokeDasharray="8,4" opacity="0.6"/>
+                
+                <defs>
+                  <linearGradient id="lineGradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.8"/>
+                    <stop offset="100%" stopColor="#7c3aed" stopOpacity="0.3"/>
+                  </linearGradient>
+                  <linearGradient id="lineGradient2" x1="100%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stopColor="#ec4899" stopOpacity="0.8"/>
+                    <stop offset="100%" stopColor="#f43f5e" stopOpacity="0.3"/>
+                  </linearGradient>
+                  <linearGradient id="lineGradient3" x1="50%" y1="0%" x2="50%" y2="100%">
+                    <stop offset="0%" stopColor="#06b6d4" stopOpacity="0.8"/>
+                    <stop offset="100%" stopColor="#14b8a6" stopOpacity="0.3"/>
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
+
+            {/* Central Hub Circle */}
+            <div className="relative z-10 flex flex-col items-center gap-4">
+              <div className="w-32 h-32 rounded-full bg-gradient-to-br from-blue-500 via-pink-500 to-cyan-500 p-1 shadow-2xl shadow-blue-500/50 animate-pulse-glow">
+                <div className="w-full h-full rounded-full bg-white flex flex-col items-center justify-center gap-2">
+                  <span className="text-4xl font-black text-transparent bg-gradient-to-r from-blue-600 via-pink-600 to-cyan-600 bg-clip-text">AO</span>
+                  <span className="text-xs font-bold text-blue-600 tracking-wider">ARKMEDIS</span>
+                </div>
+              </div>
+              <p className="text-sm font-bold text-center text-foreground/70 mt-4 max-w-xs">Three Brands. One Operating System. One Mission.</p>
+            </div>
+
+            {/* Three Brands in Hub Layout */}
+            <div className="relative w-full h-full mt-12 lg:mt-0">
+              {/* Warrior Systems - Top Left */}
+              <div className="absolute top-0 left-0 lg:top-12 lg:left-0">
+                <div className="group relative">
+                  <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl opacity-0 group-hover:opacity-20 blur-2xl transition-opacity"></div>
+                  <div className="relative bg-gradient-to-br from-blue-500/10 to-blue-600/5 border-2 border-blue-400/50 rounded-2xl p-6 w-56 hover:border-blue-400/90 hover:shadow-2xl hover:shadow-blue-500/40 transition-all duration-500 cursor-pointer">
+                    <div className="flex items-center gap-3 mb-4">
+                      <span className="text-4xl">🛡️</span>
+                      <div>
+                        <h3 className="text-lg font-black text-blue-700">Warrior</h3>
+                        <p className="text-xs font-bold text-blue-600 uppercase">Systems</p>
+                      </div>
+                    </div>
+                    <p className="text-xs text-foreground/70 font-medium mb-4">Execution frameworks that turn vision into action.</p>
+                    <div className="text-center py-3 bg-blue-500/20 rounded-lg">
+                      <p className="text-3xl font-black text-blue-600">20</p>
+                      <p className="text-xs font-bold text-blue-600 mt-1">Target Clients</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Story Marketing - Top Right */}
+              <div className="absolute top-0 right-0 lg:top-12 lg:right-0">
+                <div className="group relative">
+                  <div className="absolute inset-0 bg-gradient-to-br from-pink-500 to-red-600 rounded-2xl opacity-0 group-hover:opacity-20 blur-2xl transition-opacity"></div>
+                  <div className="relative bg-gradient-to-br from-pink-500/10 to-pink-600/5 border-2 border-pink-400/50 rounded-2xl p-6 w-56 hover:border-pink-400/90 hover:shadow-2xl hover:shadow-pink-500/40 transition-all duration-500 cursor-pointer">
+                    <div className="flex items-center gap-3 mb-4">
+                      <span className="text-4xl">📖</span>
+                      <div>
+                        <h3 className="text-lg font-black text-pink-700">Story</h3>
+                        <p className="text-xs font-bold text-pink-600 uppercase">Marketing</p>
+                      </div>
+                    </div>
+                    <p className="text-xs text-foreground/70 font-medium mb-4">Narratives that build trust and connections.</p>
+                    <div className="text-center py-3 bg-pink-500/20 rounded-lg">
+                      <p className="text-3xl font-black text-pink-600">21</p>
+                      <p className="text-xs font-bold text-pink-600 mt-1">Target Partners</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* MetaGurukul - Bottom Center */}
+              <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 lg:bottom-12 lg:left-1/2">
+                <div className="group relative">
+                  <div className="absolute inset-0 bg-gradient-to-br from-cyan-500 to-green-600 rounded-2xl opacity-0 group-hover:opacity-20 blur-2xl transition-opacity"></div>
+                  <div className="relative bg-gradient-to-br from-cyan-500/10 to-cyan-600/5 border-2 border-cyan-400/50 rounded-2xl p-6 w-56 hover:border-cyan-400/90 hover:shadow-2xl hover:shadow-cyan-500/40 transition-all duration-500 cursor-pointer">
+                    <div className="flex items-center gap-3 mb-4">
+                      <span className="text-4xl">🌳</span>
+                      <div>
+                        <h3 className="text-lg font-black text-cyan-700">Meta</h3>
+                        <p className="text-xs font-bold text-cyan-600 uppercase">Gurukul</p>
+                      </div>
+                    </div>
+                    <p className="text-xs text-foreground/70 font-medium mb-4">Leaders who think deeply and act decisively.</p>
+                    <div className="text-center py-3 bg-cyan-500/20 rounded-lg">
+                      <p className="text-2xl font-black text-cyan-600">∞</p>
+                      <p className="text-xs font-bold text-cyan-600 mt-1">Growth Impact</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
         <section className="mx-auto w-full max-w-6xl px-6 py-20 relative">
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
             <div className="absolute -top-40 -right-40 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl"></div>
