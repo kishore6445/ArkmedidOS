@@ -181,17 +181,25 @@ export function DepartmentExecutionHero({
             </div>
           </div>
 
-          {/* MAIN SCOREBOARD - Weekly Power Moves → Victory Targets → War Goal */}
-          <div className='relative grid grid-cols-3 gap-4'>
-            {/* Arrow 1 - Between Power Moves and Victory Targets */}
-            <div className='absolute top-1/2 -translate-y-1/2 pointer-events-none z-20' style={{ left: '33.33%', transform: 'translate(-50%, -50%)' }}>
-              <ArrowRight className='h-5 w-5' style={{ color: status?.color || '#10b981', opacity: 0.6 }} />
-            </div>
-
-            {/* Arrow 2 - Between Victory Targets and War Goal */}
-            <div className='absolute top-1/2 -translate-y-1/2 pointer-events-none z-20' style={{ left: '66.67%', transform: 'translate(-50%, -50%)' }}>
-              <ArrowRight className='h-5 w-5' style={{ color: status?.color || '#10b981', opacity: 0.6 }} />
-            </div>
+          {/* MAIN SCOREBOARD - Weekly Power Moves + Victory Targets */}
+          <div className='relative grid grid-cols-2 gap-6'>
+            {/* LEFT: WEEKLY POWER MOVES - Structured container */}
+            <div className={cn(
+              'p-8 flex flex-col items-center justify-center text-center min-h-[280px] bg-[#F8FAFC] border-t-2',
+              status.borderAccent
+            )}>
+              <div className='space-y-3'>
+                <p className='text-base font-black uppercase tracking-[0.15em] text-stone-900'>Weekly Power Moves</p>
+                <p className='text-xs font-semibold text-stone-500'>Actions executed this week (Lead Measures_TEST)</p>
+                
+                {/* GIANT SCORE - Status color only on number */}
+                <div className='py-4'>
+                  <div 
+                    className='text-8xl sm:text-9xl font-black tabular-nums leading-none'
+                    style={{ color: status.color }}
+                  >
+                    {powerMoveStats.percentage}
+                  </div>
                   <div className='text-2xl font-bold text-stone-400 mt-2'>/100000</div>
                 </div>
 
@@ -232,86 +240,17 @@ export function DepartmentExecutionHero({
               <div className='flex-1 h-0.5' style={{ background: `linear-gradient(to right, transparent, ${status?.color || '#10b981'})`, opacity: 0.4 }} />
             </div>
 
-            {/* MIDDLE: DEPARTMENT VICTORY TARGETS */}
-            <div className='p-5 min-h-[280px] flex flex-col justify-center bg-white rounded-lg border border-stone-200'>
-              <div className='space-y-3'>
-                <div className='text-center mb-3'>
-                  <p className='text-sm font-black uppercase tracking-[0.15em] text-stone-900'>Victory Target</p>
-                  <p className='text-xs font-semibold text-stone-500 mt-1'>Monthly Results</p>
-                </div>
-
-                {/* Victory Target - Compact */}
-                <div className='space-y-2'>
-                  {victoryTargets.slice(0, 1).map((vt, index) => {
-                    const quarters = (vt as any).quarters || []
-                    const quarterIndex = ['Q1', 'Q2', 'Q3', 'Q4'].indexOf(selectedQuarter)
-                    const quarterData = quarterIndex >= 0 ? quarters[quarterIndex] : null
-                    const achieved = quarterData?.achieved ?? vt.achieved
-                    const target = quarterData?.target ?? vt.target
-                    const progress = target > 0 ? (achieved / target) * 100 : 0
-                    
-                    const vtStatusColor = progress >= 70 ? '#16A34A' : progress >= 50 ? '#F59E0B' : '#DC2626'
-                    const vtStatusLabel = progress >= 70 ? 'On Track' : progress >= 50 ? 'At Risk' : 'Behind'
-
-                    return (
-                      <div key={vt.id} className='bg-stone-50 border border-stone-200 rounded-lg p-3'>
-                        <div className='flex items-start justify-between gap-2 mb-2'>
-                          <div>
-                            <p className='text-xs font-bold text-stone-900'>{vt.name}</p>
-                            <p className='text-xs text-stone-500 mt-1'>{achieved} / {target}</p>
-                          </div>
-                          <span 
-                            className='text-xs font-bold text-white px-2 py-1 rounded whitespace-nowrap'
-                            style={{ backgroundColor: vtStatusColor }}
-                          >
-                            {vtStatusLabel}
-                          </span>
-                        </div>
-                        <div className='w-full bg-stone-200 rounded-full h-1.5'>
-                          <div 
-                            className='h-full rounded-full transition-all'
-                            style={{ width: `${Math.min(progress, 100)}%`, backgroundColor: vtStatusColor }}
-                          />
-                        </div>
-                      </div>
-                    )
-                  })}
-                </div>
-
-                {/* Summary */}
-                <div className='mt-3 pt-3 border-t border-stone-200 text-center'>
-                  <p className='text-xs font-bold text-stone-600'>
-                    {greenTargets}/{totalTargets} On Track
+            {/* RIGHT: DEPARTMENT VICTORY TARGETS - Color-coded right border */}
+            <div className='p-6 min-h-[280px] flex flex-col justify-center bg-white rounded-r-lg'>
+              <div className='space-y-4'>
+                <div className='text-center mb-4'>
+                  <p className='text-base font-black uppercase tracking-[0.15em] text-stone-900'>Department Victory Targets</p>
+                  <p className='text-xs font-semibold text-stone-500 mt-1'>Results measured monthly / quarterly (Lag Measures)</p>
+                  {/* Compounding story - not instant results */}
+                  <p className='text-xs text-stone-400 mt-1.5 italic font-medium'>
+                    Weekly execution compounds into monthly & quarterly victory
                   </p>
                 </div>
-              </div>
-            </div>
-
-            {/* RIGHT: WAR GOAL - Mission 2026 */}
-            <div className='p-6 min-h-[280px] flex flex-col justify-between bg-gradient-to-br from-stone-900 to-stone-800 rounded-lg border border-stone-700 shadow-lg'>
-              <div>
-                <p className='text-xs font-black uppercase tracking-[0.2em] text-stone-400'>War Goal</p>
-                <p className='text-xl font-black text-white mt-2 leading-tight'>Mission 2026</p>
-                <p className='text-xs text-stone-300 mt-2 font-medium leading-snug'>Onboard 50 Clients<br />Across All Brands</p>
-              </div>
-
-              {/* Progress Section */}
-              <div className='space-y-3'>
-                <div>
-                  <div className='flex items-baseline justify-between mb-2'>
-                    <p className='text-3xl font-black text-white tabular-nums'>18</p>
-                    <p className='text-xs text-stone-400'>/50</p>
-                  </div>
-                  <div className='w-full bg-stone-700 rounded-full h-2'>
-                    <div 
-                      className='h-full rounded-full bg-amber-400 transition-all'
-                      style={{ width: '36%' }}
-                    />
-                  </div>
-                </div>
-                <p className='text-xs text-stone-300 font-semibold'>36% Toward Goal</p>
-              </div>
-            </div>
 
                 {/* Victory Target Cards */}
                 <div className='space-y-3'>
@@ -549,86 +488,17 @@ export function DepartmentExecutionHero({
               </div>
             </div>
 
-            {/* MIDDLE: DEPARTMENT VICTORY TARGETS */}
-            <div className='p-5 min-h-[280px] flex flex-col justify-center bg-white rounded-lg border border-stone-200'>
-              <div className='space-y-3'>
-                <div className='text-center mb-3'>
-                  <p className='text-sm font-black uppercase tracking-[0.15em] text-stone-900'>Victory Target</p>
-                  <p className='text-xs font-semibold text-stone-500 mt-1'>Monthly Results</p>
-                </div>
-
-                {/* Victory Target - Compact */}
-                <div className='space-y-2'>
-                  {victoryTargets.slice(0, 1).map((vt, index) => {
-                    const quarters = (vt as any).quarters || []
-                    const quarterIndex = ['Q1', 'Q2', 'Q3', 'Q4'].indexOf(selectedQuarter)
-                    const quarterData = quarterIndex >= 0 ? quarters[quarterIndex] : null
-                    const achieved = quarterData?.achieved ?? vt.achieved
-                    const target = quarterData?.target ?? vt.target
-                    const progress = target > 0 ? (achieved / target) * 100 : 0
-                    
-                    const vtStatusColor = progress >= 70 ? '#16A34A' : progress >= 50 ? '#F59E0B' : '#DC2626'
-                    const vtStatusLabel = progress >= 70 ? 'On Track' : progress >= 50 ? 'At Risk' : 'Behind'
-
-                    return (
-                      <div key={vt.id} className='bg-stone-50 border border-stone-200 rounded-lg p-3'>
-                        <div className='flex items-start justify-between gap-2 mb-2'>
-                          <div>
-                            <p className='text-xs font-bold text-stone-900'>{vt.name}</p>
-                            <p className='text-xs text-stone-500 mt-1'>{achieved} / {target}</p>
-                          </div>
-                          <span 
-                            className='text-xs font-bold text-white px-2 py-1 rounded whitespace-nowrap'
-                            style={{ backgroundColor: vtStatusColor }}
-                          >
-                            {vtStatusLabel}
-                          </span>
-                        </div>
-                        <div className='w-full bg-stone-200 rounded-full h-1.5'>
-                          <div 
-                            className='h-full rounded-full transition-all'
-                            style={{ width: `${Math.min(progress, 100)}%`, backgroundColor: vtStatusColor }}
-                          />
-                        </div>
-                      </div>
-                    )
-                  })}
-                </div>
-
-                {/* Summary */}
-                <div className='mt-3 pt-3 border-t border-stone-200 text-center'>
-                  <p className='text-xs font-bold text-stone-600'>
-                    {greenTargets}/{totalTargets} On Track
+            {/* RIGHT: DEPARTMENT VICTORY TARGETS - Color-coded right border */}
+            <div className='p-6 min-h-[280px] flex flex-col justify-center bg-white rounded-r-lg'>
+              <div className='space-y-4'>
+                <div className='text-center mb-4'>
+                  <p className='text-base font-black uppercase tracking-[0.15em] text-stone-900'>Department Victory Targets</p>
+                  <p className='text-xs font-semibold text-stone-500 mt-1'>Results measured monthly / quarterly (Lag Measures)</p>
+                  {/* Compounding story - not instant results */}
+                  <p className='text-xs text-stone-400 mt-1.5 italic font-medium'>
+                    Weekly execution compounds into monthly & quarterly victory
                   </p>
                 </div>
-              </div>
-            </div>
-
-            {/* RIGHT: WAR GOAL - Mission 2026 */}
-            <div className='p-6 min-h-[280px] flex flex-col justify-between bg-gradient-to-br from-stone-900 to-stone-800 rounded-lg border border-stone-700 shadow-lg'>
-              <div>
-                <p className='text-xs font-black uppercase tracking-[0.2em] text-stone-400'>War Goal</p>
-                <p className='text-xl font-black text-white mt-2 leading-tight'>Mission 2026</p>
-                <p className='text-xs text-stone-300 mt-2 font-medium leading-snug'>Onboard 50 Clients<br />Across All Brands</p>
-              </div>
-
-              {/* Progress Section */}
-              <div className='space-y-3'>
-                <div>
-                  <div className='flex items-baseline justify-between mb-2'>
-                    <p className='text-3xl font-black text-white tabular-nums'>18</p>
-                    <p className='text-xs text-stone-400'>/50</p>
-                  </div>
-                  <div className='w-full bg-stone-700 rounded-full h-2'>
-                    <div 
-                      className='h-full rounded-full bg-amber-400 transition-all'
-                      style={{ width: '36%' }}
-                    />
-                  </div>
-                </div>
-                <p className='text-xs text-stone-300 font-semibold'>36% Toward Goal</p>
-              </div>
-            </div>
 
                 {/* Victory Target Cards */}
                 <div className='space-y-3'>
