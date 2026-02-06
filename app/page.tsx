@@ -111,6 +111,9 @@ export default function HomePage() {
               <p className="text-lg font-light text-slate-700 max-w-2xl leading-relaxed">
                 When ArkMedis wins, you win.
               </p>
+              <p className="text-base font-semibold text-slate-900 bg-slate-100 p-3 rounded">
+                If we onboard 50 clients, everyone earns a 50% hike.
+              </p>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
