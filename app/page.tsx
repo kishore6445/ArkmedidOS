@@ -3,17 +3,25 @@ import Link from "next/link"
 export default function HomePage() {
   return (
     <div className="min-h-screen bg-white text-slate-900">
+      {/* Navigation Bar */}
       <header className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-6">
         <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-900 text-lg font-semibold text-white">
+          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-slate-900 text-lg font-semibold text-white">
             AO
           </div>
           <div>
-            <p className="text-sm uppercase tracking-[0.2em] text-slate-600">ArkMedis</p>
-            <p className="text-lg font-semibold text-slate-900">Operating System</p>
+            <p className="text-xs uppercase tracking-[0.3em] text-slate-600">ArkMedis</p>
+            <p className="text-sm font-semibold text-slate-900">OS</p>
           </div>
         </div>
-        <nav className="flex items-center gap-3">
+        <nav className="flex items-center gap-4">
+          <div className="hidden text-xs text-slate-500 sm:flex gap-2">
+            <span className="flex items-center gap-1">Secure</span>
+            <span>•</span>
+            <span className="flex items-center gap-1">Role-based access</span>
+            <span>•</span>
+            <span className="flex items-center gap-1">Audit logs</span>
+          </div>
           <Link
             href="/signin"
             className="rounded-full border border-slate-300 px-5 py-2 text-sm font-semibold text-slate-900 transition hover:border-slate-400 hover:bg-slate-50"
@@ -24,169 +32,149 @@ export default function HomePage() {
             href="/signup"
             className="rounded-full bg-slate-900 px-5 py-2 text-sm font-semibold text-white transition hover:bg-slate-800"
           >
-            Sign up
+            Create workspace
           </Link>
         </nav>
       </header>
 
       <main>
         {/* Hero Section - 2026 Mission */}
-        <section className="mx-auto w-full max-w-6xl px-6 py-16">
-          <div className="space-y-8">
-            <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-xs uppercase tracking-[0.2em] text-slate-600">
-              2026 Mission
+        <section className="mx-auto w-full max-w-6xl px-6 py-20">
+          <div className="space-y-12">
+            <div>
+              <p className="text-sm uppercase tracking-[0.3em] text-slate-500 mb-8">2026 Mission</p>
+              <div className="flex flex-col gap-8 md:flex-row md:gap-16">
+                <div className="flex flex-col gap-4">
+                  <p className="text-6xl font-bold text-slate-900">30</p>
+                  <p className="text-sm text-slate-600">Warrior Systems clients</p>
+                </div>
+                <div className="flex flex-col gap-4">
+                  <p className="text-6xl font-bold text-slate-900">15</p>
+                  <p className="text-sm text-slate-600">Story Marketing clients</p>
+                </div>
+              </div>
             </div>
-            <h1 className="text-5xl font-bold leading-tight text-slate-900 sm:text-6xl">
-              Transform businesses through intelligent operating systems.
-            </h1>
-            <p className="max-w-2xl text-lg text-slate-600">
-              We are building the future of organizational execution. Three brands, one vision: to empower teams to achieve extraordinary results.
+            <p className="text-xl text-slate-700 leading-relaxed max-w-2xl">
+              Focus. Alignment. One shared finish line.
             </p>
-            <div className="flex flex-wrap items-center gap-4 pt-4">
-              <Link
-                href="/signup"
-                className="rounded-full bg-slate-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
-              >
-                Get started
-              </Link>
-              <Link
-                href="/signin"
-                className="rounded-full border border-slate-300 px-6 py-3 text-sm font-semibold text-slate-900 transition hover:bg-slate-50"
-              >
-                Sign in
-              </Link>
-            </div>
-            {/* Key Metrics */}
-            <div className="flex items-center gap-8 pt-8">
-              <div className="space-y-1">
-                <p className="text-3xl font-bold text-slate-900">30+</p>
-                <p className="text-sm text-slate-600">Enterprise Clients</p>
-              </div>
-              <div className="space-y-1">
-                <p className="text-3xl font-bold text-slate-900">15</p>
-                <p className="text-sm text-slate-600">Years of Innovation</p>
-              </div>
-            </div>
           </div>
         </section>
 
-        {/* Three Brands Section */}
-        <section className="mx-auto w-full max-w-6xl px-6 py-16">
-          <div className="mb-12">
-            <h2 className="text-3xl font-bold text-slate-900">Who We Are</h2>
-            <p className="mt-2 text-slate-600">Three complementary brands working together</p>
-          </div>
-          <div className="grid gap-8 md:grid-cols-3">
-            {[
-              {
-                name: "Warrior Systems",
-                description: "Building enterprise execution platforms that align leadership, execution, and accountability.",
-                icon: "⚔️",
-              },
-              {
-                name: "Story Marketing",
-                description: "Crafting compelling brand narratives that resonate with audiences and drive meaningful engagement.",
-                icon: "📖",
-              },
-              {
-                name: "MetaGurukul",
-                description: "Empowering next-generation leaders through transformative education and mentorship programs.",
-                icon: "🎓",
-              },
-            ].map((brand) => (
-              <div
-                key={brand.name}
-                className="rounded-2xl border border-slate-200 bg-slate-50 p-8 transition hover:border-slate-300 hover:shadow-lg"
-              >
-                <div className="text-4xl mb-4">{brand.icon}</div>
-                <h3 className="text-xl font-bold text-slate-900">{brand.name}</h3>
-                <p className="mt-4 text-slate-600">{brand.description}</p>
-              </div>
-            ))}
+        {/* Who We Are - Three Brands */}
+        <section className="mx-auto w-full max-w-6xl px-6 py-20 border-t border-slate-200">
+          <div className="space-y-12">
+            <div>
+              <p className="text-xs uppercase tracking-[0.3em] text-slate-500 mb-2">ArkMedis</p>
+              <h2 className="text-3xl font-bold text-slate-900">Three Brands. One Company.</h2>
+            </div>
+            <div className="grid gap-8 md:grid-cols-3">
+              {[
+                {
+                  name: "Warrior Systems",
+                  subtitle: "Execution systems for founders and leadership teams",
+                  icon: "🛡️",
+                },
+                {
+                  name: "Story Marketing",
+                  subtitle: "Clarity-led marketing systems that build trust",
+                  icon: "📚",
+                },
+                {
+                  name: "MetaGurukul",
+                  subtitle: "Learning ecosystem focused on depth and discipline",
+                  icon: "🌳",
+                },
+              ].map((brand) => (
+                <div key={brand.name} className="space-y-4">
+                  <div className="text-5xl">{brand.icon}</div>
+                  <h3 className="text-xl font-bold text-slate-900">{brand.name}</h3>
+                  <p className="text-sm text-slate-600">{brand.subtitle}</p>
+                </div>
+              ))}
+            </div>
+            <p className="text-sm text-slate-600 pt-4 border-t border-slate-200">
+              Different missions. One company. One execution standard.
+            </p>
           </div>
         </section>
 
-        {/* Trust Builder Section */}
-        <section className="mx-auto w-full max-w-6xl px-6 py-16">
-          <div className="rounded-2xl border border-slate-200 bg-slate-50 p-12">
-            <h2 className="text-3xl font-bold text-slate-900">Why Teams Trust Us</h2>
-            <div className="mt-8 grid gap-6 md:grid-cols-2">
-              <div className="space-y-2">
-                <p className="font-semibold text-slate-900">Proven track record</p>
-                <p className="text-slate-600">Trusted by leading organizations worldwide for delivering measurable results.</p>
-              </div>
-              <div className="space-y-2">
-                <p className="font-semibold text-slate-900">Customer-centric approach</p>
-                <p className="text-slate-600">We listen, adapt, and evolve based on real feedback from our clients.</p>
-              </div>
-              <div className="space-y-2">
-                <p className="font-semibold text-slate-900">Innovation first</p>
-                <p className="text-slate-600">Continuous improvement and cutting-edge technology at the core of everything we do.</p>
-              </div>
-              <div className="space-y-2">
-                <p className="font-semibold text-slate-900">Transparent partnership</p>
-                <p className="text-slate-600">Open communication and shared success metrics ensure alignment on every project.</p>
-              </div>
-            </div>
+        {/* Why This System Exists - Trust Builder */}
+        <section className="mx-auto w-full max-w-6xl px-6 py-20">
+          <div className="rounded-2xl bg-slate-50 border border-slate-200 p-12 space-y-6">
+            <h2 className="text-2xl font-bold text-slate-900">Built to support you. Not to monitor you.</h2>
+            <p className="text-slate-600">
+              Clear priorities • Visible progress • Less confusion
+            </p>
           </div>
         </section>
 
         {/* How We Work - Values Section */}
-        <section className="mx-auto w-full max-w-6xl px-6 py-16">
-          <div className="mb-12">
-            <h2 className="text-3xl font-bold text-slate-900">How We Work</h2>
-            <p className="mt-2 text-slate-600">Four core values that guide everything we do</p>
-          </div>
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-            {[
-              { title: "Vision", description: "Clear, inspiring direction for the future" },
-              { title: "Execution", description: "Disciplined implementation and accountability" },
-              { title: "Impact", description: "Measurable results that matter" },
-              { title: "Growth", description: "Continuous learning and evolution" },
-            ].map((value) => (
-              <div key={value.title} className="space-y-3">
-                <h3 className="text-lg font-bold text-slate-900">{value.title}</h3>
-                <p className="text-slate-600">{value.description}</p>
-              </div>
-            ))}
+        <section className="mx-auto w-full max-w-6xl px-6 py-20 border-t border-slate-200">
+          <div className="space-y-12">
+            <div className="grid gap-8 md:grid-cols-4">
+              {[
+                { title: "Clarity before speed", icon: "🎯" },
+                { title: "Ownership over excuses", icon: "💪" },
+                { title: "Systems over shortcuts", icon: "⚙️" },
+                { title: "Long-term over short-term wins", icon: "🏔️" },
+              ].map((value) => (
+                <div key={value.title} className="space-y-3">
+                  <div className="text-3xl">{value.icon}</div>
+                  <p className="font-semibold text-slate-900">{value.title}</p>
+                </div>
+              ))}
+            </div>
+            <p className="text-sm text-slate-600 pt-8 border-t border-slate-200">
+              These principles protect focus and help teams succeed.
+            </p>
           </div>
         </section>
 
-        {/* Team Message Section */}
-        <section className="mx-auto w-full max-w-6xl px-6 py-16">
-          <div className="space-y-6 rounded-2xl border border-slate-200 bg-slate-900 p-12 text-white">
-            <h2 className="text-3xl font-bold">Join Us in 2026</h2>
-            <p className="max-w-2xl text-lg text-slate-300">
-              We are looking for teams and organizations ready to transform. Whether you are scaling your business, redefining your brand, or investing in leadership, ArkMedis is your partner in success.
+        {/* Message to the Team - Emotional Anchor */}
+        <section className="mx-auto w-full max-w-6xl px-6 py-20 border-t border-slate-200">
+          <div className="space-y-6">
+            <p className="text-lg leading-relaxed text-slate-900">
+              You weren't brought here to just complete tasks.<br />
+              You're here to take ownership, build something meaningful,<br />
+              and grow in clarity, skill, and confidence.
             </p>
-            <p className="text-sm text-slate-400">Together, we are building the future. Let's make 2026 extraordinary.</p>
-            <div className="flex flex-wrap gap-4 pt-4">
-              <Link
-                href="/signup"
-                className="rounded-full bg-white px-6 py-3 text-sm font-semibold text-slate-900 transition hover:bg-slate-100"
-              >
-                Start your journey
-              </Link>
-              <Link
-                href="/signin"
-                className="rounded-full border border-slate-400 px-6 py-3 text-sm font-semibold text-white transition hover:border-slate-300 hover:bg-white/5"
-              >
-                Explore more
-              </Link>
-            </div>
+            <p className="text-sm text-slate-600">
+              Your work matters. Your consistency matters. Your integrity matters.
+            </p>
           </div>
+        </section>
+        {/* Closing Line */}
+        <section className="mx-auto w-full max-w-6xl px-6 py-20 border-t border-slate-200">
+          <p className="text-center text-lg text-slate-900 font-medium">
+            ArkMedis OS turns today's work into tomorrow's results.
+          </p>
         </section>
       </main>
 
-      <footer className="border-t border-slate-200">
-        <div className="mx-auto flex w-full max-w-6xl flex-col items-start justify-between gap-4 px-6 py-8 text-sm text-slate-600 sm:flex-row sm:items-center">
+      {/* Footer */}
+      <footer className="border-t border-slate-200 bg-slate-50">
+        <div className="mx-auto flex w-full max-w-6xl flex-col items-center justify-between gap-8 px-6 py-12 text-sm text-slate-600 sm:flex-row">
           <p>© 2026 ArkMedis. All rights reserved.</p>
-          <div className="flex items-center gap-4">
-            <Link href="/signin" className="transition hover:text-slate-900">
+          <div className="flex items-center gap-6">
+            <Link href="#privacy" className="transition hover:text-slate-900">
+              Privacy
+            </Link>
+            <Link href="#security" className="transition hover:text-slate-900">
+              Security
+            </Link>
+          </div>
+          <div className="flex items-center gap-3">
+            <Link
+              href="/signin"
+              className="rounded-full border border-slate-300 px-4 py-1.5 text-xs font-semibold text-slate-900 transition hover:bg-white"
+            >
               Sign in
             </Link>
-            <Link href="/signup" className="transition hover:text-slate-900">
-              Sign up
+            <Link
+              href="/signup"
+              className="rounded-full bg-slate-900 px-4 py-1.5 text-xs font-semibold text-white transition hover:bg-slate-800"
+            >
+              Create workspace
             </Link>
           </div>
         </div>
