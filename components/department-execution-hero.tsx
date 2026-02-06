@@ -192,7 +192,25 @@ export function DepartmentExecutionHero({
             <div className='absolute top-1/2 -translate-y-1/2 pointer-events-none z-20' style={{ left: 'calc(66.67% - 12px)' }}>
               <ArrowRight className='h-5 w-5' style={{ color: status?.color || '#10b981', opacity: 0.6 }} />
             </div>
-                  <div className='text-2xl font-bold text-stone-400 mt-2'>/100000</div>
+
+            {/* LEFT: WEEKLY POWER MOVES - Clean container without border */}
+            <div className={cn(
+              'p-8 flex flex-col items-center justify-center text-center min-h-[280px] bg-[#F8FAFC] border-t-2',
+              status.borderAccent
+            )}>
+              <div className='space-y-3'>
+                <p className='text-base font-black uppercase tracking-[0.15em] text-stone-900'>Weekly Power Moves</p>
+                <p className='text-xs font-semibold text-stone-500'>Actions executed this week (Lead Measures)</p>
+                
+                {/* GIANT SCORE - Status color only on number */}
+                <div className='py-4'>
+                  <div 
+                    className='text-8xl sm:text-9xl font-black tabular-nums leading-none'
+                    style={{ color: status.color }}
+                  >
+                    {powerMoveStats.percentage}
+                  </div>
+                  <div className='text-2xl font-bold text-stone-400 mt-2'>/100</div>
                 </div>
 
                 {/* Status Badge - Only element with status background color */}
@@ -223,13 +241,6 @@ export function DepartmentExecutionHero({
                   </p>
                 </div>
               </div>
-            </div>
-
-            {/* Connection Arrow - Simple horizontal flow indicator */}
-            <div className='absolute top-1/2 left-0 right-0 -translate-y-1/2 flex items-center justify-center pointer-events-none z-20 gap-1'>
-              <div className='flex-1 h-0.5' style={{ background: `linear-gradient(to right, ${status?.color || '#10b981'}, transparent)`, opacity: 0.4 }} />
-              <ArrowRight className='h-6 w-6 flex-shrink-0' style={{ color: status?.color || '#10b981', opacity: 0.7 }} />
-              <div className='flex-1 h-0.5' style={{ background: `linear-gradient(to right, transparent, ${status?.color || '#10b981'})`, opacity: 0.4 }} />
             </div>
 
             {/* MIDDLE: DEPARTMENT VICTORY TARGETS - Compact */}
