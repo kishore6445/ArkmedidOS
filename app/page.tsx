@@ -28,12 +28,6 @@ export default function HomePage() {
               >
                 Sign in
               </Link>
-              <Link
-                href="/signup"
-                className="px-4 py-2 text-sm font-semibold bg-slate-900 text-white rounded hover:bg-slate-800 hover:shadow-lg transition-all"
-              >
-                Start free
-              </Link>
             </div>
           </div>
         </div>
@@ -97,10 +91,10 @@ export default function HomePage() {
 
             <div className="space-y-4">
               <Link
-                href="/signup"
+                href="/signin"
                 className="inline-flex items-center gap-2 px-6 py-3 bg-slate-900 text-white text-sm font-semibold rounded hover:bg-slate-800 hover:shadow-lg transition-all group"
               >
-                Create workspace
+                Sign in
                 <span className="group-hover:translate-x-1 transition-transform">→</span>
               </Link>
             </div>
@@ -143,14 +137,8 @@ export default function HomePage() {
 
             <div className="flex flex-col sm:flex-row items-center gap-4 pt-6">
               <Link
-                href="/signup"
-                className="px-6 py-3 bg-slate-900 text-white text-sm font-semibold rounded hover:bg-slate-800 hover:shadow-lg transition-all"
-              >
-                Create workspace
-              </Link>
-              <Link
                 href="/signin"
-                className="px-6 py-3 border-2 border-slate-900 text-slate-900 text-sm font-semibold rounded hover:bg-slate-50 hover:shadow-md transition-all"
+                className="px-6 py-3 bg-slate-900 text-white text-sm font-semibold rounded hover:bg-slate-800 hover:shadow-lg transition-all"
               >
                 Sign in
               </Link>
