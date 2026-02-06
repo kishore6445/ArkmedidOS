@@ -181,157 +181,119 @@ export function DepartmentExecutionHero({
             </div>
           </div>
 
-          {/* MAIN SCOREBOARD - Weekly Power Moves + Victory Targets */}
-          <div className='relative grid grid-cols-2 gap-6'>
+          {/* MAIN SCOREBOARD - Weekly Power Moves + Victory Targets + War Goal */}
+          <div className='relative grid grid-cols-3 gap-4'>
+            {/* Arrow 1 - Between Power Moves and Victory Targets */}
+            <div className='absolute top-1/2 -translate-y-1/2 pointer-events-none z-20' style={{ left: 'calc(33.33% - 8px)' }}>
+              <ArrowRight className='h-5 w-5' style={{ color: status?.color || '#10b981', opacity: 0.6 }} />
+            </div>
+
+            {/* Arrow 2 - Between Victory Targets and War Goal */}
+            <div className='absolute top-1/2 -translate-y-1/2 pointer-events-none z-20' style={{ left: 'calc(66.67% - 8px)' }}>
+              <ArrowRight className='h-5 w-5' style={{ color: status?.color || '#10b981', opacity: 0.6 }} />
+            </div>
+
             {/* LEFT: WEEKLY POWER MOVES - Structured container */}
             <div className={cn(
-              'p-8 flex flex-col items-center justify-center text-center min-h-[280px] bg-[#F8FAFC] border-t-2',
+              'p-6 flex flex-col items-center justify-center text-center min-h-[280px] bg-[#F8FAFC] border-t-2 rounded-lg',
               status.borderAccent
             )}>
               <div className='space-y-3'>
-                <p className='text-base font-black uppercase tracking-[0.15em] text-stone-900'>Weekly Power Moves</p>
-                <p className='text-xs font-semibold text-stone-500'>Actions executed this week (Lead Measures_TEST)</p>
+                <p className='text-sm font-black uppercase tracking-[0.15em] text-stone-900'>Weekly Power Moves</p>
+                <p className='text-xs font-semibold text-stone-500'>Actions executed this week</p>
                 
-                {/* GIANT SCORE - Status color only on number */}
-                <div className='py-4'>
+                {/* SCORE */}
+                <div className='py-3'>
                   <div 
-                    className='text-8xl sm:text-9xl font-black tabular-nums leading-none'
+                    className='text-7xl font-black tabular-nums leading-none'
                     style={{ color: status.color }}
                   >
                     {powerMoveStats.percentage}
                   </div>
-                  <div className='text-2xl font-bold text-stone-400 mt-2'>/100000</div>
+                  <div className='text-lg font-bold text-stone-400 mt-1'>/100</div>
                 </div>
 
-                {/* Status Badge - Only element with status background color */}
+                {/* Status Badge */}
                 <div className={cn(
-                  'inline-flex items-center gap-2 px-6 py-3 rounded-lg shadow-sm',
+                  'inline-flex items-center gap-2 px-4 py-2 rounded-lg shadow-sm text-sm',
                   status.bg,
                   status.text
                 )}>
-                  <StatusIcon className='h-5 w-5' />
-                  <span className='text-base font-black tracking-wide'>
+                  <StatusIcon className='h-4 w-4' />
+                  <span className='font-black'>
                     {status.badge}
                   </span>
                 </div>
 
                 {/* Power Moves Detail */}
-                <div className='mt-4 pt-4 border-t-2 border-stone-200'>
-                  <p className='text-3xl font-black text-stone-900 tabular-nums'>
+                <div className='mt-3 pt-3 border-t-2 border-stone-200'>
+                  <p className='text-2xl font-black text-stone-900 tabular-nums'>
                     {powerMoveStats.completed} <span className='text-stone-400'>/</span> {powerMoveStats.total}
                   </p>
-                  <p className='text-xs font-bold text-stone-500 mt-1 uppercase tracking-wider'>Power Moves Complete</p>
-                  {/* Time-layer microcopy */}
+                  <p className='text-xs font-bold text-stone-500 mt-1 uppercase'>Power Moves Complete</p>
                   <p className='text-xs text-stone-400 mt-2 italic font-medium'>
-                    This week's execution contributes to long-term targets
-                  </p>
-                  {/* Invisible confidence signal - Apple-like maturity cue */}
-                  <p className='text-xs text-stone-300 mt-3 font-medium'>
-                    System operating as designed.
+                    Execution contributes to targets
                   </p>
                 </div>
               </div>
             </div>
 
-            {/* Connection Arrow - Simple horizontal flow indicator */}
-            <div className='absolute top-1/2 left-0 right-0 -translate-y-1/2 flex items-center justify-center pointer-events-none z-20 gap-1'>
-              <div className='flex-1 h-0.5' style={{ background: `linear-gradient(to right, ${status?.color || '#10b981'}, transparent)`, opacity: 0.4 }} />
-              <ArrowRight className='h-6 w-6 flex-shrink-0' style={{ color: status?.color || '#10b981', opacity: 0.7 }} />
-              <div className='flex-1 h-0.5' style={{ background: `linear-gradient(to right, transparent, ${status?.color || '#10b981'})`, opacity: 0.4 }} />
+            {/* MIDDLE: DEPARTMENT VICTORY TARGETS - Compact */}
+            <div className='p-6 min-h-[280px] flex flex-col justify-center bg-white rounded-lg border border-stone-200'>
+              <div className='space-y-3'>
+                <p className='text-sm font-black uppercase tracking-[0.15em] text-stone-900 text-center'>Department Victory</p>
+                
+                {/* Display top victory target */}
+                {victoryTargets.length > 0 && (() => {
+                  const vt = victoryTargets[0]
+                  const quarters = (vt as any).quarters || []
+                  const quarterIndex = ['Q1', 'Q2', 'Q3', 'Q4'].indexOf(selectedQuarter)
+                  const quarterData = quarterIndex >= 0 ? quarters[quarterIndex] : null
+                  const achieved = quarterData?.achieved ?? vt.achieved
+                  const target = quarterData?.target ?? vt.target
+                  const progress = target > 0 ? (achieved / target) * 100 : 0
+                  const vtStatusColor = progress >= 70 ? '#16A34A' : progress >= 50 ? '#F59E0B' : '#DC2626'
+                  const vtStatusLabel = progress >= 70 ? 'On Track' : progress >= 50 ? 'At Risk' : 'Behind'
+
+                  return (
+                    <div className='space-y-2'>
+                      <div className='flex items-center justify-between gap-2'>
+                        <span className='text-xs font-bold text-stone-700'>{vt.name}</span>
+                        <span className='text-xs font-bold text-white px-2 py-1 rounded' style={{ backgroundColor: vtStatusColor }}>
+                          {vtStatusLabel}
+                        </span>
+                      </div>
+                      <div className='flex items-baseline gap-1'>
+                        <p className='text-2xl font-black text-stone-900'>{achieved}</p>
+                        <p className='text-sm text-stone-400'>/</p>
+                        <p className='text-lg font-bold text-stone-600'>{target}</p>
+                      </div>
+                      <div className='w-full bg-stone-200 rounded-full h-2'>
+                        <div className='h-full rounded-full transition-all' style={{ width: `${Math.min(progress, 100)}%`, backgroundColor: vtStatusColor }} />
+                      </div>
+                    </div>
+                  )
+                })()}
+              </div>
             </div>
 
-            {/* RIGHT: DEPARTMENT VICTORY TARGETS - Color-coded right border */}
-            <div className='p-6 min-h-[280px] flex flex-col justify-center bg-white rounded-r-lg'>
-              <div className='space-y-4'>
-                <div className='text-center mb-4'>
-                  <p className='text-base font-black uppercase tracking-[0.15em] text-stone-900'>Department Victory Targets</p>
-                  <p className='text-xs font-semibold text-stone-500 mt-1'>Results measured monthly / quarterly (Lag Measures)</p>
-                  {/* Compounding story - not instant results */}
-                  <p className='text-xs text-stone-400 mt-1.5 italic font-medium'>
-                    Weekly execution compounds into monthly & quarterly victory
-                  </p>
-                </div>
+            {/* RIGHT: WAR GOAL - Q1 2026 */}
+            <div className='p-6 min-h-[280px] flex flex-col justify-between bg-gradient-to-br from-stone-900 to-stone-800 rounded-lg border border-stone-700 shadow-lg'>
+              <div>
+                <p className='text-xs font-black uppercase tracking-[0.2em] text-stone-400'>War Goal</p>
+                <p className='text-lg font-black text-white mt-1 leading-tight'>Q1 2026</p>
+                <p className='text-xs text-stone-300 mt-2 font-medium'>Onboard 50 Clients<br />Across All Departments</p>
+              </div>
 
-                {/* Victory Target Cards */}
-                <div className='space-y-3'>
-                  {victoryTargets.slice(0, 2).map((vt, index) => {
-                    const quarters = (vt as any).quarters || []
-                    const quarterIndex = ['Q1', 'Q2', 'Q3', 'Q4'].indexOf(selectedQuarter)
-                    const quarterData = quarterIndex >= 0 ? quarters[quarterIndex] : null
-                    const achieved = quarterData?.achieved ?? vt.achieved
-                    const target = quarterData?.target ?? vt.target
-                    const progress = target > 0 ? (achieved / target) * 100 : 0
-                    
-                    // Status-based colors matching global status colors
-                    const vtStatusColor = progress >= 70 ? '#16A34A' : progress >= 50 ? '#F59E0B' : '#DC2626'
-                    const vtStatusBg = progress >= 70 ? 'bg-[#16A34A]' : progress >= 50 ? 'bg-[#F59E0B]' : 'bg-[#DC2626]'
-                    const vtStatusLabel = progress >= 70 ? 'On Track' : progress >= 50 ? 'At Risk' : 'Behind'
-                    
-                    // Trend hint based on progress
-                    const trendHint = progress >= 75 ? 'On pace' : progress >= 50 ? 'Stable' : 'Needs momentum'
-                    const isPrimaryTarget = index === 0
-
-                    return (
-                      <div key={vt.id} className={cn(
-                        'bg-white border-2 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow',
-                        isPrimaryTarget ? 'border-stone-300' : 'border-stone-200'
-                      )}>
-                        <div className='flex items-start justify-between gap-2 mb-3'>
-                          <div className='flex-1'>
-                            <p className='text-sm font-bold text-stone-900 flex-1 leading-tight'>{(vt as any).title || vt.name}</p>
-                            {isPrimaryTarget && (
-                              <p className='text-xs font-semibold text-stone-400 mt-1'>Primary</p>
-                            )}
-                          </div>
-                          <span className={cn('text-xs font-black px-2.5 py-1 rounded-full text-white shadow-sm', vtStatusBg)}>
-                            {vtStatusLabel}
-                          </span>
-                        </div>
-                        <div className='flex items-baseline gap-1 mb-3'>
-                          <span className='text-3xl font-black text-stone-900 tabular-nums'>{achieved}</span>
-                          <span className='text-lg text-stone-400 font-medium'>/</span>
-                          <span className='text-2xl font-black text-stone-600'>{target}</span>
-                          <span className='text-sm font-semibold text-stone-500 ml-2'>({Math.round(progress)}%)</span>
-                        </div>
-                        {/* Progress Bar - color tied to performance threshold, more prominent */}
-                        <div className='h-3 rounded-full overflow-hidden bg-stone-200 mb-2'>
-                          <div 
-                            className='h-full transition-all duration-500' 
-                            style={{ 
-                              width: `${Math.min(progress, 100)}%`,
-                              backgroundColor: vtStatusColor
-                            }}
-                          />
-                        </div>
-                        {/* Trend Hint */}
-                        <p className='text-xs font-semibold text-stone-500'>{trendHint}</p>
-                      </div>
-                    )
-                  })}
+              <div className='space-y-2'>
+                <div className='flex items-baseline justify-between'>
+                  <p className='text-3xl font-black text-white'>18</p>
+                  <p className='text-xs text-stone-400'>/50</p>
                 </div>
-
-                {/* Summary at bottom */}
-                <div className='mt-4 pt-4 border-t-2 border-stone-200 text-center'>
-                  <div className='flex items-baseline justify-center gap-2'>
-                    <span 
-                      className='text-4xl font-black tabular-nums'
-                      style={{ 
-                        color: greenTargets === totalTargets ? '#16A34A' :
-                               greenTargets >= totalTargets * 0.7 ? '#16A34A' :
-                               greenTargets >= totalTargets * 0.5 ? '#F59E0B' : '#DC2626'
-                      }}
-                    >
-                      {greenTargets}
-                    </span>
-                    <span className='text-2xl font-bold text-stone-400'>/</span>
-                    <span className='text-3xl font-black text-stone-600'>{totalTargets}</span>
-                  </div>
-                  <p className='text-xs font-bold text-stone-500 mt-1 uppercase tracking-wider'>Targets On Track</p>
-                  {/* Forward-Looking Closure */}
-                  <p className='text-xs text-stone-400 mt-3 italic font-medium'>
-                    Sustain weekly execution to lock monthly victory.
-                  </p>
+                <div className='w-full bg-stone-700 rounded-full h-2.5'>
+                  <div className='h-full rounded-full bg-amber-400 transition-all' style={{ width: '36%' }} />
                 </div>
+                <p className='text-xs text-stone-300 font-semibold'>36% Toward Goal</p>
               </div>
             </div>
           </div>
@@ -490,96 +452,60 @@ export function DepartmentExecutionHero({
 
             {/* RIGHT: DEPARTMENT VICTORY TARGETS - Color-coded right border */}
             <div className='p-6 min-h-[280px] flex flex-col justify-center bg-white rounded-r-lg'>
-              <div className='space-y-4'>
-                <div className='text-center mb-4'>
-                  <p className='text-base font-black uppercase tracking-[0.15em] text-stone-900'>Department Victory Targets</p>
-                  <p className='text-xs font-semibold text-stone-500 mt-1'>Results measured monthly / quarterly (Lag Measures)</p>
-                  {/* Compounding story - not instant results */}
-                  <p className='text-xs text-stone-400 mt-1.5 italic font-medium'>
-                    Weekly execution compounds into monthly & quarterly victory
-                  </p>
-                </div>
+              <div className='space-y-3'>
+                <p className='text-sm font-black uppercase tracking-[0.15em] text-stone-900 text-center'>Department Victory</p>
+                
+                {/* Display top victory target */}
+                {victoryTargets.length > 0 && (() => {
+                  const vt = victoryTargets[0]
+                  const quarters = (vt as any).quarters || []
+                  const quarterIndex = ['Q1', 'Q2', 'Q3', 'Q4'].indexOf(selectedQuarter)
+                  const quarterData = quarterIndex >= 0 ? quarters[quarterIndex] : null
+                  const achieved = quarterData?.achieved ?? vt.achieved
+                  const target = quarterData?.target ?? vt.target
+                  const progress = target > 0 ? (achieved / target) * 100 : 0
+                  const vtStatusColor = progress >= 70 ? '#16A34A' : progress >= 50 ? '#F59E0B' : '#DC2626'
+                  const vtStatusLabel = progress >= 70 ? 'On Track' : progress >= 50 ? 'At Risk' : 'Behind'
 
-                {/* Victory Target Cards */}
-                <div className='space-y-3'>
-                  {victoryTargets.slice(0, 2).map((vt, index) => {
-                    const quarters = (vt as any).quarters || []
-                    const quarterIndex = ['Q1', 'Q2', 'Q3', 'Q4'].indexOf(selectedQuarter)
-                    const quarterData = quarterIndex >= 0 ? quarters[quarterIndex] : null
-                    const achieved = quarterData?.achieved ?? vt.achieved
-                    const target = quarterData?.target ?? vt.target
-                    const progress = target > 0 ? (achieved / target) * 100 : 0
-                    
-                    // Status-based colors matching global status colors
-                    const vtStatusColor = progress >= 70 ? '#16A34A' : progress >= 50 ? '#F59E0B' : '#DC2626'
-                    const vtStatusBg = progress >= 70 ? 'bg-[#16A34A]' : progress >= 50 ? 'bg-[#F59E0B]' : 'bg-[#DC2626]'
-                    const vtStatusLabel = progress >= 70 ? 'On Track' : progress >= 50 ? 'At Risk' : 'Behind'
-                    
-                    // Trend hint based on progress
-                    const trendHint = progress >= 75 ? 'On pace' : progress >= 50 ? 'Stable' : 'Needs momentum'
-                    const isPrimaryTarget = index === 0
-
-                    return (
-                      <div key={vt.id} className={cn(
-                        'bg-white border-2 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow',
-                        isPrimaryTarget ? 'border-stone-300' : 'border-stone-200'
-                      )}>
-                        <div className='flex items-start justify-between gap-2 mb-3'>
-                          <div className='flex-1'>
-                            <p className='text-sm font-bold text-stone-900 flex-1 leading-tight'>{(vt as any).title || vt.name}</p>
-                            {isPrimaryTarget && (
-                              <p className='text-xs font-semibold text-stone-400 mt-1'>Primary</p>
-                            )}
-                          </div>
-                          <span className={cn('text-xs font-black px-2.5 py-1 rounded-full text-white shadow-sm', vtStatusBg)}>
-                            {vtStatusLabel}
-                          </span>
-                        </div>
-                        <div className='flex items-baseline gap-1 mb-3'>
-                          <span className='text-3xl font-black text-stone-900 tabular-nums'>{achieved}</span>
-                          <span className='text-lg text-stone-400 font-medium'>/</span>
-                          <span className='text-2xl font-black text-stone-600'>{target}</span>
-                          <span className='text-sm font-semibold text-stone-500 ml-2'>({Math.round(progress)}%)</span>
-                        </div>
-                        {/* Progress Bar - color tied to performance threshold, more prominent */}
-                        <div className='h-3 rounded-full overflow-hidden bg-stone-200 mb-2'>
-                          <div 
-                            className='h-full transition-all duration-500' 
-                            style={{ 
-                              width: `${Math.min(progress, 100)}%`,
-                              backgroundColor: vtStatusColor
-                            }}
-                          />
-                        </div>
-                        {/* Trend Hint */}
-                        <p className='text-xs font-semibold text-stone-500'>{trendHint}</p>
+                  return (
+                    <div className='space-y-2'>
+                      <div className='flex items-center justify-between gap-2'>
+                        <span className='text-xs font-bold text-stone-700'>{vt.name}</span>
+                        <span className='text-xs font-bold text-white px-2 py-1 rounded' style={{ backgroundColor: vtStatusColor }}>
+                          {vtStatusLabel}
+                        </span>
                       </div>
-                    )
-                  })}
-                </div>
+                      <div className='flex items-baseline gap-1'>
+                        <p className='text-2xl font-black text-stone-900'>{achieved}</p>
+                        <p className='text-sm text-stone-400'>/</p>
+                        <p className='text-lg font-bold text-stone-600'>{target}</p>
+                      </div>
+                      <div className='w-full bg-stone-200 rounded-full h-2'>
+                        <div className='h-full rounded-full transition-all' style={{ width: `${Math.min(progress, 100)}%`, backgroundColor: vtStatusColor }} />
+                      </div>
+                    </div>
+                  )
+                })()}
+              </div>
+            </div>
 
-                {/* Summary at bottom */}
-                <div className='mt-4 pt-4 border-t-2 border-stone-200 text-center'>
-                  <div className='flex items-baseline justify-center gap-2'>
-                    <span 
-                      className='text-4xl font-black tabular-nums'
-                      style={{ 
-                        color: greenTargets === totalTargets ? '#16A34A' :
-                               greenTargets >= totalTargets * 0.7 ? '#16A34A' :
-                               greenTargets >= totalTargets * 0.5 ? '#F59E0B' : '#DC2626'
-                      }}
-                    >
-                      {greenTargets}
-                    </span>
-                    <span className='text-2xl font-bold text-stone-400'>/</span>
-                    <span className='text-3xl font-black text-stone-600'>{totalTargets}</span>
-                  </div>
-                  <p className='text-xs font-bold text-stone-500 mt-1 uppercase tracking-wider'>Targets On Track</p>
-                  {/* Forward-Looking Closure */}
-                  <p className='text-xs text-stone-400 mt-3 italic font-medium'>
-                    Sustain weekly execution to lock monthly victory.
-                  </p>
+            {/* RIGHT: WAR GOAL - Q1 2026 */}
+            <div className='p-6 min-h-[280px] flex flex-col justify-between bg-gradient-to-br from-stone-900 to-stone-800 rounded-lg border border-stone-700 shadow-lg'>
+              <div>
+                <p className='text-xs font-black uppercase tracking-[0.2em] text-stone-400'>War Goal</p>
+                <p className='text-lg font-black text-white mt-1 leading-tight'>Q1 2026</p>
+                <p className='text-xs text-stone-300 mt-2 font-medium'>Onboard 50 Clients<br />Across All Departments</p>
+              </div>
+
+              <div className='space-y-2'>
+                <div className='flex items-baseline justify-between'>
+                  <p className='text-3xl font-black text-white'>18</p>
+                  <p className='text-xs text-stone-400'>/50</p>
                 </div>
+                <div className='w-full bg-stone-700 rounded-full h-2.5'>
+                  <div className='h-full rounded-full bg-amber-400 transition-all' style={{ width: '36%' }} />
+                </div>
+                <p className='text-xs text-stone-300 font-semibold'>36% Toward Goal</p>
               </div>
             </div>
           </div>
