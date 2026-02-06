@@ -182,18 +182,7 @@ export function DepartmentExecutionHero({
           </div>
 
           {/* MAIN SCOREBOARD - Weekly Power Moves + Victory Targets */}
-          <div className='relative grid grid-cols-2'>
-            {/* Vertical Arrow Line - Stacked arrows showing power moves → victory targets */}
-            <div className='absolute top-0 bottom-0 left-1/2 -translate-x-1/2 flex flex-col items-center justify-center pointer-events-none z-10' style={{ width: '24px', gap: '4px' }}>
-              <ArrowRight className='h-5 w-5' style={{ color: status?.color || '#10b981', opacity: 0.4 }} />
-              <ArrowRight className='h-5 w-5' style={{ color: status?.color || '#10b981', opacity: 0.5 }} />
-              <ArrowRight className='h-5 w-5' style={{ color: status?.color || '#10b981', opacity: 0.6 }} />
-              <ArrowRight className='h-5 w-5' style={{ color: status?.color || '#10b981', opacity: 0.7 }} />
-              <ArrowRight className='h-5 w-5' style={{ color: status?.color || '#10b981', opacity: 0.6 }} />
-              <ArrowRight className='h-5 w-5' style={{ color: status?.color || '#10b981', opacity: 0.5 }} />
-              <ArrowRight className='h-5 w-5' style={{ color: status?.color || '#10b981', opacity: 0.4 }} />
-            </div>
-
+          <div className='relative grid grid-cols-2 gap-6'>
             {/* LEFT: WEEKLY POWER MOVES - Structured container */}
             <div className={cn(
               'p-8 flex flex-col items-center justify-center text-center min-h-[280px] bg-[#F8FAFC] border-t-2',
@@ -243,6 +232,28 @@ export function DepartmentExecutionHero({
                 </div>
               </div>
             </div>
+
+            {/* Connection Arrow - Curved flow from power moves to victory targets */}
+            <svg className='absolute top-0 bottom-0 left-0 right-0 pointer-events-none z-10' style={{ width: '100%', height: '100%' }} viewBox='0 0 600 300' preserveAspectRatio='none'>
+              <defs>
+                <marker id='arrowhead' markerWidth='10' markerHeight='10' refX='9' refY='3' orient='auto'>
+                  <polygon points='0 0, 10 3, 0 6' fill={status?.color || '#10b981'} />
+                </marker>
+                <linearGradient id='arrowGradient' x1='0%' y1='0%' x2='100%' y2='0%'>
+                  <stop offset='0%' style={{ stopColor: status?.color || '#10b981', stopOpacity: 0.3 }} />
+                  <stop offset='100%' style={{ stopColor: status?.color || '#10b981', stopOpacity: 0.8 }} />
+                </linearGradient>
+              </defs>
+              {/* Curved arrow path - starts from right edge of left section, curves up to right section */}
+              <path
+                d='M 50 200 Q 300 80, 550 140'
+                stroke='url(#arrowGradient)'
+                strokeWidth='3'
+                fill='none'
+                markerEnd='url(#arrowhead)'
+                strokeLinecap='round'
+              />
+            </svg>
 
             {/* RIGHT: DEPARTMENT VICTORY TARGETS - Color-coded right border */}
             <div className='p-6 min-h-[280px] flex flex-col justify-center bg-white rounded-r-lg'>
