@@ -395,6 +395,9 @@ export function DepartmentExecutionHero({
         </div>
       </Card>
     )
+  }
+
+  return (
     <div className='space-y-6'>
       {/* HERO CARD */}
       <Card className='shadow-sm border border-stone-200 rounded-lg overflow-hidden'>
