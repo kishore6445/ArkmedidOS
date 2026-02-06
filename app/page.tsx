@@ -26,7 +26,7 @@ export default function HomePage() {
                 href="/signin"
                 className="px-4 py-2 text-sm font-medium text-slate-900 hover:text-slate-600 hover:bg-slate-50 rounded transition"
               >
-                Sign in
+                Join us
               </Link>
             </div>
           </div>
@@ -94,7 +94,7 @@ export default function HomePage() {
                 href="/signin"
                 className="inline-flex items-center gap-2 px-6 py-3 bg-slate-900 text-white text-sm font-semibold rounded hover:bg-slate-800 hover:shadow-lg transition-all group"
               >
-                Sign in
+                Start growing
                 <span className="group-hover:translate-x-1 transition-transform">→</span>
               </Link>
             </div>
@@ -116,15 +116,15 @@ export default function HomePage() {
             <div className="max-w-3xl space-y-8 text-base font-light text-slate-800 leading-relaxed">
               <div className="space-y-4 grid grid-cols-1 md:grid-cols-3 gap-6">
                 {[
-                  "Your work matters.",
-                  "Your consistency matters.",
-                  "Your integrity matters."
+                  "You own your outcomes.",
+                  "You drive your growth.",
+                  "You build your future here."
                 ].map((msg, i) => (
                   <div
                     key={i}
-                    className="p-4 bg-white border border-slate-100 rounded hover:shadow-md hover:border-slate-300 transition-all text-center"
+                    className="p-4 bg-white border border-slate-100 rounded hover:shadow-md hover:border-slate-300 transition-all text-center hover:bg-slate-900 hover:text-white hover:border-slate-900"
                   >
-                    <p className="text-sm font-semibold text-slate-900">{msg}</p>
+                    <p className="text-sm font-semibold text-slate-900 group-hover:text-white transition">{msg}</p>
                   </div>
                 ))}
               </div>
@@ -140,7 +140,7 @@ export default function HomePage() {
                 href="/signin"
                 className="px-6 py-3 bg-slate-900 text-white text-sm font-semibold rounded hover:bg-slate-800 hover:shadow-lg transition-all"
               >
-                Sign in
+                Join us and grow
               </Link>
             </div>
           </div>
@@ -223,17 +223,52 @@ export default function HomePage() {
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl">
               {[
-                "Clarity before speed — so decisions are faster.",
-                "Ownership over excuses — so work moves forward.",
-                "Systems over shortcuts — so progress compounds.",
-                "Long-term over short-term wins — so growth lasts."
-              ].map((principle, i) => (
+                { principle: "Clarity before speed", outcome: "so you learn what matters." },
+                { principle: "Ownership over excuses", outcome: "so you own your growth." },
+                { principle: "Systems over shortcuts", outcome: "so your progress compounds." },
+                { principle: "Long-term over short-term", outcome: "so your career lasts." }
+              ].map((item, i) => (
                 <div
                   key={i}
                   className="group p-4 border border-slate-100 rounded hover:border-slate-300 hover:bg-slate-50 transition-all cursor-pointer"
                 >
-                  <p className="text-sm font-light text-slate-800 group-hover:text-slate-900 transition">
-                    {principle}
+                  <p className="text-sm font-semibold text-slate-900 mb-2">{item.principle}</p>
+                  <p className="text-xs font-light text-slate-600 group-hover:text-slate-700 transition">
+                    {item.outcome}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Your Growth Pathways */}
+        <section className="border-b border-slate-100 bg-gradient-to-b from-slate-50/50 to-white animate-slide-in-up" style={{ animationDelay: "0.7s" }}>
+          <div className="mx-auto max-w-5xl px-6 py-20 space-y-10">
+            <div className="space-y-3">
+              <h2 className="text-4xl md:text-5xl font-light text-slate-900">
+                Your Growth Pathways
+              </h2>
+              <p className="text-base font-light text-slate-700 max-w-2xl leading-relaxed">
+                In 2026, you don't just help scale our clients—you scale yourself. Every project builds your skills, network, and leadership.
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl">
+              {[
+                { title: "New Skills", description: "Learn systems, frameworks, and strategies used by top companies." },
+                { title: "Leadership Development", description: "Own outcomes, mentor others, and grow into leadership roles." },
+                { title: "Network Expansion", description: "Build relationships with founders, leaders, and industry experts." },
+                { title: "Career Clarity", description: "See your growth path clearly and progress toward your goals." }
+              ].map((item, i) => (
+                <div
+                  key={i}
+                  className="group p-4 border border-slate-100 rounded hover:border-slate-400 bg-white hover:bg-slate-900 transition-all cursor-pointer"
+                  style={{ animationDelay: `${0.7 + i * 0.05}s` }}
+                >
+                  <p className="text-sm font-semibold text-slate-900 group-hover:text-white mb-2">{item.title}</p>
+                  <p className="text-xs font-light text-slate-600 group-hover:text-slate-300 transition">
+                    {item.description}
                   </p>
                 </div>
               ))}
@@ -242,7 +277,7 @@ export default function HomePage() {
         </section>
 
         {/* What You'll Find Inside ArkMedis OS */}
-        <section className="border-b border-slate-100 bg-gradient-to-b from-white to-slate-50/50 animate-slide-in-up" style={{ animationDelay: "0.7s" }}>
+        <section className="border-b border-slate-100 bg-gradient-to-b from-white to-slate-50/50 animate-slide-in-up" style={{ animationDelay: "0.8s" }}>
           <div className="mx-auto max-w-5xl px-6 py-20 space-y-10">
             <div className="space-y-3">
               <h2 className="text-4xl md:text-5xl font-light text-slate-900">
@@ -265,7 +300,7 @@ export default function HomePage() {
                 <div
                   key={i}
                   className="group relative overflow-hidden p-4 border border-slate-100 rounded hover:border-slate-300 bg-white hover:bg-slate-50/80 transition-all cursor-pointer"
-                  style={{ animationDelay: `${0.7 + i * 0.05}s` }}
+                  style={{ animationDelay: `${0.8 + i * 0.05}s` }}
                 >
                   <div className="absolute -left-1 top-0 h-full w-1 bg-slate-900 transform group-hover:w-1.5 transition-all"></div>
                   <p className="text-sm font-light text-slate-800 group-hover:text-slate-900 transition pl-2">
