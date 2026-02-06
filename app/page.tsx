@@ -107,7 +107,41 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Three Brands. One Company. */}
+        {/* Message to the Team */}
+        <section className="border-b border-slate-100 bg-gradient-to-b from-slate-50/50 to-white animate-slide-in-up" style={{ animationDelay: "0.5s" }}>
+          <div className="mx-auto max-w-5xl px-6 py-16 space-y-10">
+            <h2 className="text-4xl md:text-5xl font-light text-slate-900">
+              Message to the Team
+            </h2>
+            
+            <div className="max-w-3xl space-y-8 text-base font-light text-slate-800 leading-relaxed">
+              <p className="text-base text-slate-900 font-medium">
+                You are not here to just complete tasks.
+              </p>
+              
+              <div className="space-y-3 p-4 border-l-2 border-slate-900 pl-6">
+                <p>You are here to take ownership,</p>
+                <p>build something meaningful,</p>
+                <p>and grow in clarity, skill, and confidence.</p>
+              </div>
+              
+              <div className="space-y-3 grid grid-cols-1 md:grid-cols-3 gap-4 border-t border-slate-100 pt-4">
+                {[
+                  "Your work matters.",
+                  "Your consistency matters.",
+                  "Your integrity matters."
+                ].map((msg, i) => (
+                  <div
+                    key={i}
+                    className="p-3 bg-white border border-slate-100 rounded hover:shadow-md hover:border-slate-300 transition-all text-center"
+                  >
+                    <p className="text-sm font-semibold text-slate-900">{msg}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
         <section className="border-b border-slate-100 animate-slide-in-up" style={{ animationDelay: "0.4s" }}>
           <div className="mx-auto max-w-5xl px-6 py-16 space-y-10">
             <div className="space-y-3">
@@ -310,7 +344,7 @@ export default function HomePage() {
         </section>
 
         {/* Closing Section */}
-        <section className="animate-slide-in-up" style={{ animationDelay: "1s" }}>
+        <section className="animate-slide-in-up" style={{ animationDelay: "0.9s" }}>
           <div className="mx-auto max-w-5xl px-6 py-32 text-center space-y-8">
             <h2 className="text-5xl md:text-6xl font-light text-slate-900 text-balance leading-tight">
               The mission is achieved<br />
