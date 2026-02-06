@@ -56,10 +56,15 @@ export default function SignInPage() {
           </div>
 
           {/* Motivational Message */}
-          <div className="mt-8 p-4 bg-gradient-to-r from-slate-800 to-slate-900 rounded-lg border border-slate-700">
-            <p className="text-sm font-light text-slate-100 leading-relaxed text-center">
-              <span className="font-semibold text-white">2026 is your year to win.</span> Scale the mission with us. Earn real rewards. Master new skills. Gain recognition.
-            </p>
+          <div className="mt-8 p-6 bg-gradient-to-r from-slate-800 to-slate-900 rounded-lg border border-slate-700">
+            <div className="space-y-2 text-center">
+              <p className="text-sm font-semibold text-white">Mission 2026 needs you.</p>
+              <div className="space-y-1 text-sm font-light text-slate-100">
+                <p>Win the mission.</p>
+                <p>Earn up to a 50% hike.</p>
+                <p>Be recognized.</p>
+              </div>
+            </div>
           </div>
 
           <form className="mt-8 space-y-4" onSubmit={handleSubmit}>
