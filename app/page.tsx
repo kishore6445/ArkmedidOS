@@ -216,9 +216,9 @@ export default function HomePage() {
                   <p className="text-xs font-light text-slate-600 leading-relaxed group-hover:text-slate-700 transition mb-4">
                     {brand.description}
                   </p>
-                  <div className="bg-slate-50 p-3 rounded border border-slate-100 text-center group-hover:bg-slate-900 group-hover:border-slate-900 transition-all">
-                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-1 group-hover:text-slate-400">2026 Goal</p>
-                    <p className="text-2xl font-semibold text-slate-900 group-hover:text-white transition animate-count-up" style={{ animationDelay: `${0.5 + i * 0.1}s` }}>
+                  <div className="bg-slate-900 p-3 rounded border border-slate-900 text-center group-hover:bg-slate-800 group-hover:border-slate-800 transition-all">
+                    <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-1 group-hover:text-slate-300">2026 Goal</p>
+                    <p className="text-2xl font-semibold text-white group-hover:text-slate-100 transition animate-count-up" style={{ animationDelay: `${0.5 + i * 0.1}s` }}>
                       +{brand.target}
                     </p>
                   </div>
