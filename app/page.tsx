@@ -42,63 +42,63 @@ export default function HomePage() {
       <main>
         {/* Hero Section - Mission First */}
         <section className="border-b border-slate-100">
-          <div className="mx-auto max-w-5xl px-6 py-32 space-y-20 animate-fade-in">
-            <div className="space-y-8">
+          <div className="mx-auto max-w-5xl px-6 py-16 space-y-12 animate-fade-in">
+            <div className="space-y-4">
               <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest">
                 Mission 2026
               </p>
               
-              <h1 className="text-6xl md:text-7xl font-light leading-tight text-slate-900">
+              <h1 className="text-5xl md:text-6xl font-light leading-tight text-slate-900">
                 This is the year we scale ArkMedis.
               </h1>
               
-              <p className="text-lg font-light text-slate-600 max-w-2xl leading-relaxed">
+              <p className="text-base font-light text-slate-600 max-w-2xl leading-relaxed">
                 30 clients for Warrior Systems. 18 for Story Marketing. 2 for MetaGurukul.
               </p>
             </div>
 
             {/* Mission Numbers with Count-Up Animation */}
-            <div className="space-y-12">
-              <p className="text-base font-semibold text-slate-900">
+            <div className="space-y-8">
+              <p className="text-sm font-semibold text-slate-900">
                 New clients to onboard across 2026.
               </p>
               
-              <div className="flex flex-col md:flex-row gap-16 md:gap-24">
-                <div className="space-y-3 animate-count-up group cursor-pointer" style={{ animationDelay: "0.2s" }}>
+              <div className="flex flex-col md:flex-row gap-12 md:gap-20">
+                <div className="space-y-2 animate-count-up group cursor-pointer" style={{ animationDelay: "0.2s" }}>
                   <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest">To Onboard</p>
-                  <p className="text-7xl md:text-8xl font-light text-slate-900 group-hover:text-slate-700 transition">
+                  <p className="text-6xl md:text-7xl font-light text-slate-900 group-hover:text-slate-700 transition">
                     30
                   </p>
-                  <p className="text-sm font-semibold text-slate-600">Warrior Systems</p>
-                  <div className="h-1 w-20 bg-slate-900 rounded-full group-hover:w-32 transition-all duration-500"></div>
+                  <p className="text-xs font-semibold text-slate-600">Warrior Systems</p>
+                  <div className="h-0.5 w-16 bg-slate-900 rounded-full group-hover:w-24 transition-all duration-500"></div>
                 </div>
-                <div className="space-y-3 animate-count-up group cursor-pointer" style={{ animationDelay: "0.35s" }}>
+                <div className="space-y-2 animate-count-up group cursor-pointer" style={{ animationDelay: "0.3s" }}>
                   <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest">To Onboard</p>
-                  <p className="text-7xl md:text-8xl font-light text-slate-900 group-hover:text-slate-700 transition">
+                  <p className="text-6xl md:text-7xl font-light text-slate-900 group-hover:text-slate-700 transition">
                     18
                   </p>
-                  <p className="text-sm font-semibold text-slate-600">Story Marketing</p>
-                  <div className="h-1 w-20 bg-slate-900 rounded-full group-hover:w-32 transition-all duration-500"></div>
+                  <p className="text-xs font-semibold text-slate-600">Story Marketing</p>
+                  <div className="h-0.5 w-16 bg-slate-900 rounded-full group-hover:w-24 transition-all duration-500"></div>
                 </div>
-                <div className="space-y-3 animate-count-up group cursor-pointer" style={{ animationDelay: "0.5s" }}>
+                <div className="space-y-2 animate-count-up group cursor-pointer" style={{ animationDelay: "0.4s" }}>
                   <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest">To Onboard</p>
-                  <p className="text-7xl md:text-8xl font-light text-slate-900 group-hover:text-slate-700 transition">
+                  <p className="text-6xl md:text-7xl font-light text-slate-900 group-hover:text-slate-700 transition">
                     2
                   </p>
-                  <p className="text-sm font-semibold text-slate-600">MetaGurukul</p>
-                  <div className="h-1 w-20 bg-slate-900 rounded-full group-hover:w-32 transition-all duration-500"></div>
+                  <p className="text-xs font-semibold text-slate-600">MetaGurukul</p>
+                  <div className="h-0.5 w-16 bg-slate-900 rounded-full group-hover:w-24 transition-all duration-500"></div>
                 </div>
               </div>
               
-              <p className="text-sm font-light text-slate-600 pt-8 border-t border-slate-100">
+              <p className="text-xs font-light text-slate-600 pt-4 border-t border-slate-100">
                 50 new clients to onboard across all three brands. This is how we scale ArkMedis in 2026.
               </p>
             </div>
 
-            <div className="space-y-6">
+            <div className="space-y-4">
               <Link
                 href="/signin"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-slate-900 text-white text-sm font-semibold rounded hover:bg-slate-800 hover:shadow-lg hover:shadow-slate-400/30 transition-all group"
+                className="inline-flex items-center gap-2 px-6 py-2 bg-slate-900 text-white text-sm font-semibold rounded hover:bg-slate-800 hover:shadow-lg transition-all group"
               >
                 Sign in
                 <span className="group-hover:translate-x-1 transition-transform">→</span>
@@ -112,17 +112,17 @@ export default function HomePage() {
 
         {/* Three Brands. One Company. */}
         <section className="border-b border-slate-100 animate-slide-in-up" style={{ animationDelay: "0.4s" }}>
-          <div className="mx-auto max-w-5xl px-6 py-32 space-y-16">
-            <div className="space-y-6">
-              <h2 className="text-5xl font-light text-slate-900">
+          <div className="mx-auto max-w-5xl px-6 py-16 space-y-10">
+            <div className="space-y-3">
+              <h2 className="text-4xl md:text-5xl font-light text-slate-900">
                 Three Brands. One Company.
               </h2>
-              <p className="text-base font-light text-slate-600 max-w-2xl leading-relaxed">
+              <p className="text-sm font-light text-slate-600 max-w-2xl leading-relaxed">
                 ArkMedis is the operating company. We build and scale three focused brands—each with a clear mission—aligned by one execution standard.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {[
                 {
                   title: "Warrior Systems",
@@ -145,21 +145,21 @@ export default function HomePage() {
               ].map((brand, i) => (
                 <div
                   key={brand.title}
-                  className="group p-6 border border-slate-200 rounded hover:border-slate-400 hover:shadow-md hover:shadow-slate-200 transition-all duration-500 cursor-pointer bg-white"
+                  className="group p-4 border border-slate-200 rounded hover:border-slate-400 hover:shadow-md hover:shadow-slate-200 transition-all duration-500 cursor-pointer bg-white"
                   style={{ animationDelay: `${0.5 + i * 0.1}s` }}
                 >
-                  <div className="flex items-start justify-between mb-4">
-                    <h3 className="text-base font-semibold text-slate-900 flex-1 group-hover:text-slate-700 transition">
+                  <div className="flex items-start justify-between mb-3">
+                    <h3 className="text-sm font-semibold text-slate-900 flex-1 group-hover:text-slate-700 transition">
                       {brand.title}
                     </h3>
-                    <span className="text-xl ml-2 group-hover:scale-125 transition-transform origin-right">→</span>
+                    <span className="text-lg ml-2 group-hover:scale-125 transition-transform origin-right">→</span>
                   </div>
-                  <p className="text-sm font-light text-slate-600 leading-relaxed group-hover:text-slate-700 transition mb-6">
+                  <p className="text-xs font-light text-slate-600 leading-relaxed group-hover:text-slate-700 transition mb-4">
                     {brand.description}
                   </p>
-                  <div className="bg-slate-50 p-4 rounded border border-slate-100 text-center group-hover:bg-slate-900 group-hover:border-slate-900 transition-all">
-                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-2 group-hover:text-slate-400">To Onboard</p>
-                    <p className="text-3xl font-semibold text-slate-900 group-hover:text-white transition animate-count-up" style={{ animationDelay: `${0.5 + i * 0.1}s` }}>
+                  <div className="bg-slate-50 p-3 rounded border border-slate-100 text-center group-hover:bg-slate-900 group-hover:border-slate-900 transition-all">
+                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-1 group-hover:text-slate-400">To Onboard</p>
+                    <p className="text-2xl font-semibold text-slate-900 group-hover:text-white transition animate-count-up" style={{ animationDelay: `${0.5 + i * 0.1}s` }}>
                       +{brand.target}
                     </p>
                   </div>
@@ -167,10 +167,10 @@ export default function HomePage() {
               ))}
             </div>
 
-            <div className="pt-8 space-y-2 text-center">
-              <p className="text-sm font-light text-slate-600">Different missions.</p>
-              <p className="text-sm font-light text-slate-600">One company.</p>
-              <p className="text-sm font-light text-slate-600">One way of working.</p>
+            <div className="pt-4 space-y-1 text-center">
+              <p className="text-xs font-light text-slate-600">Different missions.</p>
+              <p className="text-xs font-light text-slate-600">One company.</p>
+              <p className="text-xs font-light text-slate-600">One way of working.</p>
             </div>
           </div>
         </section>
