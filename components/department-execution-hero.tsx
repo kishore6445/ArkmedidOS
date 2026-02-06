@@ -244,43 +244,9 @@ export function DepartmentExecutionHero({
               </div>
             </div>
           </div>
+        </div>
 
-            {/* Arrow 2 - Between Victory Targets and War Goal */}
-            <div className='absolute top-1/2 -translate-y-1/2 pointer-events-none z-20' style={{ left: 'calc(66.67% - 10px)' }}>
-              <ArrowRight className='h-5 w-5' style={{ color: status?.color || '#10b981', opacity: 0.6 }} />
-            </div>
-
-            {/* LEFT: WEEKLY POWER MOVES */}
-            <div className={cn(
-              'p-6 flex flex-col items-center justify-center text-center min-h-[280px] bg-[#F8FAFC] border-t-2 rounded-lg',
-              status.borderAccent
-            )}>
-              <div className='space-y-3 w-full'>
-                <p className='text-sm font-black uppercase tracking-[0.15em] text-stone-900'>Weekly Power Moves</p>
-                <p className='text-xs font-semibold text-stone-500'>Actions executed this week</p>
-                
-                <div className='py-3'>
-                  <div 
-                    className='text-7xl font-black tabular-nums leading-none'
-                    style={{ color: status.color }}
-                  >
-                    {powerMoveStats.percentage}
-                  </div>
-                  <div className='text-xl font-bold text-stone-400 mt-1'>/100</div>
-                </div>
-
-                <div className={cn(
-                  'inline-flex items-center gap-2 px-4 py-2 rounded-lg shadow-sm text-sm',
-                  status.bg,
-                  status.text
-                )}>
-                  <StatusIcon className='h-4 w-4' />
-                  <span className='font-black'>
-                    {status.badge}
-                  </span>
-                </div>
-
-                <div className='mt-3 pt-3 border-t-2 border-stone-200'>
+        {/* WEEK SELECTOR - MOVED BELOW HERO (NOW SECONDARY) */}
                   <p className='text-2xl font-black text-stone-900 tabular-nums'>
                     {powerMoveStats.completed} <span className='text-stone-400'>/</span> {powerMoveStats.total}
                   </p>
