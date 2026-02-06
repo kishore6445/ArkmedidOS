@@ -30,7 +30,7 @@ type UseDepartmentPowerMovesResult = {
 export function useDepartmentPowerMoves(department: DepartmentCode): UseDepartmentPowerMovesResult {
   const { currentBrand } = useBrand()
   const [powerMoves, setPowerMoves] = useState<DepartmentPowerMove[]>([])
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
@@ -41,7 +41,7 @@ export function useDepartmentPowerMoves(department: DepartmentCode): UseDepartme
       setError(null)
 
       try {
-       const response = await fetch("/api/admin/power-moves", { cache: "no-store" })
+      const response = await fetch("/api/admin/power-moves", { cache: "force-cache" })
       //debugger;
       console.log('response:', response);
         const result = await response.json().catch(() => ({}))
@@ -69,15 +69,15 @@ export function useDepartmentPowerMoves(department: DepartmentCode): UseDepartme
           const [weeklyResponse, dailyResponse, monthlyResponse] = await Promise.all([
             fetch(
               `/api/power-move-tracking?period=this-week&powerMoveIds=${encodeURIComponent(ids.join(","))}`,
-              { cache: "no-store" },
+              { cache: "force-cache" },
             ),
             fetch(
               `/api/power-move-tracking?period=today&powerMoveIds=${encodeURIComponent(ids.join(","))}`,
-              { cache: "no-store" },
+              { cache: "force-cache" },
             ),
             fetch(
               `/api/power-move-tracking?period=this-month&powerMoveIds=${encodeURIComponent(ids.join(","))}`,
-              { cache: "no-store" },
+              { cache: "force-cache" },
             ),
           ])
 

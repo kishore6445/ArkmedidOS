@@ -2,6 +2,7 @@
 
 import { AppShell } from "@/components/app-shell"
 import { DepartmentPage, type DepartmentConfig } from "@/components/department-page"
+import { DepartmentPageSkeleton } from "@/components/skeleton-loader"
 import { Megaphone } from "lucide-react"
 import { useBrandDepartment } from "@/lib/use-brand-department"
 import { useBrand } from "@/lib/brand-context"
@@ -21,6 +22,14 @@ export default function MarketingPage() {
     isLoading: powerMovesLoading,
     error: powerMovesError,
   } = useDepartmentPowerMoves("M")
+
+  if (powerMovesLoading || victoryTargetsLoading) {
+    return (
+      <AppShell>
+        <DepartmentPageSkeleton />
+      </AppShell>
+    )
+  }
 
   if (!departmentData) {
     return (

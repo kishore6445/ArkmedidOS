@@ -2,6 +2,7 @@
 
 import { AppShell } from "@/components/app-shell"
 import { DepartmentPage, type DepartmentConfig } from "@/components/department-page"
+import { DepartmentPageSkeleton } from "@/components/skeleton-loader"
 import { FileText } from "lucide-react"
 import { useDepartmentPowerMoves } from "@/lib/use-department-power-moves"
 import { useDepartmentVictoryTargets } from "@/lib/use-department-victory-targets"
@@ -17,6 +18,14 @@ export default function AccountsPage() {
     isLoading: powerMovesLoading,
     error: powerMovesError,
   } = useDepartmentPowerMoves("A")
+
+  if (powerMovesLoading || victoryTargetsLoading) {
+    return (
+      <AppShell>
+        <DepartmentPageSkeleton />
+      </AppShell>
+    )
+  }
 
   const config: DepartmentConfig = {
     name: "Accounts / Compliance / Finance",

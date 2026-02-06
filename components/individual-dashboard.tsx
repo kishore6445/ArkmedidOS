@@ -1,5 +1,5 @@
 "use client"
-import { useEffect, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Calendar, ChevronDown } from "lucide-react"
@@ -7,30 +7,11 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Button } from "@/components/ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { cn } from "@/lib/utils"
+import { useUser } from "@/lib/user-context"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
 import Image from "next/image"
 
 type TimePeriod = "today" | "this-week" | "this-month" | "this-quarter"
-
-const userCrossBrandData = {
-  name: "No data yet",
-  role: "Connect your account to see personal metrics",
-  avatar: "",
-  brands: [],
-  streak: {
-    current: 0,
-    best: 0,
-  },
-  executionByPeriod: {
-    today: { completed: 0, total: 0, target: 0 },
-    "this-week": { completed: 0, total: 0, target: 0 },
-    "this-month": { completed: 0, total: 0, target: 0 },
-    "this-quarter": { completed: 0, total: 0, target: 0 },
-  },
-  powerMoves: [],
-  tasks: [],
-  commitments: [],
-}
 
 type IndividualDashboardProps = {
   isAdmin: boolean
@@ -43,10 +24,13 @@ export function IndividualDashboard({
   currentUserName = "",
   currentUserId = "",
 }: IndividualDashboardProps) {
-  const [tasks, setTasks] = useState(userCrossBrandData.tasks)
-  const [commitments, setCommitments] = useState(userCrossBrandData.commitments)
+  const { currentUser, isLoading: isUserLoading } = useUser()
+  const [tasks, setTasks] = useState([])
+  const [commitments, setCommitments] = useState([])
   const [powerMoves, setPowerMoves] = useState<any[]>([])
   const [victoryTargets, setVictoryTargets] = useState<any[]>([])
+  const [isLoadingData, setIsLoadingData] = useState(true)
+  const [isTrackingLoading, setIsTrackingLoading] = useState(true)
   const [supportingWorkOpen, setSupportingWorkOpen] = useState(false)
   const [selectedPeriod, setSelectedPeriod] = useState<TimePeriod>("today")
   const [linkedPowerMove, setLinkedPowerMove] = useState<string | null>(null) // Declare linkedPowerMove variable
@@ -68,6 +52,7 @@ export function IndividualDashboard({
 
     const load = async () => {
       try {
+        setIsLoadingData(true)
         const [pmResponse, vtResponse] = await Promise.all([
           fetch("/api/admin/power-moves", { cache: "no-store" }),
           fetch("/api/admin/victory-targets", { cache: "no-store" }),
@@ -84,6 +69,8 @@ export function IndividualDashboard({
         if (!isActive) return
         setPowerMoves([])
         setVictoryTargets([])
+      } finally {
+        if (isActive) setIsLoadingData(false)
       }
     }
 
@@ -100,30 +87,45 @@ export function IndividualDashboard({
   const getVictoryTargetOwnerId = (target: any) => target.owner_id ?? target.ownerId ?? ""
   const getVictoryTargetOwnerName = (target: any) => target.owner ?? target.ownerName ?? ""
 
-  const myPowerMoves = isAdmin || (!currentUserId && !currentUserName)
-    ? powerMoves
-    : powerMoves.filter((pm: any) => {
-        if (currentUserId) {
-          return getPowerMoveOwnerId(pm) === currentUserId
-        }
-        return getPowerMoveOwnerName(pm) === currentUserName
-      })
+  const effectiveUserId = currentUser?.id || currentUserId
+  const effectiveUserName = currentUser?.name || currentUserName
 
-  const myVictoryTargets = isAdmin || (!currentUserId && !currentUserName)
+  const displayName = currentUser?.name || currentUserName || "—"
+  const displayRole = currentUser?.role || (isAdmin ? "Admin" : "Member")
+  const displayBrands = currentUser?.assignments
+    ? new Set(currentUser.assignments.map((assignment) => assignment.brand)).size
+    : 0
+  const displayAvatar = currentUser?.avatar || ""
+  const displayStreak = 0
+
+  const myPowerMoves = isAdmin
+    ? powerMoves
+    : effectiveUserId || effectiveUserName
+      ? powerMoves.filter((pm: any) => {
+          if (effectiveUserId) {
+            return getPowerMoveOwnerId(pm) === effectiveUserId
+          }
+          return getPowerMoveOwnerName(pm) === effectiveUserName
+        })
+      : []
+
+  const myVictoryTargets = isAdmin
     ? victoryTargets
-    : victoryTargets.filter((vt: any) => {
-        if (currentUserId) {
-          return getVictoryTargetOwnerId(vt) === currentUserId
-        }
-        return getVictoryTargetOwnerName(vt) === currentUserName
-      })
+    : effectiveUserId || effectiveUserName
+      ? victoryTargets.filter((vt: any) => {
+          if (effectiveUserId) {
+            return getVictoryTargetOwnerId(vt) === effectiveUserId
+          }
+          return getVictoryTargetOwnerName(vt) === effectiveUserName
+        })
+      : []
 
   const getTargetActualForPeriod = (pm: any, period: TimePeriod) => {
     switch (period) {
       case "today":
         return {
           target: pm.dailyTarget ?? pm.weeklyTarget ?? 0,
-          actual: pm.dailyActual ?? pm.weeklyActual ?? 0,
+          actual: pm.dailyActual ?? 0,
         }
       case "this-week":
         return { target: pm.weeklyTarget ?? 0, actual: pm.weeklyActual ?? 0 }
@@ -138,7 +140,7 @@ export function IndividualDashboard({
   const getActualFieldForPeriod = (pm: any, period: TimePeriod) => {
     switch (period) {
       case "today":
-        return pm.dailyTarget != null || pm.dailyActual != null ? "dailyActual" : "weeklyActual"
+        return "dailyActual"
       case "this-week":
         return "weeklyActual"
       case "this-month":
@@ -163,17 +165,27 @@ export function IndividualDashboard({
     return "weeklyTarget"
   }
 
+  const powerMoveIds = useMemo(
+    () => powerMoves.map((pm) => pm.id).filter(Boolean).join(","),
+    [powerMoves],
+  )
+
   useEffect(() => {
-    const ids = powerMoves.map((pm) => pm.id).filter(Boolean)
-    if (ids.length === 0) return
+    if (!powerMoveIds) {
+      setIsTrackingLoading(false)
+      return
+    }
 
     const controller = new AbortController()
+    let isActive = true
+
+    setIsTrackingLoading(true)
 
     const loadTracking = async () => {
       try {
         const response = await fetch(
           `/api/power-move-tracking?period=${encodeURIComponent(selectedPeriod)}&powerMoveIds=${encodeURIComponent(
-            ids.join(","),
+            powerMoveIds,
           )}`,
           { signal: controller.signal },
         )
@@ -200,21 +212,27 @@ export function IndividualDashboard({
         )
       } catch {
         // Ignore tracking failures
+      } finally {
+        if (isActive) setIsTrackingLoading(false)
       }
     }
 
     loadTracking()
 
-    return () => controller.abort()
-  }, [selectedPeriod, powerMoves])
+    return () => {
+      isActive = false
+      controller.abort()
+    }
+  }, [selectedPeriod, powerMoveIds])
 
   const periodData = myPowerMoves.reduce(
     (acc, pm) => {
       const { target, actual } = getTargetActualForPeriod(pm, selectedPeriod)
       if (!target) return acc
+      const safeActual = Math.max(actual || 0, 0)
       return {
-        completed: acc.completed + (actual >= target ? 1 : 0),
-        total: acc.total + 1,
+        completed: acc.completed + Math.min(safeActual, target),
+        total: acc.total + target,
         target: acc.target + target,
       }
     },
@@ -237,7 +255,7 @@ export function IndividualDashboard({
           period: selectedPeriod,
           target,
           actual: nextActual,
-          completedById: currentUserId || undefined,
+          completedById: effectiveUserId || undefined,
         }
         return { ...pm, [actualField]: nextActual }
       }),
@@ -373,6 +391,14 @@ export function IndividualDashboard({
     }
   })
 
+  if (isLoadingData || isUserLoading || isTrackingLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-[420px]">
+        <p className="text-sm text-stone-500">Loading dashboard data...</p>
+      </div>
+    )
+  }
+
   return (
     <section className='px-4 sm:px-6 lg:px-8 pb-8 space-y-6' aria-labelledby='personal-dashboard-heading'>
       {/* HERO CARD - Department-style scoreboard with individual identity */}
@@ -385,8 +411,8 @@ export function IndividualDashboard({
               <div className='relative flex-shrink-0'>
                 <div className='h-16 w-16 rounded-full overflow-hidden border-2 border-white shadow-md bg-muted'>
                   <Image
-                    src={userCrossBrandData.avatar || '/placeholder.svg'}
-                    alt={userCrossBrandData.name}
+                    src={displayAvatar || '/placeholder.svg'}
+                    alt={displayName}
                     width={64}
                     height={64}
                     className='h-full w-full object-cover'
@@ -398,13 +424,13 @@ export function IndividualDashboard({
                   />
                 </div>
                 <div className='absolute -bottom-1 -right-1 bg-primary text-primary-foreground text-xs font-black rounded-full h-6 w-6 flex items-center justify-center shadow-sm border border-white'>
-                  {userCrossBrandData.streak.current}
+                  {displayStreak}
                 </div>
               </div>
               <div>
-                <h2 className='text-3xl font-black text-stone-900 tracking-tight'>{userCrossBrandData.name}</h2>
+                <h2 className='text-3xl font-black text-stone-900 tracking-tight'>{displayName}</h2>
                 <p className='text-sm font-semibold text-stone-600 mt-1'>
-                  {userCrossBrandData.role} · {userCrossBrandData.brands.length} Brands
+                  {displayRole} · {displayBrands} Brands
                 </p>
               </div>
             </div>
@@ -426,15 +452,8 @@ export function IndividualDashboard({
           </div>
         </div>
 
-        {/* END-OF-DAY CLOSURE STATE */}
-        {selectedPeriod === 'today' && isTodayComplete ? (
-          <div className='bg-emerald-50 p-8 text-center'>
-            <h2 className='text-3xl font-black text-emerald-900 mb-2'>Day won. Shut it down.</h2>
-            <p className='text-sm font-semibold text-emerald-700'>All priority power moves completed.</p>
-          </div>
-        ) : (
-          /* MAIN SCOREBOARD - Two Columns with Silent Divider */
-          <div className='relative grid grid-cols-2'>
+        {/* MAIN SCOREBOARD - Two Columns with Silent Divider */}
+        <div className='relative grid grid-cols-2'>
             {/* Silent Structural Divider - 1px neutral grey line */}
             <div className='absolute top-0 bottom-0 left-1/2 w-px bg-stone-200 -translate-x-1/2' />
 
@@ -476,7 +495,7 @@ export function IndividualDashboard({
                   <p className='text-3xl font-black text-stone-900 tabular-nums'>
                     {periodData.completed} <span className='text-stone-400'>/</span> {periodData.total}
                   </p>
-                  <p className='text-xs font-bold text-stone-500 mt-1 uppercase tracking-wider'>Power Moves Complete</p>
+                  <p className='text-xs font-bold text-stone-500 mt-1 uppercase tracking-wider'>Power Move Actions Complete</p>
                   {selectedPeriod === 'today' && periodData.total - periodData.completed > 0 && (
                     <p className='text-xs text-stone-500 mt-2 font-semibold'>
                       {periodData.total - periodData.completed} remaining today
@@ -548,7 +567,6 @@ export function IndividualDashboard({
               </div>
             </div>
           </div>
-        )}
       </Card>
 
       {/* Company Goal Context - Moved below scoreboard */}
@@ -589,7 +607,7 @@ export function IndividualDashboard({
             {selectedPeriod === 'today' ? "Today's" : selectedPeriod === 'this-week' ? 'This Week\'s' : selectedPeriod === 'this-month' ? 'This Month\'s' : 'This Quarter\'s'} Execution
           </p>
           <p className='text-xs font-semibold text-stone-500'>
-            {periodData.completed} of {periodData.total} power moves · {periodData.total - periodData.completed} remaining
+            {periodData.completed} of {periodData.total} power move actions · {periodData.total - periodData.completed} remaining
           </p>
         </div>
       </div>

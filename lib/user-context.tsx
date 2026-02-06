@@ -25,6 +25,7 @@ interface UserContextValue {
   setCurrentUser: (user: User | null) => void
   isAssignedTo: (brand: Brand, department: Department) => boolean
   getUserAssignments: () => UserAssignment[]
+  isLoading: boolean
 }
 
 const UserContext = createContext<UserContextValue | undefined>(undefined)
@@ -69,18 +70,21 @@ const SAMPLE_USERS: User[] = [
 
 export function UserProvider({ children }: { children: ReactNode }) {
   const [currentUser, setCurrentUser] = useState<User | null>(null)
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     let isActive = true
 
     const loadUser = async () => {
       try {
+        setIsLoading(true)
         const { data: sessionData, error: sessionError } = await supabase.auth.getSession()
         if (sessionError) throw sessionError
 
         const accessToken = sessionData.session?.access_token
         if (!accessToken) {
           if (isActive) setCurrentUser(null)
+          if (isActive) setIsLoading(false)
           return
         }
 
@@ -91,13 +95,16 @@ export function UserProvider({ children }: { children: ReactNode }) {
 
         if (!response.ok) {
           if (isActive) setCurrentUser(null)
+          if (isActive) setIsLoading(false)
           return
         }
 
         const result = await response.json()
         if (isActive) setCurrentUser(result?.user || null)
+        if (isActive) setIsLoading(false)
       } catch {
         if (isActive) setCurrentUser(null)
+        if (isActive) setIsLoading(false)
       }
     }
 
@@ -107,6 +114,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
       if (!isActive) return
       if (event === "SIGNED_OUT") {
         setCurrentUser(null)
+        setIsLoading(false)
         return
       }
       if (event === "SIGNED_IN" || event === "TOKEN_REFRESHED") {
@@ -130,7 +138,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
   }
 
   return (
-    <UserContext.Provider value={{ currentUser, setCurrentUser, isAssignedTo, getUserAssignments }}>
+    <UserContext.Provider value={{ currentUser, setCurrentUser, isAssignedTo, getUserAssignments, isLoading }}>
       {children}
     </UserContext.Provider>
   )

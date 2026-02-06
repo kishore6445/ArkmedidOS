@@ -26,7 +26,7 @@ type UseDepartmentVictoryTargetsResult = {
 export function useDepartmentVictoryTargets(department: DepartmentCode): UseDepartmentVictoryTargetsResult {
   const { currentBrand } = useBrand()
   const [victoryTargets, setVictoryTargets] = useState<DepartmentVictoryTarget[]>([])
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
@@ -37,7 +37,7 @@ export function useDepartmentVictoryTargets(department: DepartmentCode): UseDepa
       setError(null)
 
       try {
-        const response = await fetch("/api/admin/victory-targets", { cache: "no-store" })
+        const response = await fetch("/api/admin/victory-targets", { cache: "force-cache" })
         const result = await response.json().catch(() => ({}))
 
         if (!response.ok) {
