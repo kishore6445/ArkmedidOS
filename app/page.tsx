@@ -60,11 +60,12 @@ export default function HomePage() {
             {/* Mission Numbers with Count-Up Animation */}
             <div className="space-y-12">
               <p className="text-base font-semibold text-slate-900">
-                Your role is mission-critical.
+                New clients to onboard across 2026.
               </p>
               
               <div className="flex flex-col md:flex-row gap-16 md:gap-24">
                 <div className="space-y-3 animate-count-up group cursor-pointer" style={{ animationDelay: "0.2s" }}>
+                  <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest">To Onboard</p>
                   <p className="text-7xl md:text-8xl font-light text-slate-900 group-hover:text-slate-700 transition">
                     30
                   </p>
@@ -72,6 +73,7 @@ export default function HomePage() {
                   <div className="h-1 w-20 bg-slate-900 rounded-full group-hover:w-32 transition-all duration-500"></div>
                 </div>
                 <div className="space-y-3 animate-count-up group cursor-pointer" style={{ animationDelay: "0.35s" }}>
+                  <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest">To Onboard</p>
                   <p className="text-7xl md:text-8xl font-light text-slate-900 group-hover:text-slate-700 transition">
                     18
                   </p>
@@ -79,6 +81,7 @@ export default function HomePage() {
                   <div className="h-1 w-20 bg-slate-900 rounded-full group-hover:w-32 transition-all duration-500"></div>
                 </div>
                 <div className="space-y-3 animate-count-up group cursor-pointer" style={{ animationDelay: "0.5s" }}>
+                  <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest">To Onboard</p>
                   <p className="text-7xl md:text-8xl font-light text-slate-900 group-hover:text-slate-700 transition">
                     2
                   </p>
@@ -88,7 +91,7 @@ export default function HomePage() {
               </div>
               
               <p className="text-sm font-light text-slate-600 pt-8 border-t border-slate-100">
-                50 clients onboarded across all three brands. This is how we scale ArkMedis.
+                50 new clients to onboard across all three brands. This is how we scale ArkMedis in 2026.
               </p>
             </div>
 
@@ -155,11 +158,9 @@ export default function HomePage() {
                     {brand.description}
                   </p>
                   <div className="bg-slate-50 p-4 rounded border border-slate-100 text-center group-hover:bg-slate-900 group-hover:border-slate-900 transition-all">
-                    <p className="text-2xl font-semibold text-slate-900 group-hover:text-white transition animate-count-up" style={{ animationDelay: `${0.5 + i * 0.1}s` }}>
-                      {brand.target}
-                    </p>
-                    <p className="text-xs font-medium text-slate-600 group-hover:text-slate-300 transition mt-1">
-                      {brand.label}
+                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-2 group-hover:text-slate-400">To Onboard</p>
+                    <p className="text-3xl font-semibold text-slate-900 group-hover:text-white transition animate-count-up" style={{ animationDelay: `${0.5 + i * 0.1}s` }}>
+                      +{brand.target}
                     </p>
                   </div>
                 </div>
