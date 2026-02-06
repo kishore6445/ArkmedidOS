@@ -101,10 +101,46 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Message to the Team - Motivation & Ownership */}
-        <section className="border-b border-slate-100 bg-gradient-to-b from-slate-50/50 to-white animate-slide-in-up" style={{ animationDelay: "0.5s" }}>
+        {/* Mission Success = Your Growth Section */}
+        <section className="border-b border-slate-100 bg-slate-50 animate-slide-in-up" style={{ animationDelay: "0.5s" }}>
           <div className="mx-auto max-w-5xl px-6 py-20 space-y-12">
-            <div className="space-y-3">
+            <div className="space-y-4">
+              <h2 className="text-4xl md:text-5xl font-light text-slate-900">
+                Mission success means your growth.
+              </h2>
+              <p className="text-lg font-light text-slate-700 max-w-2xl leading-relaxed">
+                When ArkMedis wins, you win.
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {[
+                {
+                  title: "Financial Growth",
+                  desc: "As ArkMedis grows revenue, your financial rewards grow with it. Growth is shared, not hidden."
+                },
+                {
+                  title: "Skill Mastery",
+                  desc: "ArkMedis is in a growth phase. You learn faster by working closely with founders and leaders on real problems."
+                },
+                {
+                  title: "Career Momentum",
+                  desc: "You build a strong reputation by owning important work in a successful startup. That reputation opens bigger opportunities and faster growth."
+                }
+              ].map((item, i) => (
+                <div key={i} className="p-6 bg-white border border-slate-200 rounded hover:shadow-lg hover:border-slate-400 transition-all">
+                  <p className="text-sm font-semibold text-slate-900 mb-3">{item.title}</p>
+                  <p className="text-sm font-light text-slate-700 leading-relaxed">{item.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Your Role Matters - Ownership & Growth */}
+        <section className="border-b border-slate-100 bg-gradient-to-b from-white to-slate-50/50 animate-slide-in-up" style={{ animationDelay: "0.6s" }}>
+          <div className="mx-auto max-w-5xl px-6 py-20 space-y-12">
+            <div className="space-y-4">
               <h2 className="text-4xl md:text-5xl font-light text-slate-900">
                 Your Role Matters
               </h2>
@@ -113,26 +149,15 @@ export default function HomePage() {
               </p>
             </div>
             
-            <div className="max-w-3xl space-y-8 text-base font-light text-slate-800 leading-relaxed">
-              <div className="space-y-4 grid grid-cols-1 md:grid-cols-3 gap-6">
-                {[
-                  "Your work matters.",
-                  "Your consistency matters.",
-                  "Your integrity matters."
-                ].map((msg, i) => (
-                  <div
-                    key={i}
-                    className="p-4 bg-white border border-slate-100 rounded hover:shadow-md hover:border-slate-300 transition-all text-center"
-                  >
-                    <p className="text-sm font-semibold text-slate-900">{msg}</p>
-                  </div>
-                ))}
-              </div>
-              
-              <div className="space-y-4 p-6 border-l-2 border-slate-900 pl-6 bg-white rounded">
-                <p className="text-lg text-slate-900 font-semibold">The mission is achieved one focused day at a time.</p>
-                <p className="text-sm text-slate-700">This is how today's work becomes tomorrow's results.</p>
-              </div>
+            <div className="space-y-4 p-6 border-l-2 border-slate-900 pl-6 bg-white rounded">
+              <p className="text-lg text-slate-900 font-semibold">The mission is achieved one focused day at a time.</p>
+              <p className="text-sm text-slate-700">This is how today's work becomes tomorrow's results.</p>
+            </div>
+
+            <div className="pt-4">
+              <p className="text-lg font-light text-slate-900">
+                You don't just work here. <span className="font-semibold">You grow here.</span>
+              </p>
             </div>
 
             <div className="flex flex-col sm:flex-row items-center gap-4 pt-6">
