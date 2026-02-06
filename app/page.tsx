@@ -42,36 +42,52 @@ export default function HomePage() {
         <section className="mx-auto w-full max-w-6xl px-6 py-20 relative">
           {/* Background decorative elements */}
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            <div className="absolute top-10 right-20 w-72 h-72 bg-primary/10 rounded-full blur-3xl animate-float"></div>
-            <div className="absolute top-40 left-10 w-96 h-96 bg-accent/10 rounded-full blur-3xl animate-float" style={{animationDelay: '1s'}}></div>
+            <div className="absolute top-10 right-20 w-72 h-72 bg-blue-400/15 rounded-full blur-3xl animate-float"></div>
+            <div className="absolute top-40 left-10 w-96 h-96 bg-pink-400/15 rounded-full blur-3xl animate-float" style={{animationDelay: '1s'}}></div>
+            <div className="absolute bottom-20 right-1/3 w-80 h-80 bg-cyan-400/10 rounded-full blur-3xl animate-float" style={{animationDelay: '2s'}}></div>
           </div>
 
           <div className="relative z-10 space-y-12">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 animate-slide-up">
-              <span className="inline-block w-2 h-2 rounded-full bg-accent animate-pulse"></span>
-              <p className="text-xs uppercase tracking-[0.3em] font-bold text-primary">2026 Mission</p>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/30 animate-slide-up">
+              <span className="inline-block w-2 h-2 rounded-full bg-pink-500 animate-pulse"></span>
+              <p className="text-xs uppercase tracking-[0.3em] font-bold text-blue-600">2026 Mission</p>
             </div>
 
-            <div className="space-y-6 max-w-4xl">
+            <div className="space-y-8 max-w-4xl">
               <h1 className="text-6xl md:text-7xl font-black leading-tight text-balance animate-slide-up" style={{animationDelay: '0.1s'}}>
-                Make work <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent animate-gradient-shift">meaningful.</span>
+                Build clarity.<br />Win <span className="bg-gradient-to-r from-blue-500 via-pink-500 to-cyan-500 bg-clip-text text-transparent animate-gradient-shift">together.</span>
               </h1>
-              <p className="text-xl md:text-2xl text-foreground/70 max-w-3xl leading-relaxed font-medium animate-slide-up" style={{animationDelay: '0.2s'}}>
+              
+              {/* 2026 Mission Goals */}
+              <div className="grid grid-cols-2 gap-4 md:gap-8 py-8 animate-slide-up" style={{animationDelay: '0.2s'}}>
+                <div className="group bg-gradient-to-br from-blue-500/20 to-blue-600/10 border border-blue-400/30 rounded-2xl p-6 hover:border-blue-400/60 hover:shadow-xl hover:shadow-blue-500/20 transition-all">
+                  <p className="text-sm uppercase tracking-widest font-bold text-blue-600 mb-2">Warrior Systems</p>
+                  <p className="text-4xl md:text-5xl font-black text-blue-600 group-hover:scale-110 transition-transform">30</p>
+                  <p className="text-xs md:text-sm text-foreground/70 font-semibold mt-3">Enterprise Clients</p>
+                </div>
+                <div className="group bg-gradient-to-br from-pink-500/20 to-pink-600/10 border border-pink-400/30 rounded-2xl p-6 hover:border-pink-400/60 hover:shadow-xl hover:shadow-pink-500/20 transition-all">
+                  <p className="text-sm uppercase tracking-widest font-bold text-pink-600 mb-2">Story Marketing</p>
+                  <p className="text-4xl md:text-5xl font-black text-pink-600 group-hover:scale-110 transition-transform">21</p>
+                  <p className="text-xs md:text-sm text-foreground/70 font-semibold mt-3">Growth Partners</p>
+                </div>
+              </div>
+
+              <p className="text-xl md:text-2xl text-foreground/70 max-w-3xl leading-relaxed font-medium animate-slide-up" style={{animationDelay: '0.3s'}}>
                 Stop managing chaos. Start building clarity. ArkMedis OS aligns your team, accelerates execution, and turns vision into victory.
               </p>
             </div>
 
-            <div className="flex flex-col sm:flex-row items-start gap-4 pt-8 animate-slide-up" style={{animationDelay: '0.3s'}}>
+            <div className="flex flex-col sm:flex-row items-start gap-4 pt-8 animate-slide-up" style={{animationDelay: '0.4s'}}>
               <Link
                 href="/signup"
-                className="group relative px-8 py-4 text-lg font-bold text-primary-foreground bg-gradient-to-r from-primary to-accent rounded-full hover:shadow-2xl hover:shadow-primary/30 hover:scale-110 transition-all duration-300"
+                className="group relative px-8 py-4 text-lg font-bold text-white bg-gradient-to-r from-blue-600 to-pink-600 rounded-full hover:shadow-2xl hover:shadow-blue-500/40 hover:scale-110 transition-all duration-300"
               >
                 Launch your workspace
-                <span className="absolute inset-0 rounded-full bg-gradient-to-r from-primary to-accent opacity-0 group-hover:opacity-20 transition-opacity blur"></span>
+                <span className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-600 to-pink-600 opacity-0 group-hover:opacity-30 transition-opacity blur"></span>
               </Link>
               <Link
                 href="/signin"
-                className="px-8 py-4 text-lg font-bold text-foreground border-2 border-foreground/10 rounded-full hover:border-primary hover:bg-primary/5 transition"
+                className="px-8 py-4 text-lg font-bold text-foreground border-2 border-foreground/15 rounded-full hover:border-blue-500 hover:bg-blue-500/10 transition"
               >
                 See it in action
               </Link>
@@ -81,60 +97,76 @@ export default function HomePage() {
 
         {/* Three Brands Section */}
         <section className="mx-auto w-full max-w-6xl px-6 py-20 relative">
-          <div className="space-y-12">
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            <div className="absolute -top-40 -right-40 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl"></div>
+            <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-orange-500/10 rounded-full blur-3xl"></div>
+          </div>
+
+          <div className="space-y-16 relative z-10">
             <div>
-              <p className="text-xs uppercase tracking-[0.4em] font-bold text-primary mb-4">ArkMedis Three</p>
-              <h2 className="text-5xl md:text-6xl font-black text-balance">Three Brands.<br />One Mission.</h2>
+              <p className="text-xs uppercase tracking-[0.4em] font-bold text-blue-600 mb-4">ArkMedis Three</p>
+              <h2 className="text-5xl md:text-6xl font-black text-balance leading-tight">Three Brands.<br />One <span className="bg-gradient-to-r from-blue-600 via-pink-600 to-cyan-600 bg-clip-text text-transparent">Victory.</span></h2>
             </div>
 
             <div className="grid gap-6 md:grid-cols-3">
-              {[
-                {
-                  name: "Warrior Systems",
-                  subtitle: "Execution systems for founders and leadership teams",
-                  icon: "🛡️",
-                  color: "from-primary",
-                  description: "Turn strategy into action with crystal-clear execution frameworks"
-                },
-                {
-                  name: "Story Marketing",
-                  subtitle: "Clarity-led marketing systems that build trust",
-                  icon: "📖",
-                  color: "from-accent",
-                  description: "Tell stories that resonate and build lasting brand connections"
-                },
-                {
-                  name: "MetaGurukul",
-                  subtitle: "Learning ecosystem focused on depth and discipline",
-                  icon: "🌳",
-                  color: "from-success",
-                  description: "Develop leaders who think deeply and execute decisively"
-                },
-              ].map((brand, i) => (
-                <div
-                  key={brand.name}
-                  className={`group relative bg-gradient-to-br ${brand.color} to-transparent p-8 rounded-2xl border border-foreground/10 backdrop-blur-sm hover:border-foreground/30 hover:shadow-xl transition-all duration-300 cursor-pointer overflow-hidden`}
-                  style={{ animationDelay: `${i * 0.1}s` }}
-                >
-                  {/* Glow effect */}
-                  <div className={`absolute inset-0 bg-gradient-to-br ${brand.color} to-transparent opacity-0 group-hover:opacity-10 transition-opacity`}></div>
+              {/* Warrior Systems */}
+              <div className="group relative h-full">
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-500 via-blue-600 to-purple-600 rounded-3xl opacity-0 group-hover:opacity-20 blur-2xl transition-opacity"></div>
+                <div className="relative bg-gradient-to-br from-blue-500/15 to-blue-600/5 border-2 border-blue-400/40 rounded-3xl p-8 h-full hover:border-blue-400/80 hover:shadow-2xl hover:shadow-blue-500/30 transition-all duration-500 group cursor-pointer overflow-hidden">
+                  <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-blue-400/20 to-transparent rounded-full -mr-20 -mt-20 group-hover:scale-150 transition-transform duration-500"></div>
                   
                   <div className="relative z-10">
-                    <div className="text-6xl mb-4 group-hover:scale-125 transition-transform duration-300">{brand.icon}</div>
-                    <h3 className="text-2xl font-black text-foreground group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-primary group-hover:to-accent group-hover:bg-clip-text transition-all">{brand.name}</h3>
-                    <p className="text-sm text-foreground/60 font-semibold mt-2">{brand.subtitle}</p>
-                    <p className="text-foreground/70 mt-4 text-sm leading-relaxed">{brand.description}</p>
-                    <div className="mt-6 inline-flex items-center gap-2 text-primary font-bold text-sm group-hover:gap-4 transition-all">
-                      Learn more <span className="group-hover:translate-x-1 transition-transform">→</span>
+                    <div className="text-6xl mb-6 group-hover:scale-125 transition-transform duration-500">🛡️</div>
+                    <h3 className="text-3xl font-black text-blue-700 mb-2">Warrior Systems</h3>
+                    <p className="text-sm font-bold text-blue-600 mb-4 uppercase tracking-wide">Execution + Leadership</p>
+                    <p className="text-foreground/80 mb-6 text-sm leading-relaxed font-medium">Turn strategy into unstoppable action with crystal-clear execution frameworks built for teams that win.</p>
+                    <div className="flex items-center gap-2 text-blue-600 font-bold text-sm group-hover:gap-4 transition-all">
+                      Explore <span className="group-hover:translate-x-1 transition-transform">→</span>
                     </div>
                   </div>
                 </div>
-              ))}
+              </div>
+
+              {/* Story Marketing */}
+              <div className="group relative h-full">
+                <div className="absolute inset-0 bg-gradient-to-br from-pink-500 via-pink-600 to-red-600 rounded-3xl opacity-0 group-hover:opacity-20 blur-2xl transition-opacity"></div>
+                <div className="relative bg-gradient-to-br from-pink-500/15 to-pink-600/5 border-2 border-pink-400/40 rounded-3xl p-8 h-full hover:border-pink-400/80 hover:shadow-2xl hover:shadow-pink-500/30 transition-all duration-500 group cursor-pointer overflow-hidden">
+                  <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-pink-400/20 to-transparent rounded-full -mr-20 -mt-20 group-hover:scale-150 transition-transform duration-500"></div>
+                  
+                  <div className="relative z-10">
+                    <div className="text-6xl mb-6 group-hover:scale-125 transition-transform duration-500">📖</div>
+                    <h3 className="text-3xl font-black text-pink-700 mb-2">Story Marketing</h3>
+                    <p className="text-sm font-bold text-pink-600 mb-4 uppercase tracking-wide">Brand + Clarity</p>
+                    <p className="text-foreground/80 mb-6 text-sm leading-relaxed font-medium">Craft narratives that resonate, build trust, and create lasting connections with your market.</p>
+                    <div className="flex items-center gap-2 text-pink-600 font-bold text-sm group-hover:gap-4 transition-all">
+                      Explore <span className="group-hover:translate-x-1 transition-transform">→</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* MetaGurukul */}
+              <div className="group relative h-full">
+                <div className="absolute inset-0 bg-gradient-to-br from-cyan-500 via-teal-600 to-green-600 rounded-3xl opacity-0 group-hover:opacity-20 blur-2xl transition-opacity"></div>
+                <div className="relative bg-gradient-to-br from-cyan-500/15 to-cyan-600/5 border-2 border-cyan-400/40 rounded-3xl p-8 h-full hover:border-cyan-400/80 hover:shadow-2xl hover:shadow-cyan-500/30 transition-all duration-500 group cursor-pointer overflow-hidden">
+                  <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-cyan-400/20 to-transparent rounded-full -mr-20 -mt-20 group-hover:scale-150 transition-transform duration-500"></div>
+                  
+                  <div className="relative z-10">
+                    <div className="text-6xl mb-6 group-hover:scale-125 transition-transform duration-500">🌳</div>
+                    <h3 className="text-3xl font-black text-cyan-700 mb-2">MetaGurukul</h3>
+                    <p className="text-sm font-bold text-cyan-600 mb-4 uppercase tracking-wide">Learning + Growth</p>
+                    <p className="text-foreground/80 mb-6 text-sm leading-relaxed font-medium">Develop leaders who think deeply, act decisively, and inspire transformation in others.</p>
+                    <div className="flex items-center gap-2 text-cyan-600 font-bold text-sm group-hover:gap-4 transition-all">
+                      Explore <span className="group-hover:translate-x-1 transition-transform">→</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <p className="text-center text-foreground/60 text-sm font-semibold pt-8 border-t border-foreground/10">
-              Different missions. One company. One execution standard.
-            </p>
+            <div className="text-center pt-8">
+              <p className="text-foreground/70 text-sm font-semibold">Different missions. One company. One execution standard.</p>
+            </div>
           </div>
         </section>
 
