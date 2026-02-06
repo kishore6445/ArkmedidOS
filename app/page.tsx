@@ -4,31 +4,35 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-white text-slate-900">
       {/* Navigation */}
-      <header className="border-b border-slate-100">
-        <div className="mx-auto max-w-5xl px-6 py-8 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded bg-slate-900 text-white text-xs font-bold">
-              A
+      <header className="border-b border-slate-100 sticky top-0 bg-white/95 backdrop-blur-sm z-40">
+        <div className="mx-auto max-w-5xl px-6 py-6 flex items-center justify-between">
+          <div className="flex items-center gap-3 group cursor-pointer">
+            <div className="flex h-9 w-9 items-center justify-center rounded bg-slate-900 text-white text-xs font-bold group-hover:shadow-lg group-hover:shadow-slate-400 transition-all">
+              ◆
             </div>
-            <span className="text-sm font-medium text-slate-900">ArkMedis OS</span>
+            <span className="text-sm font-semibold text-slate-900">ArkMedis OS</span>
           </div>
           
           <div className="flex items-center gap-8">
-            <div className="hidden sm:block text-xs text-slate-500 font-medium tracking-wide">
-              Secure • Role-based access • Audit logs
+            <div className="hidden sm:block text-xs text-slate-500 font-medium tracking-wide space-x-2">
+              <span className="inline-block px-2 py-1 rounded hover:bg-slate-50 transition">Secure</span>
+              <span>•</span>
+              <span className="inline-block px-2 py-1 rounded hover:bg-slate-50 transition">Role-based</span>
+              <span>•</span>
+              <span className="inline-block px-2 py-1 rounded hover:bg-slate-50 transition">Audit logs</span>
             </div>
             <div className="flex items-center gap-3">
               <Link
                 href="/signin"
-                className="px-4 py-2 text-sm font-medium text-slate-900 hover:text-slate-700 transition"
+                className="px-4 py-2 text-sm font-medium text-slate-900 hover:text-slate-600 hover:bg-slate-50 rounded transition"
               >
                 Sign in
               </Link>
               <Link
                 href="/signup"
-                className="px-4 py-2 text-sm font-medium bg-slate-900 text-white rounded-sm hover:bg-slate-800 transition"
+                className="px-4 py-2 text-sm font-semibold bg-slate-900 text-white rounded hover:bg-slate-800 hover:shadow-lg transition-all"
               >
-                Create workspace
+                Start free
               </Link>
             </div>
           </div>
@@ -59,28 +63,35 @@ export default function HomePage() {
                 Your role is mission-critical.
               </p>
               
-              <div className="flex flex-col md:flex-row gap-20">
-                <div className="space-y-2 animate-count-up" style={{ animationDelay: "0.1s" }}>
-                  <p className="text-6xl font-light text-slate-900">30</p>
-                  <p className="text-sm font-medium text-slate-600">Warrior Systems</p>
+              <div className="flex flex-col md:flex-row gap-16 md:gap-24">
+                <div className="space-y-3 animate-count-up group cursor-pointer" style={{ animationDelay: "0.2s" }}>
+                  <p className="text-7xl md:text-8xl font-light text-slate-900 group-hover:text-slate-700 transition">
+                    20
+                  </p>
+                  <p className="text-sm font-semibold text-slate-600">Warrior Systems</p>
+                  <div className="h-1 w-20 bg-slate-900 rounded-full group-hover:w-32 transition-all duration-500"></div>
                 </div>
-                <div className="space-y-2 animate-count-up" style={{ animationDelay: "0.2s" }}>
-                  <p className="text-6xl font-light text-slate-900">18</p>
-                  <p className="text-sm font-medium text-slate-600">Story Marketing</p>
-                </div>
-                <div className="space-y-2 animate-count-up" style={{ animationDelay: "0.3s" }}>
-                  <p className="text-6xl font-light text-slate-900">2</p>
-                  <p className="text-sm font-medium text-slate-600">MetaGurukul</p>
+                <div className="space-y-3 animate-count-up group cursor-pointer" style={{ animationDelay: "0.35s" }}>
+                  <p className="text-7xl md:text-8xl font-light text-slate-900 group-hover:text-slate-700 transition">
+                    21
+                  </p>
+                  <p className="text-sm font-semibold text-slate-600">Story Marketing</p>
+                  <div className="h-1 w-20 bg-slate-900 rounded-full group-hover:w-32 transition-all duration-500"></div>
                 </div>
               </div>
+              
+              <p className="text-sm font-light text-slate-600 pt-8 border-t border-slate-100">
+                50 clients across all brands. Achieved through focus, execution, and teamwork.
+              </p>
             </div>
 
             <div className="space-y-6">
               <Link
                 href="/signin"
-                className="inline-block px-6 py-3 bg-slate-900 text-white text-sm font-medium rounded-sm hover:bg-slate-800 transition"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-slate-900 text-white text-sm font-semibold rounded hover:bg-slate-800 hover:shadow-lg hover:shadow-slate-400/30 transition-all group"
               >
                 Sign in
+                <span className="group-hover:translate-x-1 transition-transform">→</span>
               </Link>
               <p className="text-xs text-slate-500 font-medium">
                 For ArkMedis team members and partners
@@ -101,7 +112,7 @@ export default function HomePage() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {[
                 {
                   title: "Warrior Systems",
@@ -118,13 +129,16 @@ export default function HomePage() {
               ].map((brand, i) => (
                 <div
                   key={brand.title}
-                  className="p-8 border border-slate-100 rounded-sm hover:border-slate-200 transition bg-white"
+                  className="group p-6 border border-slate-200 rounded hover:border-slate-400 hover:shadow-md hover:shadow-slate-200 transition-all duration-500 cursor-pointer bg-white"
                   style={{ animationDelay: `${0.5 + i * 0.1}s` }}
                 >
-                  <h3 className="text-base font-semibold text-slate-900 mb-4">
-                    {brand.title}
-                  </h3>
-                  <p className="text-sm font-light text-slate-600 leading-relaxed">
+                  <div className="flex items-start justify-between mb-4">
+                    <h3 className="text-base font-semibold text-slate-900 flex-1 group-hover:text-slate-700 transition">
+                      {brand.title}
+                    </h3>
+                    <span className="text-xl ml-2 group-hover:scale-125 transition-transform origin-right">→</span>
+                  </div>
+                  <p className="text-sm font-light text-slate-600 leading-relaxed group-hover:text-slate-700 transition">
                     {brand.description}
                   </p>
                 </div>
@@ -140,7 +154,7 @@ export default function HomePage() {
         </section>
 
         {/* Why This System Exists */}
-        <section className="border-b border-slate-100 animate-slide-in-up" style={{ animationDelay: "0.6s" }}>
+        <section className="border-b border-slate-100 bg-gradient-to-b from-slate-50/50 to-white animate-slide-in-up" style={{ animationDelay: "0.6s" }}>
           <div className="mx-auto max-w-5xl px-6 py-32 space-y-12">
             <h2 className="text-5xl font-light text-slate-900">
               Why This System Exists
@@ -155,9 +169,15 @@ export default function HomePage() {
                 It removes confusion, clarifies priorities, and makes progress visible—so your daily work moves the mission forward.
               </p>
               
-              <div className="space-y-3 text-sm font-light text-slate-600">
-                <p>If something matters, it is visible here.</p>
-                <p>If it is visible, it is supported.</p>
+              <div className="space-y-3 text-sm font-light text-slate-700 max-w-2xl">
+                <div className="group flex items-start gap-4 p-3 rounded hover:bg-slate-100 transition cursor-pointer">
+                  <span className="text-slate-400 group-hover:text-slate-600 transition mt-1">→</span>
+                  <p>If something matters, it is visible here.</p>
+                </div>
+                <div className="group flex items-start gap-4 p-3 rounded hover:bg-slate-100 transition cursor-pointer">
+                  <span className="text-slate-400 group-hover:text-slate-600 transition mt-1">→</span>
+                  <p>If it is visible, it is supported.</p>
+                </div>
               </div>
             </div>
           </div>
@@ -170,15 +190,26 @@ export default function HomePage() {
               How We Work
             </h2>
             
-            <div className="space-y-8">
-              <div className="max-w-2xl space-y-5 text-base font-light text-slate-700">
-                <p>Clarity before speed — so decisions are faster.</p>
-                <p>Ownership over excuses — so work moves forward.</p>
-                <p>Systems over shortcuts — so progress compounds.</p>
-                <p>Long-term over short-term wins — so growth lasts.</p>
+            <div className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl">
+                {[
+                  "Clarity before speed — so decisions are faster.",
+                  "Ownership over excuses — so work moves forward.",
+                  "Systems over shortcuts — so progress compounds.",
+                  "Long-term over short-term wins — so growth lasts."
+                ].map((principle, i) => (
+                  <div
+                    key={i}
+                    className="group p-4 border border-slate-100 rounded hover:border-slate-300 hover:bg-slate-50 transition-all cursor-pointer"
+                  >
+                    <p className="text-sm font-light text-slate-700 group-hover:text-slate-900 transition">
+                      {principle}
+                    </p>
+                  </div>
+                ))}
               </div>
               
-              <p className="text-sm font-light text-slate-600 pt-4">
+              <p className="text-sm font-light text-slate-600 pt-4 border-t border-slate-100">
                 These principles protect your focus and help you succeed.
               </p>
             </div>
@@ -186,58 +217,71 @@ export default function HomePage() {
         </section>
 
         {/* What You'll Find Inside ArkMedis OS */}
-        <section className="border-b border-slate-100 animate-slide-in-up" style={{ animationDelay: "0.8s" }}>
+        <section className="border-b border-slate-100 bg-gradient-to-b from-white to-slate-50/50 animate-slide-in-up" style={{ animationDelay: "0.8s" }}>
           <div className="mx-auto max-w-5xl px-6 py-32 space-y-12">
             <h2 className="text-5xl font-light text-slate-900">
-              What You'll Find Inside ArkMedis OS
+              What You'll Find Inside
             </h2>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-2xl">
-              <div className="text-sm font-light text-slate-700">
-                <p className="font-medium text-slate-900">Clear priorities and outcomes</p>
-              </div>
-              <div className="text-sm font-light text-slate-700">
-                <p className="font-medium text-slate-900">Daily Power Moves that drive momentum</p>
-              </div>
-              <div className="text-sm font-light text-slate-700">
-                <p className="font-medium text-slate-900">Visible owners and due dates</p>
-              </div>
-              <div className="text-sm font-light text-slate-700">
-                <p className="font-medium text-slate-900">Scorecards and weekly rhythms</p>
-              </div>
-              <div className="text-sm font-light text-slate-700">
-                <p className="font-medium text-slate-900">Less rework and fewer follow-ups</p>
-              </div>
-              <div className="text-sm font-light text-slate-700">
-                <p className="font-medium text-slate-900">Recognition for real progress</p>
-              </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl">
+              {[
+                "Clear priorities and outcomes",
+                "Daily Power Moves that drive momentum",
+                "Visible owners and due dates",
+                "Scorecards and weekly rhythms",
+                "Less rework and fewer follow-ups",
+                "Recognition for real progress"
+              ].map((feature, i) => (
+                <div
+                  key={i}
+                  className="group relative overflow-hidden p-4 border border-slate-100 rounded hover:border-slate-300 bg-white hover:bg-slate-50/80 transition-all cursor-pointer"
+                  style={{ animationDelay: `${0.8 + i * 0.05}s` }}
+                >
+                  <div className="absolute -left-1 top-0 h-full w-1 bg-slate-900 transform group-hover:w-1.5 transition-all"></div>
+                  <p className="text-sm font-light text-slate-700 group-hover:text-slate-900 transition pl-2">
+                    {feature}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
         </section>
 
         {/* Message to the Team */}
-        <section className="border-b border-slate-100 animate-slide-in-up" style={{ animationDelay: "0.9s" }}>
+        <section className="border-b border-slate-100 bg-gradient-to-b from-slate-50/50 to-white animate-slide-in-up" style={{ animationDelay: "0.9s" }}>
           <div className="mx-auto max-w-5xl px-6 py-32 space-y-12">
             <h2 className="text-5xl font-light text-slate-900">
               Message to the Team
             </h2>
             
-            <div className="max-w-2xl space-y-10 text-base font-light text-slate-700 leading-relaxed">
-              <p>You are not here to just complete tasks.</p>
-              
-              <p>
-                You are here to take ownership,<br />
-                build something meaningful,<br />
-                and grow in clarity, skill, and confidence.
+            <div className="max-w-3xl space-y-12 text-base font-light text-slate-700 leading-relaxed">
+              <p className="text-lg text-slate-900 font-medium animate-slide-in-left" style={{ animationDelay: "1s" }}>
+                You are not here to just complete tasks.
               </p>
               
-              <div className="space-y-3 text-sm text-slate-600">
-                <p>Your work matters.</p>
-                <p>Your consistency matters.</p>
-                <p>Your integrity matters.</p>
+              <div className="space-y-4 p-6 border-l-2 border-slate-900 pl-6 animate-slide-in-left" style={{ animationDelay: "1.1s" }}>
+                <p>You are here to take ownership,</p>
+                <p>build something meaningful,</p>
+                <p>and grow in clarity, skill, and confidence.</p>
               </div>
               
-              <p className="font-semibold text-slate-900 text-base pt-6">
+              <div className="space-y-4 grid grid-cols-1 md:grid-cols-3 gap-6">
+                {[
+                  "Your work matters.",
+                  "Your consistency matters.",
+                  "Your integrity matters."
+                ].map((msg, i) => (
+                  <div
+                    key={i}
+                    className="p-4 bg-white border border-slate-100 rounded hover:shadow-md hover:border-slate-300 transition-all animate-scale-in"
+                    style={{ animationDelay: `${1.2 + i * 0.1}s` }}
+                  >
+                    <p className="text-sm font-semibold text-slate-900">{msg}</p>
+                  </div>
+                ))}
+              </div>
+              
+              <p className="font-semibold text-slate-900 text-base pt-6 border-t border-slate-100 animate-slide-in-left" style={{ animationDelay: "1.5s" }}>
                 ArkMedis grows because people like you execute with ownership.
               </p>
             </div>
@@ -247,13 +291,29 @@ export default function HomePage() {
         {/* Closing Section */}
         <section className="animate-slide-in-up" style={{ animationDelay: "1s" }}>
           <div className="mx-auto max-w-5xl px-6 py-32 text-center space-y-8">
-            <h2 className="text-5xl md:text-6xl font-light text-slate-900 text-balance">
-              The mission is achieved one focused day at a time.
+            <h2 className="text-5xl md:text-6xl font-light text-slate-900 text-balance leading-tight">
+              The mission is achieved<br />
+              <span className="font-semibold text-slate-900">one focused day at a time.</span>
             </h2>
             
-            <p className="text-base font-light text-slate-600 leading-relaxed">
+            <p className="text-base font-light text-slate-600 leading-relaxed max-w-2xl mx-auto">
               This is how today's work becomes tomorrow's results.
             </p>
+
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-12">
+              <Link
+                href="/signin"
+                className="px-6 py-3 bg-slate-900 text-white text-sm font-semibold rounded hover:bg-slate-800 hover:shadow-lg transition-all"
+              >
+                Sign in
+              </Link>
+              <Link
+                href="/signup"
+                className="px-6 py-3 border-2 border-slate-900 text-slate-900 text-sm font-semibold rounded hover:bg-slate-50 hover:shadow-md transition-all"
+              >
+                Create workspace
+              </Link>
+            </div>
           </div>
         </section>
       </main>
