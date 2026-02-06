@@ -298,7 +298,6 @@ export function DepartmentExecutionHero({
             </div>
           </div>
         ) : (
-          {/* MAIN SCOREBOARD - Loading State */}
           <div className='relative grid grid-cols-3 gap-3 w-full'>
             {/* Arrow 1 - Between Power Moves and Victory Targets */}
             <div className='absolute top-1/2 -translate-y-1/2 pointer-events-none z-20' style={{ left: 'calc(33.33% - 10px)' }}>
@@ -361,7 +360,7 @@ export function DepartmentExecutionHero({
               </div>
             </div>
           </div>
-        </div>
+        )}
 
         {/* WEEK SELECTOR - MOVED BELOW HERO (NOW SECONDARY) */}
         <div className='px-6 py-4 border-b border-stone-200 bg-white'>
