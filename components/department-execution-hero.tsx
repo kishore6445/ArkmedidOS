@@ -191,21 +191,21 @@ export function DepartmentExecutionHero({
               {/* Arrow 1 - Top */}
               <div className='absolute left-1/2 -translate-x-1/2' style={{ top: '25%' }}>
                 <ArrowRight 
-                  className='h-5 w-5'
-                  style={{ color: status?.color || '#10b981', opacity: 0.3 }}
+                  className='h-6 w-6'
+                  style={{ color: status?.color || '#10b981', opacity: 0.5 }}
                 />
               </div>
               
               {/* Arrow 2 - Center */}
               <div className='absolute left-1/2 -translate-x-1/2 -translate-y-1/2 top-1/2'>
-                <div className='relative w-12 h-12 flex items-center justify-center'>
+                <div className='relative w-14 h-14 flex items-center justify-center'>
                   <div 
                     className='absolute inset-0 rounded-full'
-                    style={{ backgroundColor: status?.color || '#10b981', opacity: 0.15 }}
+                    style={{ backgroundColor: status?.color || '#10b981', opacity: 0.2 }}
                   />
                   <ArrowRight 
-                    className='h-6 w-6 relative z-20'
-                    style={{ color: status?.color || '#10b981', opacity: 0.6 }}
+                    className='h-7 w-7 relative z-20'
+                    style={{ color: status?.color || '#10b981', opacity: 0.8 }}
                   />
                 </div>
               </div>
@@ -213,8 +213,8 @@ export function DepartmentExecutionHero({
               {/* Arrow 3 - Bottom */}
               <div className='absolute left-1/2 -translate-x-1/2' style={{ bottom: '25%' }}>
                 <ArrowRight 
-                  className='h-5 w-5'
-                  style={{ color: status?.color || '#10b981', opacity: 0.3 }}
+                  className='h-6 w-6'
+                  style={{ color: status?.color || '#10b981', opacity: 0.5 }}
                 />
               </div>
             </div>
@@ -463,21 +463,21 @@ export function DepartmentExecutionHero({
               {/* Arrow 1 - Top */}
               <div className='absolute left-1/2 -translate-x-1/2' style={{ top: '25%' }}>
                 <ArrowRight 
-                  className='h-5 w-5'
-                  style={{ color: status?.color || '#10b981', opacity: 0.3 }}
+                  className='h-6 w-6'
+                  style={{ color: status?.color || '#10b981', opacity: 0.5 }}
                 />
               </div>
               
               {/* Arrow 2 - Center */}
               <div className='absolute left-1/2 -translate-x-1/2 -translate-y-1/2 top-1/2'>
-                <div className='relative w-12 h-12 flex items-center justify-center'>
+                <div className='relative w-14 h-14 flex items-center justify-center'>
                   <div 
                     className='absolute inset-0 rounded-full'
-                    style={{ backgroundColor: status?.color || '#10b981', opacity: 0.15 }}
+                    style={{ backgroundColor: status?.color || '#10b981', opacity: 0.2 }}
                   />
                   <ArrowRight 
-                    className='h-6 w-6 relative z-20'
-                    style={{ color: status?.color || '#10b981', opacity: 0.6 }}
+                    className='h-7 w-7 relative z-20'
+                    style={{ color: status?.color || '#10b981', opacity: 0.8 }}
                   />
                 </div>
               </div>
@@ -485,8 +485,8 @@ export function DepartmentExecutionHero({
               {/* Arrow 3 - Bottom */}
               <div className='absolute left-1/2 -translate-x-1/2' style={{ bottom: '25%' }}>
                 <ArrowRight 
-                  className='h-5 w-5'
-                  style={{ color: status?.color || '#10b981', opacity: 0.3 }}
+                  className='h-6 w-6'
+                  style={{ color: status?.color || '#10b981', opacity: 0.5 }}
                 />
               </div>
             </div>
