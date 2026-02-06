@@ -10,7 +10,6 @@ import { cn } from "@/lib/utils"
 import { useUser } from "@/lib/user-context"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
 import Image from "next/image"
-import { WarGoalHierarchy } from "@/components/war-goal-hierarchy"
 
 type TimePeriod = "today" | "this-week" | "this-month" | "this-quarter"
 
@@ -402,9 +401,6 @@ export function IndividualDashboard({
 
   return (
     <section className='px-4 sm:px-6 lg:px-8 pb-8 space-y-6' aria-labelledby='personal-dashboard-heading'>
-      {/* War Goal Hierarchy - Shows connection between war goal, department targets, and power moves */}
-      <WarGoalHierarchy powerMoves={powerMoves} victoryTargets={victoryTargets} />
-
       {/* HERO CARD - Department-style scoreboard with individual identity */}
       <Card className='shadow-sm border border-stone-200 rounded-lg overflow-hidden'>
         {/* SCOREBOARD HEADER - Individual Identity with Photo */}
