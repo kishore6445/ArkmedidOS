@@ -184,37 +184,37 @@ export function DepartmentExecutionHero({
           {/* MAIN SCOREBOARD - Weekly Power Moves + Victory Targets */}
           <div className='relative grid grid-cols-2'>
             {/* Silent Structural Divider - 1px neutral grey line */}
-            <div className='absolute top-0 bottom-0 left-1/2 w-px bg-stone-200 -translate-x-1/2' />
+            <div className='absolute top-0 bottom-0 left-1/2 w-px bg-stone-200 -translate-x-1/2 z-0' />
 
             {/* Multiple Flow Arrows - Shows many power moves → victory targets relationship */}
-            <div className='absolute inset-0 flex items-center justify-center pointer-events-none'>
+            <div className='absolute inset-0 flex items-center justify-center pointer-events-none z-10'>
               {/* Arrow 1 - Top */}
-              <div className='absolute left-1/2 -translate-x-1/2' style={{ top: '25%', opacity: 0.25 }}>
+              <div className='absolute left-1/2 -translate-x-1/2' style={{ top: '25%' }}>
                 <ArrowRight 
                   className='h-5 w-5'
-                  style={{ color: status.color }}
+                  style={{ color: status?.color || '#10b981', opacity: 0.3 }}
                 />
               </div>
               
               {/* Arrow 2 - Center */}
-              <div className='absolute left-1/2 -translate-x-1/2 -translate-y-1/2 top-1/2' style={{ opacity: 0.4 }}>
+              <div className='absolute left-1/2 -translate-x-1/2 -translate-y-1/2 top-1/2'>
                 <div className='relative w-12 h-12 flex items-center justify-center'>
                   <div 
-                    className='absolute inset-0 rounded-full opacity-20'
-                    style={{ backgroundColor: status.color }}
+                    className='absolute inset-0 rounded-full'
+                    style={{ backgroundColor: status?.color || '#10b981', opacity: 0.15 }}
                   />
                   <ArrowRight 
-                    className='h-6 w-6 relative z-10'
-                    style={{ color: status.color }}
+                    className='h-6 w-6 relative z-20'
+                    style={{ color: status?.color || '#10b981', opacity: 0.6 }}
                   />
                 </div>
               </div>
               
               {/* Arrow 3 - Bottom */}
-              <div className='absolute left-1/2 -translate-x-1/2' style={{ bottom: '25%', opacity: 0.25 }}>
+              <div className='absolute left-1/2 -translate-x-1/2' style={{ bottom: '25%' }}>
                 <ArrowRight 
                   className='h-5 w-5'
-                  style={{ color: status.color }}
+                  style={{ color: status?.color || '#10b981', opacity: 0.3 }}
                 />
               </div>
             </div>
@@ -456,37 +456,37 @@ export function DepartmentExecutionHero({
           {/* MAIN SCOREBOARD - Two Columns with Visual Connection Arrow */}
           <div className='relative grid grid-cols-2'>
             {/* Enhanced Visual Divider - Color-coded arrow showing connection */}
-            <div className='absolute top-0 bottom-0 left-1/2 w-px bg-stone-200 -translate-x-1/2' />
+            <div className='absolute top-0 bottom-0 left-1/2 w-px bg-stone-200 -translate-x-1/2 z-0' />
             
             {/* Multiple Flow Arrows - Shows many power moves → victory targets relationship */}
-            <div className='absolute inset-0 flex items-center justify-center pointer-events-none'>
+            <div className='absolute inset-0 flex items-center justify-center pointer-events-none z-10'>
               {/* Arrow 1 - Top */}
-              <div className='absolute left-1/2 -translate-x-1/2' style={{ top: '25%', opacity: 0.25 }}>
+              <div className='absolute left-1/2 -translate-x-1/2' style={{ top: '25%' }}>
                 <ArrowRight 
                   className='h-5 w-5'
-                  style={{ color: status.color }}
+                  style={{ color: status?.color || '#10b981', opacity: 0.3 }}
                 />
               </div>
               
               {/* Arrow 2 - Center */}
-              <div className='absolute left-1/2 -translate-x-1/2 -translate-y-1/2 top-1/2' style={{ opacity: 0.4 }}>
+              <div className='absolute left-1/2 -translate-x-1/2 -translate-y-1/2 top-1/2'>
                 <div className='relative w-12 h-12 flex items-center justify-center'>
                   <div 
-                    className='absolute inset-0 rounded-full opacity-20'
-                    style={{ backgroundColor: status.color }}
+                    className='absolute inset-0 rounded-full'
+                    style={{ backgroundColor: status?.color || '#10b981', opacity: 0.15 }}
                   />
                   <ArrowRight 
-                    className='h-6 w-6 relative z-10'
-                    style={{ color: status.color }}
+                    className='h-6 w-6 relative z-20'
+                    style={{ color: status?.color || '#10b981', opacity: 0.6 }}
                   />
                 </div>
               </div>
               
               {/* Arrow 3 - Bottom */}
-              <div className='absolute left-1/2 -translate-x-1/2' style={{ bottom: '25%', opacity: 0.25 }}>
+              <div className='absolute left-1/2 -translate-x-1/2' style={{ bottom: '25%' }}>
                 <ArrowRight 
                   className='h-5 w-5'
-                  style={{ color: status.color }}
+                  style={{ color: status?.color || '#10b981', opacity: 0.3 }}
                 />
               </div>
             </div>
