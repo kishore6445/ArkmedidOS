@@ -52,14 +52,14 @@ export default function HomePage() {
                 This is the year we scale ArkMedis.
               </h1>
               
-              <p className="text-base font-light text-slate-600 max-w-2xl leading-relaxed">
-                30 clients for Warrior Systems. 18 for Story Marketing. 2 for MetaGurukul.
+              <p className="text-base font-light text-slate-700 max-w-2xl leading-relaxed">
+                30 clients for Warrior Systems. 18 for Story Marketing. 2 for MetaGurukul. This is how we grow.
               </p>
             </div>
 
             {/* Mission Numbers with Count-Up Animation */}
-            <div className="space-y-8">
-              <p className="text-sm font-semibold text-slate-900">
+            <div className="space-y-6">
+              <p className="text-base font-semibold text-slate-900">
                 New clients to onboard across 2026.
               </p>
               
@@ -97,15 +97,12 @@ export default function HomePage() {
 
             <div className="space-y-4">
               <Link
-                href="/signin"
-                className="inline-flex items-center gap-2 px-6 py-2 bg-slate-900 text-white text-sm font-semibold rounded hover:bg-slate-800 hover:shadow-lg transition-all group"
+                href="/signup"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-slate-900 text-white text-sm font-semibold rounded hover:bg-slate-800 hover:shadow-lg transition-all group"
               >
-                Sign in
+                Create workspace
                 <span className="group-hover:translate-x-1 transition-transform">→</span>
               </Link>
-              <p className="text-xs text-slate-500 font-medium">
-                For ArkMedis team members and partners
-              </p>
             </div>
           </div>
         </section>
@@ -158,7 +155,7 @@ export default function HomePage() {
                     {brand.description}
                   </p>
                   <div className="bg-slate-50 p-3 rounded border border-slate-100 text-center group-hover:bg-slate-900 group-hover:border-slate-900 transition-all">
-                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-1 group-hover:text-slate-400">To Onboard</p>
+                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-1 group-hover:text-slate-400">2026 Goal</p>
                     <p className="text-2xl font-semibold text-slate-900 group-hover:text-white transition animate-count-up" style={{ animationDelay: `${0.5 + i * 0.1}s` }}>
                       +{brand.target}
                     </p>
@@ -184,14 +181,14 @@ export default function HomePage() {
             
             <div className="space-y-8">
               <p className="text-base font-semibold text-slate-900">
-                ArkMedis Operating System exists to support you, never to monitor you.
+                ArkMedis Operating System is built to support you—your team, your work, your growth—never to monitor you.
               </p>
               
-              <p className="text-base font-light text-slate-600 leading-relaxed max-w-2xl">
+              <p className="text-base font-light text-slate-700 leading-relaxed max-w-2xl">
                 It removes confusion, clarifies priorities, and makes progress visible—so your daily work moves the mission forward.
               </p>
               
-              <div className="space-y-3 text-sm font-light text-slate-700 max-w-2xl">
+              <div className="space-y-3 text-sm font-light text-slate-800 max-w-2xl">
                 <div className="group flex items-start gap-4 p-3 rounded hover:bg-slate-100 transition cursor-pointer">
                   <span className="text-slate-400 group-hover:text-slate-600 transition mt-1">→</span>
                   <p>If something matters, it is visible here.</p>
@@ -224,14 +221,14 @@ export default function HomePage() {
                     key={i}
                     className="group p-4 border border-slate-100 rounded hover:border-slate-300 hover:bg-slate-50 transition-all cursor-pointer"
                   >
-                    <p className="text-sm font-light text-slate-700 group-hover:text-slate-900 transition">
+                    <p className="text-sm font-light text-slate-800 group-hover:text-slate-900 transition">
                       {principle}
                     </p>
                   </div>
                 ))}
               </div>
               
-              <p className="text-sm font-light text-slate-600 pt-4 border-t border-slate-100">
+              <p className="text-sm font-light text-slate-700 pt-4 border-t border-slate-100">
                 These principles protect your focus and help you succeed.
               </p>
             </div>
@@ -260,7 +257,7 @@ export default function HomePage() {
                   style={{ animationDelay: `${0.8 + i * 0.05}s` }}
                 >
                   <div className="absolute -left-1 top-0 h-full w-1 bg-slate-900 transform group-hover:w-1.5 transition-all"></div>
-                  <p className="text-sm font-light text-slate-700 group-hover:text-slate-900 transition pl-2">
+                  <p className="text-sm font-light text-slate-800 group-hover:text-slate-900 transition pl-2">
                     {feature}
                   </p>
                 </div>
@@ -276,7 +273,7 @@ export default function HomePage() {
               Message to the Team
             </h2>
             
-            <div className="max-w-3xl space-y-12 text-base font-light text-slate-700 leading-relaxed">
+            <div className="max-w-3xl space-y-12 text-base font-light text-slate-800 leading-relaxed">
               <p className="text-lg text-slate-900 font-medium animate-slide-in-left" style={{ animationDelay: "1s" }}>
                 You are not here to just complete tasks.
               </p>
@@ -287,7 +284,7 @@ export default function HomePage() {
                 <p>and grow in clarity, skill, and confidence.</p>
               </div>
               
-              <div className="space-y-4 grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="space-y-4 grid grid-cols-1 md:grid-cols-3 gap-6 border-t border-slate-100 pt-6">
                 {[
                   "Your work matters.",
                   "Your consistency matters.",
@@ -303,9 +300,11 @@ export default function HomePage() {
                 ))}
               </div>
               
-              <p className="font-semibold text-slate-900 text-base pt-6 border-t border-slate-100 animate-slide-in-left" style={{ animationDelay: "1.5s" }}>
-                ArkMedis grows because people like you execute with ownership.
-              </p>
+              <div className="pt-6">
+                <p className="font-semibold text-slate-900 text-base animate-slide-in-left" style={{ animationDelay: "1.5s" }}>
+                  Ready to move the mission forward?
+                </p>
+              </div>
             </div>
           </div>
         </section>
@@ -318,7 +317,7 @@ export default function HomePage() {
               <span className="font-semibold text-slate-900">one focused day at a time.</span>
             </h2>
             
-            <p className="text-base font-light text-slate-600 leading-relaxed max-w-2xl mx-auto">
+            <p className="text-base font-light text-slate-700 leading-relaxed max-w-2xl mx-auto">
               This is how today's work becomes tomorrow's results.
             </p>
 
@@ -341,17 +340,22 @@ export default function HomePage() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-slate-100">
-        <div className="mx-auto max-w-5xl px-6 py-12 flex flex-col sm:flex-row items-center justify-between gap-6 text-xs text-slate-500 font-medium">
-          <p>© 2026 ArkMedis</p>
-          <div className="flex items-center gap-6">
-            <Link href="#privacy" className="hover:text-slate-900 transition">
-              Privacy
-            </Link>
-            <span>•</span>
-            <Link href="#security" className="hover:text-slate-900 transition">
-              Security
-            </Link>
+      <footer className="border-t border-slate-100 bg-slate-50">
+        <div className="mx-auto max-w-5xl px-6 py-12 space-y-8">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+            <div className="space-y-2">
+              <p className="text-sm font-semibold text-slate-900">Built for teams that execute.</p>
+              <p className="text-xs text-slate-600">© 2026 ArkMedis</p>
+            </div>
+            <div className="flex items-center gap-6 text-xs text-slate-600 font-medium">
+              <Link href="#privacy" className="hover:text-slate-900 transition">
+                Privacy
+              </Link>
+              <span>•</span>
+              <Link href="#security" className="hover:text-slate-900 transition">
+                Security
+              </Link>
+            </div>
           </div>
         </div>
       </footer>
