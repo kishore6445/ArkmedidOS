@@ -183,47 +183,22 @@ export function DepartmentExecutionHero({
 
           {/* MAIN SCOREBOARD - Weekly Power Moves + Victory Targets */}
           <div className='relative grid grid-cols-2'>
-            {/* Silent Structural Divider - 1px neutral grey line */}
-            <div className='absolute top-0 bottom-0 left-1/2 w-px bg-stone-200 -translate-x-1/2 z-0' />
-
-            {/* Multiple Flow Arrows - Shows many power moves → victory targets relationship */}
-            <div className='absolute inset-0 flex items-center justify-center pointer-events-none z-10'>
-              {/* Arrow 1 - Top */}
-              <div className='absolute left-1/2 -translate-x-1/2' style={{ top: '25%' }}>
-                <ArrowRight 
-                  className='h-6 w-6'
-                  style={{ color: status?.color || '#10b981', opacity: 0.5 }}
-                />
-              </div>
-              
-              {/* Arrow 2 - Center */}
-              <div className='absolute left-1/2 -translate-x-1/2 -translate-y-1/2 top-1/2'>
-                <div className='relative w-14 h-14 flex items-center justify-center'>
-                  <div 
-                    className='absolute inset-0 rounded-full'
-                    style={{ backgroundColor: status?.color || '#10b981', opacity: 0.2 }}
-                  />
-                  <ArrowRight 
-                    className='h-7 w-7 relative z-20'
-                    style={{ color: status?.color || '#10b981', opacity: 0.8 }}
-                  />
-                </div>
-              </div>
-              
-              {/* Arrow 3 - Bottom */}
-              <div className='absolute left-1/2 -translate-x-1/2' style={{ bottom: '25%' }}>
-                <ArrowRight 
-                  className='h-6 w-6'
-                  style={{ color: status?.color || '#10b981', opacity: 0.5 }}
-                />
-              </div>
+            {/* Vertical Arrow Line - Stacked arrows showing power moves → victory targets */}
+            <div className='absolute top-0 bottom-0 left-1/2 -translate-x-1/2 flex flex-col items-center justify-center pointer-events-none z-10' style={{ width: '24px', gap: '4px' }}>
+              <ArrowRight className='h-5 w-5' style={{ color: status?.color || '#10b981', opacity: 0.4 }} />
+              <ArrowRight className='h-5 w-5' style={{ color: status?.color || '#10b981', opacity: 0.5 }} />
+              <ArrowRight className='h-5 w-5' style={{ color: status?.color || '#10b981', opacity: 0.6 }} />
+              <ArrowRight className='h-5 w-5' style={{ color: status?.color || '#10b981', opacity: 0.7 }} />
+              <ArrowRight className='h-5 w-5' style={{ color: status?.color || '#10b981', opacity: 0.6 }} />
+              <ArrowRight className='h-5 w-5' style={{ color: status?.color || '#10b981', opacity: 0.5 }} />
+              <ArrowRight className='h-5 w-5' style={{ color: status?.color || '#10b981', opacity: 0.4 }} />
             </div>
 
             {/* LEFT: WEEKLY POWER MOVES - Structured container */}
             <div className={cn(
-              'p-8 flex flex-col items-center justify-center text-center min-h-[280px] bg-[#F8FAFC] border-t-2 border-l-4',
+              'p-8 flex flex-col items-center justify-center text-center min-h-[280px] bg-[#F8FAFC] border-t-2',
               status.borderAccent
-            )} style={{ borderLeftColor: status.color }}>
+            )}>
               <div className='space-y-3'>
                 <p className='text-base font-black uppercase tracking-[0.15em] text-stone-900'>Weekly Power Moves</p>
                 <p className='text-xs font-semibold text-stone-500'>Actions executed this week (Lead Measures_TEST)</p>
@@ -270,7 +245,7 @@ export function DepartmentExecutionHero({
             </div>
 
             {/* RIGHT: DEPARTMENT VICTORY TARGETS - Color-coded right border */}
-            <div className='p-6 min-h-[280px] flex flex-col justify-center bg-white rounded-r-lg border-r-4' style={{ borderRightColor: status.color }}>
+            <div className='p-6 min-h-[280px] flex flex-col justify-center bg-white rounded-r-lg'>
               <div className='space-y-4'>
                 <div className='text-center mb-4'>
                   <p className='text-base font-black uppercase tracking-[0.15em] text-stone-900'>Department Victory Targets</p>
@@ -453,49 +428,24 @@ export function DepartmentExecutionHero({
             </div>
           </div>
 
-          {/* MAIN SCOREBOARD - Two Columns with Visual Connection Arrow */}
+          {/* MAIN SCOREBOARD - Two Columns with Vertical Arrow Line Connection */}
           <div className='relative grid grid-cols-2'>
-            {/* Enhanced Visual Divider - Color-coded arrow showing connection */}
-            <div className='absolute top-0 bottom-0 left-1/2 w-px bg-stone-200 -translate-x-1/2 z-0' />
-            
-            {/* Multiple Flow Arrows - Shows many power moves → victory targets relationship */}
-            <div className='absolute inset-0 flex items-center justify-center pointer-events-none z-10'>
-              {/* Arrow 1 - Top */}
-              <div className='absolute left-1/2 -translate-x-1/2' style={{ top: '25%' }}>
-                <ArrowRight 
-                  className='h-6 w-6'
-                  style={{ color: status?.color || '#10b981', opacity: 0.5 }}
-                />
-              </div>
-              
-              {/* Arrow 2 - Center */}
-              <div className='absolute left-1/2 -translate-x-1/2 -translate-y-1/2 top-1/2'>
-                <div className='relative w-14 h-14 flex items-center justify-center'>
-                  <div 
-                    className='absolute inset-0 rounded-full'
-                    style={{ backgroundColor: status?.color || '#10b981', opacity: 0.2 }}
-                  />
-                  <ArrowRight 
-                    className='h-7 w-7 relative z-20'
-                    style={{ color: status?.color || '#10b981', opacity: 0.8 }}
-                  />
-                </div>
-              </div>
-              
-              {/* Arrow 3 - Bottom */}
-              <div className='absolute left-1/2 -translate-x-1/2' style={{ bottom: '25%' }}>
-                <ArrowRight 
-                  className='h-6 w-6'
-                  style={{ color: status?.color || '#10b981', opacity: 0.5 }}
-                />
-              </div>
+            {/* Vertical Arrow Line - Stacked arrows showing power moves → victory targets */}
+            <div className='absolute top-0 bottom-0 left-1/2 -translate-x-1/2 flex flex-col items-center justify-center pointer-events-none z-10' style={{ width: '24px', gap: '4px' }}>
+              <ArrowRight className='h-5 w-5' style={{ color: status?.color || '#10b981', opacity: 0.4 }} />
+              <ArrowRight className='h-5 w-5' style={{ color: status?.color || '#10b981', opacity: 0.5 }} />
+              <ArrowRight className='h-5 w-5' style={{ color: status?.color || '#10b981', opacity: 0.6 }} />
+              <ArrowRight className='h-5 w-5' style={{ color: status?.color || '#10b981', opacity: 0.7 }} />
+              <ArrowRight className='h-5 w-5' style={{ color: status?.color || '#10b981', opacity: 0.6 }} />
+              <ArrowRight className='h-5 w-5' style={{ color: status?.color || '#10b981', opacity: 0.5 }} />
+              <ArrowRight className='h-5 w-5' style={{ color: status?.color || '#10b981', opacity: 0.4 }} />
             </div>
 
-            {/* LEFT: WEEKLY POWER MOVES - Color-coded left border showing connection */}
+            {/* LEFT: WEEKLY POWER MOVES - Clean container without border */}
             <div className={cn(
-              'p-8 flex flex-col items-center justify-center text-center min-h-[280px] bg-[#F8FAFC] border-t-2 border-l-4',
+              'p-8 flex flex-col items-center justify-center text-center min-h-[280px] bg-[#F8FAFC] border-t-2',
               status.borderAccent
-            )} style={{ borderLeftColor: status.color }}>
+            )}>
               <div className='space-y-3'>
                 <p className='text-base font-black uppercase tracking-[0.15em] text-stone-900'>Weekly Power Moves</p>
                 <p className='text-xs font-semibold text-stone-500'>Actions executed this week (Lead Measures)</p>
@@ -543,7 +493,7 @@ export function DepartmentExecutionHero({
             </div>
 
             {/* RIGHT: DEPARTMENT VICTORY TARGETS - Color-coded right border */}
-            <div className='p-6 min-h-[280px] flex flex-col justify-center bg-white rounded-r-lg border-r-4' style={{ borderRightColor: status.color }}>
+            <div className='p-6 min-h-[280px] flex flex-col justify-center bg-white rounded-r-lg'>
               <div className='space-y-4'>
                 <div className='text-center mb-4'>
                   <p className='text-base font-black uppercase tracking-[0.15em] text-stone-900'>Department Victory Targets</p>
