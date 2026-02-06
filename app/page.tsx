@@ -53,7 +53,7 @@ export default function HomePage() {
               </h1>
               
               <p className="text-base font-light text-slate-700 max-w-2xl leading-relaxed">
-                30 clients for Warrior Systems. 18 for Story Marketing. 2 for MetaGurukul. This is how we grow.
+                Our 2026 target: 50 new clients across three focused brands. This is how we grow.
               </p>
             </div>
 
