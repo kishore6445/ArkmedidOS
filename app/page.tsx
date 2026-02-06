@@ -53,7 +53,7 @@ export default function HomePage() {
               </h1>
               
               <p className="text-lg font-light text-slate-600 max-w-2xl leading-relaxed">
-                Onboard 50 clients across ArkMedis.
+                30 clients for Warrior Systems. 18 for Story Marketing. 2 for MetaGurukul.
               </p>
             </div>
 
@@ -66,22 +66,29 @@ export default function HomePage() {
               <div className="flex flex-col md:flex-row gap-16 md:gap-24">
                 <div className="space-y-3 animate-count-up group cursor-pointer" style={{ animationDelay: "0.2s" }}>
                   <p className="text-7xl md:text-8xl font-light text-slate-900 group-hover:text-slate-700 transition">
-                    20
+                    30
                   </p>
                   <p className="text-sm font-semibold text-slate-600">Warrior Systems</p>
                   <div className="h-1 w-20 bg-slate-900 rounded-full group-hover:w-32 transition-all duration-500"></div>
                 </div>
                 <div className="space-y-3 animate-count-up group cursor-pointer" style={{ animationDelay: "0.35s" }}>
                   <p className="text-7xl md:text-8xl font-light text-slate-900 group-hover:text-slate-700 transition">
-                    21
+                    18
                   </p>
                   <p className="text-sm font-semibold text-slate-600">Story Marketing</p>
+                  <div className="h-1 w-20 bg-slate-900 rounded-full group-hover:w-32 transition-all duration-500"></div>
+                </div>
+                <div className="space-y-3 animate-count-up group cursor-pointer" style={{ animationDelay: "0.5s" }}>
+                  <p className="text-7xl md:text-8xl font-light text-slate-900 group-hover:text-slate-700 transition">
+                    2
+                  </p>
+                  <p className="text-sm font-semibold text-slate-600">MetaGurukul</p>
                   <div className="h-1 w-20 bg-slate-900 rounded-full group-hover:w-32 transition-all duration-500"></div>
                 </div>
               </div>
               
               <p className="text-sm font-light text-slate-600 pt-8 border-t border-slate-100">
-                50 clients across all brands. Achieved through focus, execution, and teamwork.
+                50 clients onboarded across all three brands. This is how we scale ArkMedis.
               </p>
             </div>
 
@@ -116,15 +123,21 @@ export default function HomePage() {
               {[
                 {
                   title: "Warrior Systems",
-                  description: "Execution systems that help founders and leadership teams win with confidence."
+                  description: "Execution systems that help founders and leadership teams win with confidence.",
+                  target: 30,
+                  label: "Clients"
                 },
                 {
                   title: "Story Marketing",
-                  description: "Clarity-led marketing systems that build trust and drive growth."
+                  description: "Clarity-led marketing systems that build trust and drive growth.",
+                  target: 18,
+                  label: "Clients"
                 },
                 {
                   title: "MetaGurukul",
-                  description: "A high-impact learning ecosystem built on depth, discipline, and lifelong guidance."
+                  description: "A high-impact learning ecosystem built on depth, discipline, and lifelong guidance.",
+                  target: 2,
+                  label: "Clients"
                 }
               ].map((brand, i) => (
                 <div
@@ -138,9 +151,17 @@ export default function HomePage() {
                     </h3>
                     <span className="text-xl ml-2 group-hover:scale-125 transition-transform origin-right">→</span>
                   </div>
-                  <p className="text-sm font-light text-slate-600 leading-relaxed group-hover:text-slate-700 transition">
+                  <p className="text-sm font-light text-slate-600 leading-relaxed group-hover:text-slate-700 transition mb-6">
                     {brand.description}
                   </p>
+                  <div className="bg-slate-50 p-4 rounded border border-slate-100 text-center group-hover:bg-slate-900 group-hover:border-slate-900 transition-all">
+                    <p className="text-2xl font-semibold text-slate-900 group-hover:text-white transition animate-count-up" style={{ animationDelay: `${0.5 + i * 0.1}s` }}>
+                      {brand.target}
+                    </p>
+                    <p className="text-xs font-medium text-slate-600 group-hover:text-slate-300 transition mt-1">
+                      {brand.label}
+                    </p>
+                  </div>
                 </div>
               ))}
             </div>
