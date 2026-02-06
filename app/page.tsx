@@ -36,85 +36,53 @@ export default function HomePage() {
       <main>
         {/* Hero Section - Mission & Employee Future */}
         <section className="border-b border-slate-100">
-          <div className="mx-auto max-w-5xl px-6 py-16 space-y-12 animate-fade-in">
-            <div className="space-y-8">
-              <div className="space-y-4">
-                <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest">
-                  Mission 2026
-                </p>
-                
-                <h1 className="text-5xl md:text-6xl font-light leading-tight text-slate-900">
-                  This is the year we scale. And so do you.
-                </h1>
-                
-                <p className="text-base font-light text-slate-700 max-w-2xl leading-relaxed">
-                  50 new clients. 3 brands. 1 company. Your skills sharpen. Your network grows. Your future compounds.
-                </p>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-3xl">
-                {[
-                  { label: "Financial Growth", desc: "Revenue share and equity opportunities as we scale." },
-                  { label: "Skill Development", desc: "Build expertise across multiple industries and systems." },
-                  { label: "Leadership Path", desc: "From execution to ownership to leadership roles." }
-                ].map((item, i) => (
-                  <div key={i} className="p-4 bg-slate-50 border border-slate-200 rounded hover:bg-slate-900 hover:text-white hover:border-slate-900 transition-all cursor-pointer group">
-                    <p className="text-xs font-semibold uppercase tracking-widest text-slate-600 group-hover:text-slate-300 mb-2">{item.label}</p>
-                    <p className="text-sm font-light text-slate-700 group-hover:text-slate-200">{item.desc}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Mission Numbers with Personal Growth Outcomes */}
-            <div className="space-y-8">
-              <p className="text-base font-semibold text-slate-900">
-                What you'll achieve in 2026.
+          <div className="mx-auto max-w-5xl px-6 py-20 space-y-16 animate-fade-in">
+            <div className="space-y-6">
+              <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest">
+                Mission 2026
               </p>
               
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="space-y-3 group cursor-pointer">
-                  <div className="p-4 bg-slate-50 rounded group-hover:bg-slate-900 transition-all">
-                    <p className="text-xs font-semibold text-slate-500 group-hover:text-slate-400 uppercase tracking-widest">Warrior Systems</p>
-                    <p className="text-4xl md:text-5xl font-light text-slate-900 group-hover:text-white transition mt-2">30</p>
-                    <p className="text-xs font-light text-slate-600 group-hover:text-slate-300 mt-2">New clients onboarded</p>
-                  </div>
-                  <p className="text-sm font-light text-slate-700">You'll master execution systems, lead complex implementations, and build deep client relationships.</p>
-                </div>
+              <h1 className="text-5xl md:text-6xl font-light leading-tight text-slate-900">
+                We scale. You grow.
+              </h1>
+              
+              <p className="text-lg font-light text-slate-700 max-w-2xl leading-relaxed">
+                50 new clients. Your skills sharpen. Your network expands. Your financial opportunity grows.
+              </p>
+            </div>
 
-                <div className="space-y-3 group cursor-pointer">
-                  <div className="p-4 bg-slate-50 rounded group-hover:bg-slate-900 transition-all">
-                    <p className="text-xs font-semibold text-slate-500 group-hover:text-slate-400 uppercase tracking-widest">Story Marketing</p>
-                    <p className="text-4xl md:text-5xl font-light text-slate-900 group-hover:text-white transition mt-2">18</p>
-                    <p className="text-xs font-light text-slate-600 group-hover:text-slate-300 mt-2">New clients onboarded</p>
-                  </div>
-                  <p className="text-sm font-light text-slate-700">You'll shape brand narratives, strengthen positioning, and influence how companies tell their stories.</p>
+            {/* Mission Targets with Growth Outcomes */}
+            <div className="space-y-8">
+              <div className="flex flex-col md:flex-row gap-12">
+                <div className="space-y-2">
+                  <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest">Warrior Systems</p>
+                  <p className="text-6xl md:text-7xl font-light text-slate-900">30</p>
+                  <p className="text-sm font-light text-slate-700 max-w-xs">Master execution systems. Build deep client relationships. Lead complex outcomes.</p>
                 </div>
-
-                <div className="space-y-3 group cursor-pointer">
-                  <div className="p-4 bg-slate-50 rounded group-hover:bg-slate-900 transition-all">
-                    <p className="text-xs font-semibold text-slate-500 group-hover:text-slate-400 uppercase tracking-widest">MetaGurukul</p>
-                    <p className="text-4xl md:text-5xl font-light text-slate-900 group-hover:text-white transition mt-2">2</p>
-                    <p className="text-xs font-light text-slate-600 group-hover:text-slate-300 mt-2">New clients onboarded</p>
-                  </div>
-                  <p className="text-sm font-light text-slate-700">You'll design learning ecosystems, mentor future leaders, and impact lives through education.</p>
+                <div className="space-y-2">
+                  <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest">Story Marketing</p>
+                  <p className="text-6xl md:text-7xl font-light text-slate-900">18</p>
+                  <p className="text-sm font-light text-slate-700 max-w-xs">Shape brand strategies. Influence market positioning. Build your reputation.</p>
+                </div>
+                <div className="space-y-2">
+                  <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest">MetaGurukul</p>
+                  <p className="text-6xl md:text-7xl font-light text-slate-900">2</p>
+                  <p className="text-sm font-light text-slate-700 max-w-xs">Design learning systems. Mentor leaders. Impact lives through education.</p>
                 </div>
               </div>
               
               <p className="text-sm font-light text-slate-700 pt-6 border-t border-slate-100">
-                50 new clients. Your expertise deepens. Your network expands. Your financial opportunity grows.
+                Financial upside. Career momentum. Real impact. That's the deal.
               </p>
             </div>
 
-            <div className="space-y-4">
-              <Link
-                href="/signin"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-slate-900 text-white text-sm font-semibold rounded hover:bg-slate-800 hover:shadow-lg transition-all group"
-              >
-                Start growing
-                <span className="group-hover:translate-x-1 transition-transform">→</span>
-              </Link>
-            </div>
+            <Link
+              href="/signin"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-slate-900 text-white text-sm font-semibold rounded hover:bg-slate-800 hover:shadow-lg transition-all group"
+            >
+              Start growing
+              <span className="group-hover:translate-x-1 transition-transform">→</span>
+            </Link>
           </div>
         </section>
 
