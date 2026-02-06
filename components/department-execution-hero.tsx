@@ -183,15 +183,19 @@ export function DepartmentExecutionHero({
 
           {/* MAIN SCOREBOARD - Weekly Power Moves + Victory Targets */}
           <div className='relative grid grid-cols-2'>
-            {/* Vertical Arrow Line - Stacked arrows showing power moves → victory targets */}
-            <div className='absolute top-0 bottom-0 left-1/2 -translate-x-1/2 flex flex-col items-center justify-center pointer-events-none z-10' style={{ width: '24px', gap: '4px' }}>
-              <ArrowRight className='h-5 w-5' style={{ color: status?.color || '#10b981', opacity: 0.4 }} />
-              <ArrowRight className='h-5 w-5' style={{ color: status?.color || '#10b981', opacity: 0.5 }} />
-              <ArrowRight className='h-5 w-5' style={{ color: status?.color || '#10b981', opacity: 0.6 }} />
-              <ArrowRight className='h-5 w-5' style={{ color: status?.color || '#10b981', opacity: 0.7 }} />
-              <ArrowRight className='h-5 w-5' style={{ color: status?.color || '#10b981', opacity: 0.6 }} />
-              <ArrowRight className='h-5 w-5' style={{ color: status?.color || '#10b981', opacity: 0.5 }} />
-              <ArrowRight className='h-5 w-5' style={{ color: status?.color || '#10b981', opacity: 0.4 }} />
+            {/* Horizontal Arrow Stream - Continuous flow from left to right */}
+            <div className='absolute top-1/2 left-0 right-0 -translate-y-1/2 flex items-center justify-center pointer-events-none z-10'>
+              <svg width='100%' height='40' viewBox='0 0 100 40' preserveAspectRatio='none' className='absolute' style={{ opacity: 0.6 }}>
+                <defs>
+                  <marker id='arrowhead' markerWidth='10' markerHeight='10' refX='9' refY='3' orient='auto'>
+                    <polygon points='0 0, 10 3, 0 6' fill={status?.color || '#10b981'} />
+                  </marker>
+                  <pattern id='arrowPattern' x='0' y='0' width='15' height='40' patternUnits='userSpaceOnUse'>
+                    <line x1='0' y1='20' x2='12' y2='20' stroke={status?.color || '#10b981'} strokeWidth='2' markerEnd='url(#arrowhead)' opacity='0.7' />
+                  </pattern>
+                </defs>
+                <line x1='0' y1='20' x2='100%' y2='20' stroke='url(#arrowPattern)' strokeWidth='2' />
+              </svg>
             </div>
 
             {/* LEFT: WEEKLY POWER MOVES - Structured container */}
@@ -430,15 +434,19 @@ export function DepartmentExecutionHero({
 
           {/* MAIN SCOREBOARD - Two Columns with Vertical Arrow Line Connection */}
           <div className='relative grid grid-cols-2'>
-            {/* Vertical Arrow Line - Stacked arrows showing power moves → victory targets */}
-            <div className='absolute top-0 bottom-0 left-1/2 -translate-x-1/2 flex flex-col items-center justify-center pointer-events-none z-10' style={{ width: '24px', gap: '4px' }}>
-              <ArrowRight className='h-5 w-5' style={{ color: status?.color || '#10b981', opacity: 0.4 }} />
-              <ArrowRight className='h-5 w-5' style={{ color: status?.color || '#10b981', opacity: 0.5 }} />
-              <ArrowRight className='h-5 w-5' style={{ color: status?.color || '#10b981', opacity: 0.6 }} />
-              <ArrowRight className='h-5 w-5' style={{ color: status?.color || '#10b981', opacity: 0.7 }} />
-              <ArrowRight className='h-5 w-5' style={{ color: status?.color || '#10b981', opacity: 0.6 }} />
-              <ArrowRight className='h-5 w-5' style={{ color: status?.color || '#10b981', opacity: 0.5 }} />
-              <ArrowRight className='h-5 w-5' style={{ color: status?.color || '#10b981', opacity: 0.4 }} />
+            {/* Horizontal Arrow Stream - Continuous flow from left to right */}
+            <div className='absolute top-1/2 left-0 right-0 -translate-y-1/2 flex items-center justify-center pointer-events-none z-10'>
+              <svg width='100%' height='40' viewBox='0 0 100 40' preserveAspectRatio='none' className='absolute' style={{ opacity: 0.6 }}>
+                <defs>
+                  <marker id='arrowhead' markerWidth='10' markerHeight='10' refX='9' refY='3' orient='auto'>
+                    <polygon points='0 0, 10 3, 0 6' fill={status?.color || '#10b981'} />
+                  </marker>
+                  <pattern id='arrowPattern' x='0' y='0' width='15' height='40' patternUnits='userSpaceOnUse'>
+                    <line x1='0' y1='20' x2='12' y2='20' stroke={status?.color || '#10b981'} strokeWidth='2' markerEnd='url(#arrowhead)' opacity='0.7' />
+                  </pattern>
+                </defs>
+                <line x1='0' y1='20' x2='100%' y2='20' stroke='url(#arrowPattern)' strokeWidth='2' />
+              </svg>
             </div>
 
             {/* LEFT: WEEKLY POWER MOVES - Clean container without border */}
