@@ -34,46 +34,66 @@ export default function HomePage() {
       </header>
 
       <main>
-        {/* Hero Section - Mission & Employee Future */}
+        {/* Section 1: Company Mission */}
         <section className="border-b border-slate-100">
-          <div className="mx-auto max-w-5xl px-6 py-20 space-y-16 animate-fade-in">
-            <div className="space-y-6">
+          <div className="mx-auto max-w-5xl px-6 py-20 space-y-8 animate-fade-in">
+            <div className="space-y-4">
               <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest">
-                Mission 2026
+                Our Mission
               </p>
               
               <h1 className="text-5xl md:text-6xl font-light leading-tight text-slate-900">
-                We scale. You grow.
+                Scale three brands. Impact thousands.
               </h1>
               
               <p className="text-lg font-light text-slate-700 max-w-2xl leading-relaxed">
-                50 new clients. Your skills sharpen. Your network expands. Your financial opportunity grows.
+                30 new Warrior Systems clients. 18 new Story Marketing clients. 2 new MetaGurukul clients. This is how ArkMedis grows in 2026.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Section 2: How You Grow */}
+        <section className="border-b border-slate-100 bg-slate-50">
+          <div className="mx-auto max-w-5xl px-6 py-20 space-y-12 animate-slide-in-up" style={{ animationDelay: "0.3s" }}>
+            <div className="space-y-3">
+              <h2 className="text-4xl md:text-5xl font-light text-slate-900">
+                Mission success means your growth.
+              </h2>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {[
+                { title: "Financial Growth", desc: "Revenue increases. Your opportunities expand. Real upside." },
+                { title: "Skill Mastery", desc: "Work with founders, leaders, experts. Learn at the highest level." },
+                { title: "Career Momentum", desc: "Build your reputation. Own bigger outcomes. Move up." }
+              ].map((item, i) => (
+                <div key={i} className="p-6 bg-white border border-slate-200 rounded hover:shadow-lg hover:border-slate-400 transition-all">
+                  <p className="text-sm font-semibold text-slate-900 mb-2">{item.title}</p>
+                  <p className="text-sm font-light text-slate-700">{item.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Section 3: Your Role Matters */}
+        <section className="border-b border-slate-100">
+          <div className="mx-auto max-w-5xl px-6 py-20 space-y-12 animate-slide-in-up" style={{ animationDelay: "0.4s" }}>
+            <div className="space-y-3">
+              <h2 className="text-4xl md:text-5xl font-light text-slate-900">
+                Your role is mission-critical.
+              </h2>
+              <p className="text-base font-light text-slate-700 max-w-2xl leading-relaxed">
+                You own your outcomes. You drive your growth. You build your future here.
               </p>
             </div>
 
-            {/* Mission Targets with Growth Outcomes */}
-            <div className="space-y-8">
-              <div className="flex flex-col md:flex-row gap-12">
-                <div className="space-y-2">
-                  <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest">Warrior Systems</p>
-                  <p className="text-6xl md:text-7xl font-light text-slate-900">30</p>
-                  <p className="text-sm font-light text-slate-700 max-w-xs">Master execution systems. Build deep client relationships. Lead complex outcomes.</p>
-                </div>
-                <div className="space-y-2">
-                  <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest">Story Marketing</p>
-                  <p className="text-6xl md:text-7xl font-light text-slate-900">18</p>
-                  <p className="text-sm font-light text-slate-700 max-w-xs">Shape brand strategies. Influence market positioning. Build your reputation.</p>
-                </div>
-                <div className="space-y-2">
-                  <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest">MetaGurukul</p>
-                  <p className="text-6xl md:text-7xl font-light text-slate-900">2</p>
-                  <p className="text-sm font-light text-slate-700 max-w-xs">Design learning systems. Mentor leaders. Impact lives through education.</p>
-                </div>
+            <div className="space-y-6">
+              <div className="p-6 border-l-4 border-slate-900 pl-6 bg-slate-50 rounded">
+                <p className="text-lg font-semibold text-slate-900 mb-2">The mission is achieved one focused day at a time.</p>
+                <p className="text-sm font-light text-slate-700">This is how today's work becomes tomorrow's results. Your consistency. Your ownership. Your impact.</p>
               </div>
-              
-              <p className="text-sm font-light text-slate-700 pt-6 border-t border-slate-100">
-                Financial upside. Career momentum. Real impact. That's the deal.
-              </p>
             </div>
 
             <Link
@@ -83,51 +103,6 @@ export default function HomePage() {
               Start growing
               <span className="group-hover:translate-x-1 transition-transform">→</span>
             </Link>
-          </div>
-        </section>
-
-        {/* Message to the Team - Motivation & Ownership */}
-        <section className="border-b border-slate-100 bg-gradient-to-b from-slate-50/50 to-white animate-slide-in-up" style={{ animationDelay: "0.5s" }}>
-          <div className="mx-auto max-w-5xl px-6 py-20 space-y-12">
-            <div className="space-y-3">
-              <h2 className="text-4xl md:text-5xl font-light text-slate-900">
-                Your Role Matters
-              </h2>
-              <p className="text-base font-light text-slate-700 max-w-2xl leading-relaxed">
-                You are not here to just complete tasks. You are here to take ownership, build something meaningful, and grow in clarity, skill, and confidence.
-              </p>
-            </div>
-            
-            <div className="max-w-3xl space-y-8 text-base font-light text-slate-800 leading-relaxed">
-              <div className="space-y-4 grid grid-cols-1 md:grid-cols-3 gap-6">
-                {[
-                  "You own your outcomes.",
-                  "You drive your growth.",
-                  "You build your future here."
-                ].map((msg, i) => (
-                  <div
-                    key={i}
-                    className="p-4 bg-white border border-slate-100 rounded hover:shadow-md hover:border-slate-300 transition-all text-center hover:bg-slate-900 hover:text-white hover:border-slate-900"
-                  >
-                    <p className="text-sm font-semibold text-slate-900 group-hover:text-white transition">{msg}</p>
-                  </div>
-                ))}
-              </div>
-              
-              <div className="space-y-4 p-6 border-l-2 border-slate-900 pl-6 bg-white rounded">
-                <p className="text-lg text-slate-900 font-semibold">The mission is achieved one focused day at a time.</p>
-                <p className="text-sm text-slate-700">This is how today's work becomes tomorrow's results.</p>
-              </div>
-            </div>
-
-            <div className="flex flex-col sm:flex-row items-center gap-4 pt-6">
-              <Link
-                href="/signin"
-                className="px-6 py-3 bg-slate-900 text-white text-sm font-semibold rounded hover:bg-slate-800 hover:shadow-lg transition-all"
-              >
-                Join us and grow
-              </Link>
-            </div>
           </div>
         </section>
         <section className="border-b border-slate-100 animate-slide-in-up" style={{ animationDelay: "0.4s" }}>
