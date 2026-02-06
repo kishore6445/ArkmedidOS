@@ -55,6 +55,13 @@ export default function SignInPage() {
             </p>
           </div>
 
+          {/* Motivational Message */}
+          <div className="mt-8 p-4 bg-gradient-to-r from-slate-800 to-slate-900 rounded-lg border border-slate-700">
+            <p className="text-sm font-light text-slate-100 leading-relaxed text-center">
+              <span className="font-semibold text-white">2026 is your year to win.</span> Scale the mission with us. Earn real rewards. Master new skills. Gain recognition.
+            </p>
+          </div>
+
           <form className="mt-8 space-y-4" onSubmit={handleSubmit}>
             <div className="space-y-2">
               <label className="text-sm text-slate-200" htmlFor="email">
