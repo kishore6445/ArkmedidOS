@@ -182,7 +182,8 @@ export function DepartmentExecutionHero({
           </div>
 
           {/* MAIN SCOREBOARD - Weekly Power Moves + Victory Targets + War Goal */}
-          <div className='relative grid grid-cols-3 gap-4'>
+          <div className='px-6 py-6'>
+            <div className='relative grid grid-cols-3 gap-4 w-full'>
             {/* Arrow 1 - Between Power Moves and Victory Targets */}
             <div className='absolute top-1/2 -translate-y-1/2 pointer-events-none z-20' style={{ left: 'calc(33.33% - 8px)' }}>
               <ArrowRight className='h-5 w-5' style={{ color: status?.color || '#10b981', opacity: 0.6 }} />
@@ -296,8 +297,8 @@ export function DepartmentExecutionHero({
                 <p className='text-xs text-stone-300 font-semibold'>36% Toward Goal</p>
               </div>
             </div>
+            </div>
           </div>
-        </div>
 
         {/* WEEK SELECTOR - MOVED BELOW HERO (NOW SECONDARY) */}
         <div className='px-6 py-4 border-b border-stone-200 bg-white'>
@@ -508,8 +509,8 @@ export function DepartmentExecutionHero({
                 <p className='text-xs text-stone-300 font-semibold'>36% Toward Goal</p>
               </div>
             </div>
+            </div>
           </div>
-        </div>
 
         {/* WEEK SELECTOR - MOVED BELOW HERO (NOW SECONDARY) */}
         <div className='px-6 py-4 border-b border-stone-200 bg-white'>
