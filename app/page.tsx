@@ -76,21 +76,6 @@ export default function HomePage() {
                 See it in action
               </Link>
             </div>
-
-            {/* Key Metrics */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-16 animate-slide-up" style={{animationDelay: '0.4s'}}>
-              {[
-                { value: "30+", label: "Enterprise Clients", color: "from-primary" },
-                { value: "15", label: "Years of Innovation", color: "from-accent" },
-                { value: "87%", label: "On-track Commitments", color: "from-success" },
-                { value: "3x", label: "Faster Execution", color: "from-warning" }
-              ].map((stat, i) => (
-                <div key={i} className={`bg-gradient-to-br ${stat.color} to-transparent p-6 rounded-xl border border-foreground/10 backdrop-blur-sm hover:border-foreground/20 transition group cursor-pointer`}>
-                  <p className="text-3xl md:text-4xl font-black text-transparent bg-gradient-to-r from-primary to-accent bg-clip-text group-hover:scale-110 transition-transform">{stat.value}</p>
-                  <p className="text-xs md:text-sm text-foreground/70 font-semibold mt-2">{stat.label}</p>
-                </div>
-              ))}
-            </div>
           </div>
         </section>
 
