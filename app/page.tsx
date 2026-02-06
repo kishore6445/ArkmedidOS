@@ -107,25 +107,20 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Message to the Team */}
+        {/* Message to the Team - Motivation & Ownership */}
         <section className="border-b border-slate-100 bg-gradient-to-b from-slate-50/50 to-white animate-slide-in-up" style={{ animationDelay: "0.5s" }}>
-          <div className="mx-auto max-w-5xl px-6 py-16 space-y-10">
-            <h2 className="text-4xl md:text-5xl font-light text-slate-900">
-              Message to the Team
-            </h2>
+          <div className="mx-auto max-w-5xl px-6 py-20 space-y-12">
+            <div className="space-y-3">
+              <h2 className="text-4xl md:text-5xl font-light text-slate-900">
+                Your Role Matters
+              </h2>
+              <p className="text-base font-light text-slate-700 max-w-2xl leading-relaxed">
+                You are not here to just complete tasks. You are here to take ownership, build something meaningful, and grow in clarity, skill, and confidence.
+              </p>
+            </div>
             
             <div className="max-w-3xl space-y-8 text-base font-light text-slate-800 leading-relaxed">
-              <p className="text-base text-slate-900 font-medium">
-                You are not here to just complete tasks.
-              </p>
-              
-              <div className="space-y-3 p-4 border-l-2 border-slate-900 pl-6">
-                <p>You are here to take ownership,</p>
-                <p>build something meaningful,</p>
-                <p>and grow in clarity, skill, and confidence.</p>
-              </div>
-              
-              <div className="space-y-3 grid grid-cols-1 md:grid-cols-3 gap-4 border-t border-slate-100 pt-4">
+              <div className="space-y-4 grid grid-cols-1 md:grid-cols-3 gap-6">
                 {[
                   "Your work matters.",
                   "Your consistency matters.",
@@ -133,12 +128,32 @@ export default function HomePage() {
                 ].map((msg, i) => (
                   <div
                     key={i}
-                    className="p-3 bg-white border border-slate-100 rounded hover:shadow-md hover:border-slate-300 transition-all text-center"
+                    className="p-4 bg-white border border-slate-100 rounded hover:shadow-md hover:border-slate-300 transition-all text-center"
                   >
                     <p className="text-sm font-semibold text-slate-900">{msg}</p>
                   </div>
                 ))}
               </div>
+              
+              <div className="space-y-4 p-6 border-l-2 border-slate-900 pl-6 bg-white rounded">
+                <p className="text-lg text-slate-900 font-semibold">The mission is achieved one focused day at a time.</p>
+                <p className="text-sm text-slate-700">This is how today's work becomes tomorrow's results.</p>
+              </div>
+            </div>
+
+            <div className="flex flex-col sm:flex-row items-center gap-4 pt-6">
+              <Link
+                href="/signup"
+                className="px-6 py-3 bg-slate-900 text-white text-sm font-semibold rounded hover:bg-slate-800 hover:shadow-lg transition-all"
+              >
+                Create workspace
+              </Link>
+              <Link
+                href="/signin"
+                className="px-6 py-3 border-2 border-slate-900 text-slate-900 text-sm font-semibold rounded hover:bg-slate-50 hover:shadow-md transition-all"
+              >
+                Sign in
+              </Link>
             </div>
           </div>
         </section>
@@ -206,77 +221,51 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Why This System Exists */}
-        <section className="border-b border-slate-100 bg-gradient-to-b from-slate-50/50 to-white animate-slide-in-up" style={{ animationDelay: "0.6s" }}>
-          <div className="mx-auto max-w-5xl px-6 py-32 space-y-12">
-            <h2 className="text-5xl font-light text-slate-900">
-              Why This System Exists
-            </h2>
-            
-            <div className="space-y-8">
-              <p className="text-base font-semibold text-slate-900">
-                ArkMedis Operating System is built to support you—your team, your work, your growth—never to monitor you.
+        {/* How We Work - Principles */}
+        <section className="border-b border-slate-100 animate-slide-in-up" style={{ animationDelay: "0.6s" }}>
+          <div className="mx-auto max-w-5xl px-6 py-20 space-y-10">
+            <div className="space-y-3">
+              <h2 className="text-4xl md:text-5xl font-light text-slate-900">
+                How We Operate
+              </h2>
+              <p className="text-base font-light text-slate-700 max-w-2xl leading-relaxed">
+                ArkMedis Operating System removes confusion, clarifies priorities, and makes progress visible—so your daily work moves the mission forward.
               </p>
-              
-              <p className="text-base font-light text-slate-700 leading-relaxed max-w-2xl">
-                It removes confusion, clarifies priorities, and makes progress visible—so your daily work moves the mission forward.
-              </p>
-              
-              <div className="space-y-3 text-sm font-light text-slate-800 max-w-2xl">
-                <div className="group flex items-start gap-4 p-3 rounded hover:bg-slate-100 transition cursor-pointer">
-                  <span className="text-slate-400 group-hover:text-slate-600 transition mt-1">→</span>
-                  <p>If something matters, it is visible here.</p>
-                </div>
-                <div className="group flex items-start gap-4 p-3 rounded hover:bg-slate-100 transition cursor-pointer">
-                  <span className="text-slate-400 group-hover:text-slate-600 transition mt-1">→</span>
-                  <p>If it is visible, it is supported.</p>
-                </div>
-              </div>
             </div>
-          </div>
-        </section>
-
-        {/* How We Work */}
-        <section className="border-b border-slate-100 animate-slide-in-up" style={{ animationDelay: "0.7s" }}>
-          <div className="mx-auto max-w-5xl px-6 py-32 space-y-12">
-            <h2 className="text-5xl font-light text-slate-900">
-              How We Work
-            </h2>
             
-            <div className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl">
-                {[
-                  "Clarity before speed — so decisions are faster.",
-                  "Ownership over excuses — so work moves forward.",
-                  "Systems over shortcuts — so progress compounds.",
-                  "Long-term over short-term wins — so growth lasts."
-                ].map((principle, i) => (
-                  <div
-                    key={i}
-                    className="group p-4 border border-slate-100 rounded hover:border-slate-300 hover:bg-slate-50 transition-all cursor-pointer"
-                  >
-                    <p className="text-sm font-light text-slate-800 group-hover:text-slate-900 transition">
-                      {principle}
-                    </p>
-                  </div>
-                ))}
-              </div>
-              
-              <p className="text-sm font-light text-slate-700 pt-4 border-t border-slate-100">
-                These principles protect your focus and help you succeed.
-              </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl">
+              {[
+                "Clarity before speed — so decisions are faster.",
+                "Ownership over excuses — so work moves forward.",
+                "Systems over shortcuts — so progress compounds.",
+                "Long-term over short-term wins — so growth lasts."
+              ].map((principle, i) => (
+                <div
+                  key={i}
+                  className="group p-4 border border-slate-100 rounded hover:border-slate-300 hover:bg-slate-50 transition-all cursor-pointer"
+                >
+                  <p className="text-sm font-light text-slate-800 group-hover:text-slate-900 transition">
+                    {principle}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
         </section>
 
         {/* What You'll Find Inside ArkMedis OS */}
-        <section className="border-b border-slate-100 bg-gradient-to-b from-white to-slate-50/50 animate-slide-in-up" style={{ animationDelay: "0.8s" }}>
-          <div className="mx-auto max-w-5xl px-6 py-32 space-y-12">
-            <h2 className="text-5xl font-light text-slate-900">
-              What You'll Find Inside
-            </h2>
+        <section className="border-b border-slate-100 bg-gradient-to-b from-white to-slate-50/50 animate-slide-in-up" style={{ animationDelay: "0.7s" }}>
+          <div className="mx-auto max-w-5xl px-6 py-20 space-y-10">
+            <div className="space-y-3">
+              <h2 className="text-4xl md:text-5xl font-light text-slate-900">
+                What You'll Find Inside
+              </h2>
+              <p className="text-base font-light text-slate-700 max-w-2xl leading-relaxed">
+                Clear priorities, daily momentum, visible ownership, and real progress tracking that keeps work focused and meaningful.
+              </p>
+            </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl">
               {[
                 "Clear priorities and outcomes",
                 "Daily Power Moves that drive momentum",
@@ -288,7 +277,7 @@ export default function HomePage() {
                 <div
                   key={i}
                   className="group relative overflow-hidden p-4 border border-slate-100 rounded hover:border-slate-300 bg-white hover:bg-slate-50/80 transition-all cursor-pointer"
-                  style={{ animationDelay: `${0.8 + i * 0.05}s` }}
+                  style={{ animationDelay: `${0.7 + i * 0.05}s` }}
                 >
                   <div className="absolute -left-1 top-0 h-full w-1 bg-slate-900 transform group-hover:w-1.5 transition-all"></div>
                   <p className="text-sm font-light text-slate-800 group-hover:text-slate-900 transition pl-2">
@@ -296,78 +285,6 @@ export default function HomePage() {
                   </p>
                 </div>
               ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Message to the Team */}
-        <section className="border-b border-slate-100 bg-gradient-to-b from-slate-50/50 to-white animate-slide-in-up" style={{ animationDelay: "0.9s" }}>
-          <div className="mx-auto max-w-5xl px-6 py-32 space-y-12">
-            <h2 className="text-5xl font-light text-slate-900">
-              Message to the Team
-            </h2>
-            
-            <div className="max-w-3xl space-y-12 text-base font-light text-slate-800 leading-relaxed">
-              <p className="text-lg text-slate-900 font-medium animate-slide-in-left" style={{ animationDelay: "1s" }}>
-                You are not here to just complete tasks.
-              </p>
-              
-              <div className="space-y-4 p-6 border-l-2 border-slate-900 pl-6 animate-slide-in-left" style={{ animationDelay: "1.1s" }}>
-                <p>You are here to take ownership,</p>
-                <p>build something meaningful,</p>
-                <p>and grow in clarity, skill, and confidence.</p>
-              </div>
-              
-              <div className="space-y-4 grid grid-cols-1 md:grid-cols-3 gap-6 border-t border-slate-100 pt-6">
-                {[
-                  "Your work matters.",
-                  "Your consistency matters.",
-                  "Your integrity matters."
-                ].map((msg, i) => (
-                  <div
-                    key={i}
-                    className="p-4 bg-white border border-slate-100 rounded hover:shadow-md hover:border-slate-300 transition-all animate-scale-in"
-                    style={{ animationDelay: `${1.2 + i * 0.1}s` }}
-                  >
-                    <p className="text-sm font-semibold text-slate-900">{msg}</p>
-                  </div>
-                ))}
-              </div>
-              
-              <div className="pt-6">
-                <p className="font-semibold text-slate-900 text-base animate-slide-in-left" style={{ animationDelay: "1.5s" }}>
-                  Ready to move the mission forward?
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Closing Section */}
-        <section className="animate-slide-in-up" style={{ animationDelay: "0.9s" }}>
-          <div className="mx-auto max-w-5xl px-6 py-32 text-center space-y-8">
-            <h2 className="text-5xl md:text-6xl font-light text-slate-900 text-balance leading-tight">
-              The mission is achieved<br />
-              <span className="font-semibold text-slate-900">one focused day at a time.</span>
-            </h2>
-            
-            <p className="text-base font-light text-slate-700 leading-relaxed max-w-2xl mx-auto">
-              This is how today's work becomes tomorrow's results.
-            </p>
-
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-12">
-              <Link
-                href="/signin"
-                className="px-6 py-3 bg-slate-900 text-white text-sm font-semibold rounded hover:bg-slate-800 hover:shadow-lg transition-all"
-              >
-                Sign in
-              </Link>
-              <Link
-                href="/signup"
-                className="px-6 py-3 border-2 border-slate-900 text-slate-900 text-sm font-semibold rounded hover:bg-slate-50 hover:shadow-md transition-all"
-              >
-                Create workspace
-              </Link>
             </div>
           </div>
         </section>
