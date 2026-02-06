@@ -182,106 +182,159 @@ export function DepartmentExecutionHero({
           </div>
 
           {/* MAIN SCOREBOARD - Weekly Power Moves + Victory Targets + War Goal */}
-          <div className='relative grid grid-cols-3 gap-4'>
+          <div className='relative grid grid-cols-3 gap-3 w-full'>
             {/* Arrow 1 - Between Power Moves and Victory Targets */}
-            <div className='absolute top-1/2 -translate-y-1/2 pointer-events-none z-20' style={{ left: 'calc(33.33% - 12px)' }}>
+            <div className='absolute top-1/2 -translate-y-1/2 pointer-events-none z-20' style={{ left: 'calc(33.33% - 10px)' }}>
               <ArrowRight className='h-5 w-5' style={{ color: status?.color || '#10b981', opacity: 0.6 }} />
             </div>
 
             {/* Arrow 2 - Between Victory Targets and War Goal */}
-            <div className='absolute top-1/2 -translate-y-1/2 pointer-events-none z-20' style={{ left: 'calc(66.67% - 12px)' }}>
+            <div className='absolute top-1/2 -translate-y-1/2 pointer-events-none z-20' style={{ left: 'calc(66.67% - 10px)' }}>
               <ArrowRight className='h-5 w-5' style={{ color: status?.color || '#10b981', opacity: 0.6 }} />
             </div>
 
-            {/* LEFT: WEEKLY POWER MOVES - Clean container without border */}
+            {/* LEFT: WEEKLY POWER MOVES - Loading State */}
             <div className={cn(
-              'p-8 flex flex-col items-center justify-center text-center min-h-[280px] bg-[#F8FAFC] border-t-2',
+              'p-6 flex flex-col items-center justify-center text-center min-h-[280px] bg-[#F8FAFC] border-t-2 rounded-lg',
               status.borderAccent
             )}>
-              <div className='space-y-3'>
-                <p className='text-base font-black uppercase tracking-[0.15em] text-stone-900'>Weekly Power Moves</p>
-                <p className='text-xs font-semibold text-stone-500'>Actions executed this week (Lead Measures)</p>
+              <div className='space-y-3 w-full animate-pulse'>
+                <div className='h-4 bg-stone-300 rounded w-3/4 mx-auto'></div>
+                <div className='h-3 bg-stone-200 rounded w-1/2 mx-auto'></div>
+                <div className='py-3'>
+                  <div className='h-20 bg-stone-300 rounded w-1/2 mx-auto mb-1'></div>
+                  <div className='h-6 bg-stone-200 rounded w-1/4 mx-auto'></div>
+                </div>
+                <div className='h-10 bg-stone-200 rounded w-1/3 mx-auto'></div>
+                <div className='mt-3 pt-3 border-t-2 border-stone-200 space-y-2'>
+                  <div className='h-6 bg-stone-300 rounded w-1/2 mx-auto'></div>
+                  <div className='h-3 bg-stone-200 rounded w-1/3 mx-auto'></div>
+                  <div className='h-3 bg-stone-200 rounded w-3/4 mx-auto'></div>
+                </div>
+              </div>
+            </div>
+
+            {/* MIDDLE: DEPARTMENT VICTORY TARGETS - Loading State */}
+            <div className='p-6 min-h-[280px] flex flex-col justify-center bg-white rounded-lg border border-stone-200'>
+              <div className='space-y-3 w-full animate-pulse'>
+                <div className='h-4 bg-stone-300 rounded w-3/4 mx-auto'></div>
+                <div className='space-y-2'>
+                  <div className='h-3 bg-stone-200 rounded w-full'></div>
+                  <div className='h-6 bg-stone-300 rounded w-1/2'></div>
+                  <div className='h-2 bg-stone-200 rounded w-full'></div>
+                </div>
+              </div>
+            </div>
+
+            {/* RIGHT: WAR GOAL - Loading State */}
+            <div className='p-6 min-h-[280px] flex flex-col justify-between bg-gradient-to-br from-stone-900 to-stone-800 rounded-lg border border-stone-700 shadow-lg'>
+              <div className='space-y-2 animate-pulse'>
+                <div className='h-3 bg-stone-700 rounded w-1/3'></div>
+                <div className='h-6 bg-stone-700 rounded w-1/2 mt-1'></div>
+                <div className='h-3 bg-stone-700 rounded w-2/3 mt-2'></div>
+              </div>
+
+              <div className='space-y-2 animate-pulse'>
+                <div className='flex items-baseline justify-between'>
+                  <div className='h-8 bg-stone-700 rounded w-1/3'></div>
+                  <div className='h-3 bg-stone-700 rounded w-1/6'></div>
+                </div>
+                <div className='w-full bg-stone-700 rounded-full h-2.5'></div>
+                <div className='h-3 bg-stone-700 rounded w-1/2'></div>
+              </div>
+            </div>
+          </div>
+
+            {/* Arrow 2 - Between Victory Targets and War Goal */}
+            <div className='absolute top-1/2 -translate-y-1/2 pointer-events-none z-20' style={{ left: 'calc(66.67% - 10px)' }}>
+              <ArrowRight className='h-5 w-5' style={{ color: status?.color || '#10b981', opacity: 0.6 }} />
+            </div>
+
+            {/* LEFT: WEEKLY POWER MOVES */}
+            <div className={cn(
+              'p-6 flex flex-col items-center justify-center text-center min-h-[280px] bg-[#F8FAFC] border-t-2 rounded-lg',
+              status.borderAccent
+            )}>
+              <div className='space-y-3 w-full'>
+                <p className='text-sm font-black uppercase tracking-[0.15em] text-stone-900'>Weekly Power Moves</p>
+                <p className='text-xs font-semibold text-stone-500'>Actions executed this week</p>
                 
-                {/* GIANT SCORE - Status color only on number */}
-                <div className='py-4'>
+                <div className='py-3'>
                   <div 
-                    className='text-8xl sm:text-9xl font-black tabular-nums leading-none'
+                    className='text-7xl font-black tabular-nums leading-none'
                     style={{ color: status.color }}
                   >
                     {powerMoveStats.percentage}
                   </div>
-                  <div className='text-2xl font-bold text-stone-400 mt-2'>/100</div>
+                  <div className='text-xl font-bold text-stone-400 mt-1'>/100</div>
                 </div>
 
-                {/* Status Badge - Only element with status background color */}
                 <div className={cn(
-                  'inline-flex items-center gap-2 px-6 py-3 rounded-lg shadow-sm',
+                  'inline-flex items-center gap-2 px-4 py-2 rounded-lg shadow-sm text-sm',
                   status.bg,
                   status.text
                 )}>
-                  <StatusIcon className='h-5 w-5' />
-                  <span className='text-base font-black tracking-wide'>
+                  <StatusIcon className='h-4 w-4' />
+                  <span className='font-black'>
                     {status.badge}
                   </span>
                 </div>
 
-                {/* Power Moves Detail */}
-                <div className='mt-4 pt-4 border-t-2 border-stone-200'>
-                  <p className='text-3xl font-black text-stone-900 tabular-nums'>
+                <div className='mt-3 pt-3 border-t-2 border-stone-200'>
+                  <p className='text-2xl font-black text-stone-900 tabular-nums'>
                     {powerMoveStats.completed} <span className='text-stone-400'>/</span> {powerMoveStats.total}
                   </p>
-                  <p className='text-xs font-bold text-stone-500 mt-1 uppercase tracking-wider'>Power Moves Complete</p>
-                  {/* Time-layer microcopy */}
+                  <p className='text-xs font-bold text-stone-500 mt-1 uppercase'>Power Moves Complete</p>
                   <p className='text-xs text-stone-400 mt-2 italic font-medium'>
-                    This week's execution contributes to long-term targets
-                  </p>
-                  {/* Invisible confidence signal - Apple-like maturity cue */}
-                  <p className='text-xs text-stone-300 mt-3 font-medium'>
-                    System operating as designed.
+                    Execution contributes to targets
                   </p>
                 </div>
               </div>
             </div>
 
-            {/* MIDDLE: DEPARTMENT VICTORY TARGETS - Compact */}
-            <div className='p-5 min-h-[280px] flex flex-col justify-center bg-white rounded-lg border border-stone-200'>
-              <div className='space-y-3'>
+            {/* MIDDLE: DEPARTMENT VICTORY TARGETS */}
+            <div className='p-6 min-h-[280px] flex flex-col justify-center bg-white rounded-lg border border-stone-200'>
+              <div className='space-y-3 w-full'>
                 <p className='text-sm font-black uppercase tracking-[0.15em] text-stone-900 text-center'>Department Victory</p>
                 
-                {victoryTargets.slice(0, 1).map((vt) => {
-                  const quarters = (vt as any).quarters || []
-                  const quarterIndex = ['Q1', 'Q2', 'Q3', 'Q4'].indexOf(selectedQuarter)
-                  const quarterData = quarterIndex >= 0 ? quarters[quarterIndex] : null
-                  const achieved = quarterData?.achieved ?? vt.achieved
-                  const target = quarterData?.target ?? vt.target
-                  const progress = target > 0 ? (achieved / target) * 100 : 0
-                  
-                  const vtStatusColor = progress >= 70 ? '#16A34A' : progress >= 50 ? '#F59E0B' : '#DC2626'
-                  const vtStatusLabel = progress >= 70 ? 'On Track' : progress >= 50 ? 'At Risk' : 'Behind'
+                {victoryTargets && victoryTargets.length > 0 ? (
+                  victoryTargets.slice(0, 1).map((vt) => {
+                    const quarters = (vt as any).quarters || []
+                    const quarterIndex = ['Q1', 'Q2', 'Q3', 'Q4'].indexOf(selectedQuarter)
+                    const quarterData = quarterIndex >= 0 ? quarters[quarterIndex] : null
+                    const achieved = quarterData?.achieved ?? vt.achieved
+                    const target = quarterData?.target ?? vt.target
+                    const progress = target > 0 ? (achieved / target) * 100 : 0
+                    
+                    const vtStatusColor = progress >= 70 ? '#16A34A' : progress >= 50 ? '#F59E0B' : '#DC2626'
+                    const vtStatusLabel = progress >= 70 ? 'On Track' : progress >= 50 ? 'At Risk' : 'Behind'
 
-                  return (
-                    <div key={vt.id} className='space-y-2'>
-                      <div className='flex items-center justify-between gap-2'>
-                        <span className='text-xs font-bold text-stone-700'>{vt.name}</span>
-                        <span className='text-xs font-bold text-white px-2 py-1 rounded' style={{ backgroundColor: vtStatusColor }}>
-                          {vtStatusLabel}
-                        </span>
+                    return (
+                      <div key={vt.id} className='space-y-2'>
+                        <div className='flex items-center justify-between gap-2'>
+                          <span className='text-xs font-bold text-stone-700'>{vt.name}</span>
+                          <span className='text-xs font-bold text-white px-2 py-1 rounded' style={{ backgroundColor: vtStatusColor }}>
+                            {vtStatusLabel}
+                          </span>
+                        </div>
+                        <div className='flex items-baseline gap-1'>
+                          <p className='text-2xl font-black text-stone-900'>{achieved}</p>
+                          <p className='text-sm text-stone-400'>/</p>
+                          <p className='text-lg font-bold text-stone-600'>{target}</p>
+                        </div>
+                        <div className='w-full bg-stone-200 rounded-full h-2'>
+                          <div className='h-full rounded-full transition-all' style={{ width: `${Math.min(progress, 100)}%`, backgroundColor: vtStatusColor }} />
+                        </div>
                       </div>
-                      <div className='flex items-baseline gap-1'>
-                        <p className='text-2xl font-black text-stone-900'>{achieved}</p>
-                        <p className='text-sm text-stone-400'>/</p>
-                        <p className='text-lg font-bold text-stone-600'>{target}</p>
-                      </div>
-                      <div className='w-full bg-stone-200 rounded-full h-2'>
-                        <div className='h-full rounded-full transition-all' style={{ width: `${Math.min(progress, 100)}%`, backgroundColor: vtStatusColor }} />
-                      </div>
-                    </div>
-                  )
-                })}
+                    )
+                  })
+                ) : (
+                  <div className='text-center py-4 text-stone-400 text-xs'>No targets available</div>
+                )}
               </div>
             </div>
 
-            {/* RIGHT: WAR GOAL - Q1 2026 */}
+            {/* RIGHT: WAR GOAL */}
             <div className='p-6 min-h-[280px] flex flex-col justify-between bg-gradient-to-br from-stone-900 to-stone-800 rounded-lg border border-stone-700 shadow-lg'>
               <div>
                 <p className='text-xs font-black uppercase tracking-[0.2em] text-stone-400'>War Goal</p>
