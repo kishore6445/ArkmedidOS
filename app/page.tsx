@@ -26,17 +26,43 @@ export default function HomePage() {
 
       <main className="space-y-0">
         {/* Hero - What You Get */}
-        <section className="bg-slate-950 px-6 py-24">
+        <section className="bg-slate-950 px-6 py-32">
           <div className="mx-auto max-w-7xl">
-            <div className="space-y-12">
-              <div className="space-y-6">
-                <h1 className="text-5xl font-bold leading-tight lg:text-6xl text-white">
-                  When Mission 50 wins,<br/>
-                  <span className="text-orange-400">you get up to 50% salary growth.</span>
-                </h1>
-                <p className="text-xl text-slate-300 max-w-2xl">
-                  Earned. Aligned by your contribution. Non-negotiable. This is the core deal at ArkMedis.
-                </p>
+            <div className="grid gap-12 lg:grid-cols-2 items-center">
+              {/* Left Content */}
+              <div className="space-y-8">
+                <div className="space-y-6">
+                  <h1 className="text-5xl font-bold leading-tight lg:text-6xl text-white">
+                    When Mission 50 wins,<br/>
+                    <span className="text-orange-400">you get up to 50% salary growth.</span>
+                  </h1>
+                  <p className="text-xl text-slate-300">
+                    Earned. Aligned by your contribution. Non-negotiable. This is the core deal at ArkMedis.
+                  </p>
+                </div>
+                <div className="space-y-4">
+                  <div className="flex items-start gap-4">
+                    <div className="text-orange-400 text-2xl font-bold mt-1">✓</div>
+                    <div>
+                      <p className="text-white font-bold text-lg">Transparent System</p>
+                      <p className="text-slate-400">Every outcome measured fairly. Your work speaks for itself.</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-4">
+                    <div className="text-orange-400 text-2xl font-bold mt-1">✓</div>
+                    <div>
+                      <p className="text-white font-bold text-lg">Non-Negotiable</p>
+                      <p className="text-slate-400">50% hike aligned by your contribution when we hit Mission 50.</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-4">
+                    <div className="text-orange-400 text-2xl font-bold mt-1">✓</div>
+                    <div>
+                      <p className="text-white font-bold text-lg">Every Role Qualifies</p>
+                      <p className="text-slate-400">Execution, marketing, knowledge—all paths count equally.</p>
+                    </div>
+                  </div>
+                </div>
                 <div className="pt-4">
                   <Link
                     href="/signin"
@@ -44,6 +70,37 @@ export default function HomePage() {
                   >
                     Sign in to your account
                   </Link>
+                </div>
+              </div>
+
+              {/* Right Visual - Mission 50 Poster */}
+              <div className="flex items-center justify-center">
+                <div className="w-full rounded-lg border-4 border-orange-500 bg-gradient-to-br from-orange-500 to-orange-600 p-12 text-center shadow-2xl">
+                  <div className="space-y-6">
+                    <div className="space-y-2">
+                      <p className="text-orange-100 text-sm uppercase tracking-widest font-bold">ArkMedis Initiative</p>
+                      <h2 className="text-5xl font-black text-white">Mission 50</h2>
+                    </div>
+                    <div className="bg-white bg-opacity-20 rounded-lg p-6 space-y-4">
+                      <p className="text-white text-3xl font-bold">Onboard 50 New Clients</p>
+                      <p className="text-orange-100 text-lg">Across 3 Focused Brands</p>
+                    </div>
+                    <div className="grid grid-cols-3 gap-4">
+                      <div className="bg-white bg-opacity-15 rounded p-4">
+                        <p className="text-white font-bold text-2xl">30</p>
+                        <p className="text-orange-100 text-xs font-semibold">The Warrior Systems</p>
+                      </div>
+                      <div className="bg-white bg-opacity-15 rounded p-4">
+                        <p className="text-white font-bold text-2xl">18</p>
+                        <p className="text-orange-100 text-xs font-semibold">Story Marketing</p>
+                      </div>
+                      <div className="bg-white bg-opacity-15 rounded p-4">
+                        <p className="text-white font-bold text-2xl">2</p>
+                        <p className="text-orange-100 text-xs font-semibold">MetaGurukul</p>
+                      </div>
+                    </div>
+                    <p className="text-white font-bold text-lg pt-4">Timeline: Dec 31, 2026</p>
+                  </div>
                 </div>
               </div>
             </div>
