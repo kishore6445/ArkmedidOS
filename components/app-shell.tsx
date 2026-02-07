@@ -128,14 +128,10 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
             <div className="hidden sm:flex items-center gap-2 text-sm text-gray-600" role="status" aria-live="polite">
               <Calendar className="h-4 w-4" aria-hidden="true" />
-              <time dateTime={currentDate?.toISOString() || new Date().toISOString()} suppressHydrationWarning>
-                <span className="hidden md:inline">
-                  {currentDate?.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }) || ""}
-                </span>
-                <span className="md:hidden">
-                  {currentDate?.toLocaleDateString("en-US", { month: "short", day: "numeric" }) || ""}
-                </span>
-              </time>
+              <span className="text-gray-600">
+                <span className="hidden md:inline">Feb 7, 2026</span>
+                <span className="md:hidden">Feb 7</span>
+              </span>
             </div>
 
             <div className="flex items-center gap-2 lg:gap-3">
