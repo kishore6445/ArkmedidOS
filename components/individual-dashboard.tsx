@@ -457,24 +457,23 @@ export function IndividualDashboard({
           
           {/* CARD 1: Daily Power Moves - Amber */}
           <div className='flex-1 min-w-96 bg-gradient-to-br from-amber-50 to-orange-50 border-l-4 border-amber-400 rounded-lg p-10 shadow-sm hover:shadow-lg transition-shadow duration-300'>
-            <div className='flex flex-col items-start justify-between h-full gap-6'>
-              <div className='w-full space-y-3'>
+            <div className='flex flex-col items-start justify-between h-full gap-8'>
+              <div className='w-full space-y-2'>
                 <p className='text-xs font-bold uppercase tracking-widest text-amber-700'>Daily Execution</p>
-                <p className='text-sm text-amber-600 font-semibold'>You completed</p>
+                <p className='text-xs text-amber-600 font-semibold'>You completed</p>
               </div>
               <div className='w-full flex items-end justify-between'>
-                <div className={cn(
-                  'inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-black',
-                  status.bg,
-                  status.text
-                )}>
-                  <span>{status.badge}</span>
-                </div>
-                <div className='text-right'>
-                  <div className='flex items-baseline gap-2'>
-                    <span className='text-7xl font-black text-amber-900 tabular-nums leading-none'>{periodData.completed}</span>
-                    <span className='text-2xl text-amber-400 font-bold'>/{periodData.total}</span>
+                <div className='flex-1'></div>
+                <div className='text-right flex-shrink-0'>
+                  <div className='flex items-baseline gap-1'>
+                    <span className='text-9xl font-black tabular-nums leading-none' style={{ color: status.color }}>
+                      {periodData.completed}
+                    </span>
+                    <span className='text-3xl font-bold' style={{ color: status.color }}>/{periodData.total}</span>
                   </div>
+                  <p className='text-xs font-bold uppercase tracking-widest mt-3' style={{ color: status.color }}>
+                    {status.badge}
+                  </p>
                 </div>
               </div>
             </div>
@@ -482,20 +481,18 @@ export function IndividualDashboard({
 
           {/* CARD 2: Your Contribution - Blue */}
           <div className='flex-1 min-w-96 bg-gradient-to-br from-blue-50 to-cyan-50 border-l-4 border-blue-400 rounded-lg p-10 shadow-sm hover:shadow-lg transition-shadow duration-300'>
-            <div className='flex flex-col items-start justify-between h-full gap-6'>
-              <div className='w-full space-y-3'>
+            <div className='flex flex-col items-start justify-between h-full gap-8'>
+              <div className='w-full space-y-2'>
                 <p className='text-xs font-bold uppercase tracking-widest text-blue-700'>Your Contribution to the Company</p>
                 <p className='text-xs text-blue-600 font-semibold italic'>These targets move because of your execution.</p>
-                <p className='text-sm text-blue-600 font-semibold'>Targets on track</p>
-                {linkedVictoryTargets.length === 0 && (
-                  <p className='text-xs text-blue-500 italic'>No linked targets yet</p>
-                )}
               </div>
               <div className='w-full flex items-end justify-end'>
-                <div className='text-right'>
+                <div className='text-right flex-shrink-0'>
                   <div className='flex items-baseline gap-1'>
-                    <span className='text-7xl font-black text-blue-900 tabular-nums leading-none'>{linkedVictoryTargets.filter(vt => vt.progress >= 70).length}</span>
-                    <span className='text-2xl text-blue-400 font-bold'>/{linkedVictoryTargets.length}</span>
+                    <span className='text-9xl font-black text-blue-900 tabular-nums leading-none'>
+                      {linkedVictoryTargets.filter(vt => vt.progress >= 70).length}
+                    </span>
+                    <span className='text-3xl text-blue-400 font-bold'>/{linkedVictoryTargets.length}</span>
                   </div>
                 </div>
               </div>
@@ -504,16 +501,16 @@ export function IndividualDashboard({
 
           {/* CARD 3: Your Reward - Purple */}
           <div className='flex-1 min-w-96 bg-gradient-to-br from-purple-50 to-violet-50 border-l-4 border-purple-400 rounded-lg p-10 shadow-sm hover:shadow-lg transition-shadow duration-300'>
-            <div className='flex flex-col items-start justify-between h-full gap-6'>
-              <div className='w-full space-y-3'>
+            <div className='flex flex-col items-start justify-between h-full gap-8'>
+              <div className='w-full space-y-2'>
                 <p className='text-xs font-bold uppercase tracking-widest text-purple-700'>Your Reward</p>
-                <p className='text-sm text-purple-600 font-semibold'>Salary growth potential</p>
-                <p className='text-xs text-purple-600 italic'>When company wins, you earn</p>
-                <p className='text-xs text-purple-600 font-semibold'>Sustained execution is the fastest path to this outcome.</p>
-                <p className='text-xs text-purple-500 italic'>Aligned to quarterly and annual company goals</p>
+                <p className='text-xs text-purple-600 font-semibold'>Salary growth potential</p>
               </div>
               <div className='w-full flex items-end justify-end'>
-                <span className='text-7xl font-black text-purple-900 tabular-nums leading-none'>+50%</span>
+                <div className='text-right flex-shrink-0'>
+                  <span className='text-9xl font-black text-purple-900 tabular-nums leading-none'>+50%</span>
+                  <p className='text-xs text-purple-600 font-semibold mt-3'>Quarterly & Annual Goals</p>
+                </div>
               </div>
             </div>
           </div>

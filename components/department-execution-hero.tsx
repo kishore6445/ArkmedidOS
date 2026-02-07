@@ -424,66 +424,38 @@ export function DepartmentExecutionHero({
 
           {/* MAIN SCOREBOARD - Visual Hierarchy with Section Differentiation */}
           <div className='relative overflow-hidden'>
-            {/* Desktop 3-Card Grid with Enhanced Flow Indicators */}
+            {/* Desktop 3-Card Grid - Enhanced Visual Hierarchy */}
             <div className='hidden lg:flex lg:items-stretch lg:gap-0 p-6 bg-stone-50'>
               {/* Step 1 Badge */}
               <div className='absolute left-20 top-2 z-10 bg-amber-400 text-amber-900 font-black px-3 py-1 rounded-full text-xs'>STEP 1 – Execution Discipline</div>
 
               {/* Column 1: WEEKLY POWER MOVES - AMBER Theme */}
               <div className={cn(
-                'flex flex-col items-center justify-center text-center flex-1 min-h-[340px] bg-gradient-to-br from-amber-50 to-orange-50 border-l-4 border-t-4 border-b-4 border-amber-400 border-r-2 border-r-amber-200 rounded-l-lg p-8 shadow-md hover:shadow-lg transition-shadow duration-300',
+                'flex flex-col items-start justify-between flex-1 min-h-[340px] bg-gradient-to-br from-amber-50 to-orange-50 border-l-4 border-t-4 border-b-4 border-amber-400 border-r-2 border-r-amber-200 rounded-l-lg p-8 shadow-md hover:shadow-lg transition-shadow duration-300',
                 status.borderAccent
               )}>
-                <div className='space-y-4 w-full'>
-                  {/* Section Label - More Prominent */}
-                  <div className='space-y-1'>
-                    <p className='text-lg font-black uppercase tracking-[0.2em] text-amber-900'>Weekly Power Moves</p>
-                    <div className='h-0.5 w-12 bg-amber-300 mx-auto rounded-full'></div>
-                  </div>
-                  <p className='text-xs font-semibold text-amber-700 leading-relaxed'>Actions executed this week<br/>(Lead Measures)</p>
-                  
-                  {/* GIANT SCORE - Emphasized */}
-                  <div className='py-5'>
+                <div className='w-full space-y-2'>
+                  {/* Section Label */}
+                  <p className='text-xs font-black uppercase tracking-widest text-amber-700'>Weekly Power Moves</p>
+                  <p className='text-xs font-semibold text-amber-600'>Actions executed this week</p>
+                </div>
+
+                {/* HERO METRIC - Dramatically Larger */}
+                <div className='w-full text-right'>
+                  <div className='flex flex-col items-end'>
                     <div 
-                      className='text-8xl font-black tabular-nums leading-none drop-shadow-sm'
+                      className='text-9xl font-black tabular-nums leading-none drop-shadow-sm'
                       style={{ color: status.color }}
                     >
                       {powerMoveStats.percentage}
                     </div>
-                    <div className='text-xl font-bold text-amber-400 mt-3'>/100</div>
-                  </div>
-
-                  {/* Status Badge - Larger */}
-                  <div className={cn(
-                    'inline-flex items-center gap-2 px-5 py-2.5 rounded-lg shadow-md text-sm font-black',
-                    status.bg,
-                    status.text
-                  )}>
-                    <StatusIcon className='h-5 w-5' />
-                    <span>{status.badge}</span>
-                  </div>
-
-                  {/* Power Moves Detail */}
-                  <div className='mt-5 pt-5 border-t-2 border-amber-200 space-y-2'>
-                    <p className='text-3xl font-black text-amber-900 tabular-nums'>
-                      {powerMoveStats.completed} <span className='text-amber-300'>/</span> {powerMoveStats.total}
-                    </p>
-                    <p className='text-xs font-bold text-amber-700 uppercase tracking-wider'>Power Moves Complete</p>
-                    <p className='text-xs text-amber-600 mt-2 italic font-medium'>
-                      This week's execution compounds upward
+                    <div className='text-2xl font-bold mt-3 uppercase tracking-widest' style={{ color: status.color }}>
+                      {status.badge}
+                    </div>
+                    <p className='text-sm font-black text-amber-600 mt-4'>
+                      {powerMoveStats.completed} / {powerMoveStats.total} complete
                     </p>
                   </div>
-                </div>
-              </div>
-
-              {/* Arrow Connector 1 - Enhanced */}
-              <div className='flex flex-col items-center justify-center px-6 bg-stone-50 relative'>
-                {/* Flow Line */}
-                <div className='absolute top-0 bottom-0 w-0.5 bg-gradient-to-b from-amber-300 via-stone-300 to-blue-300'></div>
-                {/* Arrow */}
-                <div className='relative z-10 flex flex-col items-center gap-2'>
-                  <ArrowRight className='h-8 w-8 text-amber-500 flex-shrink-0 font-bold' aria-hidden="true" />
-                  <span className='text-xs font-black text-amber-700 whitespace-nowrap'>DRIVES</span>
                 </div>
               </div>
 
@@ -491,81 +463,46 @@ export function DepartmentExecutionHero({
               <div className='absolute left-1/2 -translate-x-1/2 top-2 z-10 bg-blue-400 text-blue-900 font-black px-3 py-1 rounded-full text-xs'>STEP 2 – Team Outcomes</div>
 
               {/* Column 2: DEPARTMENT VICTORY TARGETS - BLUE Theme */}
-              <div className='flex flex-col items-center justify-center text-center flex-1 min-h-[340px] bg-gradient-to-br from-blue-50 to-cyan-50 border-l-2 border-l-blue-200 border-t-4 border-b-4 border-blue-400 border-r-2 border-r-blue-200 p-7 overflow-y-auto shadow-md hover:shadow-lg transition-shadow duration-300'>
-                <div className='space-y-3 w-full'>
-                  {/* Section Label - Distinct */}
-                  <div className='space-y-1'>
-                    <p className='text-base font-black uppercase tracking-[0.15em] text-blue-900'>Department Victory Targets</p>
-                    <div className='h-0.5 w-10 bg-blue-300 mx-auto rounded-full'></div>
-                  </div>
-                  <p className='text-xs font-semibold text-blue-700 mt-1'>Results measured monthly / quarterly<br/>(Lag Measures)</p>
+              <div className='flex flex-col items-start justify-between flex-1 min-h-[340px] bg-gradient-to-br from-blue-50 to-cyan-50 border-l-2 border-l-blue-200 border-t-4 border-b-4 border-blue-400 border-r-2 border-r-blue-200 p-7 overflow-y-auto shadow-md hover:shadow-lg transition-shadow duration-300'>
+                <div className='w-full space-y-2'>
+                  {/* Section Label */}
+                  <p className='text-xs font-black uppercase tracking-widest text-blue-700'>Department Victory Targets</p>
+                  <p className='text-xs font-semibold text-blue-600'>Results measured monthly / quarterly</p>
                   <p className='text-xs text-blue-600 font-semibold mt-2'>Every individual's Power Moves roll up here.</p>
-
-                  {/* Victory Target Cards - Compact for equal height */}
-                  <div className='space-y-2 flex-1 min-h-[100px]'>
-                    {victoryTargets.slice(0, 2).map((vt, index) => {
-                      const quarters = (vt as any).quarters || []
-                      const quarterIndex = ['Q1', 'Q2', 'Q3', 'Q4'].indexOf(selectedQuarter)
-                      const quarterData = quarterIndex >= 0 ? quarters[quarterIndex] : null
-                      const achieved = quarterData?.achieved ?? vt.achieved
-                      const target = quarterData?.target ?? vt.target
-                      const progress = target > 0 ? (achieved / target) * 100 : 0
-                      
-                      const vtStatusColor = progress >= 70 ? '#16A34A' : progress >= 50 ? '#F59E0B' : '#DC2626'
-                      const vtStatusBg = progress >= 70 ? 'bg-emerald-100' : progress >= 50 ? 'bg-amber-100' : 'bg-rose-100'
-                      const vtStatusLabel = progress >= 70 ? 'On Track' : progress >= 50 ? 'At Risk' : 'Behind'
-
-                      return (
-                        <div key={vt.id} className='bg-blue-100 border border-blue-300 rounded-lg p-3 text-left hover:bg-blue-200 hover:shadow-md transition-all duration-200'>
-                          <div className='flex items-start justify-between gap-2 mb-2'>
-                            <p className='text-xs font-bold text-blue-900 flex-1'>{(vt as any).title || vt.name}</p>
-                            <span className={cn('text-xs font-black px-2 py-0.5 rounded-full text-white text-center', vtStatusBg)}>
-                              {vtStatusLabel}
-                            </span>
-                          </div>
-                          <div className='flex items-baseline gap-1 mb-2'>
-                            <span className='text-xl font-black text-blue-900 tabular-nums'>{achieved}</span>
-                            <span className='text-sm text-blue-500'>/</span>
-                            <span className='text-lg font-black text-blue-700'>{target}</span>
-                          </div>
-                          <div className='h-1.5 rounded-full overflow-hidden bg-blue-200'>
-                            <div 
-                              className='h-full transition-all duration-500' 
-                              style={{ 
-                                width: `${Math.min(progress, 100)}%`,
-                                backgroundColor: vtStatusColor
-                              }}
-                            />
-                          </div>
-                        </div>
-                      )
-                    })}
-                  </div>
-
-                  {/* Summary with Progress Ring */}
-                  <div className='mt-4 pt-4 border-t border-blue-200'>
-                    <div className='flex items-baseline justify-center gap-1 mb-2'>
-                      <span 
-                        className='text-2xl font-black tabular-nums text-blue-900'
-                      >
-                        {greenTargets}
-                      </span>
-                      <span className='text-lg font-bold text-blue-400'>/</span>
-                      <span className='text-xl font-black text-blue-700'>{totalTargets}</span>
-                    </div>
-                    <p className='text-xs font-bold text-blue-700 uppercase tracking-wider'>Targets On Track</p>
-                  </div>
                 </div>
-              </div>
 
-              {/* Arrow Connector 2 - Enhanced */}
-              <div className='flex flex-col items-center justify-center px-6 bg-stone-50 relative'>
-                {/* Flow Line */}
-                <div className='absolute top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-300 via-stone-300 to-purple-300'></div>
-                {/* Arrow */}
-                <div className='relative z-10 flex flex-col items-center gap-2'>
-                  <ArrowRight className='h-8 w-8 text-blue-500 flex-shrink-0 font-bold' aria-hidden="true" />
-                  <span className='text-xs font-black text-blue-700 whitespace-nowrap'>ACHIEVES</span>
+                {/* Victory Target Cards - Compact */}
+                <div className='w-full space-y-2 flex-1 min-h-[100px]'>
+                  {victoryTargets.slice(0, 2).map((vt, index) => {
+                    const quarters = (vt as any).quarters || []
+                    const quarterIndex = ['Q1', 'Q2', 'Q3', 'Q4'].indexOf(selectedQuarter)
+                    const quarterData = quarterIndex >= 0 ? quarters[quarterIndex] : null
+                    const achieved = quarterData?.achieved ?? vt.achieved
+                    const target = quarterData?.target ?? vt.target
+                    const progress = target > 0 ? (achieved / target) * 100 : 0
+                    
+                    const vtStatusColor = progress >= 70 ? '#16A34A' : progress >= 50 ? '#F59E0B' : '#DC2626'
+
+                    return (
+                      <div key={vt.id} className='bg-blue-100 border border-blue-300 rounded-lg p-3 text-left hover:bg-blue-200 hover:shadow-md transition-all duration-200'>
+                        <p className='text-xs font-bold text-blue-900 flex-1 mb-2'>{(vt as any).title || vt.name}</p>
+                        <div className='flex items-baseline gap-1 mb-2'>
+                          <span className='text-2xl font-black tabular-nums' style={{ color: vtStatusColor }}>{achieved}</span>
+                          <span className='text-xs font-bold text-blue-600'>/</span>
+                          <span className='text-lg font-black text-blue-700'>{target}</span>
+                        </div>
+                        <div className='h-1.5 rounded-full overflow-hidden bg-blue-200'>
+                          <div 
+                            className='h-full transition-all duration-500' 
+                            style={{ 
+                              width: `${Math.min(progress, 100)}%`,
+                              backgroundColor: vtStatusColor
+                            }}
+                          />
+                        </div>
+                      </div>
+                    )
+                  })}
                 </div>
               </div>
 
@@ -573,8 +510,28 @@ export function DepartmentExecutionHero({
               <div className='absolute right-20 top-2 z-10 bg-purple-400 text-purple-900 font-black px-3 py-1 rounded-full text-xs'>STEP 3 – Company Mission</div>
 
               {/* Column 3: WAR GOAL - PURPLE Theme */}
-              <div className='flex-1'>
-                <WarGoalCard companyWIG={companyWIG} equalHeight={true} minHeight='340px' />
+              <div className='flex flex-col items-start justify-between flex-1 min-h-[340px] bg-gradient-to-br from-purple-50 to-violet-50 border-l-2 border-l-purple-200 border-t-4 border-b-4 border-purple-400 border-r-4 border-r-purple-400 rounded-r-lg p-8 shadow-md hover:shadow-lg transition-shadow duration-300'>
+                <div className='w-full space-y-2'>
+                  {/* Section Label */}
+                  <p className='text-xs font-black uppercase tracking-widest text-purple-700'>Company Mission</p>
+                  <p className='text-xs font-semibold text-purple-600'>Strategic company outcome</p>
+                </div>
+
+                {/* HERO METRIC - Dramatically Larger */}
+                <div className='w-full text-right'>
+                  <div className='flex flex-col items-end'>
+                    <div className='text-6xl font-black text-purple-900 tabular-nums leading-none'>
+                      {companyWIG?.achieved ?? 0}
+                    </div>
+                    <div className='text-2xl font-bold text-purple-400 mt-1'>
+                      / {companyWIG?.target ?? 0}
+                    </div>
+                    <p className='text-xs font-bold text-purple-700 mt-4 uppercase tracking-widest'>
+                      {companyWIG?.achieved && companyWIG?.target ? 
+                        Math.round((companyWIG.achieved / companyWIG.target) * 100) : 0}% Complete
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
 
