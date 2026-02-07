@@ -34,7 +34,7 @@ export default function HomePage() {
                 <div className="space-y-6">
                   <h1 className="text-5xl font-bold leading-tight lg:text-6xl text-white">
                     Win Mission 50.<br/>
-                    <span className="text-orange-400">Earn up to 50% salary growth.</span>
+                    <span className="text-orange-400">Earn 50% salary growth.</span>
                   </h1>
                   <p className="text-xl text-slate-300">
                     Earned by contribution. Tracked transparently.
