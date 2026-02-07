@@ -21,27 +21,28 @@ export function WarGoalCard({ companyWIG, className }: WarGoalCardProps) {
 
   return (
     <div className={cn('flex flex-col h-full', className)}>
-      <div className='flex-1 p-6 lg:p-8 flex flex-col items-center justify-center text-center min-h-[280px] bg-white border-2 border-stone-200 rounded-lg'>
+      <div className='flex-1 p-6 lg:p-8 flex flex-col items-center justify-center text-center min-h-[280px] bg-gradient-to-br from-purple-50 to-violet-50 border-l-2 border-l-stone-200 border-t-4 border-b-4 border-purple-400 border-r-4 border-r-purple-400 rounded-r-lg shadow-sm'>
         <div className='space-y-3 w-full'>
           {/* Header */}
-          <div>
-            <p className='text-base font-black uppercase tracking-[0.15em] text-stone-900'>War Goal</p>
-            <p className='text-xs font-semibold text-stone-500 mt-1'>Company Mission (Lag Measure)</p>
+          <div className='space-y-1'>
+            <p className='text-base font-black uppercase tracking-[0.15em] text-purple-900'>War Goal</p>
+            <div className='h-0.5 w-10 bg-purple-300 mx-auto rounded-full'></div>
+            <p className='text-xs font-semibold text-purple-700 mt-1'>Company Mission (Lag Measure)</p>
           </div>
 
           {/* Main Text */}
           <div className='py-4'>
-            <p className='text-lg font-semibold text-stone-900 leading-snug'>
+            <p className='text-lg font-semibold text-purple-900 leading-snug'>
               {warGoalText}
             </p>
           </div>
 
           {/* Progress Number */}
           <div className='py-3'>
-            <div className='text-5xl font-black tabular-nums text-stone-900 leading-none'>
+            <div className='text-5xl font-black tabular-nums text-purple-900 leading-none'>
               {achieved}
             </div>
-            <div className='text-lg font-bold text-stone-400 mt-2'>/ {target}</div>
+            <div className='text-lg font-bold text-purple-400 mt-2'>/ {target}</div>
           </div>
 
           {/* Status Badge */}
@@ -55,7 +56,7 @@ export function WarGoalCard({ companyWIG, className }: WarGoalCardProps) {
           </div>
 
           {/* Progress Bar */}
-          <div className='h-2 rounded-full overflow-hidden bg-stone-200 mt-4'>
+          <div className='h-2 rounded-full overflow-hidden bg-purple-200 mt-4'>
             <div
               className='h-full transition-all duration-500'
               style={{
@@ -66,7 +67,7 @@ export function WarGoalCard({ companyWIG, className }: WarGoalCardProps) {
           </div>
 
           {/* Footer text */}
-          <p className='text-xs text-stone-400 mt-4 italic font-medium'>
+          <p className='text-xs text-purple-600 mt-4 italic font-medium'>
             Company-wide strategic outcome
           </p>
         </div>
