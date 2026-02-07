@@ -453,60 +453,64 @@ export function IndividualDashboard({
         </div>
 
         {/* SIMPLIFIED HORIZONTAL SCOREBOARD - Three Cards Left to Right */}
-        <div className='flex gap-4 p-6 bg-white max-w-6xl mx-auto overflow-x-auto'>
+        <div className='flex gap-6 py-8 px-6 bg-white max-w-7xl mx-auto overflow-x-auto'>
           
           {/* CARD 1: Daily Power Moves - Amber */}
-          <div className='flex-1 min-w-80 bg-gradient-to-br from-amber-50 to-orange-50 border-l-4 border-amber-400 rounded-lg p-8 shadow-sm hover:shadow-md transition-shadow duration-300'>
-            <div className='flex items-center justify-between gap-8'>
-              <div className='flex-1 space-y-2'>
+          <div className='flex-1 min-w-96 bg-gradient-to-br from-amber-50 to-orange-50 border-l-4 border-amber-400 rounded-lg p-10 shadow-sm hover:shadow-lg transition-shadow duration-300'>
+            <div className='flex flex-col items-start justify-between h-full gap-6'>
+              <div className='w-full space-y-3'>
                 <p className='text-xs font-bold uppercase tracking-widest text-amber-700'>Daily Execution</p>
                 <p className='text-sm text-amber-600 font-semibold'>You completed</p>
+              </div>
+              <div className='w-full flex items-end justify-between'>
                 <div className={cn(
-                  'inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-black mt-2',
+                  'inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-black',
                   status.bg,
                   status.text
                 )}>
                   <span>{status.badge}</span>
                 </div>
-              </div>
-              <div className='flex-shrink-0 text-right'>
-                <div className='flex items-baseline gap-2'>
-                  <span className='text-6xl font-black text-amber-900 tabular-nums'>{periodData.completed}</span>
-                  <span className='text-xl text-amber-400 font-bold'>/{periodData.total}</span>
+                <div className='text-right'>
+                  <div className='flex items-baseline gap-2'>
+                    <span className='text-7xl font-black text-amber-900 tabular-nums leading-none'>{periodData.completed}</span>
+                    <span className='text-2xl text-amber-400 font-bold'>/{periodData.total}</span>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
 
           {/* CARD 2: Company Impact - Blue */}
-          <div className='flex-1 min-w-80 bg-gradient-to-br from-blue-50 to-cyan-50 border-l-4 border-blue-400 rounded-lg p-8 shadow-sm hover:shadow-md transition-shadow duration-300'>
-            <div className='flex items-center justify-between gap-8'>
-              <div className='flex-1 space-y-2'>
+          <div className='flex-1 min-w-96 bg-gradient-to-br from-blue-50 to-cyan-50 border-l-4 border-blue-400 rounded-lg p-10 shadow-sm hover:shadow-lg transition-shadow duration-300'>
+            <div className='flex flex-col items-start justify-between h-full gap-6'>
+              <div className='w-full space-y-3'>
                 <p className='text-xs font-bold uppercase tracking-widest text-blue-700'>Company Impact</p>
                 <p className='text-sm text-blue-600 font-semibold'>Targets on track</p>
                 {linkedVictoryTargets.length === 0 && (
-                  <p className='text-xs text-blue-500 italic mt-2'>No linked targets yet</p>
+                  <p className='text-xs text-blue-500 italic'>No linked targets yet</p>
                 )}
               </div>
-              <div className='flex-shrink-0 text-right'>
-                <div className='flex items-baseline gap-1'>
-                  <span className='text-6xl font-black text-blue-900 tabular-nums'>{linkedVictoryTargets.filter(vt => vt.progress >= 70).length}</span>
-                  <span className='text-xl text-blue-400 font-bold'>/{linkedVictoryTargets.length}</span>
+              <div className='w-full flex items-end justify-end'>
+                <div className='text-right'>
+                  <div className='flex items-baseline gap-1'>
+                    <span className='text-7xl font-black text-blue-900 tabular-nums leading-none'>{linkedVictoryTargets.filter(vt => vt.progress >= 70).length}</span>
+                    <span className='text-2xl text-blue-400 font-bold'>/{linkedVictoryTargets.length}</span>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
 
           {/* CARD 3: Your Reward - Purple */}
-          <div className='flex-1 min-w-80 bg-gradient-to-br from-purple-50 to-violet-50 border-l-4 border-purple-400 rounded-lg p-8 shadow-sm hover:shadow-md transition-shadow duration-300'>
-            <div className='flex items-center justify-between gap-8'>
-              <div className='flex-1 space-y-2'>
+          <div className='flex-1 min-w-96 bg-gradient-to-br from-purple-50 to-violet-50 border-l-4 border-purple-400 rounded-lg p-10 shadow-sm hover:shadow-lg transition-shadow duration-300'>
+            <div className='flex flex-col items-start justify-between h-full gap-6'>
+              <div className='w-full space-y-3'>
                 <p className='text-xs font-bold uppercase tracking-widest text-purple-700'>Your Reward</p>
                 <p className='text-sm text-purple-600 font-semibold'>Salary growth potential</p>
-                <p className='text-xs text-purple-600 italic mt-3'>When company wins, you earn</p>
+                <p className='text-xs text-purple-600 italic'>When company wins, you earn</p>
               </div>
-              <div className='flex-shrink-0 text-right'>
-                <span className='text-6xl font-black text-purple-900 tabular-nums'>+50%</span>
+              <div className='w-full flex items-end justify-end'>
+                <span className='text-7xl font-black text-purple-900 tabular-nums leading-none'>+50%</span>
               </div>
             </div>
           </div>
