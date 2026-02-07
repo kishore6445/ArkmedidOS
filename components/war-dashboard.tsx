@@ -569,10 +569,8 @@ export function WarDashboard() {
       </section>
 
       {/* EXECUTION IMPACT FLOW - Explanatory card showing how execution compounds */}
-      <section aria-labelledby="execution-flow-heading" className="space-y-4">
-        <div>
-          <h2 id="execution-flow-heading" className="sr-only">Execution Impact Flow</h2>
-        </div>
+      <section aria-labelledby="execution-flow-heading" className="my-8">
+        <h2 id="execution-flow-heading" className="sr-only">Execution Impact Flow</h2>
         <ExecutionImpactFlow />
       </section>
 
