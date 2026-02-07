@@ -441,8 +441,8 @@ export function DepartmentExecutionHero({
                 </div>
 
                 {/* HERO METRIC - Dramatically Larger */}
-                <div className='w-full text-right'>
-                  <div className='flex flex-col items-end'>
+                <div className='w-full text-center'>
+                  <div className='flex flex-col items-center'>
                     <div 
                       className='text-9xl font-black tabular-nums leading-none drop-shadow-sm'
                       style={{ color: status.color }}
@@ -521,9 +521,9 @@ export function DepartmentExecutionHero({
                 )}
 
                 {/* Summary Metric */}
-                <div className='w-full text-right'>
+                <div className='w-full text-center'>
                   <p className='text-xs font-semibold text-blue-600 mb-2'>Targets on Track</p>
-                  <div className='flex items-baseline gap-1'>
+                  <div className='flex items-baseline gap-1 justify-center'>
                     <span className='text-9xl font-black text-blue-900 tabular-nums leading-none'>
                       {victoryTargets.filter(vt => {
                         const achieved = vt.achieved ?? 0
@@ -549,8 +549,8 @@ export function DepartmentExecutionHero({
                 </div>
 
                 {/* HERO METRIC - Dramatically Larger */}
-                <div className='w-full text-right'>
-                  <div className='flex flex-col items-end'>
+                <div className='w-full text-center'>
+                  <div className='flex flex-col items-center'>
                     <div className='text-6xl font-black text-purple-900 tabular-nums leading-none'>
                       {companyWIG?.achieved ?? 0}
                     </div>
