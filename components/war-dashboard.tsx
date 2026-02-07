@@ -12,6 +12,7 @@ import { TooltipProvider } from "@/components/ui/tooltip"
 import { PowerMoveBPRCard } from "@/components/power-move-bpr-card"
 import { TeamPerformanceScorecard } from "@/components/team-performance-scorecard"
 import { SocialAccountability } from "@/components/social-accountability"
+import { ExecutionImpactFlow } from "@/components/execution-impact-flow"
 import { Megaphone, FileText, TrendingUp, Users, Cog, FlaskConical, Crown, Target } from "lucide-react"
 import Link from "next/link"
 import { useBrand } from "@/lib/brand-context"
@@ -565,6 +566,14 @@ export function WarDashboard() {
             ))}
           </div>
         )}
+      </section>
+
+      {/* EXECUTION IMPACT FLOW - Explanatory card showing how execution compounds */}
+      <section aria-labelledby="execution-flow-heading" className="space-y-4">
+        <div>
+          <h2 id="execution-flow-heading" className="sr-only">Execution Impact Flow</h2>
+        </div>
+        <ExecutionImpactFlow />
       </section>
 
       <section aria-labelledby="department-heading">
