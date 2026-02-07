@@ -169,39 +169,61 @@ export default function HomePage() {
 
         {/* How Brands Contribute to India's Mission */}
         <section className="bg-white px-6 py-24">
-          <div className="mx-auto max-w-7xl space-y-12">
+          <div className="mx-auto max-w-7xl space-y-16">
             <div className="text-center">
-              <h2 className="text-4xl font-bold text-slate-900 mb-4">How These Brands Build India</h2>
+              <h2 className="text-4xl font-bold text-slate-900 mb-4">Purpose × Profit × Passion</h2>
               <p className="text-xl text-slate-700 max-w-3xl mx-auto">
-                India has the potential. What's missing is execution systems, global branding, and reclaimed knowledge. We fix that.
+                We don't choose between profit and purpose. Both happen together. Three brands. One mission. Build India while building business.
               </p>
             </div>
+
+            {/* Three Brands */}
             <div className="grid gap-8 lg:grid-cols-3">
-              <div className="rounded-lg border-2 border-slate-300 p-8 hover:border-orange-500 transition">
-                <h3 className="text-2xl font-bold text-slate-900 mb-3">The Warrior Systems</h3>
+              <div className="rounded-lg border-2 border-slate-200 p-8 hover:border-orange-500 transition">
+                <h3 className="text-xl font-bold text-slate-900 mb-2">The Warrior Systems</h3>
+                <p className="text-sm text-orange-600 font-bold mb-4">Execution Discipline</p>
                 <p className="text-slate-700 mb-4">
-                  Indian businesses have ideas and talent. They lack execution systems. We give them the discipline to scale globally.
+                  Indian businesses have talent but lack systems. We build execution discipline that scales globally.
                 </p>
-                <p className="text-sm text-orange-600 font-bold">30 companies → Execution-ready</p>
+                <p className="text-xs text-slate-500 font-semibold">
+                  → 30 companies get stronger. → ArkMedis grows sustainably.
+                </p>
               </div>
-              <div className="rounded-lg border-2 border-slate-300 p-8 hover:border-orange-500 transition">
-                <h3 className="text-2xl font-bold text-slate-900 mb-3">Story Marketing</h3>
+              <div className="rounded-lg border-2 border-slate-200 p-8 hover:border-orange-500 transition">
+                <h3 className="text-xl font-bold text-slate-900 mb-2">Story Marketing</h3>
+                <p className="text-sm text-orange-600 font-bold mb-4">Global Recognition</p>
                 <p className="text-slate-700 mb-4">
-                  Indian manufacturing is losing to global competitors. Not because of quality, but because they can't tell their story. We help them compete.
+                  Indian manufacturers compete globally but can't tell their story. We amplify their voice.
                 </p>
-                <p className="text-sm text-orange-600 font-bold">18 companies → Globally visible</p>
+                <p className="text-xs text-slate-500 font-semibold">
+                  → 18 companies win globally. → ArkMedis builds a brand.
+                </p>
               </div>
-              <div className="rounded-lg border-2 border-slate-300 p-8 hover:border-orange-500 transition">
-                <h3 className="text-2xl font-bold text-slate-900 mb-3">MetaGurukul</h3>
+              <div className="rounded-lg border-2 border-slate-200 p-8 hover:border-orange-500 transition">
+                <h3 className="text-xl font-bold text-slate-900 mb-2">MetaGurukul</h3>
+                <p className="text-sm text-orange-600 font-bold mb-4">Revived Knowledge</p>
                 <p className="text-slate-700 mb-4">
-                  India was a beacon of knowledge for centuries. We're reviving that tradition. Coaches building the next generation of leaders and thinkers.
+                  India's wisdom systems shaped the world. We revive coaching as a knowledge discipline.
                 </p>
-                <p className="text-sm text-orange-600 font-bold">2 platforms → India's wisdom shines</p>
+                <p className="text-xs text-slate-500 font-semibold">
+                  → 2 platforms shine India's light. → ArkMedis leads coaching evolution.
+                </p>
               </div>
             </div>
-            <div className="rounded-lg bg-orange-50 border-2 border-orange-300 p-8 text-center">
-              <p className="text-lg text-slate-900 font-semibold">
-                Strong execution + Global branding + Deep knowledge = <span className="text-orange-600">Strong Indian companies that lead globally</span>
+
+            {/* The Integration */}
+            <div className="rounded-lg bg-slate-950 border-2 border-orange-500 p-8 text-center space-y-4">
+              <p className="text-slate-200">
+                Every brand solves a real problem in India.
+              </p>
+              <p className="text-lg font-bold text-orange-400">
+                Strong execution + Global branding + Deep knowledge
+              </p>
+              <p className="text-slate-200">
+                Builds better Indian companies. Builds ArkMedis profitably. Built with genuine passion.
+              </p>
+              <p className="text-sm text-slate-400 mt-6">
+                Purpose, Profit, Passion—all three, integrated.
               </p>
             </div>
           </div>
