@@ -140,7 +140,7 @@ export function DepartmentExecutionHero({
       badge: 'WINNING',
       message: 'Weekly execution is strong',
       borderAccent: 'border-t-[#16A34A]',
-      icon: CheckCircle2,
+      icon: CheckCircle,
     },
     'at-risk': {
       color: '#F59E0B', // amber-500
