@@ -835,35 +835,6 @@ export function IndividualDashboard({
           </div>
         </div>
       </div>
-      <div className='text-xs font-semibold text-stone-500 px-2'>
-        <span className='font-semibold text-stone-600'>Company Goal (Context):</span> Not set yet
-        <span className='text-stone-400 mx-2'>·</span> Your execution feeds your department's weekly score
-      </div>
-
-      {/* Section Legend - Same as Department */}
-      <div className='grid grid-cols-3 gap-4 text-xs text-stone-500'>
-        <div className='flex items-start gap-2'>
-          <div className='w-2 h-2 rounded-full mt-1' style={{ backgroundColor: '#16A34A' }} />
-          <div>
-            <p className='font-semibold text-stone-700'>Power Moves</p>
-            <p className='text-stone-500'>Recurring actions executed daily, weekly, or monthly</p>
-          </div>
-        </div>
-        <div className='flex items-start gap-2'>
-          <div className='w-2 h-2 rounded-full mt-1' style={{ backgroundColor: '#F59E0B' }} />
-          <div>
-            <p className='font-semibold text-stone-700'>Tasks</p>
-            <p className='text-stone-500'>One-time activities completed once per period</p>
-          </div>
-        </div>
-        <div className='flex items-start gap-2'>
-          <div className='w-2 h-2 rounded-full mt-1' style={{ backgroundColor: '#DC2626' }} />
-          <div>
-            <p className='font-semibold text-stone-700'>Commitments</p>
-            <p className='text-stone-500'>Team promises mentioned in weekly calls</p>
-          </div>
-        </div>
-      </div>
 
       {/* Period Progress Divider */}
       <div className='py-4 px-6 bg-stone-50 border-t-2 border-b border-stone-200 rounded-lg'>
