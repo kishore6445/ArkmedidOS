@@ -421,47 +421,51 @@ export function DepartmentExecutionHero({
             </div>
           </div>
 
-          {/* MAIN SCOREBOARD - Three Columns with Compact Arrow Connectors */}
+          {/* MAIN SCOREBOARD - Visual Hierarchy with Section Differentiation */}
           <div className='relative overflow-hidden'>
             {/* Desktop 3-Card Grid with Arrows at Borders */}
             <div className='hidden lg:flex lg:items-stretch lg:gap-0 p-6 bg-stone-50'>
-              {/* Column 1: WEEKLY POWER MOVES */}
+              {/* Column 1: WEEKLY POWER MOVES - PRIMARY SECTION (Larger & Emphasized) */}
               <div className={cn(
-                'flex flex-col items-center justify-center text-center flex-1 bg-[#F8FAFC] border-t-2 border-2 border-stone-200 rounded-l-lg p-6',
+                'flex flex-col items-center justify-center text-center flex-[1.2] bg-gradient-to-br from-[#FAFBFC] to-[#F0F3F7] border-l-4 border-t-4 border-b-4 border-2 border-stone-300 rounded-l-lg p-8 shadow-sm',
                 status.borderAccent
               )}>
-                <div className='space-y-3 w-full'>
-                  <p className='text-base font-black uppercase tracking-[0.15em] text-stone-900'>Weekly Power Moves</p>
-                  <p className='text-xs font-semibold text-stone-500'>Actions executed this week (Lead Measures)</p>
+                <div className='space-y-4 w-full'>
+                  {/* Section Label - More Prominent */}
+                  <div className='space-y-1'>
+                    <p className='text-lg font-black uppercase tracking-[0.2em] text-stone-900'>Weekly Power Moves</p>
+                    <div className='h-0.5 w-12 bg-stone-300 mx-auto rounded-full'></div>
+                  </div>
+                  <p className='text-xs font-semibold text-stone-500 leading-relaxed'>Actions executed this week<br/>(Lead Measures)</p>
                   
-                  {/* GIANT SCORE */}
-                  <div className='py-4'>
+                  {/* GIANT SCORE - Emphasized */}
+                  <div className='py-6'>
                     <div 
-                      className='text-7xl font-black tabular-nums leading-none'
+                      className='text-8xl font-black tabular-nums leading-none drop-shadow-sm'
                       style={{ color: status.color }}
                     >
                       {powerMoveStats.percentage}
                     </div>
-                    <div className='text-lg font-bold text-stone-400 mt-2'>/100</div>
+                    <div className='text-xl font-bold text-stone-400 mt-3'>/100</div>
                   </div>
 
-                  {/* Status Badge */}
+                  {/* Status Badge - Larger */}
                   <div className={cn(
-                    'inline-flex items-center gap-2 px-4 py-2 rounded-lg shadow-sm text-sm font-black',
+                    'inline-flex items-center gap-2 px-5 py-2.5 rounded-lg shadow-md text-sm font-black',
                     status.bg,
                     status.text
                   )}>
-                    <StatusIcon className='h-4 w-4' />
+                    <StatusIcon className='h-5 w-5' />
                     <span>{status.badge}</span>
                   </div>
 
                   {/* Power Moves Detail */}
-                  <div className='mt-4 pt-4 border-t border-stone-200'>
-                    <p className='text-2xl font-black text-stone-900 tabular-nums'>
+                  <div className='mt-6 pt-6 border-t-2 border-stone-200 space-y-2'>
+                    <p className='text-3xl font-black text-stone-900 tabular-nums'>
                       {powerMoveStats.completed} <span className='text-stone-400'>/</span> {powerMoveStats.total}
                     </p>
-                    <p className='text-xs font-bold text-stone-500 mt-1 uppercase tracking-wider'>Power Moves Complete</p>
-                    <p className='text-xs text-stone-400 mt-2 italic font-medium'>
+                    <p className='text-xs font-bold text-stone-500 uppercase tracking-wider'>Power Moves Complete</p>
+                    <p className='text-xs text-stone-400 mt-3 italic font-medium'>
                       This week's execution compounds upward
                     </p>
                   </div>
@@ -469,17 +473,19 @@ export function DepartmentExecutionHero({
               </div>
 
               {/* Arrow Connector 1 */}
-              <div className='flex items-center justify-center px-3 bg-stone-50'>
-                <ArrowRight className='h-5 w-5 text-stone-300 flex-shrink-0' aria-hidden="true" />
+              <div className='flex items-center justify-center px-4 bg-stone-50'>
+                <ArrowRight className='h-6 w-6 text-stone-400 flex-shrink-0' aria-hidden="true" />
               </div>
 
-              {/* Column 2: DEPARTMENT VICTORY TARGETS */}
-              <div className='flex flex-col items-center justify-center text-center flex-1 bg-white border-2 border-stone-200 p-6 overflow-y-auto'>
+              {/* Column 2: DEPARTMENT VICTORY TARGETS - SECONDARY SECTION */}
+              <div className='flex flex-col items-center justify-center text-center flex-1 bg-white border-2 border-stone-200 p-7 overflow-y-auto shadow-xs'>
                 <div className='space-y-3 w-full'>
-                  <div>
+                  {/* Section Label - Distinct */}
+                  <div className='space-y-1'>
                     <p className='text-base font-black uppercase tracking-[0.15em] text-stone-900'>Department Victory Targets</p>
-                    <p className='text-xs font-semibold text-stone-500 mt-1'>Results measured monthly / quarterly (Lag Measures)</p>
+                    <div className='h-0.5 w-10 bg-stone-200 mx-auto rounded-full'></div>
                   </div>
+                  <p className='text-xs font-semibold text-stone-500 mt-1'>Results measured monthly / quarterly<br/>(Lag Measures)</p>
 
                   {/* Victory Target Cards - Compact for equal height */}
                   <div className='space-y-2 flex-1'>
@@ -496,7 +502,7 @@ export function DepartmentExecutionHero({
                       const vtStatusLabel = progress >= 70 ? 'On Track' : progress >= 50 ? 'At Risk' : 'Behind'
 
                       return (
-                        <div key={vt.id} className='bg-stone-50 border border-stone-200 rounded-lg p-3 text-left'>
+                        <div key={vt.id} className='bg-stone-50 border border-stone-200 rounded-lg p-3 text-left hover:bg-stone-100 transition-colors'>
                           <div className='flex items-start justify-between gap-2 mb-2'>
                             <p className='text-xs font-bold text-stone-900 flex-1'>{(vt as any).title || vt.name}</p>
                             <span className={cn('text-xs font-black px-2 py-0.5 rounded-full text-white text-center', vtStatusBg)}>
@@ -544,45 +550,48 @@ export function DepartmentExecutionHero({
               </div>
 
               {/* Arrow Connector 2 */}
-              <div className='flex items-center justify-center px-3 bg-stone-50'>
-                <ArrowRight className='h-5 w-5 text-stone-300 flex-shrink-0' aria-hidden="true" />
+              <div className='flex items-center justify-center px-4 bg-stone-50'>
+                <ArrowRight className='h-6 w-6 text-stone-400 flex-shrink-0' aria-hidden="true" />
               </div>
 
-              {/* Column 3: WAR GOAL */}
+              {/* Column 3: WAR GOAL - TERTIARY SECTION */}
               <div className='flex-1'>
                 <WarGoalCard companyWIG={companyWIG} />
               </div>
             </div>
 
             {/* Mobile/Tablet Stack */}
-            <div className='lg:hidden space-y-3 p-6 bg-stone-50'>
-              {/* Card 1 */}
+            <div className='lg:hidden space-y-4 p-6 bg-stone-50'>
+              {/* Card 1 - Primary */}
               <div className={cn(
-                'flex flex-col items-center justify-center text-center bg-[#F8FAFC] border-t-2 border-2 border-stone-200 rounded-lg p-6',
+                'flex flex-col items-center justify-center text-center bg-gradient-to-br from-[#FAFBFC] to-[#F0F3F7] border-l-4 border-t-4 border-b-4 border-2 border-stone-300 rounded-lg p-7',
                 status.borderAccent
               )}>
-                <div className='space-y-3 w-full'>
-                  <p className='text-base font-black uppercase tracking-[0.15em] text-stone-900'>Weekly Power Moves</p>
+                <div className='space-y-4 w-full'>
+                  <div className='space-y-1'>
+                    <p className='text-lg font-black uppercase tracking-[0.2em] text-stone-900'>Weekly Power Moves</p>
+                    <div className='h-0.5 w-12 bg-stone-300 mx-auto rounded-full'></div>
+                  </div>
                   <p className='text-xs font-semibold text-stone-500'>Actions executed this week (Lead Measures)</p>
-                  <div className='py-4'>
+                  <div className='py-6'>
                     <div 
-                      className='text-7xl font-black tabular-nums leading-none'
+                      className='text-8xl font-black tabular-nums leading-none drop-shadow-sm'
                       style={{ color: status.color }}
                     >
                       {powerMoveStats.percentage}
                     </div>
-                    <div className='text-lg font-bold text-stone-400 mt-2'>/100</div>
+                    <div className='text-xl font-bold text-stone-400 mt-3'>/100</div>
                   </div>
                   <div className={cn(
-                    'inline-flex items-center gap-2 px-4 py-2 rounded-lg shadow-sm text-sm font-black',
+                    'inline-flex items-center gap-2 px-5 py-2.5 rounded-lg shadow-md text-sm font-black',
                     status.bg,
                     status.text
                   )}>
-                    <StatusIcon className='h-4 w-4' />
+                    <StatusIcon className='h-5 w-5' />
                     <span>{status.badge}</span>
                   </div>
-                  <div className='mt-4 pt-4 border-t border-stone-200'>
-                    <p className='text-2xl font-black text-stone-900 tabular-nums'>
+                  <div className='mt-6 pt-6 border-t-2 border-stone-200 space-y-2'>
+                    <p className='text-3xl font-black text-stone-900 tabular-nums'>
                       {powerMoveStats.completed} <span className='text-stone-400'>/</span> {powerMoveStats.total}
                     </p>
                     <p className='text-xs font-bold text-stone-500 mt-1 uppercase tracking-wider'>Power Moves Complete</p>
@@ -592,16 +601,17 @@ export function DepartmentExecutionHero({
 
               {/* Down Arrow */}
               <div className='flex justify-center py-1'>
-                <ArrowDown className='h-4 w-4 text-stone-300' aria-hidden="true" />
+                <ArrowDown className='h-5 w-5 text-stone-400' aria-hidden="true" />
               </div>
 
-              {/* Card 2 */}
-              <div className='bg-white border-2 border-stone-200 rounded-lg p-6'>
+              {/* Card 2 - Secondary */}
+              <div className='bg-white border-2 border-stone-200 rounded-lg p-6 shadow-xs'>
                 <div className='space-y-3'>
-                  <div>
+                  <div className='space-y-1'>
                     <p className='text-base font-black uppercase tracking-[0.15em] text-stone-900'>Department Victory Targets</p>
-                    <p className='text-xs font-semibold text-stone-500 mt-1'>Results measured monthly / quarterly (Lag Measures)</p>
+                    <div className='h-0.5 w-10 bg-stone-200 mx-auto rounded-full'></div>
                   </div>
+                  <p className='text-xs font-semibold text-stone-500 mt-1'>Results measured monthly / quarterly (Lag Measures)</p>
                   <div className='space-y-2'>
                     {victoryTargets.slice(0, 2).map((vt, index) => {
                       const quarters = (vt as any).quarters || []
@@ -663,10 +673,10 @@ export function DepartmentExecutionHero({
 
               {/* Down Arrow */}
               <div className='flex justify-center py-1'>
-                <ArrowDown className='h-4 w-4 text-stone-300' aria-hidden="true" />
+                <ArrowDown className='h-5 w-5 text-stone-400' aria-hidden="true" />
               </div>
 
-              {/* Card 3 */}
+              {/* Card 3 - Tertiary */}
               <WarGoalCard companyWIG={companyWIG} />
             </div>
           </div>
