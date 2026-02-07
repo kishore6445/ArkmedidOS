@@ -480,11 +480,12 @@ export function IndividualDashboard({
             </div>
           </div>
 
-          {/* CARD 2: Company Impact - Blue */}
+          {/* CARD 2: Your Contribution - Blue */}
           <div className='flex-1 min-w-96 bg-gradient-to-br from-blue-50 to-cyan-50 border-l-4 border-blue-400 rounded-lg p-10 shadow-sm hover:shadow-lg transition-shadow duration-300'>
             <div className='flex flex-col items-start justify-between h-full gap-6'>
               <div className='w-full space-y-3'>
-                <p className='text-xs font-bold uppercase tracking-widest text-blue-700'>Company Impact</p>
+                <p className='text-xs font-bold uppercase tracking-widest text-blue-700'>Your Contribution to the Company</p>
+                <p className='text-xs text-blue-600 font-semibold italic'>These targets move because of your execution.</p>
                 <p className='text-sm text-blue-600 font-semibold'>Targets on track</p>
                 {linkedVictoryTargets.length === 0 && (
                   <p className='text-xs text-blue-500 italic'>No linked targets yet</p>
@@ -508,6 +509,8 @@ export function IndividualDashboard({
                 <p className='text-xs font-bold uppercase tracking-widest text-purple-700'>Your Reward</p>
                 <p className='text-sm text-purple-600 font-semibold'>Salary growth potential</p>
                 <p className='text-xs text-purple-600 italic'>When company wins, you earn</p>
+                <p className='text-xs text-purple-600 font-semibold'>Sustained execution is the fastest path to this outcome.</p>
+                <p className='text-xs text-purple-500 italic'>Aligned to quarterly and annual company goals</p>
               </div>
               <div className='w-full flex items-end justify-end'>
                 <span className='text-7xl font-black text-purple-900 tabular-nums leading-none'>+50%</span>
