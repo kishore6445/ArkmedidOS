@@ -537,41 +537,6 @@ export function DepartmentExecutionHero({
                 </div>
               </div>
 
-                {/* Victory Target Cards - Compact */}
-                <div className='w-full space-y-2 flex-1 min-h-[100px]'>
-                  {victoryTargets.slice(0, 2).map((vt, index) => {
-                    const quarters = (vt as any).quarters || []
-                    const quarterIndex = ['Q1', 'Q2', 'Q3', 'Q4'].indexOf(selectedQuarter)
-                    const quarterData = quarterIndex >= 0 ? quarters[quarterIndex] : null
-                    const achieved = quarterData?.achieved ?? vt.achieved
-                    const target = quarterData?.target ?? vt.target
-                    const progress = target > 0 ? (achieved / target) * 100 : 0
-                    
-                    const vtStatusColor = progress >= 70 ? '#16A34A' : progress >= 50 ? '#F59E0B' : '#DC2626'
-
-                    return (
-                      <div key={vt.id} className='bg-blue-100 border border-blue-300 rounded-lg p-3 text-left hover:bg-blue-200 hover:shadow-md transition-all duration-200'>
-                        <p className='text-xs font-bold text-blue-900 flex-1 mb-2'>{(vt as any).title || vt.name}</p>
-                        <div className='flex items-baseline gap-1 mb-2'>
-                          <span className='text-2xl font-black tabular-nums' style={{ color: vtStatusColor }}>{achieved}</span>
-                          <span className='text-xs font-bold text-blue-600'>/</span>
-                          <span className='text-lg font-black text-blue-700'>{target}</span>
-                        </div>
-                        <div className='h-1.5 rounded-full overflow-hidden bg-blue-200'>
-                          <div 
-                            className='h-full transition-all duration-500' 
-                            style={{ 
-                              width: `${Math.min(progress, 100)}%`,
-                              backgroundColor: vtStatusColor
-                            }}
-                          />
-                        </div>
-                      </div>
-                    )
-                  })}
-                </div>
-              </div>
-
               {/* Step 3 Badge */}
               <div className='absolute right-20 top-2 z-10 bg-purple-400 text-purple-900 font-black px-3 py-1 rounded-full text-xs'>STEP 3 – Company Mission</div>
 
