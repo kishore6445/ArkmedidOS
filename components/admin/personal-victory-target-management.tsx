@@ -268,6 +268,19 @@ export function PersonalVictoryTargetManagement() {
                     <DropdownMenuContent align="end">
                       <DropdownMenuItem
                         onClick={() => {
+                          const newName = prompt("Edit victory target:", target.victoryTargetName)
+                          if (newName && newName.trim()) {
+                            handleUpdateTarget(target.id, {
+                              victoryTargetName: newName.trim(),
+                            })
+                          }
+                        }}
+                      >
+                        <Edit className="w-4 h-4 mr-2" />
+                        Edit Target Name
+                      </DropdownMenuItem>
+                      <DropdownMenuItem
+                        onClick={() => {
                           const newValue = prompt("Enter current value:", target.currentValue.toString())
                           if (newValue) {
                             const parsedValue = parseInt(newValue)
