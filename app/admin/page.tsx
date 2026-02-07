@@ -17,6 +17,7 @@ import { PowerMoveManagement } from "@/components/admin/power-move-management"
 import { AchievementTracking } from "@/components/admin/achievement-tracking"
 import { BrandAssignmentManagement } from "@/components/admin/brand-assignment-management"
 import { CompanyPerformanceAdmin } from "@/components/admin/company-performance-admin"
+import { PersonalVictoryTargetManagement } from "@/components/admin/personal-victory-target-management"
 
 type User = {
   id: string
@@ -155,6 +156,7 @@ export default function AdminPage() {
               <TabsTrigger value="brand-assignment">Brand Assignment</TabsTrigger>
               <TabsTrigger value="company-performance">Company Performance</TabsTrigger>
               <TabsTrigger value="victory-targets">Victory Targets</TabsTrigger>
+              <TabsTrigger value="personal-targets">Personal Victory Targets</TabsTrigger>
               <TabsTrigger value="power-moves">Power Moves</TabsTrigger>
               <TabsTrigger value="achievements">Achievement Tracking</TabsTrigger>
               <TabsTrigger value="permissions">Departments & Permissions</TabsTrigger>
@@ -326,6 +328,10 @@ export default function AdminPage() {
 
             <TabsContent value="victory-targets" className="space-y-6">
               <VictoryTargetManagement />
+            </TabsContent>
+
+            <TabsContent value="personal-targets" className="space-y-6">
+              <PersonalVictoryTargetManagement />
             </TabsContent>
 
             <TabsContent value="power-moves" className="space-y-6">
