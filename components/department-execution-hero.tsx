@@ -247,6 +247,7 @@ export function DepartmentExecutionHero({
                   <p className='text-xs text-stone-400 mt-1.5 italic font-medium'>
                     Weekly execution compounds into monthly & quarterly victory
                   </p>
+                  <p className='text-xs text-stone-500 font-semibold mt-2'>Every individual's Power Moves roll up here.</p>
                 </div>
 
                 {/* Victory Target Cards */}
@@ -498,6 +499,7 @@ export function DepartmentExecutionHero({
                     <div className='h-0.5 w-10 bg-blue-300 mx-auto rounded-full'></div>
                   </div>
                   <p className='text-xs font-semibold text-blue-700 mt-1'>Results measured monthly / quarterly<br/>(Lag Measures)</p>
+                  <p className='text-xs text-blue-600 font-semibold mt-2'>Every individual's Power Moves roll up here.</p>
 
                   {/* Victory Target Cards - Compact for equal height */}
                   <div className='space-y-2 flex-1 min-h-[100px]'>
