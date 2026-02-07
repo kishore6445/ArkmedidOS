@@ -182,31 +182,22 @@ export default function HomePage() {
               <div className="rounded-lg border-2 border-slate-200 p-8 hover:border-orange-500 transition">
                 <h3 className="text-xl font-bold text-slate-900 mb-2">The Warrior Systems</h3>
                 <p className="text-sm text-orange-600 font-bold mb-4">Execution Discipline</p>
-                <p className="text-slate-700 mb-4">
+                <p className="text-slate-700">
                   Indian businesses have talent but lack systems. We build execution discipline that scales globally.
-                </p>
-                <p className="text-xs text-slate-500 font-semibold">
-                  → 30 companies get stronger. → ArkMedis grows sustainably.
                 </p>
               </div>
               <div className="rounded-lg border-2 border-slate-200 p-8 hover:border-orange-500 transition">
                 <h3 className="text-xl font-bold text-slate-900 mb-2">Story Marketing</h3>
                 <p className="text-sm text-orange-600 font-bold mb-4">Global Recognition</p>
-                <p className="text-slate-700 mb-4">
+                <p className="text-slate-700">
                   Indian manufacturers compete globally but can't tell their story. We amplify their voice.
-                </p>
-                <p className="text-xs text-slate-500 font-semibold">
-                  → 18 companies win globally. → ArkMedis builds a brand.
                 </p>
               </div>
               <div className="rounded-lg border-2 border-slate-200 p-8 hover:border-orange-500 transition">
                 <h3 className="text-xl font-bold text-slate-900 mb-2">MetaGurukul</h3>
                 <p className="text-sm text-orange-600 font-bold mb-4">Revived Knowledge</p>
-                <p className="text-slate-700 mb-4">
+                <p className="text-slate-700">
                   India's wisdom systems shaped the world. We revive coaching as a knowledge discipline.
-                </p>
-                <p className="text-xs text-slate-500 font-semibold">
-                  → 2 platforms shine India's light. → ArkMedis leads coaching evolution.
                 </p>
               </div>
             </div>
