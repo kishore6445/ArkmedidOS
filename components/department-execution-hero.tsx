@@ -11,7 +11,7 @@ import { ExecutionStreak } from '@/components/execution-streak'
 import { QuarterSelector, type QuarterOption } from '@/components/quarter-selector'
 import { AccountabilitySections } from '@/components/accountability-sections'
 import { WarGoalCard } from '@/components/war-goal-card'
-import { ArrowRight, ArrowDown, Flame, Target, CheckCircle2, AlertCircle, XCircle } from 'lucide-react'
+import { ArrowRight, ArrowDown, Flame, Target, CheckCircle, AlertCircle, XCircle } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 interface DepartmentExecutionHeroProps {
@@ -463,13 +463,79 @@ export function DepartmentExecutionHero({
               <div className='absolute left-1/2 -translate-x-1/2 top-2 z-10 bg-blue-400 text-blue-900 font-black px-3 py-1 rounded-full text-xs'>STEP 2 – Team Outcomes</div>
 
               {/* Column 2: DEPARTMENT VICTORY TARGETS - BLUE Theme */}
-              <div className='flex flex-col items-start justify-between flex-1 min-h-[340px] bg-gradient-to-br from-blue-50 to-cyan-50 border-l-2 border-l-blue-200 border-t-4 border-b-4 border-blue-400 border-r-2 border-r-blue-200 p-7 overflow-y-auto shadow-md hover:shadow-lg transition-shadow duration-300'>
+              <div className='flex flex-col items-start justify-between flex-1 min-h-[340px] bg-gradient-to-br from-blue-50 to-cyan-50 border-l-2 border-l-blue-200 border-t-4 border-b-4 border-blue-400 border-r-2 border-r-blue-200 p-8 overflow-y-auto shadow-md hover:shadow-lg transition-shadow duration-300'>
                 <div className='w-full space-y-2'>
                   {/* Section Label */}
                   <p className='text-xs font-black uppercase tracking-widest text-blue-700'>Department Victory Targets</p>
                   <p className='text-xs font-semibold text-blue-600'>Results measured monthly / quarterly</p>
                   <p className='text-xs text-blue-600 font-semibold mt-2'>Every individual's Power Moves roll up here.</p>
                 </div>
+
+                {/* Victory Target Cards - Compact */}
+                {victoryTargets.length === 0 ? (
+                  <div className='w-full flex items-center justify-center min-h-[100px]'>
+                    <div className='text-center space-y-2'>
+                      <p className='text-xs text-blue-600 font-semibold'>No victory targets set</p>
+                      <p className='text-xs text-blue-500 italic'>Configure targets from the admin panel</p>
+                    </div>
+                  </div>
+                ) : (
+                  <div className='w-full space-y-2 flex-1 min-h-[100px]'>
+                    {victoryTargets.slice(0, 2).map((vt, index) => {
+                      const quarters = (vt as any).quarters || []
+                      const quarterIndex = ['Q1', 'Q2', 'Q3', 'Q4'].indexOf(selectedQuarter)
+                      const quarterData = quarterIndex >= 0 ? quarters[quarterIndex] : null
+                      const achieved = quarterData?.achieved ?? vt.achieved
+                      const target = quarterData?.target ?? vt.target
+                      const progress = target > 0 ? (achieved / target) * 100 : 0
+                      
+                      const vtStatusColor = progress >= 70 ? '#16A34A' : progress >= 50 ? '#F59E0B' : '#DC2626'
+                      const StatusIcon = progress >= 70 ? CheckCircle : progress >= 50 ? AlertCircle : XCircle
+                      const statusLabel = progress >= 70 ? 'On Track' : progress >= 50 ? 'At Risk' : 'Behind'
+
+                      return (
+                        <div key={vt.id} className='bg-blue-100 border border-blue-300 rounded-lg p-3 text-left hover:bg-blue-200 hover:shadow-md transition-all duration-200 cursor-pointer'>
+                          <p className='text-xs font-bold text-blue-900 flex-1 mb-2'>{(vt as any).title || vt.name}</p>
+                          <div className='flex items-baseline gap-1 mb-2'>
+                            <span className='text-2xl font-black tabular-nums' style={{ color: vtStatusColor }}>{achieved}</span>
+                            <span className='text-xs font-bold text-blue-600'>/</span>
+                            <span className='text-lg font-black text-blue-700'>{target}</span>
+                          </div>
+                          <div className='h-1.5 rounded-full overflow-hidden bg-blue-200 mb-2'>
+                            <div 
+                              className='h-full transition-all duration-500' 
+                              style={{ 
+                                width: `${Math.min(progress, 100)}%`,
+                                backgroundColor: vtStatusColor
+                              }}
+                            />
+                          </div>
+                          <div className='flex items-center gap-1'>
+                            <StatusIcon className='h-3 w-3' style={{ color: vtStatusColor }} />
+                            <p className='text-xs font-bold uppercase tracking-widest' style={{ color: vtStatusColor }}>{statusLabel}</p>
+                          </div>
+                        </div>
+                      )
+                    })}
+                  </div>
+                )}
+
+                {/* Summary Metric */}
+                <div className='w-full text-right'>
+                  <p className='text-xs font-semibold text-blue-600 mb-2'>Targets on Track</p>
+                  <div className='flex items-baseline gap-1'>
+                    <span className='text-9xl font-black text-blue-900 tabular-nums leading-none'>
+                      {victoryTargets.filter(vt => {
+                        const achieved = vt.achieved ?? 0
+                        const target = vt.target ?? 0
+                        const progress = target > 0 ? (achieved / target) * 100 : 0
+                        return progress >= 70
+                      }).length}
+                    </span>
+                    <span className='text-3xl text-blue-400 font-bold'>/{victoryTargets.length}</span>
+                  </div>
+                </div>
+              </div>
 
                 {/* Victory Target Cards - Compact */}
                 <div className='w-full space-y-2 flex-1 min-h-[100px]'>
