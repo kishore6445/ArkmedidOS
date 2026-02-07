@@ -649,7 +649,7 @@ export function IndividualDashboard({
                 <p className='text-xs font-black uppercase tracking-wider text-purple-900'>When the Company Wins</p>
                 <p className='text-xs text-purple-700 leading-relaxed'>When ArkMedis achieves its revenue and profit goals, your personal War Goal is unlocked.</p>
                 <div className='bg-purple-100 rounded-lg p-3 mt-2'>
-                  <p className='text-xs font-semibold text-purple-900'>Target outcome: 30 to 50% salary growth aligned with company performance in 2026</p>
+                  <p className='text-xs font-semibold text-purple-900'>Target outcome: +50% salary growth aligned with company performance in 2026</p>
                 </div>
                 <p className='text-xs text-purple-600 italic mt-2'>This is earned growth, not a bonus.</p>
               </div>
@@ -831,7 +831,7 @@ export function IndividualDashboard({
                 <p className='text-xs font-black uppercase tracking-wider text-purple-900'>When the Company Wins</p>
                 <p className='text-xs text-purple-700 leading-relaxed'>When ArkMedis achieves its revenue and profit goals, your personal War Goal is unlocked.</p>
                 <div className='bg-purple-100 rounded-lg p-2 mt-2'>
-                  <p className='text-xs font-semibold text-purple-900'>Target outcome: 30 to 50% salary growth aligned with company performance in 2026</p>
+                  <p className='text-xs font-semibold text-purple-900'>Target outcome: +50% salary growth aligned with company performance in 2026</p>
                 </div>
                 <p className='text-xs text-purple-600 italic mt-2'>This is earned growth, not a bonus.</p>
               </div>
