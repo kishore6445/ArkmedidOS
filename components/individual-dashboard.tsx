@@ -462,17 +462,16 @@ export function IndividualDashboard({
                 <p className='text-xs font-bold uppercase tracking-widest text-amber-700'>Daily Execution</p>
                 <p className='text-xs text-amber-600 font-semibold'>You completed</p>
               </div>
-              <div className='w-full flex items-end justify-between'>
-                <div className='flex-1'></div>
-                <div className='text-right flex-shrink-0'>
+              <div className='w-full flex items-end justify-center'>
+                <div className='text-center flex-shrink-0'>
                   <p className='text-xs font-semibold text-amber-600 mb-2'>Power Moves Done</p>
-                  <div className='flex items-baseline gap-1'>
+                  <div className='flex items-baseline gap-1 justify-center'>
                     <span className='text-9xl font-black tabular-nums leading-none' style={{ color: status.color }}>
                       {periodData.completed}
                     </span>
                     <span className='text-3xl font-bold' style={{ color: status.color }}>/{periodData.total}</span>
                   </div>
-                  <div className='flex items-center justify-end gap-2 mt-3'>
+                  <div className='flex items-center justify-center gap-2 mt-3'>
                     {status.color === '#16A34A' && <CheckCircle className='h-4 w-4 text-green-600' />}
                     {status.color === '#F59E0B' && <AlertCircle className='h-4 w-4 text-amber-600' />}
                     {status.color === '#DC2626' && <XCircle className='h-4 w-4 text-red-600' />}
@@ -495,8 +494,8 @@ export function IndividualDashboard({
                 </div>
                 <p className='text-xs text-blue-600 font-semibold italic'>These targets move because of your execution.</p>
               </div>
-              <div className='w-full flex items-end justify-end'>
-                <div className='text-right flex-shrink-0'>
+              <div className='w-full flex items-end justify-center'>
+                <div className='text-center flex-shrink-0'>
                   {linkedVictoryTargets.length === 0 ? (
                     <div className='space-y-2'>
                       <p className='text-xs text-blue-600 font-semibold'>No targets linked yet</p>
@@ -505,13 +504,13 @@ export function IndividualDashboard({
                   ) : (
                     <>
                       <p className='text-xs font-semibold text-blue-600 mb-2'>Targets on Track</p>
-                      <div className='flex items-baseline gap-1'>
+                      <div className='flex items-baseline gap-1 justify-center'>
                         <span className='text-9xl font-black text-blue-900 tabular-nums leading-none'>
                           {linkedVictoryTargets.filter(vt => vt.progress >= 70).length}
                         </span>
                         <span className='text-3xl text-blue-400 font-bold'>/{linkedVictoryTargets.length}</span>
                       </div>
-                      <div className='flex items-center justify-end gap-2 mt-3'>
+                      <div className='flex items-center justify-center gap-2 mt-3'>
                         {linkedVictoryTargets.filter(vt => vt.progress >= 70).length === linkedVictoryTargets.length && <CheckCircle className='h-4 w-4 text-green-600' />}
                         {linkedVictoryTargets.filter(vt => vt.progress >= 70).length > 0 && linkedVictoryTargets.filter(vt => vt.progress >= 70).length < linkedVictoryTargets.length && <AlertCircle className='h-4 w-4 text-amber-600' />}
                         {linkedVictoryTargets.filter(vt => vt.progress >= 70).length === 0 && <XCircle className='h-4 w-4 text-red-600' />}
@@ -533,11 +532,11 @@ export function IndividualDashboard({
                 <p className='text-xs font-bold uppercase tracking-widest text-purple-700'>Your Reward</p>
                 <p className='text-xs text-purple-600 font-semibold'>Salary growth potential</p>
               </div>
-              <div className='w-full flex items-end justify-end'>
-                <div className='text-right flex-shrink-0'>
+              <div className='w-full flex items-end justify-center'>
+                <div className='text-center flex-shrink-0'>
                   <p className='text-xs font-semibold text-purple-600 mb-2'>Growth Potential</p>
-                  <span className='text-9xl font-black text-purple-900 tabular-nums leading-none'>+50%</span>
-                  <div className='flex items-center justify-end gap-2 mt-3'>
+                  <span className='text-9xl font-black text-purple-900 tabular-nums leading-none'>50%</span>
+                  <div className='flex items-center justify-center gap-2 mt-3'>
                     <CheckCircle className='h-4 w-4 text-green-600' />
                     <p className='text-xs font-bold uppercase tracking-widest text-green-600'>Achievable</p>
                   </div>
