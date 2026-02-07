@@ -2,7 +2,7 @@
 import { useEffect, useMemo, useState } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Calendar, ChevronDown, ArrowRight, ArrowDown } from "lucide-react"
+import { Calendar, ChevronDown, ArrowRight, ArrowDown, CheckCircle, AlertCircle, XCircle } from "lucide-react"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Button } from "@/components/ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
@@ -456,7 +456,7 @@ export function IndividualDashboard({
         <div className='flex gap-8 py-12 px-8 bg-white max-w-7xl mx-auto overflow-x-auto'>
           
           {/* CARD 1: Daily Power Moves - Amber */}
-          <div className='flex-1 min-w-96 bg-gradient-to-br from-amber-50 to-orange-50 border-l-4 border-amber-400 rounded-lg p-10 shadow-sm hover:shadow-lg transition-shadow duration-300'>
+          <div className='flex-1 min-w-96 bg-gradient-to-br from-amber-50 to-orange-50 border-l-4 border-amber-400 rounded-lg p-10 shadow-sm hover:shadow-xl hover:scale-105 transition-all duration-300 cursor-pointer group'>
             <div className='flex flex-col items-start justify-between h-full gap-8'>
               <div className='w-full space-y-2'>
                 <p className='text-xs font-bold uppercase tracking-widest text-amber-700'>Daily Execution</p>
@@ -465,42 +465,69 @@ export function IndividualDashboard({
               <div className='w-full flex items-end justify-between'>
                 <div className='flex-1'></div>
                 <div className='text-right flex-shrink-0'>
+                  <p className='text-xs font-semibold text-amber-600 mb-2'>Power Moves Done</p>
                   <div className='flex items-baseline gap-1'>
                     <span className='text-9xl font-black tabular-nums leading-none' style={{ color: status.color }}>
                       {periodData.completed}
                     </span>
                     <span className='text-3xl font-bold' style={{ color: status.color }}>/{periodData.total}</span>
                   </div>
-                  <p className='text-xs font-bold uppercase tracking-widest mt-3' style={{ color: status.color }}>
-                    {status.badge}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* CARD 2: Your Contribution - Blue */}
-          <div className='flex-1 min-w-96 bg-gradient-to-br from-blue-50 to-cyan-50 border-l-4 border-blue-400 rounded-lg p-10 shadow-sm hover:shadow-lg transition-shadow duration-300'>
-            <div className='flex flex-col items-start justify-between h-full gap-8'>
-              <div className='w-full space-y-2'>
-                <p className='text-xs font-bold uppercase tracking-widest text-blue-700'>Your Contribution to the Company</p>
-                <p className='text-xs text-blue-600 font-semibold italic'>These targets move because of your execution.</p>
-              </div>
-              <div className='w-full flex items-end justify-end'>
-                <div className='text-right flex-shrink-0'>
-                  <div className='flex items-baseline gap-1'>
-                    <span className='text-9xl font-black text-blue-900 tabular-nums leading-none'>
-                      {linkedVictoryTargets.filter(vt => vt.progress >= 70).length}
-                    </span>
-                    <span className='text-3xl text-blue-400 font-bold'>/{linkedVictoryTargets.length}</span>
+                  <div className='flex items-center justify-end gap-2 mt-3'>
+                    {status.color === '#16A34A' && <CheckCircle className='h-4 w-4 text-green-600' />}
+                    {status.color === '#F59E0B' && <AlertCircle className='h-4 w-4 text-amber-600' />}
+                    {status.color === '#DC2626' && <XCircle className='h-4 w-4 text-red-600' />}
+                    <p className='text-xs font-bold uppercase tracking-widest' style={{ color: status.color }}>
+                      {status.badge}
+                    </p>
                   </div>
                 </div>
               </div>
             </div>
           </div>
 
+          {/* CARD 2: Your Contribution - Blue (PRIMARY/EMPHASIZED) */}
+          <div className='flex-1 min-w-96 bg-gradient-to-br from-blue-50 to-cyan-50 border-l-4 border-blue-400 rounded-lg p-10 shadow-md hover:shadow-2xl hover:scale-105 transition-all duration-300 cursor-pointer ring-2 ring-blue-200 ring-opacity-0 hover:ring-opacity-100'>
+            <div className='flex flex-col items-start justify-between h-full gap-8'>
+              <div className='w-full space-y-2'>
+                <div className='flex items-center gap-2'>
+                  <p className='text-xs font-bold uppercase tracking-widest text-blue-700'>Your Contribution to the Company</p>
+                  <span className='bg-blue-600 text-white text-xs px-2 py-0.5 rounded-full font-bold'>Primary</span>
+                </div>
+                <p className='text-xs text-blue-600 font-semibold italic'>These targets move because of your execution.</p>
+              </div>
+              <div className='w-full flex items-end justify-end'>
+                <div className='text-right flex-shrink-0'>
+                  {linkedVictoryTargets.length === 0 ? (
+                    <div className='space-y-2'>
+                      <p className='text-xs text-blue-600 font-semibold'>No targets linked yet</p>
+                      <p className='text-xs text-blue-500 italic'>Link targets to see your impact</p>
+                    </div>
+                  ) : (
+                    <>
+                      <p className='text-xs font-semibold text-blue-600 mb-2'>Targets on Track</p>
+                      <div className='flex items-baseline gap-1'>
+                        <span className='text-9xl font-black text-blue-900 tabular-nums leading-none'>
+                          {linkedVictoryTargets.filter(vt => vt.progress >= 70).length}
+                        </span>
+                        <span className='text-3xl text-blue-400 font-bold'>/{linkedVictoryTargets.length}</span>
+                      </div>
+                      <div className='flex items-center justify-end gap-2 mt-3'>
+                        {linkedVictoryTargets.filter(vt => vt.progress >= 70).length === linkedVictoryTargets.length && <CheckCircle className='h-4 w-4 text-green-600' />}
+                        {linkedVictoryTargets.filter(vt => vt.progress >= 70).length > 0 && linkedVictoryTargets.filter(vt => vt.progress >= 70).length < linkedVictoryTargets.length && <AlertCircle className='h-4 w-4 text-amber-600' />}
+                        {linkedVictoryTargets.filter(vt => vt.progress >= 70).length === 0 && <XCircle className='h-4 w-4 text-red-600' />}
+                        <p className='text-xs font-bold uppercase tracking-widest'>
+                          {linkedVictoryTargets.filter(vt => vt.progress >= 70).length === linkedVictoryTargets.length ? 'On Track' : linkedVictoryTargets.filter(vt => vt.progress >= 70).length > 0 ? 'At Risk' : 'Behind'}
+                        </p>
+                      </div>
+                    </>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+
           {/* CARD 3: Your Reward - Purple */}
-          <div className='flex-1 min-w-96 bg-gradient-to-br from-purple-50 to-violet-50 border-l-4 border-purple-400 rounded-lg p-10 shadow-sm hover:shadow-lg transition-shadow duration-300'>
+          <div className='flex-1 min-w-96 bg-gradient-to-br from-purple-50 to-violet-50 border-l-4 border-purple-400 rounded-lg p-10 shadow-sm hover:shadow-xl hover:scale-105 transition-all duration-300 cursor-pointer group'>
             <div className='flex flex-col items-start justify-between h-full gap-8'>
               <div className='w-full space-y-2'>
                 <p className='text-xs font-bold uppercase tracking-widest text-purple-700'>Your Reward</p>
@@ -508,7 +535,12 @@ export function IndividualDashboard({
               </div>
               <div className='w-full flex items-end justify-end'>
                 <div className='text-right flex-shrink-0'>
+                  <p className='text-xs font-semibold text-purple-600 mb-2'>Growth Potential</p>
                   <span className='text-9xl font-black text-purple-900 tabular-nums leading-none'>+50%</span>
+                  <div className='flex items-center justify-end gap-2 mt-3'>
+                    <CheckCircle className='h-4 w-4 text-green-600' />
+                    <p className='text-xs font-bold uppercase tracking-widest text-green-600'>Achievable</p>
+                  </div>
                   <p className='text-xs text-purple-600 font-semibold mt-3'>Quarterly & Annual Goals</p>
                 </div>
               </div>
