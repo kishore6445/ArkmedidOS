@@ -452,16 +452,14 @@ export function IndividualDashboard({
           </div>
         </div>
 
-        {/* MAIN SCOREBOARD - Two Columns with Enhanced Flow */}
-        <div className='relative lg:flex lg:items-stretch lg:gap-0 p-6 lg:p-0 bg-stone-50'>
-          {/* Desktop: Side-by-side with flow arrow. Mobile: Stacked */}
-          
+        {/* MAIN SCOREBOARD - Three Columns with Enhanced Flow */}
+        <div className='relative hidden lg:flex lg:items-stretch lg:gap-0 p-6 bg-stone-50'>
           {/* Step 1 Badge */}
-          <div className='hidden lg:absolute left-20 top-2 z-10 bg-amber-400 text-amber-900 font-black px-3 py-1 rounded-full text-xs'>STEP 1</div>
+          <div className='absolute left-20 top-2 z-10 bg-amber-400 text-amber-900 font-black px-3 py-1 rounded-full text-xs'>STEP 1</div>
 
           {/* LEFT: DAILY POWER MOVES - Amber Theme */}
           <div className={cn(
-            'flex flex-col items-center justify-center text-center flex-1 min-h-[300px] lg:min-h-[340px] bg-gradient-to-br from-amber-50 to-orange-50 border-l-4 lg:border-l-4 border-t-4 border-b-4 border-amber-400 border-r-2 border-r-amber-200 rounded-lg lg:rounded-l-lg lg:rounded-r-none p-8 shadow-md lg:shadow-md hover:shadow-lg transition-shadow duration-300 lg:mb-0 mb-4',
+            'flex flex-col items-center justify-center text-center flex-1 min-h-[300px] bg-gradient-to-br from-amber-50 to-orange-50 border-l-4 border-t-4 border-b-4 border-amber-400 border-r-2 border-r-amber-200 rounded-l-lg p-8 shadow-md hover:shadow-lg transition-shadow duration-300',
             status.borderAccent
           )}>
             <div className='space-y-3 w-full'>
@@ -506,22 +504,20 @@ export function IndividualDashboard({
             </div>
           </div>
 
-          {/* Flow Indicator - Desktop */}
-          <div className='hidden lg:flex flex-col items-center justify-center px-6 bg-stone-50 relative'>
-            {/* Gradient flow line */}
+          {/* Flow Indicator 1 */}
+          <div className='flex flex-col items-center justify-center px-6 bg-stone-50 relative'>
             <div className='absolute top-0 bottom-0 w-0.5 bg-gradient-to-b from-amber-300 via-stone-300 to-blue-300'></div>
-            {/* Arrow with label */}
             <div className='relative z-10 flex flex-col items-center gap-2'>
               <ArrowRight className='h-8 w-8 text-amber-500 font-bold' aria-hidden="true" />
-              <span className='text-xs font-black text-amber-700 whitespace-nowrap'>CONTRIBUTES TO</span>
+              <span className='text-xs font-black text-amber-700 whitespace-nowrap'>DRIVES</span>
             </div>
           </div>
 
           {/* Step 2 Badge */}
-          <div className='hidden lg:absolute left-1/2 -translate-x-1/2 top-2 z-10 bg-blue-400 text-blue-900 font-black px-3 py-1 rounded-full text-xs'>STEP 2</div>
+          <div className='absolute left-1/2 -translate-x-1/2 top-2 z-10 bg-blue-400 text-blue-900 font-black px-3 py-1 rounded-full text-xs'>STEP 2</div>
 
-          {/* RIGHT: LINKED VICTORY TARGETS - Blue Theme */}
-          <div className='flex flex-col items-center justify-center text-center flex-1 min-h-[300px] lg:min-h-[340px] bg-gradient-to-br from-blue-50 to-cyan-50 border-l-4 lg:border-l-2 border-t-4 border-b-4 border-blue-400 border-r-2 lg:border-r-4 border-blue-200 lg:border-r-blue-400 rounded-lg lg:rounded-l-none lg:rounded-r-lg p-6 lg:p-7 shadow-md lg:shadow-md hover:shadow-lg transition-shadow duration-300'>
+          {/* MIDDLE: LINKED VICTORY TARGETS - Blue Theme */}
+          <div className='flex flex-col items-center justify-center text-center flex-1 min-h-[300px] bg-gradient-to-br from-blue-50 to-cyan-50 border-l-2 border-l-blue-200 border-t-4 border-b-4 border-blue-400 border-r-2 border-r-blue-200 p-6 shadow-md hover:shadow-lg transition-shadow duration-300'>
             <div className='space-y-3 w-full'>
               <div className='space-y-1'>
                 <p className='text-base font-black uppercase tracking-[0.15em] text-blue-900'>Linked Victory Targets</p>
@@ -533,7 +529,7 @@ export function IndividualDashboard({
               <div className='space-y-2 flex-1 min-h-[80px]'>
                 {linkedVictoryTargets.length === 0 ? (
                   <div className='border border-dashed border-blue-300 rounded-lg p-4 text-center text-sm text-blue-600'>
-                    No linked victory targets yet.
+                    No linked targets yet.
                   </div>
                 ) : (
                   linkedVictoryTargets.map((vt, index) => {
@@ -543,17 +539,13 @@ export function IndividualDashboard({
                     const vtStatusLabel = progress >= 70 ? 'On Track' : progress >= 50 ? 'At Risk' : 'Behind'
 
                     return (
-                      <div key={vt.id} className='bg-blue-100 border border-blue-300 rounded-lg p-3 text-left hover:bg-blue-200 hover:shadow-md transition-all duration-200'>
-                        <div className='flex items-start justify-between gap-2 mb-2'>
-                          <div className='flex-1'>
-                            <p className='text-sm font-bold text-blue-900 leading-tight'>{vt.title}</p>
-                            <p className='text-xs font-semibold text-blue-600 mt-0.5'>{vt.brand}</p>
-                          </div>
-                          <span className={cn('text-xs font-black px-2 py-0.5 rounded-full text-white text-center', vtStatusBg)}>
+                      <div key={vt.id} className='bg-blue-100 border border-blue-300 rounded-lg p-2 text-left hover:bg-blue-200 hover:shadow-md transition-all duration-200'>
+                        <div className='flex items-start justify-between gap-2 mb-1'>
+                          <p className='text-xs font-bold text-blue-900 flex-1'>{vt.title}</p>
+                          <span className={cn('text-xs font-black px-2 py-0.5 rounded-full text-white', vtStatusBg)}>
                             {vtStatusLabel}
                           </span>
                         </div>
-                        {/* Progress Bar */}
                         <div className='h-1.5 rounded-full overflow-hidden bg-blue-200'>
                           <div 
                             className='h-full transition-all duration-500' 
@@ -572,18 +564,245 @@ export function IndividualDashboard({
 
               {/* Summary */}
               <div className='mt-3 pt-3 border-t border-blue-200'>
-                <p className='text-xs text-blue-600 italic'>Your execution contributes to department victory targets.</p>
+                <p className='text-xs text-blue-600 italic'>Your execution contributes to victory targets.</p>
               </div>
             </div>
           </div>
 
-          {/* Flow Indicator - Mobile */}
-          <div className='lg:hidden flex flex-col items-center gap-2 py-3'>
+          {/* Flow Indicator 2 */}
+          <div className='flex flex-col items-center justify-center px-6 bg-stone-50 relative'>
+            <div className='absolute top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-300 via-stone-300 to-purple-300'></div>
+            <div className='relative z-10 flex flex-col items-center gap-2'>
+              <ArrowRight className='h-8 w-8 text-blue-500 font-bold' aria-hidden="true" />
+              <span className='text-xs font-black text-blue-700 whitespace-nowrap'>ACHIEVES</span>
+            </div>
+          </div>
+
+          {/* Step 3 Badge */}
+          <div className='absolute right-20 top-2 z-10 bg-purple-400 text-purple-900 font-black px-3 py-1 rounded-full text-xs'>STEP 3</div>
+
+          {/* RIGHT: PERSONAL WAR GOAL - Purple Theme */}
+          <div className='flex flex-col items-center justify-center text-center flex-1 min-h-[300px] bg-gradient-to-br from-purple-50 to-violet-50 border-l-2 border-l-purple-200 border-t-4 border-b-4 border-purple-400 border-r-4 border-r-purple-400 rounded-r-lg p-8 shadow-md hover:shadow-lg transition-shadow duration-300'>
+            <div className='space-y-3 w-full'>
+              <div className='space-y-1'>
+                <p className='text-base font-black uppercase tracking-[0.15em] text-purple-900'>Personal War Goal</p>
+                <div className='h-0.5 w-10 bg-purple-300 mx-auto rounded-full'></div>
+              </div>
+              <p className='text-xs font-semibold text-purple-700 mt-1'>Your strategic personal outcome (Lag Measure)</p>
+
+              {/* Personal Goal Display */}
+              <div className='py-5'>
+                {myVictoryTargets.length > 0 ? (
+                  <>
+                    <div className='text-lg font-bold text-purple-900 mb-4 leading-snug'>
+                      {myVictoryTargets[0]?.title || 'No goal set'}
+                    </div>
+                    <div className='flex items-baseline justify-center gap-1 mb-3'>
+                      <div className='text-5xl font-black text-purple-900 tabular-nums'>
+                        {myVictoryTargets[0]?.achieved || 0}
+                      </div>
+                      <div className='text-lg font-bold text-purple-400'>/ {myVictoryTargets[0]?.target || 0}</div>
+                    </div>
+                    {/* Goal Progress */}
+                    <div className='mb-3'>
+                      {myVictoryTargets[0] && (() => {
+                        const progress = myVictoryTargets[0].target ? Math.round((myVictoryTargets[0].achieved / myVictoryTargets[0].target) * 100) : 0
+                        const goalStatusColor = progress >= 70 ? '#16A34A' : progress >= 50 ? '#F59E0B' : '#DC2626'
+                        const goalStatusBg = progress >= 70 ? 'bg-emerald-100' : progress >= 50 ? 'bg-amber-100' : 'bg-rose-100'
+                        const goalStatusLabel = progress >= 70 ? 'On Track' : progress >= 50 ? 'At Risk' : 'Behind'
+                        
+                        return (
+                          <>
+                            <div className='h-2 rounded-full overflow-hidden bg-purple-200 mb-2'>
+                              <div 
+                                className='h-full transition-all duration-500' 
+                                style={{ 
+                                  width: `${Math.min(progress, 100)}%`,
+                                  backgroundColor: goalStatusColor
+                                }}
+                              />
+                            </div>
+                            <div className={cn('inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-black', goalStatusBg)}>
+                              <span>{goalStatusLabel}</span>
+                            </div>
+                          </>
+                        )
+                      })()}
+                    </div>
+                  </>
+                ) : (
+                  <div className='text-center py-6'>
+                    <p className='text-sm text-purple-600 font-semibold'>No personal goal configured yet</p>
+                  </div>
+                )}
+              </div>
+
+              {/* Summary */}
+              <div className='mt-3 pt-3 border-t border-purple-200'>
+                <p className='text-xs text-purple-600 italic'>Your personal strategic outcome.</p>
+              </div>
+            </div>
+          </div>
+        
+        {/* MOBILE SCOREBOARD - Three Stacked Cards */}
+        <div className='lg:hidden space-y-4 p-6 bg-stone-50'>
+          {/* Step 1 Badge */}
+          <div className='flex justify-center mb-2'>
+            <span className='bg-amber-400 text-amber-900 font-black px-3 py-1 rounded-full text-xs'>STEP 1: Lead Measures</span>
+          </div>
+
+          {/* Card 1 - Amber Theme */}
+          <div className={cn(
+            'flex flex-col items-center justify-center text-center bg-gradient-to-br from-amber-50 to-orange-50 border-l-4 border-t-4 border-b-4 border-amber-400 border-r-2 border-r-amber-200 rounded-lg p-7 shadow-md hover:shadow-lg transition-shadow duration-300',
+            status.borderAccent
+          )}>
+            <div className='space-y-3 w-full'>
+              <p className='text-base font-black uppercase tracking-[0.15em] text-amber-900'>
+                {selectedPeriod === 'today' ? 'Daily' : selectedPeriod === 'this-week' ? 'Weekly' : selectedPeriod === 'this-month' ? 'Monthly' : 'Quarterly'} Power Moves
+              </p>
+              <div className='h-0.5 w-10 bg-amber-300 mx-auto rounded-full'></div>
+              <p className='text-xs font-semibold text-amber-700'>Your personal execution score (Lead Measures)</p>
+              <div className='py-5'>
+                <div 
+                  className='text-8xl font-black tabular-nums leading-none'
+                  style={{ color: status.color }}
+                >
+                  {executionPercentage}
+                </div>
+                <div className='text-xl font-bold text-amber-400 mt-3'>/100</div>
+              </div>
+              <div className={cn(
+                'inline-flex items-center gap-2 px-5 py-2.5 rounded-lg shadow-md text-sm font-black',
+                status.bg,
+                status.text
+              )}>
+                <span>{status.badge}</span>
+              </div>
+              <div className='mt-5 pt-5 border-t-2 border-amber-200 space-y-2'>
+                <p className='text-3xl font-black text-amber-900 tabular-nums'>
+                  {periodData.completed} <span className='text-amber-300'>/</span> {periodData.total}
+                </p>
+                <p className='text-xs font-bold text-amber-700 mt-1 uppercase tracking-wider'>Power Moves Complete</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Flow Indicator */}
+          <div className='flex flex-col items-center gap-2 py-2'>
             <ArrowDown className='h-6 w-6 text-amber-500 font-bold' aria-hidden="true" />
-            <span className='text-xs font-black text-amber-700'>CONTRIBUTES TO</span>
+            <span className='text-xs font-black text-amber-700'>DRIVES</span>
+          </div>
+
+          {/* Step 2 Badge */}
+          <div className='flex justify-center mb-2'>
+            <span className='bg-blue-400 text-blue-900 font-black px-3 py-1 rounded-full text-xs'>STEP 2: Lag Measures</span>
+          </div>
+
+          {/* Card 2 - Blue Theme */}
+          <div className='bg-gradient-to-br from-blue-50 to-cyan-50 border-l-4 border-t-4 border-b-4 border-blue-400 border-r-2 border-r-blue-200 rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow duration-300'>
+            <div className='space-y-3'>
+              <p className='text-base font-black uppercase tracking-[0.15em] text-blue-900'>Linked Victory Targets</p>
+              <div className='h-0.5 w-10 bg-blue-300 mx-auto rounded-full'></div>
+              <p className='text-xs font-semibold text-blue-700 mt-1'>Results your Power Moves contribute to (Lag Measures)</p>
+              <div className='space-y-2'>
+                {linkedVictoryTargets.length === 0 ? (
+                  <div className='border border-dashed border-blue-300 rounded-lg p-4 text-center text-sm text-blue-600'>
+                    No linked targets yet.
+                  </div>
+                ) : (
+                  linkedVictoryTargets.map((vt) => {
+                    const progress = vt.progress
+                    const vtStatusColor = progress >= 70 ? '#16A34A' : progress >= 50 ? '#F59E0B' : '#DC2626'
+                    const vtStatusBg = progress >= 70 ? 'bg-emerald-100' : progress >= 50 ? 'bg-amber-100' : 'bg-rose-100'
+                    const vtStatusLabel = progress >= 70 ? 'On Track' : progress >= 50 ? 'At Risk' : 'Behind'
+
+                    return (
+                      <div key={vt.id} className='bg-blue-100 border border-blue-300 rounded-lg p-3 text-left hover:bg-blue-200 hover:shadow-md transition-all duration-200'>
+                        <div className='flex items-start justify-between gap-2 mb-2'>
+                          <p className='text-xs font-bold text-blue-900 flex-1'>{vt.title}</p>
+                          <span className={cn('text-xs font-black px-2 py-0.5 rounded-full text-white', vtStatusBg)}>
+                            {vtStatusLabel}
+                          </span>
+                        </div>
+                        <div className='h-1.5 rounded-full overflow-hidden bg-blue-200'>
+                          <div 
+                            className='h-full transition-all duration-500' 
+                            style={{ 
+                              width: `${Math.min(progress, 100)}%`,
+                              backgroundColor: vtStatusColor
+                            }}
+                          />
+                        </div>
+                        <p className='text-xs text-blue-700 mt-1 font-semibold'>{progress}% complete</p>
+                      </div>
+                    )
+                  })
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* Flow Indicator */}
+          <div className='flex flex-col items-center gap-2 py-2'>
+            <ArrowDown className='h-6 w-6 text-blue-500 font-bold' aria-hidden="true" />
+            <span className='text-xs font-black text-blue-700'>ACHIEVES</span>
+          </div>
+
+          {/* Step 3 Badge */}
+          <div className='flex justify-center mb-2'>
+            <span className='bg-purple-400 text-purple-900 font-black px-3 py-1 rounded-full text-xs'>STEP 3: Personal Goal</span>
+          </div>
+
+          {/* Card 3 - Purple Theme */}
+          <div className='bg-gradient-to-br from-purple-50 to-violet-50 border-l-4 border-t-4 border-b-4 border-purple-400 border-r-2 border-r-purple-200 rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow duration-300'>
+            <div className='space-y-3 text-center'>
+              <p className='text-base font-black uppercase tracking-[0.15em] text-purple-900'>Personal War Goal</p>
+              <div className='h-0.5 w-10 bg-purple-300 mx-auto rounded-full'></div>
+              <p className='text-xs font-semibold text-purple-700'>Your strategic personal outcome (Lag Measure)</p>
+              
+              {myVictoryTargets.length > 0 ? (
+                <>
+                  <div className='text-lg font-bold text-purple-900 mb-4 leading-snug'>
+                    {myVictoryTargets[0]?.title || 'No goal set'}
+                  </div>
+                  <div className='flex items-baseline justify-center gap-1 mb-3'>
+                    <div className='text-5xl font-black text-purple-900 tabular-nums'>
+                      {myVictoryTargets[0]?.achieved || 0}
+                    </div>
+                    <div className='text-lg font-bold text-purple-400'>/ {myVictoryTargets[0]?.target || 0}</div>
+                  </div>
+                  {myVictoryTargets[0] && (() => {
+                    const progress = myVictoryTargets[0].target ? Math.round((myVictoryTargets[0].achieved / myVictoryTargets[0].target) * 100) : 0
+                    const goalStatusColor = progress >= 70 ? '#16A34A' : progress >= 50 ? '#F59E0B' : '#DC2626'
+                    const goalStatusBg = progress >= 70 ? 'bg-emerald-100' : progress >= 50 ? 'bg-amber-100' : 'bg-rose-100'
+                    const goalStatusLabel = progress >= 70 ? 'On Track' : progress >= 50 ? 'At Risk' : 'Behind'
+                    
+                    return (
+                      <div className='mb-3'>
+                        <div className='h-2 rounded-full overflow-hidden bg-purple-200 mb-2'>
+                          <div 
+                            className='h-full transition-all duration-500' 
+                            style={{ 
+                              width: `${Math.min(progress, 100)}%`,
+                              backgroundColor: goalStatusColor
+                            }}
+                          />
+                        </div>
+                        <div className={cn('inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-black', goalStatusBg)}>
+                          <span>{goalStatusLabel}</span>
+                        </div>
+                      </div>
+                    )
+                  })()}
+                </>
+              ) : (
+                <div className='text-center py-6'>
+                  <p className='text-sm text-purple-600 font-semibold'>No personal goal configured yet</p>
+                </div>
+              )}
+            </div>
           </div>
         </div>
-      </Card>
 
       {/* Company Goal Context - Moved below scoreboard */}
       <div className='text-xs font-semibold text-stone-500 px-2'>
