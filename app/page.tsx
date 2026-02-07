@@ -78,9 +78,31 @@ export default function HomePage() {
                 <div className="w-full rounded-lg border-4 border-orange-500 bg-gradient-to-br from-orange-500 to-orange-600 p-12 text-center shadow-2xl">
                   <div className="space-y-6">
                     <div className="space-y-2">
-                      <p className="text-orange-100 text-sm uppercase tracking-widest font-bold">ArkMedis Initiative</p>
+                      <p className="text-white text-sm uppercase tracking-widest font-bold opacity-90">ArkMedis Initiative</p>
                       <h2 className="text-5xl font-black text-white">Mission 50</h2>
                     </div>
+                    <div className="bg-white rounded-lg p-6 space-y-4">
+                      <p className="text-orange-600 text-3xl font-black">Onboard 50 New Clients</p>
+                      <p className="text-slate-700 text-lg font-semibold">Across 3 Focused Brands</p>
+                    </div>
+                    <div className="grid grid-cols-3 gap-4">
+                      <div className="bg-white rounded p-4">
+                        <p className="text-orange-600 font-black text-3xl">30</p>
+                        <p className="text-slate-700 text-xs font-bold mt-1">The Warrior<br/>Systems</p>
+                      </div>
+                      <div className="bg-white rounded p-4">
+                        <p className="text-orange-600 font-black text-3xl">18</p>
+                        <p className="text-slate-700 text-xs font-bold mt-1">Story<br/>Marketing</p>
+                      </div>
+                      <div className="bg-white rounded p-4">
+                        <p className="text-orange-600 font-black text-3xl">2</p>
+                        <p className="text-slate-700 text-xs font-bold mt-1">MetaGurukul</p>
+                      </div>
+                    </div>
+                    <p className="text-white font-bold text-lg">Timeline: Dec 31, 2026</p>
+                  </div>
+                </div>
+              </div>
                     <div className="bg-white bg-opacity-20 rounded-lg p-6 space-y-4">
                       <p className="text-white text-3xl font-bold">Onboard 50 New Clients</p>
                       <p className="text-orange-100 text-lg">Across 3 Focused Brands</p>
