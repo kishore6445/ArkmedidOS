@@ -89,7 +89,7 @@ export default function HomePage() {
                 {
                   num: "3",
                   title: "Earned Growth",
-                  desc: "50% growth split by your contribution."
+                  desc: "50% hike aligned by your contribution."
                 }
               ].map((item) => (
                 <div key={item.num} className="bg-slate-900 rounded-lg p-6 border-l-4 border-orange-500">
@@ -102,39 +102,36 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Why It Matters */}
+        {/* Why ArkMedis - Benefits */}
         <section className="bg-white px-6 py-24">
           <div className="mx-auto max-w-7xl space-y-12">
             <div>
-              <h2 className="text-4xl font-bold text-orange-600 mb-4">What Makes This Different</h2>
+              <h2 className="text-4xl font-bold text-orange-600 mb-4">Why ArkMedis is the Best Place to Work</h2>
             </div>
             <div className="grid gap-6 lg:grid-cols-2">
-              {[
-                {
-                  title: "Transparency, Not Politics",
-                  desc: "Your contribution is measured. Your work speaks for itself."
-                },
-                {
-                  title: "One Mission, One Team",
-                  desc: "Everyone's Power Moves roll up to the same outcome. Your win is our win."
-                },
-                {
-                  title: "Earned Autonomy",
-                  desc: "Consistent execution builds reliability. Reliability earns freedom."
-                },
-                {
-                  title: "Equal Opportunity",
-                  desc: "Every role can reach the full 50% growth through contribution."
-                }
-              ].map((item) => (
-                <div key={item.title} className="border-2 border-slate-200 rounded-lg p-6 hover:border-orange-500 transition">
-                  <h3 className="text-xl font-bold text-slate-900 mb-2">{item.title}</h3>
-                  <p className="text-slate-700">{item.desc}</p>
-                </div>
-              ))}
+              <div className="border-2 border-slate-200 rounded-lg p-8 hover:border-orange-500 transition">
+                <h3 className="text-2xl font-bold text-slate-900 mb-4">Work From Home & Flexibility</h3>
+                <p className="text-slate-700 mb-4">
+                  Your execution earns your freedom. Consistent delivery builds trust. Trust enables flexibility.
+                </p>
+                <p className="text-slate-700 font-semibold text-orange-600">
+                  Execution earns freedom. Not the other way around.
+                </p>
+              </div>
+              <div className="border-2 border-slate-200 rounded-lg p-8 hover:border-orange-500 transition">
+                <h3 className="text-2xl font-bold text-slate-900 mb-4">Recognition Without Politics</h3>
+                <p className="text-slate-700 mb-4">
+                  Dashboards show your contribution. No gossip. No noise. Your work speaks for itself.
+                </p>
+                <p className="text-slate-700 font-semibold text-orange-600">
+                  Your outcomes matter. Your opinions don't need to.
+                </p>
+              </div>
             </div>
           </div>
         </section>
+
+        {/* What Makes This Different */}
 
         {/* The Three Brands */}
         <section className="bg-slate-950 px-6 py-24">
@@ -170,29 +167,38 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Mission 2047 */}
-        <section className="bg-white px-6 py-24">
-          <div className="mx-auto max-w-7xl space-y-8">
+        {/* Mission 2047 - Condensed */}
+        <section className="bg-slate-950 px-6 py-24">
+          <div className="mx-auto max-w-7xl space-y-12">
             <div>
-              <h2 className="text-4xl font-bold text-orange-600 mb-4">Mission 50 → Mission 2047</h2>
+              <h2 className="text-4xl font-bold text-orange-400 mb-4">Why It Matters Beyond Mission 50</h2>
             </div>
-            <div className="grid gap-8 lg:grid-cols-2">
-              <div className="space-y-4 border-2 border-orange-500 rounded-lg p-8 bg-orange-50">
-                <h3 className="text-2xl font-bold text-slate-900">Near term</h3>
-                <p className="text-slate-800">
-                  50 companies with execution discipline by 2026. Prove that systems work better than hustle.
-                </p>
+            <div className="space-y-8">
+              <div className="grid gap-8 lg:grid-cols-3">
+                {[
+                  {
+                    title: "Strong Companies",
+                    desc: "Built on execution, not just ideas."
+                  },
+                  {
+                    title: "Global Competitiveness",
+                    desc: "Indian manufacturing that competes worldwide."
+                  },
+                  {
+                    title: "Disciplined Knowledge",
+                    desc: "Reviving India's learning traditions."
+                  }
+                ].map((item) => (
+                  <div key={item.title} className="bg-slate-900 rounded-lg p-6 border-l-4 border-orange-500">
+                    <h3 className="text-lg font-bold text-white mb-2">{item.title}</h3>
+                    <p className="text-slate-300">{item.desc}</p>
+                  </div>
+                ))}
               </div>
-              <div className="space-y-4 border-2 border-slate-300 rounded-lg p-8">
-                <h3 className="text-2xl font-bold text-slate-900">Long term</h3>
-                <p className="text-slate-700">
-                  By 2047, India should lead in efficient execution. Companies that compete on quality, not just cost.
-                </p>
-              </div>
+              <p className="text-lg text-slate-200 text-center">
+                <span className="text-orange-400 font-bold">Your Power Moves build both:</span> You grow. India's businesses get stronger. By 2047, execution and discipline define our economy.
+              </p>
             </div>
-            <p className="text-lg text-slate-700">
-              Your Power Moves build both. You grow. <span className="text-orange-600 font-bold">India's businesses get stronger.</span>
-            </p>
           </div>
         </section>
 
