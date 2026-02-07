@@ -452,285 +452,76 @@ export function IndividualDashboard({
           </div>
         </div>
 
-        {/* SIMPLIFIED VERTICAL SCOREBOARD - 5-Second Understanding */}
-        <div className='space-y-4 p-6 bg-white max-w-2xl mx-auto'>
+        {/* SIMPLIFIED VERTICAL SCOREBOARD - Horizontal Cards */}
+        <div className='space-y-4 p-6 bg-white max-w-4xl mx-auto'>
           
           {/* CARD 1: Daily Power Moves - Amber */}
-          <div className='bg-gradient-to-br from-amber-50 to-orange-50 border-l-4 border-amber-400 rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow duration-300'>
-            <div className='flex items-center justify-between'>
-              <div className='space-y-1'>
+          <div className='bg-gradient-to-br from-amber-50 to-orange-50 border-l-4 border-amber-400 rounded-lg p-8 shadow-sm hover:shadow-md transition-shadow duration-300'>
+            <div className='flex items-center justify-between gap-8'>
+              <div className='flex-1 space-y-2'>
                 <p className='text-xs font-bold uppercase tracking-widest text-amber-700'>Daily Execution</p>
-                <p className='text-sm text-amber-600'>You completed</p>
+                <p className='text-sm text-amber-600 font-semibold'>You completed</p>
+                <div className={cn(
+                  'inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-black mt-2',
+                  status.bg,
+                  status.text
+                )}>
+                  <span>{status.badge}</span>
+                </div>
               </div>
-              <div className='flex items-baseline gap-2'>
-                <span className='text-5xl font-black text-amber-900 tabular-nums'>{periodData.completed}</span>
-                <span className='text-lg text-amber-400 font-bold'>/{periodData.total}</span>
-              </div>
-            </div>
-            <div className='mt-4 pt-4 border-t border-amber-200'>
-              <div className={cn(
-                'inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-black',
-                status.bg,
-                status.text
-              )}>
-                <span>{status.badge}</span>
+              <div className='flex-shrink-0 text-right'>
+                <div className='flex items-baseline gap-2'>
+                  <span className='text-6xl font-black text-amber-900 tabular-nums'>{periodData.completed}</span>
+                  <span className='text-xl text-amber-400 font-bold'>/{periodData.total}</span>
+                </div>
               </div>
             </div>
           </div>
 
           {/* ARROW DOWN */}
-          <div className='flex justify-center py-1'>
-            <ArrowDown className='h-5 w-5 text-stone-300' aria-hidden="true" />
+          <div className='flex justify-center py-2'>
+            <ArrowDown className='h-6 w-6 text-stone-300' aria-hidden="true" />
           </div>
 
           {/* CARD 2: Company Impact - Blue */}
-          <div className='bg-gradient-to-br from-blue-50 to-cyan-50 border-l-4 border-blue-400 rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow duration-300'>
-            <div className='flex items-center justify-between'>
-              <div className='space-y-1'>
+          <div className='bg-gradient-to-br from-blue-50 to-cyan-50 border-l-4 border-blue-400 rounded-lg p-8 shadow-sm hover:shadow-md transition-shadow duration-300'>
+            <div className='flex items-center justify-between gap-8'>
+              <div className='flex-1 space-y-2'>
                 <p className='text-xs font-bold uppercase tracking-widest text-blue-700'>Company Impact</p>
-                <p className='text-sm text-blue-600'>Targets on track</p>
+                <p className='text-sm text-blue-600 font-semibold'>Targets on track</p>
+                {linkedVictoryTargets.length === 0 && (
+                  <p className='text-xs text-blue-500 italic mt-2'>No linked targets yet</p>
+                )}
               </div>
-              <div className='flex items-baseline gap-1'>
-                <span className='text-5xl font-black text-blue-900 tabular-nums'>{linkedVictoryTargets.filter(vt => vt.progress >= 70).length}</span>
-                <span className='text-lg text-blue-400 font-bold'>/{linkedVictoryTargets.length}</span>
+              <div className='flex-shrink-0 text-right'>
+                <div className='flex items-baseline gap-1'>
+                  <span className='text-6xl font-black text-blue-900 tabular-nums'>{linkedVictoryTargets.filter(vt => vt.progress >= 70).length}</span>
+                  <span className='text-xl text-blue-400 font-bold'>/{linkedVictoryTargets.length}</span>
+                </div>
               </div>
             </div>
-            {linkedVictoryTargets.length === 0 && (
-              <div className='mt-4 text-xs text-blue-600'>No linked targets yet</div>
-            )}
           </div>
 
           {/* ARROW DOWN */}
-          <div className='flex justify-center py-1'>
-            <ArrowDown className='h-5 w-5 text-stone-300' aria-hidden="true" />
+          <div className='flex justify-center py-2'>
+            <ArrowDown className='h-6 w-6 text-stone-300' aria-hidden="true" />
           </div>
 
           {/* CARD 3: Your Reward - Purple */}
-          <div className='bg-gradient-to-br from-purple-50 to-violet-50 border-l-4 border-purple-400 rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow duration-300'>
-            <div className='flex items-center justify-between'>
-              <div className='space-y-1'>
+          <div className='bg-gradient-to-br from-purple-50 to-violet-50 border-l-4 border-purple-400 rounded-lg p-8 shadow-sm hover:shadow-md transition-shadow duration-300'>
+            <div className='flex items-center justify-between gap-8'>
+              <div className='flex-1 space-y-2'>
                 <p className='text-xs font-bold uppercase tracking-widest text-purple-700'>Your Reward</p>
-                <p className='text-sm text-purple-600'>Salary growth potential</p>
+                <p className='text-sm text-purple-600 font-semibold'>Salary growth potential</p>
+                <p className='text-xs text-purple-600 italic mt-3'>When company wins, you earn</p>
               </div>
-              <div className='flex items-baseline gap-1'>
-                <span className='text-5xl font-black text-purple-900 tabular-nums'>+50%</span>
-              </div>
-            </div>
-            <div className='mt-4 pt-4 border-t border-purple-200'>
-              <p className='text-xs text-purple-700 font-semibold'>When company wins, you earn</p>
-            </div>
-          </div>
-
-        </div>
-
-        {/* MOBILE SCOREBOARD - Three Stacked Cards */}
-        <div className='lg:hidden space-y-4 p-6 bg-stone-50'>
-          {/* Step 1 Badge */}
-          <div className='flex justify-center mb-2'>
-            <span className='bg-amber-400 text-amber-900 font-black px-3 py-1 rounded-full text-xs'>STEP 1: Lead Measures</span>
-          </div>
-
-          {/* Card 1 - Amber Theme */}
-          <div className={cn(
-            'flex flex-col items-center justify-center text-center bg-gradient-to-br from-amber-50 to-orange-50 border-l-4 border-t-4 border-b-4 border-amber-400 border-r-2 border-r-amber-200 rounded-lg p-7 shadow-md hover:shadow-lg transition-shadow duration-300',
-            status.borderAccent
-          )}>
-            <div className='space-y-3 w-full'>
-              <p className='text-base font-black uppercase tracking-[0.15em] text-amber-900'>
-                {selectedPeriod === 'today' ? 'Daily' : selectedPeriod === 'this-week' ? 'Weekly' : selectedPeriod === 'this-month' ? 'Monthly' : 'Quarterly'} Power Moves
-              </p>
-              <div className='h-0.5 w-10 bg-amber-300 mx-auto rounded-full'></div>
-              <p className='text-xs font-semibold text-amber-700'>Your personal execution score (Lead Measures)</p>
-              <div className='py-5'>
-                <div 
-                  className='text-8xl font-black tabular-nums leading-none'
-                  style={{ color: status.color }}
-                >
-                  {executionPercentage}
-                </div>
-                <div className='text-xl font-bold text-amber-400 mt-3'>/100</div>
-              </div>
-              <div className={cn(
-                'inline-flex items-center gap-2 px-5 py-2.5 rounded-lg shadow-md text-sm font-black',
-                status.bg,
-                status.text
-              )}>
-                <span>{status.badge}</span>
-              </div>
-              <div className='mt-5 pt-5 border-t-2 border-amber-200 space-y-2'>
-                <p className='text-3xl font-black text-amber-900 tabular-nums'>
-                  {periodData.completed} <span className='text-amber-300'>/</span> {periodData.total}
-                </p>
-                <p className='text-xs font-bold text-amber-700 mt-1 uppercase tracking-wider'>Power Moves Complete</p>
-              </div>
-
-              {/* Psychological Connection */}
-              <div className='mt-4 pt-4 border-t border-amber-200 space-y-1.5'>
-                <p className='text-xs text-amber-700 font-semibold'>These actions directly contribute to company victory targets.</p>
-                <p className='text-xs text-amber-600 italic'>When you execute daily, company results move.</p>
+              <div className='flex-shrink-0 text-right'>
+                <span className='text-6xl font-black text-purple-900 tabular-nums'>+50%</span>
               </div>
             </div>
           </div>
 
-          {/* Flow Indicator */}
-          <div className='flex flex-col items-center gap-2 py-2'>
-            <ArrowDown className='h-6 w-6 text-amber-500 font-bold' aria-hidden="true" />
-            <span className='text-xs font-black text-amber-700'>DRIVES</span>
-          </div>
-
-          {/* Step 2 Badge */}
-          <div className='flex justify-center mb-2'>
-            <span className='bg-blue-400 text-blue-900 font-black px-3 py-1 rounded-full text-xs'>STEP 2: Lag Measures</span>
-          </div>
-
-          {/* Card 2 - Blue Theme */}
-          <div className='bg-gradient-to-br from-blue-50 to-cyan-50 border-l-4 border-t-4 border-b-4 border-blue-400 border-r-2 border-r-blue-200 rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow duration-300'>
-            <div className='space-y-3'>
-              <p className='text-base font-black uppercase tracking-[0.15em] text-blue-900'>Linked Victory Targets</p>
-              <div className='h-0.5 w-10 bg-blue-300 mx-auto rounded-full'></div>
-              <p className='text-xs font-semibold text-blue-700 mt-1'>Company targets your Power Moves directly influence</p>
-              <div className='space-y-2'>
-                {linkedVictoryTargets.length === 0 ? (
-                  <div className='border border-dashed border-blue-300 rounded-lg p-4 text-center text-sm text-blue-600'>
-                    No linked targets yet.
-                  </div>
-                ) : (
-                  linkedVictoryTargets.map((vt) => {
-                    const progress = vt.progress
-                    const vtStatusColor = progress >= 70 ? '#16A34A' : progress >= 50 ? '#F59E0B' : '#DC2626'
-                    const vtStatusBg = progress >= 70 ? 'bg-emerald-100' : progress >= 50 ? 'bg-amber-100' : 'bg-rose-100'
-                    const vtStatusLabel = progress >= 70 ? 'On Track' : progress >= 50 ? 'At Risk' : 'Behind'
-
-                    return (
-                      <div key={vt.id} className='bg-blue-100 border border-blue-300 rounded-lg p-3 text-left hover:bg-blue-200 hover:shadow-md transition-all duration-200'>
-                        <div className='flex items-start justify-between gap-2 mb-2'>
-                          <p className='text-xs font-bold text-blue-900 flex-1'>{vt.title}</p>
-                          <span className={cn('text-xs font-black px-2 py-0.5 rounded-full text-white', vtStatusBg)}>
-                            {vtStatusLabel}
-                          </span>
-                        </div>
-                        <p className='text-xs text-blue-600 italic mb-2'>Fueled by your Power Moves</p>
-                        <div className='h-1.5 rounded-full overflow-hidden bg-blue-200'>
-                          <div 
-                            className='h-full transition-all duration-500' 
-                            style={{ 
-                              width: `${Math.min(progress, 100)}%`,
-                              backgroundColor: vtStatusColor
-                            }}
-                          />
-                        </div>
-                        <p className='text-xs text-blue-700 mt-1 font-semibold'>{progress}% complete</p>
-                      </div>
-                    )
-                  })
-                )}
-              </div>
-            </div>
-          </div>
-
-          {/* Flow Indicator */}
-          <div className='flex flex-col items-center gap-2 py-2'>
-            <ArrowDown className='h-6 w-6 text-blue-500 font-bold' aria-hidden="true" />
-            <span className='text-xs font-black text-blue-700'>ACHIEVES</span>
-          </div>
-
-          {/* Step 3 Badge */}
-          <div className='flex justify-center mb-2'>
-            <span className='bg-purple-400 text-purple-900 font-black px-3 py-1 rounded-full text-xs'>STEP 3: Personal Goal</span>
-          </div>
-
-          {/* Card 3 - Purple Theme */}
-          <div className='bg-gradient-to-br from-purple-50 to-violet-50 border-l-4 border-t-4 border-b-4 border-purple-400 border-r-2 border-r-purple-200 rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow duration-300'>
-            <div className='space-y-3 text-center'>
-              <p className='text-base font-black uppercase tracking-[0.15em] text-purple-900'>Personal War Goal</p>
-              <div className='h-0.5 w-10 bg-purple-300 mx-auto rounded-full'></div>
-              <p className='text-xs font-semibold text-purple-700'>Your strategic personal outcome (Lag Measure)</p>
-              
-              {myVictoryTargets.length > 0 ? (
-                <>
-                  <div className='text-lg font-bold text-purple-900 mb-4 leading-snug'>
-                    {myVictoryTargets[0]?.title || 'No goal set'}
-                  </div>
-                  <div className='flex items-baseline justify-center gap-1 mb-3'>
-                    <div className='text-5xl font-black text-purple-900 tabular-nums'>
-                      {myVictoryTargets[0]?.achieved || 0}
-                    </div>
-                    <div className='text-lg font-bold text-purple-400'>/ {myVictoryTargets[0]?.target || 0}</div>
-                  </div>
-                  {myVictoryTargets[0] && (() => {
-                    const progress = myVictoryTargets[0].target ? Math.round((myVictoryTargets[0].achieved / myVictoryTargets[0].target) * 100) : 0
-                    const goalStatusColor = progress >= 70 ? '#16A34A' : progress >= 50 ? '#F59E0B' : '#DC2626'
-                    const goalStatusBg = progress >= 70 ? 'bg-emerald-100' : progress >= 50 ? 'bg-amber-100' : 'bg-rose-100'
-                    const goalStatusLabel = progress >= 70 ? 'On Track' : progress >= 50 ? 'At Risk' : 'Behind'
-                    
-                    return (
-                      <div className='mb-3'>
-                        <div className='h-2 rounded-full overflow-hidden bg-purple-200 mb-2'>
-                          <div 
-                            className='h-full transition-all duration-500' 
-                            style={{ 
-                              width: `${Math.min(progress, 100)}%`,
-                              backgroundColor: goalStatusColor
-                            }}
-                          />
-                        </div>
-                        <div className={cn('inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-black', goalStatusBg)}>
-                          <span>{goalStatusLabel}</span>
-                        </div>
-                      </div>
-                    )
-                  })()}
-                </>
-              ) : (
-                <div className='text-center py-6'>
-                  <p className='text-sm text-purple-600 font-semibold'>No personal goal configured yet</p>
-                </div>
-              )}
-
-              {/* When the Company Wins Subsection */}
-              <div className='mt-5 pt-5 border-t border-purple-200 space-y-2'>
-                <p className='text-xs font-black uppercase tracking-wider text-purple-900'>When the Company Wins</p>
-                <p className='text-xs text-purple-700 leading-relaxed'>When ArkMedis achieves its revenue and profit goals, your personal War Goal is unlocked.</p>
-                <div className='bg-purple-100 rounded-lg p-2 mt-2'>
-                  <p className='text-xs font-semibold text-purple-900'>Target outcome: +50% salary growth aligned with company performance in 2026</p>
-                </div>
-                <p className='text-xs text-purple-600 italic mt-2'>This is earned growth, not a bonus.</p>
-              </div>
-            </div>
-          </div>
         </div>
-      </Card>
-
-      {/* Company Goal Context - Moved below scoreboard */}
-      <div className='text-xs font-semibold text-stone-500 px-2'>
-        <span className='font-semibold text-stone-600'>Company Goal (Context):</span> Not set yet
-        <span className='text-stone-400 mx-2'>·</span> Your execution feeds your department's weekly score
-      </div>
-
-      {/* Section Legend - Same as Department */}
-      <div className='grid grid-cols-3 gap-4 text-xs text-stone-500'>
-        <div className='flex items-start gap-2'>
-          <div className='w-2 h-2 rounded-full mt-1' style={{ backgroundColor: '#16A34A' }} />
-          <div>
-            <p className='font-semibold text-stone-700'>Power Moves</p>
-            <p className='text-stone-500'>Recurring actions executed daily, weekly, or monthly</p>
-          </div>
-        </div>
-        <div className='flex items-start gap-2'>
-          <div className='w-2 h-2 rounded-full mt-1' style={{ backgroundColor: '#F59E0B' }} />
-          <div>
-            <p className='font-semibold text-stone-700'>Tasks</p>
-            <p className='text-stone-500'>One-time activities completed once per period</p>
-          </div>
-        </div>
-        <div className='flex items-start gap-2'>
-          <div className='w-2 h-2 rounded-full mt-1' style={{ backgroundColor: '#DC2626' }} />
-          <div>
-            <p className='font-semibold text-stone-700'>Commitments</p>
-            <p className='text-stone-500'>Team promises mentioned in weekly calls</p>
-          </div>
-        </div>
-      </div>
 
       {/* Period Progress Divider */}
       <div className='py-4 px-6 bg-stone-50 border-t-2 border-b border-stone-200 rounded-lg'>
