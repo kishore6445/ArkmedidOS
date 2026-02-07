@@ -425,18 +425,18 @@ export function DepartmentExecutionHero({
           <div className='relative overflow-hidden'>
             {/* Desktop 3-Card Grid with Arrows at Borders */}
             <div className='hidden lg:flex lg:items-stretch lg:gap-0 p-6 bg-stone-50'>
-              {/* Column 1: WEEKLY POWER MOVES - PRIMARY SECTION (Larger & Emphasized) */}
+              {/* Column 1: WEEKLY POWER MOVES - AMBER Theme */}
               <div className={cn(
-                'flex flex-col items-center justify-center text-center flex-[1.2] bg-gradient-to-br from-[#FAFBFC] to-[#F0F3F7] border-l-4 border-t-4 border-b-4 border-2 border-stone-300 rounded-l-lg p-8 shadow-sm',
+                'flex flex-col items-center justify-center text-center flex-1 min-h-[380px] bg-gradient-to-br from-amber-50 to-orange-50 border-l-4 border-t-4 border-b-4 border-amber-400 border-r-2 border-r-amber-200 rounded-l-lg p-8 shadow-sm',
                 status.borderAccent
               )}>
                 <div className='space-y-4 w-full'>
                   {/* Section Label - More Prominent */}
                   <div className='space-y-1'>
-                    <p className='text-lg font-black uppercase tracking-[0.2em] text-stone-900'>Weekly Power Moves</p>
-                    <div className='h-0.5 w-12 bg-stone-300 mx-auto rounded-full'></div>
+                    <p className='text-lg font-black uppercase tracking-[0.2em] text-amber-900'>Weekly Power Moves</p>
+                    <div className='h-0.5 w-12 bg-amber-300 mx-auto rounded-full'></div>
                   </div>
-                  <p className='text-xs font-semibold text-stone-500 leading-relaxed'>Actions executed this week<br/>(Lead Measures)</p>
+                  <p className='text-xs font-semibold text-amber-700 leading-relaxed'>Actions executed this week<br/>(Lead Measures)</p>
                   
                   {/* GIANT SCORE - Emphasized */}
                   <div className='py-6'>
@@ -446,7 +446,7 @@ export function DepartmentExecutionHero({
                     >
                       {powerMoveStats.percentage}
                     </div>
-                    <div className='text-xl font-bold text-stone-400 mt-3'>/100</div>
+                    <div className='text-xl font-bold text-amber-400 mt-3'>/100</div>
                   </div>
 
                   {/* Status Badge - Larger */}
@@ -460,12 +460,12 @@ export function DepartmentExecutionHero({
                   </div>
 
                   {/* Power Moves Detail */}
-                  <div className='mt-6 pt-6 border-t-2 border-stone-200 space-y-2'>
-                    <p className='text-3xl font-black text-stone-900 tabular-nums'>
-                      {powerMoveStats.completed} <span className='text-stone-400'>/</span> {powerMoveStats.total}
+                  <div className='mt-6 pt-6 border-t-2 border-amber-200 space-y-2'>
+                    <p className='text-3xl font-black text-amber-900 tabular-nums'>
+                      {powerMoveStats.completed} <span className='text-amber-300'>/</span> {powerMoveStats.total}
                     </p>
-                    <p className='text-xs font-bold text-stone-500 uppercase tracking-wider'>Power Moves Complete</p>
-                    <p className='text-xs text-stone-400 mt-3 italic font-medium'>
+                    <p className='text-xs font-bold text-amber-700 uppercase tracking-wider'>Power Moves Complete</p>
+                    <p className='text-xs text-amber-600 mt-3 italic font-medium'>
                       This week's execution compounds upward
                     </p>
                   </div>
@@ -477,15 +477,15 @@ export function DepartmentExecutionHero({
                 <ArrowRight className='h-6 w-6 text-stone-400 flex-shrink-0' aria-hidden="true" />
               </div>
 
-              {/* Column 2: DEPARTMENT VICTORY TARGETS - SECONDARY SECTION */}
-              <div className='flex flex-col items-center justify-center text-center flex-1 bg-white border-2 border-stone-200 p-7 overflow-y-auto shadow-xs'>
+              {/* Column 2: DEPARTMENT VICTORY TARGETS - BLUE Theme */}
+              <div className='flex flex-col items-center justify-center text-center flex-1 min-h-[380px] bg-gradient-to-br from-blue-50 to-cyan-50 border-l-2 border-l-blue-200 border-t-4 border-b-4 border-blue-400 border-r-2 border-r-blue-200 p-7 overflow-y-auto shadow-sm'>
                 <div className='space-y-3 w-full'>
                   {/* Section Label - Distinct */}
                   <div className='space-y-1'>
-                    <p className='text-base font-black uppercase tracking-[0.15em] text-stone-900'>Department Victory Targets</p>
-                    <div className='h-0.5 w-10 bg-stone-200 mx-auto rounded-full'></div>
+                    <p className='text-base font-black uppercase tracking-[0.15em] text-blue-900'>Department Victory Targets</p>
+                    <div className='h-0.5 w-10 bg-blue-300 mx-auto rounded-full'></div>
                   </div>
-                  <p className='text-xs font-semibold text-stone-500 mt-1'>Results measured monthly / quarterly<br/>(Lag Measures)</p>
+                  <p className='text-xs font-semibold text-blue-700 mt-1'>Results measured monthly / quarterly<br/>(Lag Measures)</p>
 
                   {/* Victory Target Cards - Compact for equal height */}
                   <div className='space-y-2 flex-1'>
@@ -502,19 +502,19 @@ export function DepartmentExecutionHero({
                       const vtStatusLabel = progress >= 70 ? 'On Track' : progress >= 50 ? 'At Risk' : 'Behind'
 
                       return (
-                        <div key={vt.id} className='bg-stone-50 border border-stone-200 rounded-lg p-3 text-left hover:bg-stone-100 transition-colors'>
+                        <div key={vt.id} className='bg-blue-100 border border-blue-300 rounded-lg p-3 text-left hover:bg-blue-200 transition-colors'>
                           <div className='flex items-start justify-between gap-2 mb-2'>
-                            <p className='text-xs font-bold text-stone-900 flex-1'>{(vt as any).title || vt.name}</p>
+                            <p className='text-xs font-bold text-blue-900 flex-1'>{(vt as any).title || vt.name}</p>
                             <span className={cn('text-xs font-black px-2 py-0.5 rounded-full text-white text-center', vtStatusBg)}>
                               {vtStatusLabel}
                             </span>
                           </div>
                           <div className='flex items-baseline gap-1 mb-2'>
-                            <span className='text-xl font-black text-stone-900 tabular-nums'>{achieved}</span>
-                            <span className='text-sm text-stone-400'>/</span>
-                            <span className='text-lg font-black text-stone-600'>{target}</span>
+                            <span className='text-xl font-black text-blue-900 tabular-nums'>{achieved}</span>
+                            <span className='text-sm text-blue-500'>/</span>
+                            <span className='text-lg font-black text-blue-700'>{target}</span>
                           </div>
-                          <div className='h-1.5 rounded-full overflow-hidden bg-stone-200'>
+                          <div className='h-1.5 rounded-full overflow-hidden bg-blue-200'>
                             <div 
                               className='h-full transition-all duration-500' 
                               style={{ 
@@ -529,22 +529,17 @@ export function DepartmentExecutionHero({
                   </div>
 
                   {/* Summary */}
-                  <div className='mt-3 pt-3 border-t border-stone-200'>
+                  <div className='mt-3 pt-3 border-t border-blue-200'>
                     <div className='flex items-baseline justify-center gap-1 mb-1'>
                       <span 
-                        className='text-2xl font-black tabular-nums'
-                        style={{ 
-                          color: greenTargets === totalTargets ? '#16A34A' :
-                                 greenTargets >= totalTargets * 0.7 ? '#16A34A' :
-                                 greenTargets >= totalTargets * 0.5 ? '#F59E0B' : '#DC2626'
-                        }}
+                        className='text-2xl font-black tabular-nums text-blue-900'
                       >
                         {greenTargets}
                       </span>
-                      <span className='text-lg font-bold text-stone-400'>/</span>
-                      <span className='text-xl font-black text-stone-600'>{totalTargets}</span>
+                      <span className='text-lg font-bold text-blue-400'>/</span>
+                      <span className='text-xl font-black text-blue-700'>{totalTargets}</span>
                     </div>
-                    <p className='text-xs font-bold text-stone-500 uppercase tracking-wider'>Targets On Track</p>
+                    <p className='text-xs font-bold text-blue-700 uppercase tracking-wider'>Targets On Track</p>
                   </div>
                 </div>
               </div>
@@ -556,22 +551,124 @@ export function DepartmentExecutionHero({
 
               {/* Column 3: WAR GOAL - TERTIARY SECTION */}
               <div className='flex-1'>
-                <WarGoalCard companyWIG={companyWIG} />
+                <WarGoalCard companyWIG={companyWIG} equalHeight={true} />
               </div>
             </div>
 
             {/* Mobile/Tablet Stack */}
             <div className='lg:hidden space-y-4 p-6 bg-stone-50'>
-              {/* Card 1 - Primary */}
+              {/* Card 1 - Amber Theme */}
               <div className={cn(
-                'flex flex-col items-center justify-center text-center bg-gradient-to-br from-[#FAFBFC] to-[#F0F3F7] border-l-4 border-t-4 border-b-4 border-2 border-stone-300 rounded-lg p-7',
+                'flex flex-col items-center justify-center text-center bg-gradient-to-br from-amber-50 to-orange-50 border-l-4 border-t-4 border-b-4 border-amber-400 border-r-2 border-r-amber-200 rounded-lg p-7',
                 status.borderAccent
               )}>
                 <div className='space-y-4 w-full'>
                   <div className='space-y-1'>
-                    <p className='text-lg font-black uppercase tracking-[0.2em] text-stone-900'>Weekly Power Moves</p>
-                    <div className='h-0.5 w-12 bg-stone-300 mx-auto rounded-full'></div>
+                    <p className='text-lg font-black uppercase tracking-[0.2em] text-amber-900'>Weekly Power Moves</p>
+                    <div className='h-0.5 w-12 bg-amber-300 mx-auto rounded-full'></div>
                   </div>
+                  <p className='text-xs font-semibold text-amber-700'>Actions executed this week (Lead Measures)</p>
+                  <div className='py-6'>
+                    <div 
+                      className='text-8xl font-black tabular-nums leading-none drop-shadow-sm'
+                      style={{ color: status.color }}
+                    >
+                      {powerMoveStats.percentage}
+                    </div>
+                    <div className='text-xl font-bold text-amber-400 mt-3'>/100</div>
+                  </div>
+                  <div className={cn(
+                    'inline-flex items-center gap-2 px-5 py-2.5 rounded-lg shadow-md text-sm font-black',
+                    status.bg,
+                    status.text
+                  )}>
+                    <StatusIcon className='h-5 w-5' />
+                    <span>{status.badge}</span>
+                  </div>
+                  <div className='mt-6 pt-6 border-t-2 border-amber-200 space-y-2'>
+                    <p className='text-3xl font-black text-amber-900 tabular-nums'>
+                      {powerMoveStats.completed} <span className='text-amber-300'>/</span> {powerMoveStats.total}
+                    </p>
+                    <p className='text-xs font-bold text-amber-700 mt-1 uppercase tracking-wider'>Power Moves Complete</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Down Arrow */}
+              <div className='flex justify-center py-1'>
+                <ArrowDown className='h-5 w-5 text-stone-400' aria-hidden="true" />
+              </div>
+
+              {/* Card 2 - Blue Theme */}
+              <div className='bg-gradient-to-br from-blue-50 to-cyan-50 border-l-4 border-t-4 border-b-4 border-blue-400 border-r-2 border-r-blue-200 rounded-lg p-6 shadow-sm'>
+                <div className='space-y-3'>
+                  <div className='space-y-1'>
+                    <p className='text-base font-black uppercase tracking-[0.15em] text-blue-900'>Department Victory Targets</p>
+                    <div className='h-0.5 w-10 bg-blue-300 mx-auto rounded-full'></div>
+                  </div>
+                  <p className='text-xs font-semibold text-blue-700 mt-1'>Results measured monthly / quarterly (Lag Measures)</p>
+                  <div className='space-y-2'>
+                    {victoryTargets.slice(0, 2).map((vt, index) => {
+                      const quarters = (vt as any).quarters || []
+                      const quarterIndex = ['Q1', 'Q2', 'Q3', 'Q4'].indexOf(selectedQuarter)
+                      const quarterData = quarterIndex >= 0 ? quarters[quarterIndex] : null
+                      const achieved = quarterData?.achieved ?? vt.achieved
+                      const target = quarterData?.target ?? vt.target
+                      const progress = target > 0 ? (achieved / target) * 100 : 0
+                      
+                      const vtStatusColor = progress >= 70 ? '#16A34A' : progress >= 50 ? '#F59E0B' : '#DC2626'
+                      const vtStatusBg = progress >= 70 ? 'bg-emerald-100' : progress >= 50 ? 'bg-amber-100' : 'bg-rose-100'
+                      const vtStatusLabel = progress >= 70 ? 'On Track' : progress >= 50 ? 'At Risk' : 'Behind'
+
+                      return (
+                        <div key={vt.id} className='bg-blue-100 border border-blue-300 rounded-lg p-3 text-left'>
+                          <div className='flex items-start justify-between gap-2 mb-2'>
+                            <p className='text-xs font-bold text-blue-900 flex-1'>{(vt as any).title || vt.name}</p>
+                            <span className={cn('text-xs font-black px-2 py-0.5 rounded-full text-white', vtStatusBg)}>
+                              {vtStatusLabel}
+                            </span>
+                          </div>
+                          <div className='flex items-baseline gap-1 mb-2'>
+                            <span className='text-xl font-black text-blue-900 tabular-nums'>{achieved}</span>
+                            <span className='text-sm text-blue-500'>/</span>
+                            <span className='text-lg font-black text-blue-700'>{target}</span>
+                          </div>
+                          <div className='h-1.5 rounded-full overflow-hidden bg-blue-200'>
+                            <div 
+                              className='h-full transition-all duration-500' 
+                              style={{ 
+                                width: `${Math.min(progress, 100)}%`,
+                                backgroundColor: vtStatusColor
+                              }}
+                            />
+                          </div>
+                        </div>
+                      )
+                    })}
+                  </div>
+                  <div className='mt-3 pt-3 border-t border-blue-200'>
+                    <div className='flex items-baseline justify-center gap-1 mb-1'>
+                      <span 
+                        className='text-2xl font-black tabular-nums text-blue-900'
+                      >
+                        {greenTargets}
+                      </span>
+                      <span className='text-lg font-bold text-blue-400'>/</span>
+                      <span className='text-xl font-black text-blue-700'>{totalTargets}</span>
+                    </div>
+                    <p className='text-xs font-bold text-blue-700 uppercase tracking-wider'>Targets On Track</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Down Arrow */}
+              <div className='flex justify-center py-1'>
+                <ArrowDown className='h-5 w-5 text-stone-400' aria-hidden="true" />
+              </div>
+
+              {/* Card 3 - Purple Theme */}
+              <WarGoalCard companyWIG={companyWIG} equalHeight={true} />
+            </div>
                   <p className='text-xs font-semibold text-stone-500'>Actions executed this week (Lead Measures)</p>
                   <div className='py-6'>
                     <div 

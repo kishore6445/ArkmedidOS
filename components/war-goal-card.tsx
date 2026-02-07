@@ -7,9 +7,10 @@ import { cn } from '@/lib/utils'
 interface WarGoalCardProps {
   companyWIG?: string
   className?: string
+  equalHeight?: boolean
 }
 
-export function WarGoalCard({ companyWIG, className }: WarGoalCardProps) {
+export function WarGoalCard({ companyWIG, className, equalHeight }: WarGoalCardProps) {
   const warGoalText = 'Onboard 50 Clients Across All Departments'
   const achieved = 0
   const target = 50
@@ -21,27 +22,31 @@ export function WarGoalCard({ companyWIG, className }: WarGoalCardProps) {
 
   return (
     <div className={cn('flex flex-col h-full', className)}>
-      <div className='flex-1 p-6 lg:p-8 flex flex-col items-center justify-center text-center min-h-[280px] bg-white border-2 border-stone-200 rounded-lg'>
+      <div className={cn(
+        'flex-1 p-6 lg:p-8 flex flex-col items-center justify-center text-center',
+        equalHeight ? 'min-h-[380px] bg-gradient-to-br from-purple-50 to-violet-50 border-l-2 border-l-purple-200 border-t-4 border-b-4 border-purple-400 border-r-4 border-r-purple-400 rounded-r-lg shadow-sm' : 'min-h-[280px] bg-white border-2 border-stone-200 rounded-lg'
+      )}>
         <div className='space-y-3 w-full'>
           {/* Header */}
-          <div>
-            <p className='text-base font-black uppercase tracking-[0.15em] text-stone-900'>War Goal</p>
-            <p className='text-xs font-semibold text-stone-500 mt-1'>Company Mission (Lag Measure)</p>
+          <div className='space-y-1'>
+            <p className={cn('text-base font-black uppercase tracking-[0.15em]', equalHeight ? 'text-purple-900' : 'text-stone-900')}>War Goal</p>
+            {equalHeight && <div className='h-0.5 w-10 bg-purple-300 mx-auto rounded-full'></div>}
+            <p className={cn('text-xs font-semibold mt-1', equalHeight ? 'text-purple-700' : 'text-stone-500')}>Company Mission (Lag Measure)</p>
           </div>
 
           {/* Main Text */}
           <div className='py-4'>
-            <p className='text-lg font-semibold text-stone-900 leading-snug'>
+            <p className={cn('text-lg font-semibold leading-snug', equalHeight ? 'text-purple-900' : 'text-stone-900')}>
               {warGoalText}
             </p>
           </div>
 
           {/* Progress Number */}
           <div className='py-3'>
-            <div className='text-5xl font-black tabular-nums text-stone-900 leading-none'>
+            <div className={cn('text-5xl font-black tabular-nums leading-none', equalHeight ? 'text-purple-900' : 'text-stone-900')}>
               {achieved}
             </div>
-            <div className='text-lg font-bold text-stone-400 mt-2'>/ {target}</div>
+            <div className={cn('text-lg font-bold mt-2', equalHeight ? 'text-purple-400' : 'text-stone-400')}>/ {target}</div>
           </div>
 
           {/* Status Badge */}
@@ -55,7 +60,7 @@ export function WarGoalCard({ companyWIG, className }: WarGoalCardProps) {
           </div>
 
           {/* Progress Bar */}
-          <div className='h-2 rounded-full overflow-hidden bg-stone-200 mt-4'>
+          <div className={cn('h-2 rounded-full overflow-hidden mt-4', equalHeight ? 'bg-purple-200' : 'bg-stone-200')}>
             <div
               className='h-full transition-all duration-500'
               style={{
@@ -66,7 +71,7 @@ export function WarGoalCard({ companyWIG, className }: WarGoalCardProps) {
           </div>
 
           {/* Footer text */}
-          <p className='text-xs text-stone-400 mt-4 italic font-medium'>
+          <p className={cn('text-xs mt-4 italic font-medium', equalHeight ? 'text-purple-600' : 'text-stone-400')}>
             Company-wide strategic outcome
           </p>
         </div>
