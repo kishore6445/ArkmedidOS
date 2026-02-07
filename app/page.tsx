@@ -32,7 +32,7 @@ export default function HomePage() {
 
       <main className="space-y-0">
         {/* Section 1: Hero - Mission 50 Overview */}
-        <section className="bg-white px-6 py-20 border-b border-slate-200">
+        <section className="bg-white px-6 py-20">
           <div className="mx-auto max-w-7xl">
             <div className="grid gap-12 lg:grid-cols-[1fr_1fr]">
               <div className="space-y-6 flex flex-col justify-center">
@@ -69,24 +69,24 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Section 2: What You Get When Company Wins */}
-        <section className="bg-slate-50 px-6 py-16 border-b border-slate-200">
+        {/* Section 2: What You Get - Dark Blue Background */}
+        <section className="bg-slate-950 px-6 py-20">
           <div className="mx-auto max-w-7xl space-y-8">
             <div className="space-y-4">
-              <h2 className="text-4xl font-bold text-orange-600">What You Get When the Company Wins</h2>
-              <p className="text-xl text-slate-700">ArkMedis is built on a simple belief:</p>
+              <h2 className="text-4xl font-bold text-orange-400">What You Get When the Company Wins</h2>
+              <p className="text-xl text-slate-300">ArkMedis is built on a simple belief:</p>
             </div>
-            <div className="bg-white border-l-4 border-orange-500 p-8 rounded shadow-sm">
-              <p className="text-2xl font-bold text-slate-900 leading-relaxed">
+            <div className="bg-slate-900 border-l-4 border-orange-500 p-8 rounded shadow-lg">
+              <p className="text-2xl font-bold text-white leading-relaxed">
                 When people contribute honestly to a shared mission,<br />
                 the company should grow them in return.
               </p>
             </div>
-            <div className="space-y-4 text-lg text-slate-700">
-              <p><span className="text-orange-600 font-bold">•</span> When <span className="font-bold text-slate-900">Mission 50</span> is achieved: ArkMedis commits to <span className="text-orange-600 font-bold">50% salary growth by December 31, 2026</span></p>
-              <p><span className="text-orange-600 font-bold">•</span> Growth is <span className="font-bold text-slate-900">earned through contribution</span></p>
-              <p><span className="text-orange-600 font-bold">•</span> Distributed <span className="font-bold text-slate-900">in proportion to how your Power Moves contributed</span></p>
-              <p><span className="text-orange-600 font-bold">•</span> Designed so <span className="font-bold text-slate-900">everyone has the opportunity to reach the full 50%</span></p>
+            <div className="space-y-4 text-lg text-slate-200">
+              <p><span className="text-orange-400 font-bold">•</span> When <span className="font-bold text-white">Mission 50</span> is achieved: ArkMedis commits to <span className="text-orange-400 font-bold">50% salary growth by December 31, 2026</span></p>
+              <p><span className="text-orange-400 font-bold">•</span> Growth is <span className="font-bold text-white">earned through contribution</span></p>
+              <p><span className="text-orange-400 font-bold">•</span> Distributed <span className="font-bold text-white">in proportion to how your Power Moves contributed</span></p>
+              <p><span className="text-orange-400 font-bold">•</span> Designed so <span className="font-bold text-white">everyone has the opportunity to reach the full 50%</span></p>
             </div>
             <Link
               href="/signin"
@@ -97,132 +97,29 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Section 3: How Salary Growth Works */}
-        <section className="bg-white px-6 py-16 border-b border-slate-200">
+        {/* Section 3: How Salary Growth Works - White Background */}
+        <section className="bg-white px-6 py-20">
           <div className="mx-auto max-w-7xl space-y-8">
-            <h2 className="text-4xl font-bold text-slate-900">How Salary Growth Works</h2>
-            <div className="grid gap-8 lg:grid-cols-3">
+            <div>
+              <h2 className="text-4xl font-bold text-orange-600 mb-4">How Salary Growth Works</h2>
+              <p className="text-xl text-slate-700">This is not based on opinions or politics. It's transparent, earned, and fair.</p>
+            </div>
+            <div className="grid gap-6 lg:grid-cols-3">
               {[
                 {
-                  title: "Fair Framework",
-                  points: ["Growth tied to business success", "All salaries increase proportionally", "No favoritism or politics"]
+                  title: "Your Power Moves",
+                  desc: "Every action you take is tracked, visible, and contributes to the mission"
                 },
                 {
-                  title: "Earned Through Contribution",
-                  points: ["Your Power Moves are tracked", "Dashboard shows your impact", "Clear visibility on progress"]
+                  title: "Measured Contribution",
+                  desc: "We calculate your impact as a percentage of total team contribution"
                 },
                 {
-                  title: "Distributed Based on Execution",
-                  points: ["Execute well = higher percentage", "Team succeeds = you grow", "Shared success model"]
+                  title: "50% Growth Earned",
+                  desc: "Your percentage of 50% is proportional to your contribution"
                 }
               ].map((item) => (
-                <div key={item.title} className="bg-slate-50 border-2 border-orange-500 rounded-lg p-8">
-                  <h3 className="text-xl font-bold text-orange-600 mb-4">{item.title}</h3>
-                  <ul className="space-y-3">
-                    {item.points.map((point) => (
-                      <li key={point} className="flex gap-3 text-slate-700">
-                        <span className="text-orange-500 font-bold flex-shrink-0">✓</span>
-                        <span>{point}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Section 4: Team-First Principles */}
-        <section className="bg-slate-50 px-6 py-16 border-b border-slate-200">
-          <div className="mx-auto max-w-7xl space-y-8">
-            <h2 className="text-4xl font-bold text-slate-900">Team-First Principles</h2>
-            <div className="grid gap-8 lg:grid-cols-2">
-              {[
-                {
-                  title: "Clear Power Moves",
-                  desc: "Every role has clearly defined actions that matter. You know exactly what success looks like. Your contribution is visible and trackable."
-                },
-                {
-                  title: "Team Outcomes",
-                  desc: "Your Power Moves roll up into your team's targets. Your team's targets roll up into department victory targets. Department targets contribute to Mission 50."
-                },
-                {
-                  title: "Company Wins",
-                  desc: "When Mission 50 is achieved, everyone at ArkMedis wins. This isn't just about the company growing—it's about your growth being tied to our collective success."
-                },
-                {
-                  title: "Recognition Replaces Politics",
-                  desc: "Dashboards show your contribution in real time. No politics. No opinions. Your work speaks for itself. Promotions and growth are based on execution, not relationships."
-                }
-              ].map((item) => (
-                <div key={item.title} className="bg-white border border-slate-300 rounded-lg p-8">
-                  <h3 className="text-xl font-bold text-slate-900 mb-3">{item.title}</h3>
-                  <p className="text-slate-700">{item.desc}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Section 5: Three Pillars System */}
-        <section className="bg-white px-6 py-16 border-b border-slate-200">
-          <div className="mx-auto max-w-7xl space-y-8">
-            <div className="space-y-4">
-              <h2 className="text-4xl font-bold text-slate-900">The System That Makes It Work</h2>
-              <p className="text-xl text-slate-700">ArkMedis operates on three interconnected pillars:</p>
-            </div>
-            <div className="grid gap-8 lg:grid-cols-3">
-              {[
-                {
-                  num: "1",
-                  title: "Execution Discipline",
-                  desc: "Define clear Power Moves for each role. Track execution weekly. Review progress in one-on-ones."
-                },
-                {
-                  num: "2",
-                  title: "Team Outcomes",
-                  desc: "Individual Power Moves align to team targets. Team targets align to department victory targets. Every action connects to Mission 50."
-                },
-                {
-                  num: "3",
-                  title: "Company Mission",
-                  desc: "Mission 50 is the company goal. When it's achieved, everyone wins. Salaries grow. Success is shared."
-                }
-              ].map((item) => (
-                <div key={item.num} className="bg-orange-50 border-2 border-orange-500 rounded-lg p-8">
-                  <div className="text-5xl font-black text-orange-500 mb-4">{item.num}</div>
-                  <h3 className="text-xl font-bold text-slate-900 mb-3">{item.title}</h3>
-                  <p className="text-slate-700">{item.desc}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Section 6: What This Means for You */}
-        <section className="bg-slate-50 px-6 py-16 border-b border-slate-200">
-          <div className="mx-auto max-w-7xl space-y-8">
-            <h2 className="text-4xl font-bold text-slate-900">What This Means for You</h2>
-            <div className="space-y-6">
-              {[
-                {
-                  title: "Flexibility in How You Work",
-                  desc: "You define how to execute your Power Moves. The framework is clear; the path is yours. Execution earns autonomy."
-                },
-                {
-                  title: "Recognition for Your Work",
-                  desc: "Dashboards eliminate politics. Your contribution is visible. Your growth depends on execution, not connections or seniority games."
-                },
-                {
-                  title: "Real Growth Opportunities",
-                  desc: "50% salary growth isn't a rumor—it's a commitment. When the company hits Mission 50, you hit it with us. Together."
-                },
-                {
-                  title: "A Shared Mission",
-                  desc: "You're not working to help someone else succeed. You're working on something that directly benefits you. Mission 50 is your mission."
-                }
-              ].map((item) => (
-                <div key={item.title} className="bg-white border-l-4 border-orange-500 rounded p-6">
+                <div key={item.title} className="border-2 border-orange-500 rounded-lg p-6 bg-orange-50">
                   <h3 className="text-xl font-bold text-slate-900 mb-2">{item.title}</h3>
                   <p className="text-slate-700">{item.desc}</p>
                 </div>
@@ -231,199 +128,281 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Section 7: Three Brands */}
-        <section className="bg-white px-6 py-16 border-b border-slate-200">
+        {/* Section 4: Team-First Principles - Dark Blue */}
+        <section className="bg-slate-950 px-6 py-20">
           <div className="mx-auto max-w-7xl space-y-8">
-            <h2 className="text-4xl font-bold text-slate-900">Three Brands. One System. One Mission.</h2>
+            <div>
+              <h2 className="text-4xl font-bold text-orange-400 mb-4">Team-First Principles</h2>
+              <p className="text-xl text-slate-300">How we build a culture of shared success</p>
+            </div>
+            <div className="grid gap-6 lg:grid-cols-2">
+              {[
+                {
+                  title: "One Mission, One Team",
+                  desc: "Everyone's Power Moves roll up to the same company outcome. Your win is our win."
+                },
+                {
+                  title: "Recognition, Not Politics",
+                  desc: "Your dashboard shows your contribution. Your work speaks. No noise, no opinions."
+                },
+                {
+                  title: "Execution Earns Freedom",
+                  desc: "Consistent execution = reliability. Reliability = autonomy. Autonomy = flexibility."
+                },
+                {
+                  title: "Everyone Has the Same Opportunity",
+                  desc: "The system is designed so every role can reach the full 50% growth through contribution."
+                }
+              ].map((item) => (
+                <div key={item.title} className="border-l-4 border-orange-400 bg-slate-900 rounded-r-lg p-6">
+                  <h3 className="text-xl font-bold text-orange-400 mb-2">{item.title}</h3>
+                  <p className="text-slate-200">{item.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Section 5: Three Pillar System - White */}
+        <section className="bg-white px-6 py-20">
+          <div className="mx-auto max-w-7xl space-y-8">
+            <div>
+              <h2 className="text-4xl font-bold text-orange-600 mb-4">The Three-Pillar System</h2>
+              <p className="text-xl text-slate-700">How we make Mission 50 real</p>
+            </div>
+            <div className="grid gap-8 lg:grid-cols-3">
+              {[
+                {
+                  num: "1",
+                  title: "Clear Power Moves (Weekly)",
+                  desc: "Your role has defined actions that matter every week. Visible. Trackable. Reviewed."
+                },
+                {
+                  num: "2",
+                  title: "Team Outcomes (Monthly)",
+                  desc: "Your Power Moves roll up into department targets. Department targets roll up into Mission 50."
+                },
+                {
+                  num: "3",
+                  title: "Company Wins (Quarterly)",
+                  desc: "Mission 50 progress is visible to everyone. Wins are celebrated. Growth is earned."
+                }
+              ].map((item) => (
+                <div key={item.num} className="bg-slate-950 rounded-lg p-8 text-white">
+                  <div className="text-5xl font-black text-orange-500 mb-4">{item.num}</div>
+                  <h3 className="text-2xl font-bold text-white mb-2">{item.title}</h3>
+                  <p className="text-slate-300">{item.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Section 6: What This Means For You - Dark Blue */}
+        <section className="bg-slate-950 px-6 py-20">
+          <div className="mx-auto max-w-7xl space-y-8">
+            <div>
+              <h2 className="text-4xl font-bold text-orange-400 mb-4">What This Means For You</h2>
+              <p className="text-xl text-slate-300">Real outcomes. Real transparency. Real growth.</p>
+            </div>
+            <div className="space-y-4 text-lg text-slate-200">
+              <div className="flex gap-4">
+                <span className="text-orange-400 font-bold text-2xl">✓</span>
+                <p><span className="text-white font-bold">Clarity over confusion:</span> You know exactly what matters and how to contribute.</p>
+              </div>
+              <div className="flex gap-4">
+                <span className="text-orange-400 font-bold text-2xl">✓</span>
+                <p><span className="text-white font-bold">Transparency over politics:</span> Your contribution is measured and visible. Everyone plays by the same rules.</p>
+              </div>
+              <div className="flex gap-4">
+                <span className="text-orange-400 font-bold text-2xl">✓</span>
+                <p><span className="text-white font-bold">Growth over stagnation:</span> Execute consistently. Earn recognition. Unlock flexibility.</p>
+              </div>
+              <div className="flex gap-4">
+                <span className="text-orange-400 font-bold text-2xl">✓</span>
+                <p><span className="text-white font-bold">Community over isolation:</span> You're part of something bigger. Your wins contribute to our shared mission.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Section 7: The Three Brands - White */}
+        <section className="bg-white px-6 py-20">
+          <div className="mx-auto max-w-7xl space-y-8">
+            <div>
+              <h2 className="text-4xl font-bold text-orange-600 mb-4">The Three Brands of Mission 50</h2>
+              <p className="text-xl text-slate-700">Each brand. Same system. One mission.</p>
+            </div>
             <div className="grid gap-8 lg:grid-cols-3">
               {[
                 {
                   name: "The Warrior Systems",
                   target: "30 customers",
-                  desc: "Execution discipline for Indian companies scaling from ₹1Cr to ₹10Cr+. We install systems so revenue grows without firefighting.",
-                  focus: "Founded 2021. Proven in 50+ client engagements."
+                  desc: "Execution discipline for Indian companies looking to scale without firefighting."
                 },
                 {
                   name: "Story Marketing",
                   target: "18 customers",
-                  desc: "Manufacturing brands competing globally. We build positioning and execution so they win in markets where price isn't the answer.",
-                  focus: "Focused on 'Make in India' brands going global."
+                  desc: "Manufacturing brands that want to compete globally on quality, craft, and story."
                 },
                 {
                   name: "MetaGurukul",
                   target: "2 customers",
-                  desc: "Reviving India's knowledge traditions through execution discipline. Training, mentoring, and systems for the next generation of Indian leaders.",
-                  focus: "Building leaders for Atmanirbhar Bharat."
+                  desc: "Reviving India's knowledge traditions through execution-driven learning systems."
+                }
+              ].map((brand) => (
+                <div key={brand.name} className="border-2 border-slate-950 rounded-lg p-8 bg-gradient-to-br from-white to-slate-50">
+                  <h3 className="text-2xl font-bold text-slate-950 mb-2">{brand.name}</h3>
+                  <p className="text-orange-600 font-bold text-lg mb-3">{brand.target}</p>
+                  <p className="text-slate-700">{brand.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Section 8: Who Thrives Here - Dark Blue */}
+        <section className="bg-slate-950 px-6 py-20">
+          <div className="mx-auto max-w-7xl space-y-8">
+            <div>
+              <h2 className="text-4xl font-bold text-orange-400 mb-4">Who Thrives at ArkMedis</h2>
+              <p className="text-xl text-slate-300">We work with founders and leaders who believe:</p>
+            </div>
+            <div className="grid gap-6 lg:grid-cols-2">
+              {[
+                "Motivation is temporary. Systems are permanent.",
+                "Team performance depends on execution design, not effort.",
+                "Recognition should replace politics.",
+                "Growth happens when people see their contribution clearly.",
+                "Systems thinking matters more than individual hustle.",
+                "Transparency builds trust faster than any culture initiative."
+              ].map((belief, idx) => (
+                <div key={idx} className="flex gap-4 p-6 bg-slate-900 rounded-lg border-l-4 border-orange-500">
+                  <span className="text-orange-400 font-bold text-xl flex-shrink-0">→</span>
+                  <p className="text-slate-200 text-lg">{belief}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Section 9: One Mission One Team - White */}
+        <section className="bg-white px-6 py-20">
+          <div className="mx-auto max-w-7xl space-y-8">
+            <div>
+              <h2 className="text-4xl font-bold text-orange-600 mb-4">One Mission. One Team.</h2>
+              <p className="text-xl text-slate-700">How we think about growth at ArkMedis</p>
+            </div>
+            <div className="bg-orange-50 border-2 border-orange-500 rounded-lg p-8">
+              <p className="text-lg text-slate-800 leading-relaxed">
+                We don't believe in individual performers creating company outcomes. We believe in <span className="font-bold text-slate-950">aligned teams executing clear systems</span>. Mission 50 is one mission. Every Power Move contributes. Every department outcome matters. Every team member has the opportunity to grow at the same rate when the mission is accomplished.
+              </p>
+            </div>
+            <div className="grid gap-6 lg:grid-cols-3">
+              {[
+                {
+                  title: "Sales executes",
+                  desc: "Targets met, pipelines flowing"
+                },
+                {
+                  title: "Operations scales",
+                  desc: "Systems built, processes optimized"
+                },
+                {
+                  title: "Leadership aligns",
+                  desc: "Strategy connected to execution"
                 }
               ].map((item) => (
-                <div key={item.name} className="bg-slate-50 border-2 border-orange-500 rounded-lg p-8">
-                  <div className="mb-4">
-                    <p className="text-orange-600 font-bold text-sm uppercase tracking-wide">{item.target}</p>
-                    <h3 className="text-2xl font-bold text-slate-900 mt-2">{item.name}</h3>
-                  </div>
-                  <p className="text-slate-700 mb-4">{item.desc}</p>
-                  <p className="text-sm text-orange-600 font-semibold italic">{item.focus}</p>
+                <div key={item.title} className="border-2 border-slate-950 rounded-lg p-6">
+                  <h4 className="text-lg font-bold text-slate-950 mb-2">{item.title}</h4>
+                  <p className="text-slate-700">{item.desc}</p>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* Section 8: Who Thrives at ArkMedis */}
-        <section className="bg-slate-50 px-6 py-16 border-b border-slate-200">
+        {/* Section 10: Mission 2047 - Dark Blue */}
+        <section className="bg-slate-950 px-6 py-20">
           <div className="mx-auto max-w-7xl space-y-8">
-            <h2 className="text-4xl font-bold text-slate-900">Who Thrives at ArkMedis</h2>
-            <div className="grid gap-4">
-              {[
-                "You understand that motivation is temporary; systems are permanent.",
-                "You recognize that team performance depends on execution design, not effort.",
-                "You believe in transparency and data over politics and opinions.",
-                "You're committed to building something real—not quick wins.",
-                "You want to grow with the company, not work for the company.",
-                "You see execution as a craft worth mastering."
-              ].map((item) => (
-                <div key={item} className="bg-white border border-slate-300 rounded-lg p-6 flex gap-4">
-                  <span className="text-orange-600 font-bold text-xl flex-shrink-0">✓</span>
-                  <p className="text-slate-700">{item}</p>
-                </div>
-              ))}
+            <div>
+              <h2 className="text-4xl font-bold text-orange-400 mb-4">Mission 2047 — India's Role</h2>
+              <p className="text-xl text-slate-300">Why this matters beyond the companies we work with</p>
+            </div>
+            <div className="space-y-6 text-lg text-slate-200">
+              <p>
+                India turns 100 in 2047. By then, we believe India should be home to the world's most efficiently executed companies. Companies that scale without chaos. Companies that compete globally on quality, not just cost.
+              </p>
+              <p>
+                That starts with <span className="text-orange-400 font-bold">execution systems that work</span>. Not coaching. Not motivation seminars. Systems. Clear Power Moves. Transparent outcomes. Fair recognition.
+              </p>
+              <p>
+                Mission 50 is our first step toward Mission 2047. <span className="text-orange-400 font-bold">50 companies with execution discipline</span>. 50 companies that prove it's possible. 50 companies that become case studies for what's next.
+              </p>
+              <p>
+                Every Power Move you execute contributes to both goals: Your growth. India's businesses getting stronger.
+              </p>
             </div>
           </div>
         </section>
 
-        {/* Section 9: One Mission One Team */}
-        <section className="bg-white px-6 py-16 border-b border-slate-200">
-          <div className="mx-auto max-w-7xl">
-            <div className="bg-gradient-to-r from-orange-50 to-white border-2 border-orange-500 rounded-lg p-12">
-              <h2 className="text-4xl font-bold text-slate-900 mb-6">One Mission. One Team.</h2>
-              <p className="text-xl text-slate-700 mb-6">
-                Mission 50 isn't just a number. It's a commitment. It's a shared goal that says: <span className="text-orange-600 font-bold">when we all execute honestly, we all grow together</span>.
-              </p>
-              <p className="text-lg text-slate-700 mb-8">
-                At ArkMedis, you're not just an employee. You're part of a team with a shared mission. Your success is tied to our success. Our success is tied to yours. No politics. No favoritism. Just execution and results.
-              </p>
+        {/* Section 11: Two Missions Connected - White */}
+        <section className="bg-white px-6 py-20">
+          <div className="mx-auto max-w-7xl space-y-8">
+            <div>
+              <h2 className="text-4xl font-bold text-orange-600 mb-4">Two Missions. One System.</h2>
+              <p className="text-xl text-slate-700">How they connect through you</p>
+            </div>
+            <div className="grid gap-8 lg:grid-cols-2">
+              <div className="bg-slate-950 rounded-lg p-8 text-white">
+                <h3 className="text-3xl font-bold text-orange-400 mb-4">Mission 50</h3>
+                <p className="text-lg text-slate-300 mb-4">Your personal mission (2026)</p>
+                <ul className="space-y-3 text-slate-200">
+                  <li className="flex gap-3"><span className="text-orange-400">→</span> Execute clear Power Moves</li>
+                  <li className="flex gap-3"><span className="text-orange-400">→</span> Build team outcomes</li>
+                  <li className="flex gap-3"><span className="text-orange-400">→</span> Earn 50% salary growth</li>
+                  <li className="flex gap-3"><span className="text-orange-400">→</span> Be part of something winning</li>
+                </ul>
+              </div>
+              <div className="bg-orange-50 border-2 border-orange-500 rounded-lg p-8">
+                <h3 className="text-3xl font-bold text-orange-600 mb-4">Mission 2047</h3>
+                <p className="text-lg text-slate-800 mb-4">India's execution vision</p>
+                <ul className="space-y-3 text-slate-700">
+                  <li className="flex gap-3"><span className="text-orange-600">→</span> 50 companies with discipline</li>
+                  <li className="flex gap-3"><span className="text-orange-600">→</span> Systems that scale globally</li>
+                  <li className="flex gap-3"><span className="text-orange-600">→</span> India's businesses competing</li>
+                  <li className="flex gap-3"><span className="text-orange-600">→</span> Growth that's sustainable</li>
+                </ul>
+              </div>
+            </div>
+            <div className="bg-white border-2 border-slate-950 rounded-lg p-8 text-center">
+              <p className="text-2xl font-bold text-slate-900">When you win, the company wins. When the company wins, India wins.</p>
+            </div>
+          </div>
+        </section>
+
+        {/* Section 12: Your Journey - Dark Blue CTA */}
+        <section className="bg-slate-950 px-6 py-20">
+          <div className="mx-auto max-w-7xl text-center space-y-8">
+            <div>
+              <h2 className="text-5xl font-bold text-white mb-4">Your Journey Starts Here</h2>
+              <p className="text-2xl text-orange-400 font-bold">No shortcuts. No politics. Just clear systems and earned growth.</p>
+            </div>
+            <p className="text-xl text-slate-300 max-w-2xl mx-auto">
+              Join us in building something real. Mission 50. Mission 2047. Your growth. India's strength. All connected through execution.
+            </p>
+            <div className="flex flex-col gap-4 sm:flex-row justify-center items-center pt-8">
               <Link
                 href="/signin"
-                className="inline-block rounded bg-orange-500 px-8 py-3 text-base font-bold text-white transition hover:bg-orange-600"
+                className="rounded bg-orange-500 px-8 py-4 text-lg font-bold text-white transition hover:bg-orange-600"
+              >
+                Sign in to your account
+              </Link>
+              <Link
+                href="/signup"
+                className="rounded border-2 border-orange-500 px-8 py-4 text-lg font-bold text-orange-400 transition hover:bg-orange-500/10"
               >
                 Join Mission 50
-              </Link>
-            </div>
-          </div>
-        </section>
-
-        {/* Section 10: Mission 2047 */}
-        <section className="bg-slate-50 px-6 py-16 border-b border-slate-200">
-          <div className="mx-auto max-w-7xl space-y-8">
-            <h2 className="text-4xl font-bold text-slate-900">Beyond Mission 50: The Bigger Picture</h2>
-            <div className="space-y-6">
-              <div className="bg-white border-l-4 border-orange-500 rounded p-8">
-                <h3 className="text-2xl font-bold text-slate-900 mb-4">Mission 2047: Atmanirbhar Bharat</h3>
-                <p className="text-lg text-slate-700 mb-4">
-                  Mission 50 is our first step toward something bigger. By 2047, India's 100th year of independence, ArkMedis aims to have strengthened 1000+ Indian companies. Companies that compete globally. Companies that create jobs. Companies that drive innovation.
-                </p>
-                <p className="text-slate-700">
-                  As you grow at ArkMedis through Mission 50, you're not just building a company—you're building the infrastructure for India's next generation of world-class businesses. That's what we mean by <span className="text-orange-600 font-bold">one mission, one team</span>.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Section 11: Two Missions Connected */}
-        <section className="bg-white px-6 py-16 border-b border-slate-200">
-          <div className="mx-auto max-w-7xl space-y-8">
-            <h2 className="text-4xl font-bold text-slate-900">Two Missions Connected Through One System</h2>
-            <div className="grid gap-8 lg:grid-cols-2">
-              <div className="bg-orange-50 border-2 border-orange-500 rounded-lg p-8">
-                <p className="text-lg font-bold text-orange-600 mb-4">Mission 50 (2026)</p>
-                <ul className="space-y-3 text-slate-700">
-                  <li className="flex gap-3">
-                    <span className="text-orange-500 font-bold">→</span>
-                    <span>50 customers across three brands</span>
-                  </li>
-                  <li className="flex gap-3">
-                    <span className="text-orange-500 font-bold">→</span>
-                    <span>50% salary growth when achieved</span>
-                  </li>
-                  <li className="flex gap-3">
-                    <span className="text-orange-500 font-bold">→</span>
-                    <span>Your personal growth is tied to company growth</span>
-                  </li>
-                  <li className="flex gap-3">
-                    <span className="text-orange-500 font-bold">→</span>
-                    <span>Execution discipline as the foundation</span>
-                  </li>
-                </ul>
-              </div>
-              <div className="bg-slate-100 border-2 border-slate-300 rounded-lg p-8">
-                <p className="text-lg font-bold text-slate-900 mb-4">Mission 2047 (2047)</p>
-                <ul className="space-y-3 text-slate-700">
-                  <li className="flex gap-3">
-                    <span className="text-orange-500 font-bold">→</span>
-                    <span>1000+ Indian companies strengthened</span>
-                  </li>
-                  <li className="flex gap-3">
-                    <span className="text-orange-500 font-bold">→</span>
-                    <span>Atmanirbhar Bharat—India's independence in business</span>
-                  </li>
-                  <li className="flex gap-3">
-                    <span className="text-orange-500 font-bold">→</span>
-                    <span>Global competition from Indian companies</span>
-                  </li>
-                  <li className="flex gap-3">
-                    <span className="text-orange-500 font-bold">→</span>
-                    <span>Execution as the national competitive advantage</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <p className="text-lg text-slate-700 text-center pt-8 border-t border-slate-200">
-              Every customer you help execute through Mission 50 becomes part of the 1000+ by 2047. Every person you mentor. Every system you build. Every country we touch. It all counts toward a larger vision of India's future.
-            </p>
-          </div>
-        </section>
-
-        {/* Section 12: Your Journey */}
-        <section className="bg-slate-50 px-6 py-16">
-          <div className="mx-auto max-w-7xl space-y-8">
-            <h2 className="text-4xl font-bold text-slate-900">Your Journey at ArkMedis Starts Today</h2>
-            <div className="grid gap-8 lg:grid-cols-4">
-              {[
-                {
-                  num: "1",
-                  title: "Join the Mission",
-                  desc: "Sign in to your account and become part of a team committed to executing on Mission 50."
-                },
-                {
-                  num: "2",
-                  title: "Define Your Power Moves",
-                  desc: "Work with your manager to clearly define your Power Moves—the actions that matter most for your role."
-                },
-                {
-                  num: "3",
-                  title: "Execute with Clarity",
-                  desc: "Execute consistently. Track your progress. See your impact roll up to team targets and company mission."
-                },
-                {
-                  num: "4",
-                  title: "Grow When We Win",
-                  desc: "When Mission 50 is achieved by December 31, 2026, you grow with us. Up to 50% salary increase based on your contribution."
-                }
-              ].map((item) => (
-                <div key={item.num} className="bg-white border-2 border-orange-500 rounded-lg p-6">
-                  <div className="text-4xl font-black text-orange-500 mb-3">{item.num}</div>
-                  <h3 className="font-bold text-slate-900 mb-2">{item.title}</h3>
-                  <p className="text-sm text-slate-700">{item.desc}</p>
-                </div>
-              ))}
-            </div>
-            <div className="text-center pt-8">
-              <Link
-                href="/signin"
-                className="inline-block rounded bg-orange-500 px-10 py-4 text-lg font-bold text-white transition hover:bg-orange-600"
-              >
-                Sign in to Your Account
               </Link>
             </div>
           </div>
@@ -431,16 +410,30 @@ export default function HomePage() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-slate-200 bg-white">
-        <div className="mx-auto max-w-7xl flex flex-col items-center justify-between gap-4 px-6 py-8 text-sm text-slate-600 md:flex-row">
-          <p>© 2026 ArkMedis. All rights reserved. | Mission 50 by December 31, 2026</p>
-          <div className="flex items-center gap-6">
-            <Link href="/signin" className="hover:text-orange-600 transition font-semibold text-slate-900">
-              Sign in
-            </Link>
-            <Link href="/signup" className="hover:text-orange-600 transition font-semibold text-slate-900">
-              Join us
-            </Link>
+      <footer className="bg-slate-900 px-6 py-12 border-t border-slate-800">
+        <div className="mx-auto max-w-7xl">
+          <div className="grid gap-8 md:grid-cols-3 mb-8">
+            <div>
+              <h4 className="text-orange-400 font-bold mb-3">Mission 50</h4>
+              <p className="text-slate-400">50 customers by December 31, 2026</p>
+            </div>
+            <div>
+              <h4 className="text-orange-400 font-bold mb-3">Three Brands</h4>
+              <ul className="space-y-2 text-slate-400">
+                <li>The Warrior Systems</li>
+                <li>Story Marketing</li>
+                <li>MetaGurukul</li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-orange-400 font-bold mb-3">Get Started</h4>
+              <Link href="/signin" className="text-slate-300 hover:text-orange-400 transition">
+                Sign in
+              </Link>
+            </div>
+          </div>
+          <div className="border-t border-slate-700 pt-8 text-center text-slate-400">
+            <p>© 2026 ArkMedis. All rights reserved. | Mission 50 — When the company wins, everyone grows.</p>
           </div>
         </div>
       </footer>
