@@ -453,11 +453,11 @@ export function IndividualDashboard({
         </div>
 
         {/* SIMPLIFIED HORIZONTAL SCOREBOARD - Three Cards Left to Right */}
-        <div className='flex gap-8 lg:gap-10 xl:gap-12 py-12 px-8 lg:px-12 xl:px-16 bg-white overflow-x-auto'>
+        <div className='grid gap-6 md:gap-8 py-8 px-6 md:px-8 lg:px-12 bg-white grid-cols-1 md:grid-cols-3'>
           
           {/* CARD 1: Daily Power Moves - Amber */}
-          <div className='flex-1 min-w-96 lg:min-w-[420px] max-w-sm bg-gradient-to-br from-amber-50 to-orange-50 border-l-4 border-amber-400 rounded-lg p-10 lg:p-12 shadow-sm hover:shadow-xl hover:scale-105 transition-all duration-300 cursor-pointer group'>
-            <div className='flex flex-col items-start justify-between h-full gap-8'>
+          <div className='bg-gradient-to-br from-amber-50 to-orange-50 border-l-4 border-amber-400 rounded-lg p-8 lg:p-10 shadow-sm hover:shadow-xl transition-all duration-300'>
+            <div className='flex flex-col items-start justify-between h-full gap-6'>
               <div className='w-full space-y-2'>
                 <p className='text-xs font-bold uppercase tracking-widest text-amber-700'>Daily Execution</p>
                 <p className='text-xs text-amber-600 font-semibold'>You completed</p>
@@ -486,8 +486,8 @@ export function IndividualDashboard({
           </div>
 
           {/* CARD 2: Your Contribution - Blue (PRIMARY/EMPHASIZED) */}
-          <div className='flex-1 min-w-96 lg:min-w-[420px] max-w-sm bg-gradient-to-br from-blue-50 to-cyan-50 border-l-4 border-blue-400 rounded-lg p-10 lg:p-12 shadow-md hover:shadow-2xl hover:scale-105 transition-all duration-300 cursor-pointer ring-2 ring-blue-200 ring-opacity-0 hover:ring-opacity-100'>
-            <div className='flex flex-col items-start justify-between h-full gap-8'>
+          <div className='bg-gradient-to-br from-blue-50 to-cyan-50 border-l-4 border-blue-400 rounded-lg p-8 lg:p-10 shadow-md hover:shadow-xl transition-all duration-300 ring-2 ring-blue-200 ring-opacity-0 hover:ring-opacity-100'>
+            <div className='flex flex-col items-start justify-between h-full gap-6'>
               <div className='w-full space-y-2'>
                 <div className='flex items-center gap-2'>
                   <p className='text-xs font-bold uppercase tracking-widest text-blue-700'>Your Contribution to the Company</p>
@@ -527,8 +527,8 @@ export function IndividualDashboard({
           </div>
 
           {/* CARD 3: Your Reward - Purple */}
-          <div className='flex-1 min-w-96 lg:min-w-[420px] max-w-sm bg-gradient-to-br from-purple-50 to-violet-50 border-l-4 border-purple-400 rounded-lg p-10 lg:p-12 shadow-sm hover:shadow-xl hover:scale-105 transition-all duration-300 cursor-pointer group'>
-            <div className='flex flex-col items-start justify-between h-full gap-8'>
+          <div className='bg-gradient-to-br from-purple-50 to-violet-50 border-l-4 border-purple-400 rounded-lg p-8 lg:p-10 shadow-sm hover:shadow-xl transition-all duration-300'>
+            <div className='flex flex-col items-start justify-between h-full gap-6'>
               <div className='w-full space-y-2'>
                 <p className='text-xs font-bold uppercase tracking-widest text-purple-700'>Your Reward</p>
                 <p className='text-xs text-purple-600 font-semibold'>Salary growth potential</p>
