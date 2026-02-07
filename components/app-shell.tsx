@@ -131,7 +131,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               <BrandSwitcher />
             </div>
 
-            <div className="hidden sm:flex items-center gap-2 text-sm text-gray-600" role="status" aria-live="polite">
+            <div className="hidden sm:flex items-center gap-2 text-sm text-gray-600" role="status" aria-live="polite" suppressHydrationWarning>
               <Calendar className="h-4 w-4" aria-hidden="true" />
               {currentDate && (
                 <time dateTime={currentDate.toISOString()}>
