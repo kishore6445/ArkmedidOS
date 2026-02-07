@@ -2,7 +2,7 @@
 import { useEffect, useMemo, useState } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Calendar, ChevronDown } from "lucide-react"
+import { Calendar, ChevronDown, ArrowRight, ArrowDown } from "lucide-react"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Button } from "@/components/ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
@@ -452,121 +452,137 @@ export function IndividualDashboard({
           </div>
         </div>
 
-        {/* MAIN SCOREBOARD - Two Columns with Silent Divider */}
-        <div className='relative grid grid-cols-2'>
-            {/* Silent Structural Divider - 1px neutral grey line */}
-            <div className='absolute top-0 bottom-0 left-1/2 w-px bg-stone-200 -translate-x-1/2' />
+        {/* MAIN SCOREBOARD - Two Columns with Enhanced Flow */}
+        <div className='relative lg:flex lg:items-stretch lg:gap-0 p-6 lg:p-0 bg-stone-50'>
+          {/* Desktop: Side-by-side with flow arrow. Mobile: Stacked */}
+          
+          {/* Step 1 Badge */}
+          <div className='hidden lg:absolute left-20 top-2 z-10 bg-amber-400 text-amber-900 font-black px-3 py-1 rounded-full text-xs'>STEP 1</div>
 
-            {/* LEFT: MY POWER MOVES - Structured container */}
-            <div className={cn(
-              'p-8 flex flex-col items-center justify-center text-center min-h-[280px] bg-[#F8FAFC] border-t-2',
-              status.borderAccent
-            )}>
-              <div className='space-y-3'>
-                <p className='text-base font-black uppercase tracking-[0.15em] text-stone-900'>
-                  {selectedPeriod === 'today' ? 'Daily' : selectedPeriod === 'this-week' ? 'Weekly' : selectedPeriod === 'this-month' ? 'Monthly' : 'Quarterly'} Power Moves
-                </p>
-                <p className='text-xs font-semibold text-stone-500'>Your personal execution score (Lead Measures)</p>
-                
-                {/* GIANT SCORE - Status color only on number */}
-                <div className='py-4'>
-                  <div 
-                    className='text-8xl sm:text-9xl font-black tabular-nums leading-none'
-                    style={{ color: status.color }}
-                  >
-                    {executionPercentage}
-                  </div>
-                  <div className='text-2xl font-bold text-stone-400 mt-2'>/100</div>
+          {/* LEFT: DAILY POWER MOVES - Amber Theme */}
+          <div className={cn(
+            'flex flex-col items-center justify-center text-center flex-1 min-h-[300px] lg:min-h-[340px] bg-gradient-to-br from-amber-50 to-orange-50 border-l-4 lg:border-l-4 border-t-4 border-b-4 border-amber-400 border-r-2 border-r-amber-200 rounded-lg lg:rounded-l-lg lg:rounded-r-none p-8 shadow-md lg:shadow-md hover:shadow-lg transition-shadow duration-300 lg:mb-0 mb-4',
+            status.borderAccent
+          )}>
+            <div className='space-y-3 w-full'>
+              <p className='text-base font-black uppercase tracking-[0.15em] text-amber-900'>
+                {selectedPeriod === 'today' ? 'Daily' : selectedPeriod === 'this-week' ? 'Weekly' : selectedPeriod === 'this-month' ? 'Monthly' : 'Quarterly'} Power Moves
+              </p>
+              <div className='h-0.5 w-10 bg-amber-300 mx-auto rounded-full'></div>
+              <p className='text-xs font-semibold text-amber-700 mt-1'>Your personal execution score (Lead Measures)</p>
+              
+              {/* GIANT SCORE */}
+              <div className='py-5'>
+                <div 
+                  className='text-8xl font-black tabular-nums leading-none'
+                  style={{ color: status.color }}
+                >
+                  {executionPercentage}
                 </div>
-
-                {/* Status Badge */}
-                <div className={cn(
-                  'inline-flex items-center gap-2 px-6 py-3 rounded-lg shadow-sm',
-                  status.bg,
-                  status.text
-                )}>
-                  <span className='text-base font-black tracking-wide'>
-                    {status.badge}
-                  </span>
-                </div>
-
-                {/* Power Moves Detail */}
-                <div className='mt-4 pt-4 border-t-2 border-stone-200'>
-                  <p className='text-3xl font-black text-stone-900 tabular-nums'>
-                    {periodData.completed} <span className='text-stone-400'>/</span> {periodData.total}
-                  </p>
-                  <p className='text-xs font-bold text-stone-500 mt-1 uppercase tracking-wider'>Power Move Actions Complete</p>
-                  {selectedPeriod === 'today' && periodData.total - periodData.completed > 0 && (
-                    <p className='text-xs text-stone-500 mt-2 font-semibold'>
-                      {periodData.total - periodData.completed} remaining today
-                    </p>
-                  )}
-                </div>
+                <div className='text-xl font-bold text-amber-400 mt-3'>/100</div>
               </div>
-            </div>
 
-            {/* RIGHT: LINKED VICTORY TARGETS - Rounded container */}
-            <div className='p-6 min-h-[280px] flex flex-col justify-center bg-white rounded-r-lg'>
-              <div className='space-y-4'>
-                <div className='text-center mb-4'>
-                  <p className='text-base font-black uppercase tracking-[0.15em] text-stone-900'>Linked Victory Targets</p>
-                  <p className='text-xs font-semibold text-stone-500 mt-1'>Results your Power Moves contribute to (Lag Measures)</p>
-                </div>
+              {/* Status Badge */}
+              <div className={cn(
+                'inline-flex items-center gap-2 px-6 py-3 rounded-lg shadow-md text-sm font-black',
+                status.bg,
+                status.text
+              )}>
+                <span>{status.badge}</span>
+              </div>
 
-                {/* Victory Target Cards */}
-                <div className='space-y-3'>
-                  {linkedVictoryTargets.length === 0 ? (
-                    <div className='border border-dashed border-stone-200 rounded-lg p-4 text-center text-sm text-stone-500'>
-                      No linked victory targets yet.
-                    </div>
-                  ) : (
-                    linkedVictoryTargets.map((vt, index) => {
-                      const progress = vt.progress
-                      const vtStatusColor = progress >= 70 ? '#16A34A' : progress >= 50 ? '#F59E0B' : '#DC2626'
-                      const vtStatusBg = progress >= 70 ? 'bg-[#16A34A]' : progress >= 50 ? 'bg-[#F59E0B]' : 'bg-[#DC2626]'
-                      const vtStatusLabel = progress >= 70 ? 'On Track' : progress >= 50 ? 'At Risk' : 'Behind'
-                      const isPrimaryTarget = index === 0
-
-                      return (
-                        <div key={vt.id} className={cn(
-                          'bg-white border-2 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow',
-                          isPrimaryTarget ? 'border-stone-300' : 'border-stone-200'
-                        )}>
-                          <div className='flex items-start justify-between gap-2 mb-3'>
-                            <div className='flex-1'>
-                              <p className='text-sm font-bold text-stone-900 leading-tight'>{vt.title}</p>
-                              <p className='text-xs font-semibold text-stone-400 mt-1'>{vt.brand}</p>
-                            </div>
-                            <span className={cn('text-xs font-black px-2.5 py-1 rounded-full text-white shadow-sm', vtStatusBg)}>
-                              {vtStatusLabel}
-                            </span>
-                          </div>
-                          {/* Progress Bar */}
-                          <div className='h-3 rounded-full overflow-hidden bg-stone-200 mb-2'>
-                            <div 
-                              className='h-full transition-all duration-500' 
-                              style={{ 
-                                width: `${Math.min(progress, 100)}%`,
-                                backgroundColor: vtStatusColor
-                              }}
-                            />
-                          </div>
-                          <p className='text-xs font-semibold text-stone-600'>{progress}% complete</p>
-                        </div>
-                      )
-                    })
-                  )}
-                </div>
-
-                {/* Summary at bottom */}
-                <div className='mt-4 pt-4 border-t-2 border-stone-200 text-center'>
-                  <p className='text-xs text-stone-400 italic font-medium'>
-                    Your execution contributes to department victory targets.
+              {/* Power Moves Detail */}
+              <div className='mt-5 pt-5 border-t-2 border-amber-200 space-y-2'>
+                <p className='text-3xl font-black text-amber-900 tabular-nums'>
+                  {periodData.completed} <span className='text-amber-300'>/</span> {periodData.total}
+                </p>
+                <p className='text-xs font-bold text-amber-700 uppercase tracking-wider'>Power Move Actions Complete</p>
+                {selectedPeriod === 'today' && periodData.total - periodData.completed > 0 && (
+                  <p className='text-xs text-amber-600 mt-2 font-semibold'>
+                    {periodData.total - periodData.completed} remaining today
                   </p>
-                </div>
+                )}
               </div>
             </div>
           </div>
+
+          {/* Flow Indicator - Desktop */}
+          <div className='hidden lg:flex flex-col items-center justify-center px-6 bg-stone-50 relative'>
+            {/* Gradient flow line */}
+            <div className='absolute top-0 bottom-0 w-0.5 bg-gradient-to-b from-amber-300 via-stone-300 to-blue-300'></div>
+            {/* Arrow with label */}
+            <div className='relative z-10 flex flex-col items-center gap-2'>
+              <ArrowRight className='h-8 w-8 text-amber-500 font-bold' aria-hidden="true" />
+              <span className='text-xs font-black text-amber-700 whitespace-nowrap'>CONTRIBUTES TO</span>
+            </div>
+          </div>
+
+          {/* Step 2 Badge */}
+          <div className='hidden lg:absolute left-1/2 -translate-x-1/2 top-2 z-10 bg-blue-400 text-blue-900 font-black px-3 py-1 rounded-full text-xs'>STEP 2</div>
+
+          {/* RIGHT: LINKED VICTORY TARGETS - Blue Theme */}
+          <div className='flex flex-col items-center justify-center text-center flex-1 min-h-[300px] lg:min-h-[340px] bg-gradient-to-br from-blue-50 to-cyan-50 border-l-4 lg:border-l-2 border-t-4 border-b-4 border-blue-400 border-r-2 lg:border-r-4 border-blue-200 lg:border-r-blue-400 rounded-lg lg:rounded-l-none lg:rounded-r-lg p-6 lg:p-7 shadow-md lg:shadow-md hover:shadow-lg transition-shadow duration-300'>
+            <div className='space-y-3 w-full'>
+              <div className='space-y-1'>
+                <p className='text-base font-black uppercase tracking-[0.15em] text-blue-900'>Linked Victory Targets</p>
+                <div className='h-0.5 w-10 bg-blue-300 mx-auto rounded-full'></div>
+              </div>
+              <p className='text-xs font-semibold text-blue-700 mt-1'>Results your Power Moves contribute to (Lag Measures)</p>
+
+              {/* Victory Target Cards */}
+              <div className='space-y-2 flex-1 min-h-[80px]'>
+                {linkedVictoryTargets.length === 0 ? (
+                  <div className='border border-dashed border-blue-300 rounded-lg p-4 text-center text-sm text-blue-600'>
+                    No linked victory targets yet.
+                  </div>
+                ) : (
+                  linkedVictoryTargets.map((vt, index) => {
+                    const progress = vt.progress
+                    const vtStatusColor = progress >= 70 ? '#16A34A' : progress >= 50 ? '#F59E0B' : '#DC2626'
+                    const vtStatusBg = progress >= 70 ? 'bg-emerald-100' : progress >= 50 ? 'bg-amber-100' : 'bg-rose-100'
+                    const vtStatusLabel = progress >= 70 ? 'On Track' : progress >= 50 ? 'At Risk' : 'Behind'
+
+                    return (
+                      <div key={vt.id} className='bg-blue-100 border border-blue-300 rounded-lg p-3 text-left hover:bg-blue-200 hover:shadow-md transition-all duration-200'>
+                        <div className='flex items-start justify-between gap-2 mb-2'>
+                          <div className='flex-1'>
+                            <p className='text-sm font-bold text-blue-900 leading-tight'>{vt.title}</p>
+                            <p className='text-xs font-semibold text-blue-600 mt-0.5'>{vt.brand}</p>
+                          </div>
+                          <span className={cn('text-xs font-black px-2 py-0.5 rounded-full text-white text-center', vtStatusBg)}>
+                            {vtStatusLabel}
+                          </span>
+                        </div>
+                        {/* Progress Bar */}
+                        <div className='h-1.5 rounded-full overflow-hidden bg-blue-200'>
+                          <div 
+                            className='h-full transition-all duration-500' 
+                            style={{ 
+                              width: `${Math.min(progress, 100)}%`,
+                              backgroundColor: vtStatusColor
+                            }}
+                          />
+                        </div>
+                        <p className='text-xs text-blue-700 mt-1 font-semibold'>{progress}% complete</p>
+                      </div>
+                    )
+                  })
+                )}
+              </div>
+
+              {/* Summary */}
+              <div className='mt-3 pt-3 border-t border-blue-200'>
+                <p className='text-xs text-blue-600 italic'>Your execution contributes to department victory targets.</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Flow Indicator - Mobile */}
+          <div className='lg:hidden flex flex-col items-center gap-2 py-3'>
+            <ArrowDown className='h-6 w-6 text-amber-500 font-bold' aria-hidden="true" />
+            <span className='text-xs font-black text-amber-700'>CONTRIBUTES TO</span>
+          </div>
+        </div>
       </Card>
 
       {/* Company Goal Context - Moved below scoreboard */}
