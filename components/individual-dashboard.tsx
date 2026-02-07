@@ -453,7 +453,7 @@ export function IndividualDashboard({
         </div>
 
         {/* SIMPLIFIED HORIZONTAL SCOREBOARD - Three Cards Left to Right */}
-        <div className='flex gap-6 py-8 px-6 bg-white max-w-7xl mx-auto overflow-x-auto'>
+        <div className='flex gap-8 py-12 px-8 bg-white max-w-7xl mx-auto overflow-x-auto'>
           
           {/* CARD 1: Daily Power Moves - Amber */}
           <div className='flex-1 min-w-96 bg-gradient-to-br from-amber-50 to-orange-50 border-l-4 border-amber-400 rounded-lg p-10 shadow-sm hover:shadow-lg transition-shadow duration-300'>
