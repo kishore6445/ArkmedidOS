@@ -523,6 +523,8 @@ export function IndividualDashboard({
 
         </div>
 
+      </Card>
+
       {/* Period Progress Divider */}
       <div className='py-4 px-6 bg-stone-50 border-t-2 border-b border-stone-200 rounded-lg'>
         <div className='flex items-center justify-between'>
