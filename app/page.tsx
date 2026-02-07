@@ -103,28 +103,6 @@ export default function HomePage() {
                   </div>
                 </div>
               </div>
-                    <div className="bg-white bg-opacity-20 rounded-lg p-6 space-y-4">
-                      <p className="text-white text-3xl font-bold">Onboard 50 New Clients</p>
-                      <p className="text-orange-100 text-lg">Across 3 Focused Brands</p>
-                    </div>
-                    <div className="grid grid-cols-3 gap-4">
-                      <div className="bg-white bg-opacity-15 rounded p-4">
-                        <p className="text-white font-bold text-2xl">30</p>
-                        <p className="text-orange-100 text-xs font-semibold">The Warrior Systems</p>
-                      </div>
-                      <div className="bg-white bg-opacity-15 rounded p-4">
-                        <p className="text-white font-bold text-2xl">18</p>
-                        <p className="text-orange-100 text-xs font-semibold">Story Marketing</p>
-                      </div>
-                      <div className="bg-white bg-opacity-15 rounded p-4">
-                        <p className="text-white font-bold text-2xl">2</p>
-                        <p className="text-orange-100 text-xs font-semibold">MetaGurukul</p>
-                      </div>
-                    </div>
-                    <p className="text-white font-bold text-lg pt-4">Timeline: Dec 31, 2026</p>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </section>
