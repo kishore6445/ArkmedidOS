@@ -203,18 +203,42 @@ export default function HomePage() {
             </div>
 
             {/* The Integration */}
-            <div className="rounded-lg bg-slate-950 border-2 border-orange-500 p-8 text-center space-y-4">
-              <p className="text-slate-200">
-                Every brand solves a real problem in India.
+            <div className="rounded-lg bg-slate-950 border-2 border-orange-500 p-12 text-center space-y-6">
+              <div className="space-y-3">
+                <p className="text-slate-300 text-lg">
+                  <span className="text-orange-400 font-bold">Purpose</span> without passion doesn't last.
+                </p>
+                <p className="text-slate-300 text-lg">
+                  <span className="text-orange-400 font-bold">Passion</span> without profit doesn't scale.
+                </p>
+                <p className="text-slate-300 text-lg">
+                  <span className="text-orange-400 font-bold">All three are non-negotiable.</span>
+                </p>
+              </div>
+              <p className="text-2xl font-bold text-orange-300">
+                Three brands. One mission. India first. Always.
               </p>
-              <p className="text-lg font-bold text-orange-400">
-                Strong execution + Global branding + Deep knowledge
-              </p>
-              <p className="text-slate-200">
-                Builds better Indian companies. Builds ArkMedis profitably. Built with genuine passion.
-              </p>
-              <p className="text-sm text-slate-400 mt-6">
-                Purpose, Profit, Passion—all three, integrated.
+              <div className="space-y-3 border-t border-slate-700 pt-6">
+                <p className="text-slate-200">
+                  Every brand solves a real problem in India.
+                </p>
+                <p className="text-slate-200">
+                  We combine strong execution, global branding, and deep domain knowledge to build better Indian companies—while building ArkMedis profitably.
+                </p>
+              </div>
+              <div className="space-y-2 border-t border-slate-700 pt-6">
+                <p className="text-slate-200">
+                  <span className="text-orange-300 font-bold">Built</span> with genuine passion.
+                </p>
+                <p className="text-slate-200">
+                  <span className="text-orange-300 font-bold">Driven</span> by clear purpose.
+                </p>
+                <p className="text-slate-200">
+                  <span className="text-orange-300 font-bold">Sustained</span> by profit.
+                </p>
+              </div>
+              <p className="text-sm text-orange-400 font-bold mt-6">
+                Purpose, Passion, Profit—integrated. Non-negotiable.
               </p>
             </div>
           </div>
