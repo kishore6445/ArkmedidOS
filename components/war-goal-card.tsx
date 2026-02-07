@@ -8,9 +8,10 @@ interface WarGoalCardProps {
   companyWIG?: string
   className?: string
   equalHeight?: boolean
+  minHeight?: string
 }
 
-export function WarGoalCard({ companyWIG, className, equalHeight }: WarGoalCardProps) {
+export function WarGoalCard({ companyWIG, className, equalHeight, minHeight }: WarGoalCardProps) {
   const warGoalText = 'Onboard 50 Clients Across All Departments'
   const achieved = 0
   const target = 50
@@ -24,7 +25,7 @@ export function WarGoalCard({ companyWIG, className, equalHeight }: WarGoalCardP
     <div className={cn('flex flex-col h-full', className)}>
       <div className={cn(
         'flex-1 p-6 lg:p-8 flex flex-col items-center justify-center text-center',
-        equalHeight ? 'min-h-[380px] bg-gradient-to-br from-purple-50 to-violet-50 border-l-2 border-l-purple-200 border-t-4 border-b-4 border-purple-400 border-r-4 border-r-purple-400 rounded-r-lg shadow-sm' : 'min-h-[280px] bg-white border-2 border-stone-200 rounded-lg'
+        equalHeight ? cn('bg-gradient-to-br from-purple-50 to-violet-50 border-l-2 border-l-purple-200 border-t-4 border-b-4 border-purple-400 border-r-4 border-r-purple-400 rounded-r-lg shadow-md hover:shadow-lg transition-shadow duration-300', minHeight ? `min-h-[${minHeight}]` : 'min-h-[340px]') : 'min-h-[280px] bg-white border-2 border-stone-200 rounded-lg'
       )}>
         <div className='space-y-3 w-full'>
           {/* Header */}
