@@ -426,7 +426,7 @@ export function DepartmentExecutionHero({
             {/* Desktop 3-Card Grid with Enhanced Flow Indicators */}
             <div className='hidden lg:flex lg:items-stretch lg:gap-0 p-6 bg-stone-50'>
               {/* Step 1 Badge */}
-              <div className='absolute left-20 top-2 z-10 bg-amber-400 text-amber-900 font-black px-3 py-1 rounded-full text-xs'>STEP 1</div>
+              <div className='absolute left-20 top-2 z-10 bg-amber-400 text-amber-900 font-black px-3 py-1 rounded-full text-xs'>STEP 1 – Execution Discipline</div>
 
               {/* Column 1: WEEKLY POWER MOVES - AMBER Theme */}
               <div className={cn(
@@ -487,7 +487,7 @@ export function DepartmentExecutionHero({
               </div>
 
               {/* Step 2 Badge */}
-              <div className='absolute left-1/2 -translate-x-1/2 top-2 z-10 bg-blue-400 text-blue-900 font-black px-3 py-1 rounded-full text-xs'>STEP 2</div>
+              <div className='absolute left-1/2 -translate-x-1/2 top-2 z-10 bg-blue-400 text-blue-900 font-black px-3 py-1 rounded-full text-xs'>STEP 2 – Team Outcomes</div>
 
               {/* Column 2: DEPARTMENT VICTORY TARGETS - BLUE Theme */}
               <div className='flex flex-col items-center justify-center text-center flex-1 min-h-[340px] bg-gradient-to-br from-blue-50 to-cyan-50 border-l-2 border-l-blue-200 border-t-4 border-b-4 border-blue-400 border-r-2 border-r-blue-200 p-7 overflow-y-auto shadow-md hover:shadow-lg transition-shadow duration-300'>
@@ -568,7 +568,7 @@ export function DepartmentExecutionHero({
               </div>
 
               {/* Step 3 Badge */}
-              <div className='absolute right-20 top-2 z-10 bg-purple-400 text-purple-900 font-black px-3 py-1 rounded-full text-xs'>STEP 3</div>
+              <div className='absolute right-20 top-2 z-10 bg-purple-400 text-purple-900 font-black px-3 py-1 rounded-full text-xs'>STEP 3 – Company Mission</div>
 
               {/* Column 3: WAR GOAL - PURPLE Theme */}
               <div className='flex-1'>
@@ -580,7 +580,7 @@ export function DepartmentExecutionHero({
             <div className='lg:hidden space-y-4 p-6 bg-stone-50'>
               {/* Step 1 Badge */}
               <div className='flex justify-center mb-2'>
-                <span className='bg-amber-400 text-amber-900 font-black px-3 py-1 rounded-full text-xs'>STEP 1: Lead Measures</span>
+                <span className='bg-amber-400 text-amber-900 font-black px-3 py-1 rounded-full text-xs'>STEP 1 – Execution Discipline</span>
               </div>
 
               {/* Card 1 - Amber Theme */}
@@ -628,7 +628,7 @@ export function DepartmentExecutionHero({
 
               {/* Step 2 Badge */}
               <div className='flex justify-center mb-2'>
-                <span className='bg-blue-400 text-blue-900 font-black px-3 py-1 rounded-full text-xs'>STEP 2: Lag Measures</span>
+                <span className='bg-blue-400 text-blue-900 font-black px-3 py-1 rounded-full text-xs'>STEP 2 – Team Outcomes</span>
               </div>
 
               {/* Card 2 - Blue Theme */}
@@ -701,7 +701,7 @@ export function DepartmentExecutionHero({
 
               {/* Step 3 Badge */}
               <div className='flex justify-center mb-2'>
-                <span className='bg-purple-400 text-purple-900 font-black px-3 py-1 rounded-full text-xs'>STEP 3: Company Goal</span>
+                <span className='bg-purple-400 text-purple-900 font-black px-3 py-1 rounded-full text-xs'>STEP 3 – Company Mission</span>
               </div>
 
               {/* Card 3 - Purple Theme */}
