@@ -501,6 +501,12 @@ export function IndividualDashboard({
                   </p>
                 )}
               </div>
+
+              {/* Psychological Connection */}
+              <div className='mt-4 pt-4 border-t border-amber-200 space-y-1.5'>
+                <p className='text-xs text-amber-700 font-semibold'>These actions directly contribute to company victory targets.</p>
+                <p className='text-xs text-amber-600 italic'>When you execute daily, company results move.</p>
+              </div>
             </div>
           </div>
 
@@ -523,7 +529,7 @@ export function IndividualDashboard({
                 <p className='text-base font-black uppercase tracking-[0.15em] text-blue-900'>Linked Victory Targets</p>
                 <div className='h-0.5 w-10 bg-blue-300 mx-auto rounded-full'></div>
               </div>
-              <p className='text-xs font-semibold text-blue-700 mt-1'>Results your Power Moves contribute to (Lag Measures)</p>
+              <p className='text-xs font-semibold text-blue-700 mt-1'>Company targets your Power Moves directly influence</p>
 
               {/* Victory Target Cards */}
               <div className='space-y-2 flex-1 min-h-[80px]'>
@@ -546,6 +552,7 @@ export function IndividualDashboard({
                             {vtStatusLabel}
                           </span>
                         </div>
+                        <p className='text-xs text-blue-600 italic mb-1'>Fueled by your Power Moves</p>
                         <div className='h-1.5 rounded-full overflow-hidden bg-blue-200'>
                           <div 
                             className='h-full transition-all duration-500' 
@@ -564,7 +571,7 @@ export function IndividualDashboard({
 
               {/* Summary */}
               <div className='mt-3 pt-3 border-t border-blue-200'>
-                <p className='text-xs text-blue-600 italic'>Your execution contributes to victory targets.</p>
+                <p className='text-xs text-blue-600 italic'>When these targets are achieved, company revenue and profit goals move.</p>
               </div>
             </div>
           </div>
@@ -637,6 +644,16 @@ export function IndividualDashboard({
                 )}
               </div>
 
+              {/* When the Company Wins Subsection */}
+              <div className='mt-5 pt-5 border-t border-purple-200 space-y-2'>
+                <p className='text-xs font-black uppercase tracking-wider text-purple-900'>When the Company Wins</p>
+                <p className='text-xs text-purple-700 leading-relaxed'>When ArkMedis achieves its revenue and profit goals, your personal War Goal is unlocked.</p>
+                <div className='bg-purple-100 rounded-lg p-3 mt-2'>
+                  <p className='text-xs font-semibold text-purple-900'>Target outcome: 30 to 50% salary growth aligned with company performance in 2026</p>
+                </div>
+                <p className='text-xs text-purple-600 italic mt-2'>This is earned growth, not a bonus.</p>
+              </div>
+
               {/* Summary */}
               <div className='mt-3 pt-3 border-t border-purple-200'>
                 <p className='text-xs text-purple-600 italic'>Your personal strategic outcome.</p>
@@ -685,6 +702,12 @@ export function IndividualDashboard({
                 </p>
                 <p className='text-xs font-bold text-amber-700 mt-1 uppercase tracking-wider'>Power Moves Complete</p>
               </div>
+
+              {/* Psychological Connection */}
+              <div className='mt-4 pt-4 border-t border-amber-200 space-y-1.5'>
+                <p className='text-xs text-amber-700 font-semibold'>These actions directly contribute to company victory targets.</p>
+                <p className='text-xs text-amber-600 italic'>When you execute daily, company results move.</p>
+              </div>
             </div>
           </div>
 
@@ -704,7 +727,7 @@ export function IndividualDashboard({
             <div className='space-y-3'>
               <p className='text-base font-black uppercase tracking-[0.15em] text-blue-900'>Linked Victory Targets</p>
               <div className='h-0.5 w-10 bg-blue-300 mx-auto rounded-full'></div>
-              <p className='text-xs font-semibold text-blue-700 mt-1'>Results your Power Moves contribute to (Lag Measures)</p>
+              <p className='text-xs font-semibold text-blue-700 mt-1'>Company targets your Power Moves directly influence</p>
               <div className='space-y-2'>
                 {linkedVictoryTargets.length === 0 ? (
                   <div className='border border-dashed border-blue-300 rounded-lg p-4 text-center text-sm text-blue-600'>
@@ -725,6 +748,7 @@ export function IndividualDashboard({
                             {vtStatusLabel}
                           </span>
                         </div>
+                        <p className='text-xs text-blue-600 italic mb-2'>Fueled by your Power Moves</p>
                         <div className='h-1.5 rounded-full overflow-hidden bg-blue-200'>
                           <div 
                             className='h-full transition-all duration-500' 
@@ -801,6 +825,16 @@ export function IndividualDashboard({
                   <p className='text-sm text-purple-600 font-semibold'>No personal goal configured yet</p>
                 </div>
               )}
+
+              {/* When the Company Wins Subsection */}
+              <div className='mt-5 pt-5 border-t border-purple-200 space-y-2'>
+                <p className='text-xs font-black uppercase tracking-wider text-purple-900'>When the Company Wins</p>
+                <p className='text-xs text-purple-700 leading-relaxed'>When ArkMedis achieves its revenue and profit goals, your personal War Goal is unlocked.</p>
+                <div className='bg-purple-100 rounded-lg p-2 mt-2'>
+                  <p className='text-xs font-semibold text-purple-900'>Target outcome: 30 to 50% salary growth aligned with company performance in 2026</p>
+                </div>
+                <p className='text-xs text-purple-600 italic mt-2'>This is earned growth, not a bonus.</p>
+              </div>
             </div>
           </div>
         </div>
