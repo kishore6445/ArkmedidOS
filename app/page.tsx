@@ -34,16 +34,16 @@ export default function HomePage() {
         {/* Hero */}
         <section className="bg-white px-6 py-24">
           <div className="mx-auto max-w-7xl">
-            <div className="grid gap-12 lg:grid-cols-[1fr_1fr]">
-              <div className="space-y-6 flex flex-col justify-center">
+            <div className="space-y-12">
+              <div className="space-y-6">
                 <div className="inline-flex w-fit items-center gap-2 rounded bg-orange-500 px-4 py-2 text-sm font-bold text-white uppercase tracking-[0.15em]">
                   50 by Dec 31, 2026
                 </div>
                 <h1 className="text-5xl font-bold leading-tight lg:text-7xl text-slate-900">
-                  When the company wins, you grow.
+                  Your growth. India's growth.
                 </h1>
-                <p className="text-xl text-slate-700">
-                  Mission 50: 50 customers across 3 brands. When we win, <span className="text-orange-600 font-bold">everyone earns up to 50% salary growth</span>.
+                <p className="text-2xl text-slate-700 max-w-2xl">
+                  When the company wins Mission 50, <span className="text-orange-600 font-bold">everyone shares up to 50% salary growth</span>. Earned. Aligned by contribution. Non-negotiable.
                 </p>
                 <div className="pt-4">
                   <Link
@@ -54,47 +54,111 @@ export default function HomePage() {
                   </Link>
                 </div>
               </div>
-              <div className="flex items-center justify-center">
-                <div className="space-y-4 text-center">
-                  <p className="text-orange-600 font-bold text-sm uppercase tracking-wider">Three Brands</p>
-                  <div className="space-y-3">
-                    <div className="text-lg font-bold text-slate-900">The Warrior Systems <span className="text-orange-600">30</span></div>
-                    <div className="text-lg font-bold text-slate-900">Story Marketing <span className="text-orange-600">18</span></div>
-                    <div className="text-lg font-bold text-slate-900">MetaGurukul <span className="text-orange-600">2</span></div>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </section>
 
-        {/* How It Works */}
+        {/* What We Do - The Three Brands */}
         <section className="bg-slate-950 px-6 py-24">
           <div className="mx-auto max-w-7xl space-y-12">
+            <div className="text-center">
+              <h2 className="text-4xl font-bold text-orange-400 mb-4">Three Brands. One Mission. Build India.</h2>
+              <p className="text-xl text-slate-300 max-w-2xl mx-auto">
+                Strong execution. Global branding. Deep knowledge. Three problems. Three solutions. One country gets stronger.
+              </p>
+            </div>
+            <div className="grid gap-8 lg:grid-cols-3">
+              {[
+                {
+                  name: "The Warrior Systems",
+                  target: "30 companies",
+                  problem: "Indian businesses have talent but lack execution discipline.",
+                  solution: "We install systems that scale globally."
+                },
+                {
+                  name: "Story Marketing",
+                  target: "18 companies",
+                  problem: "Indian manufacturing loses globally due to weak branding.",
+                  solution: "We amplify their story. They compete. They win."
+                },
+                {
+                  name: "MetaGurukul",
+                  target: "2 platforms",
+                  problem: "India's ancient knowledge traditions are fading.",
+                  solution: "We revive them through modern coaching disciplines."
+                }
+              ].map((brand) => (
+                <div key={brand.name} className="bg-slate-900 rounded-lg p-8 border-l-4 border-orange-500 space-y-4">
+                  <div>
+                    <h3 className="text-2xl font-bold text-white">{brand.name}</h3>
+                    <p className="text-orange-400 font-bold text-sm mt-2">{brand.target}</p>
+                  </div>
+                  <p className="text-slate-400 text-sm">{brand.problem}</p>
+                  <p className="text-slate-200 font-semibold">{brand.solution}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* How You Earn Growth */}
+        <section className="bg-white px-6 py-24">
+          <div className="mx-auto max-w-7xl space-y-12">
             <div>
-              <h2 className="text-4xl font-bold text-orange-400 mb-4">How You Earn Growth</h2>
+              <h2 className="text-4xl font-bold text-slate-900 mb-4">How You Earn Growth</h2>
+              <p className="text-xl text-slate-700">Every person, every quarter, same system.</p>
             </div>
             <div className="grid gap-6 lg:grid-cols-3">
               {[
                 {
                   num: "1",
-                  title: "Clear Power Moves",
-                  desc: "Execute defined actions every week."
+                  title: "Define Power Moves",
+                  desc: "Clear actions that move the needle. You own them."
                 },
                 {
                   num: "2",
-                  title: "Measured Contribution",
-                  desc: "Your impact is tracked and visible."
+                  title: "Execute & Measure",
+                  desc: "Every outcome tracked. No politics. Dashboards show the truth."
                 },
                 {
                   num: "3",
-                  title: "Earned Growth",
-                  desc: "50% hike aligned by your contribution."
+                  title: "Earn Your Hike",
+                  desc: "Up to 50% salary growth when Mission 50 succeeds. Your contribution decides your share."
                 }
               ].map((item) => (
-                <div key={item.num} className="bg-slate-900 rounded-lg p-6 border-l-4 border-orange-500">
+                <div key={item.num} className="bg-orange-50 rounded-lg p-8 border-l-4 border-orange-500">
                   <div className="text-4xl font-black text-orange-500 mb-3">{item.num}</div>
-                  <h3 className="text-xl font-bold text-white mb-2">{item.title}</h3>
+                  <h3 className="text-xl font-bold text-slate-900 mb-2">{item.title}</h3>
+                  <p className="text-slate-700">{item.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Why This Matters */}
+        <section className="bg-slate-950 px-6 py-24">
+          <div className="mx-auto max-w-7xl space-y-12">
+            <div className="text-center">
+              <h2 className="text-4xl font-bold text-orange-400 mb-4">Three Things Make This Real</h2>
+            </div>
+            <div className="grid gap-8 lg:grid-cols-3">
+              {[
+                {
+                  title: "Work From Home & Flexibility",
+                  desc: "Execution earns freedom. Consistent delivery builds trust. Trust enables flexibility. Not the other way around."
+                },
+                {
+                  title: "Recognition Without Politics",
+                  desc: "Dashboards show your contribution. No gossip. No noise. Your outcomes matter. Your work speaks for itself."
+                },
+                {
+                  title: "Growth That Compounds",
+                  desc: "Your 50% hike reinvested in your development. Skills compound. Opportunities expand. Year over year."
+                }
+              ].map((item) => (
+                <div key={item.title} className="bg-slate-900 rounded-lg p-8 border-l-4 border-orange-500">
+                  <h3 className="text-xl font-bold text-white mb-4">{item.title}</h3>
                   <p className="text-slate-300">{item.desc}</p>
                 </div>
               ))}
@@ -102,109 +166,11 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Why ArkMedis - Benefits */}
+        {/* Purpose × Passion × Profit - The Philosophy */}
         <section className="bg-white px-6 py-24">
-          <div className="mx-auto max-w-7xl space-y-12">
-            <div>
-              <h2 className="text-4xl font-bold text-orange-600 mb-4">Why ArkMedis is the Best Place to Work</h2>
-            </div>
-            <div className="grid gap-6 lg:grid-cols-2">
-              <div className="border-2 border-slate-200 rounded-lg p-8 hover:border-orange-500 transition">
-                <h3 className="text-2xl font-bold text-slate-900 mb-4">Work From Home & Flexibility</h3>
-                <p className="text-slate-700 mb-4">
-                  Your execution earns your freedom. Consistent delivery builds trust. Trust enables flexibility.
-                </p>
-                <p className="text-slate-700 font-semibold text-orange-600">
-                  Execution earns freedom. Not the other way around.
-                </p>
-              </div>
-              <div className="border-2 border-slate-200 rounded-lg p-8 hover:border-orange-500 transition">
-                <h3 className="text-2xl font-bold text-slate-900 mb-4">Recognition Without Politics</h3>
-                <p className="text-slate-700 mb-4">
-                  Dashboards show your contribution. No gossip. No noise. Your work speaks for itself.
-                </p>
-                <p className="text-slate-700 font-semibold text-orange-600">
-                  Your outcomes matter. Your opinions don't need to.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* What Makes This Different */}
-
-        {/* The Three Brands */}
-        <section className="bg-slate-950 px-6 py-24">
-          <div className="mx-auto max-w-7xl space-y-12">
-            <div>
-              <h2 className="text-4xl font-bold text-orange-400 mb-4">Three Focused Brands</h2>
-            </div>
-            <div className="grid gap-8 lg:grid-cols-3">
-              {[
-                {
-                  name: "The Warrior Systems",
-                  target: "30 customers",
-                  desc: "Execution discipline for Indian companies"
-                },
-                {
-                  name: "Story Marketing",
-                  target: "18 customers",
-                  desc: "Manufacturing brands competing globally"
-                },
-                {
-                  name: "MetaGurukul",
-                  target: "2 customers",
-                  desc: "Reviving India's knowledge traditions"
-                }
-              ].map((brand) => (
-                <div key={brand.name} className="bg-slate-900 rounded-lg p-8 border-l-4 border-orange-500">
-                  <h3 className="text-2xl font-bold text-white mb-2">{brand.name}</h3>
-                  <p className="text-orange-400 font-bold mb-3">{brand.target}</p>
-                  <p className="text-slate-300">{brand.desc}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* How Brands Contribute to India's Mission */}
-        <section className="bg-white px-6 py-24">
-          <div className="mx-auto max-w-7xl space-y-16">
-            <div className="text-center">
-              <h2 className="text-4xl font-bold text-slate-900 mb-4">Purpose × Profit × Passion</h2>
-              <p className="text-xl text-slate-700 max-w-3xl mx-auto">
-                We don't choose between profit and purpose. Both happen together. Three brands. One mission. Build India while building business.
-              </p>
-            </div>
-
-            {/* Three Brands */}
-            <div className="grid gap-8 lg:grid-cols-3">
-              <div className="rounded-lg border-2 border-slate-200 p-8 hover:border-orange-500 transition">
-                <h3 className="text-xl font-bold text-slate-900 mb-2">The Warrior Systems</h3>
-                <p className="text-sm text-orange-600 font-bold mb-4">Execution Discipline</p>
-                <p className="text-slate-700">
-                  Indian businesses have talent but lack systems. We build execution discipline that scales globally.
-                </p>
-              </div>
-              <div className="rounded-lg border-2 border-slate-200 p-8 hover:border-orange-500 transition">
-                <h3 className="text-xl font-bold text-slate-900 mb-2">Story Marketing</h3>
-                <p className="text-sm text-orange-600 font-bold mb-4">Global Recognition</p>
-                <p className="text-slate-700">
-                  Indian manufacturers compete globally but can't tell their story. We amplify their voice.
-                </p>
-              </div>
-              <div className="rounded-lg border-2 border-slate-200 p-8 hover:border-orange-500 transition">
-                <h3 className="text-xl font-bold text-slate-900 mb-2">MetaGurukul</h3>
-                <p className="text-sm text-orange-600 font-bold mb-4">Revived Knowledge</p>
-                <p className="text-slate-700">
-                  India's wisdom systems shaped the world. We revive coaching as a knowledge discipline.
-                </p>
-              </div>
-            </div>
-
-            {/* The Integration */}
-            <div className="rounded-lg bg-slate-950 border-2 border-orange-500 p-12 text-center space-y-6">
-              <div className="space-y-3">
+          <div className="mx-auto max-w-7xl">
+            <div className="rounded-lg bg-slate-950 border-2 border-orange-500 p-12 text-center space-y-8">
+              <div className="space-y-4">
                 <p className="text-slate-300 text-lg">
                   <span className="text-orange-400 font-bold">Purpose</span> without passion doesn't last.
                 </p>
@@ -215,18 +181,15 @@ export default function HomePage() {
                   <span className="text-orange-400 font-bold">All three are non-negotiable.</span>
                 </p>
               </div>
-              <p className="text-2xl font-bold text-orange-300">
-                Three brands. One mission. India first. Always.
-              </p>
-              <div className="space-y-3 border-t border-slate-700 pt-6">
-                <p className="text-slate-200">
-                  Every brand solves a real problem in India.
+              <div className="border-t border-slate-700 pt-8">
+                <p className="text-2xl font-bold text-orange-300 mb-6">
+                  India first. Always.
                 </p>
-                <p className="text-slate-200">
-                  We combine strong execution, global branding, and deep domain knowledge to build better Indian companies—while building ArkMedis profitably.
+                <p className="text-slate-200 mb-4">
+                  We build better Indian companies while building ArkMedis sustainably. Three brands solve three problems. Everyone involved wins.
                 </p>
               </div>
-              <div className="space-y-2 border-t border-slate-700 pt-6">
+              <div className="space-y-2 border-t border-slate-700 pt-8">
                 <p className="text-slate-200">
                   <span className="text-orange-300 font-bold">Built</span> with genuine passion.
                 </p>
@@ -237,56 +200,55 @@ export default function HomePage() {
                   <span className="text-orange-300 font-bold">Sustained</span> by profit.
                 </p>
               </div>
-              <p className="text-sm text-orange-400 font-bold mt-6">
+              <p className="text-sm text-orange-400 font-bold">
                 Purpose, Passion, Profit—integrated. Non-negotiable.
               </p>
             </div>
           </div>
         </section>
 
-        {/* Mission 2047 - Condensed */}
+        {/* The Bigger Picture - By 2047 */}
         <section className="bg-slate-950 px-6 py-24">
           <div className="mx-auto max-w-7xl space-y-12">
-            <div>
-              <h2 className="text-4xl font-bold text-orange-400 mb-4">Why It Matters Beyond Mission 50</h2>
+            <div className="text-center">
+              <h2 className="text-4xl font-bold text-orange-400 mb-4">By 2047</h2>
+              <p className="text-xl text-slate-300">Strong execution. Disciplined knowledge. Global competitiveness. These define India.</p>
             </div>
-            <div className="space-y-8">
-              <div className="grid gap-8 lg:grid-cols-3">
-                {[
-                  {
-                    title: "Strong Companies",
-                    desc: "Built on execution, not just ideas."
-                  },
-                  {
-                    title: "Global Competitiveness",
-                    desc: "Indian manufacturing that competes worldwide."
-                  },
-                  {
-                    title: "Disciplined Knowledge",
-                    desc: "Reviving India's learning traditions."
-                  }
-                ].map((item) => (
-                  <div key={item.title} className="bg-slate-900 rounded-lg p-6 border-l-4 border-orange-500">
-                    <h3 className="text-lg font-bold text-white mb-2">{item.title}</h3>
-                    <p className="text-slate-300">{item.desc}</p>
-                  </div>
-                ))}
-              </div>
-              <p className="text-lg text-slate-200 text-center">
-                <span className="text-orange-400 font-bold">Your Power Moves build both:</span> You grow. India's businesses get stronger. By 2047, execution and discipline define our economy.
-              </p>
+            <div className="grid gap-8 lg:grid-cols-3">
+              {[
+                {
+                  title: "50 Companies",
+                  desc: "With execution discipline. Proving systems scale faster than hustle."
+                },
+                {
+                  title: "Manufacturing Pride",
+                  desc: "Indian brands competing globally. Known for quality, discipline, and integrity."
+                },
+                {
+                  title: "Knowledge Revival",
+                  desc: "Coaching and wisdom traditions thriving. India exports teachers, not just goods."
+                }
+              ].map((item) => (
+                <div key={item.title} className="bg-slate-900 rounded-lg p-8 border-l-4 border-orange-500">
+                  <h3 className="text-xl font-bold text-orange-300 mb-3">{item.title}</h3>
+                  <p className="text-slate-300">{item.desc}</p>
+                </div>
+              ))}
             </div>
+            <p className="text-center text-lg text-slate-200 mt-8">
+              Your Power Moves aren't just about Mission 50. They're about what India becomes.
+            </p>
           </div>
         </section>
 
         {/* Final CTA */}
-        <section className="bg-slate-950 px-6 py-24">
+        <section className="bg-white px-6 py-24">
           <div className="mx-auto max-w-7xl text-center space-y-8">
-            <h2 className="text-4xl font-bold text-white">
-              Ready to Build Something Real?
+            <h2 className="text-4xl font-bold text-slate-900">
+              Ready to Build Something That Lasts?
             </h2>
-            <p className="text-xl text-slate-300 max-w-2xl mx-auto">
-              No shortcuts. No politics. Just disciplined execution that compounds.
+            <p className="text-xl text-slate-700 max-w-2xl mx-auto">
+              No shortcuts. No politics. Just disciplined execution that compounds. Your growth. India's growth. Both matter.
             </p>
             <Link
               href="/signin"
