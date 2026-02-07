@@ -452,11 +452,11 @@ export function IndividualDashboard({
           </div>
         </div>
 
-        {/* SIMPLIFIED VERTICAL SCOREBOARD - Horizontal Cards */}
-        <div className='space-y-4 p-6 bg-white max-w-4xl mx-auto'>
+        {/* SIMPLIFIED HORIZONTAL SCOREBOARD - Three Cards Left to Right */}
+        <div className='flex gap-4 p-6 bg-white max-w-6xl mx-auto overflow-x-auto'>
           
           {/* CARD 1: Daily Power Moves - Amber */}
-          <div className='bg-gradient-to-br from-amber-50 to-orange-50 border-l-4 border-amber-400 rounded-lg p-8 shadow-sm hover:shadow-md transition-shadow duration-300'>
+          <div className='flex-1 min-w-80 bg-gradient-to-br from-amber-50 to-orange-50 border-l-4 border-amber-400 rounded-lg p-8 shadow-sm hover:shadow-md transition-shadow duration-300'>
             <div className='flex items-center justify-between gap-8'>
               <div className='flex-1 space-y-2'>
                 <p className='text-xs font-bold uppercase tracking-widest text-amber-700'>Daily Execution</p>
@@ -478,13 +478,8 @@ export function IndividualDashboard({
             </div>
           </div>
 
-          {/* ARROW DOWN */}
-          <div className='flex justify-center py-2'>
-            <ArrowDown className='h-6 w-6 text-stone-300' aria-hidden="true" />
-          </div>
-
           {/* CARD 2: Company Impact - Blue */}
-          <div className='bg-gradient-to-br from-blue-50 to-cyan-50 border-l-4 border-blue-400 rounded-lg p-8 shadow-sm hover:shadow-md transition-shadow duration-300'>
+          <div className='flex-1 min-w-80 bg-gradient-to-br from-blue-50 to-cyan-50 border-l-4 border-blue-400 rounded-lg p-8 shadow-sm hover:shadow-md transition-shadow duration-300'>
             <div className='flex items-center justify-between gap-8'>
               <div className='flex-1 space-y-2'>
                 <p className='text-xs font-bold uppercase tracking-widest text-blue-700'>Company Impact</p>
@@ -502,13 +497,8 @@ export function IndividualDashboard({
             </div>
           </div>
 
-          {/* ARROW DOWN */}
-          <div className='flex justify-center py-2'>
-            <ArrowDown className='h-6 w-6 text-stone-300' aria-hidden="true" />
-          </div>
-
           {/* CARD 3: Your Reward - Purple */}
-          <div className='bg-gradient-to-br from-purple-50 to-violet-50 border-l-4 border-purple-400 rounded-lg p-8 shadow-sm hover:shadow-md transition-shadow duration-300'>
+          <div className='flex-1 min-w-80 bg-gradient-to-br from-purple-50 to-violet-50 border-l-4 border-purple-400 rounded-lg p-8 shadow-sm hover:shadow-md transition-shadow duration-300'>
             <div className='flex items-center justify-between gap-8'>
               <div className='flex-1 space-y-2'>
                 <p className='text-xs font-bold uppercase tracking-widest text-purple-700'>Your Reward</p>
