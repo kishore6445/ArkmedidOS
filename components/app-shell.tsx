@@ -2,7 +2,7 @@
 
 import React from "react"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { Menu, X, Bell, Calendar } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -28,13 +28,8 @@ export const ModeContext = React.createContext<{
 export function AppShell({ children }: { children: React.ReactNode }) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [mode, setMode] = useState<"execution" | "setup">("execution")
-  const [currentDate, setCurrentDate] = useState<Date | null>(null)
   const router = useRouter()
   const { currentUser } = useUser()
-
-  useEffect(() => {
-    setCurrentDate(new Date())
-  }, [])
 
   const handleTouchStart = (e: React.TouchEvent) => {
     const touch = e.touches[0]
@@ -131,18 +126,16 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               <BrandSwitcher />
             </div>
 
-            <div className="hidden sm:flex items-center gap-2 text-sm text-gray-600" role="status" aria-live="polite" suppressHydrationWarning>
+            <div className="hidden sm:flex items-center gap-2 text-sm text-gray-600" role="status" aria-live="polite">
               <Calendar className="h-4 w-4" aria-hidden="true" />
-              {currentDate && (
-                <time dateTime={currentDate.toISOString()}>
-                  <span className="hidden md:inline">
-                    {currentDate.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
-                  </span>
-                  <span className="md:hidden">
-                    {currentDate.toLocaleDateString("en-US", { month: "short", day: "numeric" })}
-                  </span>
-                </time>
-              )}
+              <time dateTime={currentDate?.toISOString() || new Date().toISOString()} suppressHydrationWarning>
+                <span className="hidden md:inline">
+                  {currentDate?.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }) || ""}
+                </span>
+                <span className="md:hidden">
+                  {currentDate?.toLocaleDateString("en-US", { month: "short", day: "numeric" }) || ""}
+                </span>
+              </time>
             </div>
 
             <div className="flex items-center gap-2 lg:gap-3">
