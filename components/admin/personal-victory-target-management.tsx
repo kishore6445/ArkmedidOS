@@ -76,6 +76,8 @@ export function PersonalVictoryTargetManagement() {
 
   const [selectedQuarter, setSelectedQuarter] = useState("Q1")
   const [searchQuery, setSearchQuery] = useState("")
+  const [selectedEmployee, setSelectedEmployee] = useState("")
+  const [error, setError] = useState("")
 
   const filteredTargets = personalTargets.filter((target) => {
     const matchesQuarter = target.quarter === selectedQuarter
@@ -85,11 +87,34 @@ export function PersonalVictoryTargetManagement() {
     return matchesQuarter && matchesSearch
   })
 
+  // Get unique employees
+  const employees = Array.from(new Set(personalTargets.map((t) => t.employeeId)))
+    .map((id) => personalTargets.find((t) => t.employeeId === id))
+    .filter((t) => t !== undefined) as PersonalTarget[]
+
   const handleAddTarget = () => {
+    if (!selectedEmployee) {
+      setError("Please select an employee first")
+      return
+    }
+
+    // Check if employee already has 2 targets for this quarter
+    const employeeTargetsThisQuarter = personalTargets.filter(
+      (t) => t.employeeId === selectedEmployee && t.quarter === selectedQuarter
+    )
+
+    if (employeeTargetsThisQuarter.length >= 2) {
+      setError(`${employeeTargetsThisQuarter[0]?.employeeName || "This employee"} already has 2 targets for ${selectedQuarter}`)
+      setTimeout(() => setError(""), 3000)
+      return
+    }
+
+    const employeeName = personalTargets.find((t) => t.employeeId === selectedEmployee)?.employeeName || "New Employee"
+
     const newTarget: PersonalTarget = {
       id: `pt-${Date.now()}`,
-      employeeId: "",
-      employeeName: "Select Employee",
+      employeeId: selectedEmployee,
+      employeeName,
       quarter: selectedQuarter as "Q1" | "Q2" | "Q3" | "Q4",
       victoryTargetId: "",
       victoryTargetName: "Select Victory Target",
@@ -99,6 +124,8 @@ export function PersonalVictoryTargetManagement() {
       createdAt: new Date().toISOString().split("T")[0],
     }
     setPersonalTargets([...personalTargets, newTarget])
+    setSelectedEmployee("")
+    setError("")
   }
 
   const handleDeleteTarget = (id: string) => {
@@ -162,6 +189,33 @@ export function PersonalVictoryTargetManagement() {
           onChange={(e) => setSearchQuery(e.target.value)}
           className="max-w-xs"
         />
+      </div>
+
+      {/* Employee Selection and Add Target */}
+      <div className="border rounded-lg p-4 bg-blue-50">
+        <div className="flex gap-4 items-end">
+          <div className="flex-1">
+            <label className="block text-sm font-semibold text-gray-700 mb-2">Select Employee to Add Target</label>
+            <Select value={selectedEmployee} onValueChange={setSelectedEmployee}>
+              <SelectTrigger>
+                <SelectValue placeholder="Choose an employee" />
+              </SelectTrigger>
+              <SelectContent>
+                {employees.map((emp) => (
+                  <SelectItem key={emp.employeeId} value={emp.employeeId}>
+                    {emp.employeeName} ({personalTargets.filter((t) => t.employeeId === emp.employeeId && t.quarter === selectedQuarter).length}/2 targets for {selectedQuarter})
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          <Button onClick={handleAddTarget} className="bg-blue-600 hover:bg-blue-700 gap-2">
+            <Plus className="w-4 h-4" />
+            Add Target
+          </Button>
+        </div>
+        {error && <p className="text-red-600 text-sm mt-2 font-semibold">{error}</p>}
+        <p className="text-xs text-gray-600 mt-2">Each employee can have up to 2 targets per quarter</p>
       </div>
 
       <div className="border rounded-lg overflow-hidden">
