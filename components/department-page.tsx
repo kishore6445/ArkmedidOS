@@ -26,6 +26,7 @@ import { cn } from "@/lib/utils"
 import { getCurrentQuarter } from "@/lib/brand-structure"
 import type { QuarterOption } from "@/components/quarter-selector"
 import { useBrand } from "@/lib/brand-context"
+import { TeamMeetingsSection, type TeamMeeting } from "@/components/team-meetings-section"
 
 export interface VictoryTarget {
   id: string
@@ -82,6 +83,20 @@ export interface WeeklyReview {
   commitments: string
 }
 
+export interface TeamMeeting {
+  id: string
+  date: string
+  attendeeCount: number
+  moms: Array<{
+    id: string
+    owner: string
+    commitment: string
+    dueDate: string
+    status: 'on-track' | 'at-risk' | 'overdue'
+  }>
+  notes?: string
+}
+
 export interface DepartmentConfig {
   name: string
   icon: React.ComponentType<{ className?: string }>
@@ -92,6 +107,7 @@ export interface DepartmentConfig {
   commitments: Commitment[]
   tasks: Task[]
   weeklyReviews?: WeeklyReview[]
+  teamMeetings?: TeamMeeting[]
   coreObjective?: {
     title: string
     description: string
@@ -112,6 +128,7 @@ export function DepartmentPage({ config, departmentKey }: DepartmentPageProps) {
     powerMoves: config.powerMoves ?? [],
     victoryTargets: config.victoryTargets ?? [],
     weeklyReviews: config.weeklyReviews ?? [],
+    teamMeetings: config.teamMeetings ?? [],
   }
 
   const [showVictoryModal, setShowVictoryModal] = useState(false)
@@ -443,31 +460,85 @@ export function DepartmentPage({ config, departmentKey }: DepartmentPageProps) {
 
       <KeyboardShortcuts onQuickAdd={() => setShowVictoryModal(true)} />
 
-      <DepartmentExecutionHero
-        departmentName={config.name}
-        victoryTargets={filteredVictoryTargets}
-        powerMoves={filteredPowerMoves}
-        calculatedScore={calculatedDepartmentScore}
-        selectedPeriod={selectedPeriod}
-        onPeriodChange={handlePeriodChange}
-        currentWeekStart={currentWeekStart}
-        onNavigate={handleNavigate}
-        onWeeklyReview={() => setShowWeeklyReview(true)}
-        onAddPowerMove={() => setShowPowerMoveModal(true)}
-        onAddTask={() => setShowTaskModal(true)}
-        onAddCommitment={() => setShowCommitmentModal(true)}
-        selectedQuarter={selectedQuarter}
-        onQuarterChange={setSelectedQuarter}
-        coreObjective={config.coreObjective}
-      />
-
-      {/* COMPANY GOAL CONTEXT STRIP (MOVED TO BOTTOM) - Thin, non-interactive, reduced emphasis */}
-      <div className='max-w-7xl mx-auto px-4 py-2 text-xs font-semibold text-stone-500 border-t border-stone-200 mt-8'>
-        <p>
-          <span className='font-semibold text-stone-600'>Company Goal (Context):</span> Warrior Systems: 30 clients | Story Marketing: 10 clients{' '}
-          <span className='text-stone-400 mx-2'>•</span> {config.name} contributes via execution discipline
-        </p>
+      {/* TAB NAVIGATION */}
+      <div className='max-w-7xl mx-auto px-4 py-6 border-b border-slate-200'>
+        <div className='flex items-center gap-4'>
+          <button
+            onClick={() => setActiveTab('execute')}
+            className={cn(
+              'px-4 py-2 text-sm font-bold rounded-lg transition-colors duration-200',
+              activeTab === 'execute'
+                ? 'bg-orange-500 text-white'
+                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+            )}
+          >
+            Execution
+          </button>
+          <button
+            onClick={() => setActiveTab('meetings')}
+            className={cn(
+              'px-4 py-2 text-sm font-bold rounded-lg transition-colors duration-200',
+              activeTab === 'meetings'
+                ? 'bg-blue-500 text-white'
+                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+            )}
+          >
+            Team Meetings
+          </button>
+        </div>
       </div>
+
+      {/* EXECUTION TAB */}
+      {activeTab === 'execute' && (
+        <>
+          <DepartmentExecutionHero
+            departmentName={config.name}
+            victoryTargets={filteredVictoryTargets}
+            powerMoves={filteredPowerMoves}
+            calculatedScore={calculatedDepartmentScore}
+            selectedPeriod={selectedPeriod}
+            onPeriodChange={handlePeriodChange}
+            currentWeekStart={currentWeekStart}
+            onNavigate={handleNavigate}
+            onWeeklyReview={() => setShowWeeklyReview(true)}
+            onAddPowerMove={() => setShowPowerMoveModal(true)}
+            onAddTask={() => setShowTaskModal(true)}
+            onAddCommitment={() => setShowCommitmentModal(true)}
+            selectedQuarter={selectedQuarter}
+            onQuarterChange={setSelectedQuarter}
+            coreObjective={config.coreObjective}
+          />
+
+          {/* COMPANY GOAL CONTEXT STRIP (MOVED TO BOTTOM) - Thin, non-interactive, reduced emphasis */}
+          <div className='max-w-7xl mx-auto px-4 py-2 text-xs font-semibold text-stone-500 border-t border-stone-200 mt-8'>
+            <p>
+              <span className='font-semibold text-stone-600'>Company Goal (Context):</span> Warrior Systems: 30 clients | Story Marketing: 10 clients{' '}
+              <span className='text-stone-400 mx-2'>•</span> {config.name} contributes via execution discipline
+            </p>
+          </div>
+        </>
+      )}
+
+      {/* TEAM MEETINGS TAB */}
+      {activeTab === 'meetings' && (
+        <div className='max-w-7xl mx-auto px-4 py-8'>
+          <div className='mb-8'>
+            <h2 className='text-2xl font-black text-slate-900 mb-2'>Team Meetings</h2>
+            <p className='text-sm text-slate-600'>Track meeting notes and commitments (MOMs) for {config.name}</p>
+          </div>
+          <TeamMeetingsSection
+            meetings={safeConfig.teamMeetings}
+            onCreateMeeting={() => {
+              toast({
+                title: 'Coming Soon',
+                description: 'Meeting creation will be available soon',
+              })
+            }}
+          />
+        </div>
+      )}
+
+      {/* MODALS - Shown regardless of tab */}
 
       <VictoryTargetModal
         open={showVictoryModal}
