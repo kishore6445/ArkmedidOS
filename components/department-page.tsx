@@ -468,23 +468,20 @@ export function DepartmentPage({ config, departmentKey }: DepartmentPageProps) {
       <DepartmentExecutionHero
         departmentName={config.name}
         coreObjective={config.coreObjective}
-        powerMoveStats={{
-          completed: activePowerMoves.filter((pm) => pm.progress >= pm.targetPerCycle).length,
-          total: filteredPowerMoves.length,
-          percentage: filteredPowerMoves.length > 0 
-            ? Math.round((activePowerMoves.filter((pm) => pm.progress >= pm.targetPerCycle).length / filteredPowerMoves.length) * 100)
-            : 0
-        }}
-        score={calculateDepartmentScore(
+        powerMoves={filteredPowerMoves}
+        victoryTargets={updatedVictoryTargets}
+        calculatedScore={calculateDepartmentScore(
           filteredPowerMoves,
           updatedVictoryTargets,
-          config.missionData,
         )}
-        victoryTargets={updatedVictoryTargets}
-        companyWIG={config.missionData}
         selectedQuarter={selectedQuarter}
         onQuarterChange={setSelectedQuarter}
         onAddPowerMove={() => setShowPowerMoveModal(true)}
+        selectedPeriod={selectedPeriod}
+        onPeriodChange={handlePeriodChange}
+        currentWeekStart={currentWeekStart}
+        onNavigate={handleNavigate}
+        onWeeklyReview={() => setShowWeeklyReview(true)}
       />
 
       {/* TAB NAVIGATION */}
