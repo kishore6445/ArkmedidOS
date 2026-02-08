@@ -491,33 +491,62 @@ export function IndividualDashboard({
               </div>
             </div>
 
-            {/* STEP 2 - Outcomes */}
+            {/* STEP 2 - Outcomes - Personal Victory Targets by Type */}
             <div className='p-8 rounded-xl border-2 border-slate-200 hover:border-blue-400 hover:bg-blue-50 transition-all duration-300'>
               <div className='flex items-center gap-3 mb-6'>
                 <div className='h-10 w-10 rounded-full bg-blue-500 text-white font-bold flex items-center justify-center text-lg'>2</div>
-                <span className='text-xs font-bold uppercase text-slate-600 tracking-wide'>Team Outcomes</span>
+                <span className='text-xs font-bold uppercase text-slate-600 tracking-wide'>Your Goals</span>
               </div>
               {linkedVictoryTargets.length > 0 ? (
-                <>
-                  <div className='mb-6'>
-                    <div className='text-7xl font-black text-slate-900 leading-none mb-2'>
-                      {linkedVictoryTargets.filter(vt => vt.progress >= 70).length}
+                <div className='space-y-4'>
+                  {/* Goal Types Summary */}
+                  <div className='grid grid-cols-3 gap-3'>
+                    {/* Quantitative */}
+                    <div className='bg-white rounded-lg p-4 border border-blue-200'>
+                      <p className='text-xs font-bold text-slate-600 uppercase tracking-wide mb-2'>Quantitative</p>
+                      <p className='text-3xl font-black text-blue-600'>
+                        {linkedVictoryTargets.filter(vt => 
+                          vt.unit && ['conversations', 'clients', 'revenue', 'count', 'leads', 'deals'].some(u => vt.unit.toLowerCase().includes(u))
+                        ).length}
+                      </p>
+                      <p className='text-xs text-slate-500 mt-2'>Measurable targets</p>
                     </div>
-                    <div className='text-sm text-slate-500 font-semibold'>
-                      of {linkedVictoryTargets.length} on track
+
+                    {/* Qualitative */}
+                    <div className='bg-white rounded-lg p-4 border border-amber-200'>
+                      <p className='text-xs font-bold text-slate-600 uppercase tracking-wide mb-2'>Qualitative</p>
+                      <p className='text-3xl font-black text-amber-600'>
+                        {linkedVictoryTargets.filter(vt => 
+                          vt.unit && ['quality', 'feedback', 'review', 'satisfaction'].some(u => vt.unit.toLowerCase().includes(u))
+                        ).length}
+                      </p>
+                      <p className='text-xs text-slate-500 mt-2'>Observable behaviors</p>
+                    </div>
+
+                    {/* Learning */}
+                    <div className='bg-white rounded-lg p-4 border border-purple-200'>
+                      <p className='text-xs font-bold text-slate-600 uppercase tracking-wide mb-2'>Learning</p>
+                      <p className='text-3xl font-black text-purple-600'>
+                        {linkedVictoryTargets.filter(vt => 
+                          vt.unit && ['skill', 'certificate', 'course', 'training', 'knowledge'].some(u => vt.unit.toLowerCase().includes(u))
+                        ).length}
+                      </p>
+                      <p className='text-xs text-slate-500 mt-2'>Development goals</p>
                     </div>
                   </div>
+
+                  {/* Overall Progress */}
                   <div className='flex items-center gap-2 pt-4 border-t border-slate-200'>
                     {linkedVictoryTargets.filter(vt => vt.progress >= 70).length === linkedVictoryTargets.length && <CheckCircle className='h-5 w-5 text-green-600' />}
                     {linkedVictoryTargets.filter(vt => vt.progress >= 70).length > 0 && linkedVictoryTargets.filter(vt => vt.progress >= 70).length < linkedVictoryTargets.length && <AlertCircle className='h-5 w-5 text-amber-600' />}
                     {linkedVictoryTargets.filter(vt => vt.progress >= 70).length === 0 && <XCircle className='h-5 w-5 text-red-600' />}
                     <span className='text-sm font-bold'>
-                      {linkedVictoryTargets.filter(vt => vt.progress >= 70).length === linkedVictoryTargets.length ? 'On Track' : linkedVictoryTargets.filter(vt => vt.progress >= 70).length > 0 ? 'At Risk' : 'Behind'}
+                      {linkedVictoryTargets.filter(vt => vt.progress >= 70).length} of {linkedVictoryTargets.length} on track
                     </span>
                   </div>
-                </>
+                </div>
               ) : (
-                <div className='text-sm text-blue-600 font-semibold pt-4'>Pending Setup</div>
+                <div className='text-sm text-blue-600 font-semibold pt-4'>Define your personal goals to get started</div>
               )}
             </div>
 
