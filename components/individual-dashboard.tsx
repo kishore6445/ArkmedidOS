@@ -11,7 +11,6 @@ import { useUser } from "@/lib/user-context"
 import { useBrand } from "@/lib/brand-context"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
 import { MissionContextSection } from "@/components/mission-context-section"
-import { PowerMoveModal, type PowerMoveFormData } from "@/components/power-move-modal"
 import Image from "next/image"
 
 type TimePeriod = "today" | "this-week" | "this-month" | "this-quarter"
@@ -38,7 +37,6 @@ export function IndividualDashboard({
   const [supportingWorkOpen, setSupportingWorkOpen] = useState(false)
   const [selectedPeriod, setSelectedPeriod] = useState<TimePeriod>("today")
   const [linkedPowerMove, setLinkedPowerMove] = useState<string | null>(null)
-  const [showPowerMoveModal, setShowPowerMoveModal] = useState(false)
 
   const toggleTask = (id: string) => {
     setTasks((prev) => prev.map((t) => (t.id === id ? { ...t, completed: !t.completed } : t)))
@@ -50,24 +48,6 @@ export function IndividualDashboard({
         c.id === id ? { ...c, completed: !c.completed, status: !c.completed ? "Completed" : "In Progress" } : c,
       ),
     )
-  }
-
-  const handleAddPowerMove = async (data: PowerMoveFormData) => {
-    try {
-      const response = await fetch("/api/admin/power-moves", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      })
-      if (!response.ok) throw new Error("Failed to create power move")
-      setShowPowerMoveModal(false)
-      // Reload power moves
-      const pmResponse = await fetch("/api/admin/power-moves", { cache: "no-store" })
-      const pmResult = await pmResponse.json().catch(() => ({}))
-      setPowerMoves(Array.isArray(pmResult.powerMoves) ? pmResult.powerMoves : [])
-    } catch (error) {
-      console.error("Error adding power move:", error)
-    }
   }
 
   useEffect(() => {
@@ -486,25 +466,14 @@ export function IndividualDashboard({
           <div className='grid grid-cols-3 gap-8'>
             
             {/* STEP 1 - Power Moves */}
-            <button
-              onClick={() => setShowPowerMoveModal(true)}
-              className='group text-left p-8 rounded-xl border-2 border-slate-200 hover:border-orange-400 hover:bg-orange-50 transition-all duration-300 cursor-pointer'
+            <div
+              className='group text-left p-8 rounded-xl border-2 border-slate-200 hover:border-orange-400 hover:bg-orange-50 transition-all duration-300'
             >
               <div className='flex items-center justify-between mb-6'>
                 <div className='flex items-center gap-3'>
                   <div className='h-10 w-10 rounded-full bg-orange-500 text-white font-bold flex items-center justify-center text-lg'>1</div>
                   <span className='text-xs font-bold uppercase text-slate-600 tracking-wide'>Execution Discipline</span>
                 </div>
-                <Button
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    setShowPowerMoveModal(true)
-                  }}
-                  className='bg-orange-500 hover:bg-orange-600 text-white font-bold px-3 py-1.5 rounded-lg flex items-center gap-1.5 text-sm'
-                >
-                  <Plus className='h-4 w-4' />
-                  Add
-                </Button>
               </div>
               <div className='mb-6'>
                 <div className='text-7xl font-black text-slate-900 leading-none mb-2'>
@@ -520,7 +489,7 @@ export function IndividualDashboard({
                 {status.color === '#DC2626' && <XCircle className='h-5 w-5 text-red-600' />}
                 <span className='text-sm font-bold' style={{ color: status.color }}>{status.badge}</span>
               </div>
-            </button>
+            </div>
 
             {/* STEP 2 - Outcomes */}
             <div className='p-8 rounded-xl border-2 border-slate-200 hover:border-blue-400 hover:bg-blue-50 transition-all duration-300'>
@@ -794,13 +763,5 @@ export function IndividualDashboard({
         </div>
       </div>
     </section>
-
-    {/* Power Move Modal */}
-    <PowerMoveModal
-      open={showPowerMoveModal}
-      onOpenChange={setShowPowerMoveModal}
-      onSave={handleAddPowerMove}
-      victoryTargets={victoryTargets}
-    />
   )
 }
