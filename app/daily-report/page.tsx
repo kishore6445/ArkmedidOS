@@ -74,119 +74,71 @@ export default function DailyReportPage() {
 
   return (
     <PageTransition>
-      <div className="p-6 lg:p-8 max-w-[1600px] mx-auto">
+      <div className="p-6 lg:p-8 max-w-[1400px] mx-auto">
         <Breadcrumbs />
 
-        {/* Hero Section - Why Daily Reports Matter */}
-        <div className="mb-8 bg-gradient-to-r from-slate-950 to-slate-900 rounded-xl p-8 text-white">
-          <div className="space-y-4">
-            <div className="flex items-center gap-3">
-              <Calendar className="h-8 w-8 text-orange-500" />
-              <h1 className="text-4xl font-black">Daily Performance</h1>
-            </div>
-            <p className="text-xl text-slate-300">
-              Your daily updates are how we track execution. Every day matters. Every action counts toward Mission 50.
-            </p>
-            <div className="grid grid-cols-3 gap-4 pt-4 border-t border-slate-700">
-              <div>
-                <p className="text-sm text-slate-400">Your 50% Hike Depends On</p>
-                <p className="text-2xl font-black text-orange-500">Daily Execution</p>
-              </div>
-              <div>
-                <p className="text-sm text-slate-400">Mission 50 Tracked By</p>
-                <p className="text-2xl font-black text-orange-500">Daily Reports</p>
-              </div>
-              <div>
-                <p className="text-sm text-slate-400">Your Growth Shown In</p>
-                <p className="text-2xl font-black text-orange-500">30-Day Trends</p>
-              </div>
-            </div>
-          </div>
+        {/* Simple Header */}
+        <div className="mb-8">
+          <h1 className="text-3xl font-black text-slate-900 mb-1">Daily Report</h1>
+          <p className="text-slate-600">Track your daily execution and power moves</p>
         </div>
 
-        <div className="flex items-center justify-between mb-6">
-          <div>
-            <h2 className="text-2xl font-bold text-gray-900">
-              {new Date(selectedDate).toLocaleDateString("en-US", {
-                weekday: "long",
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })}
-            </h2>
-            <p className="text-gray-600">Submit your daily report to track progress</p>
-          </div>
-
-          <div className="flex items-center gap-3">
+        {/* Date Selector - Simple and Clear */}
+        <div className="mb-6 flex items-center gap-4">
+          <div className="flex-1">
+            <label className="block text-sm font-bold text-slate-700 mb-2">Select Date</label>
             <input
               type="date"
               value={selectedDate}
               onChange={(e) => setSelectedDate(e.target.value)}
-              className="px-4 py-2 border-2 rounded-lg"
+              className="w-full max-w-xs px-4 py-3 border-2 border-slate-300 rounded-lg text-base font-semibold"
             />
-            <Button onClick={() => setShowForm(!showForm)} size="lg" className={showForm ? "bg-red-600 hover:bg-red-700" : "bg-orange-500 hover:bg-orange-600"}>
-              <Plus className="h-5 w-5 mr-2" />
-              {showForm ? "Cancel" : "Submit Report"}
+          </div>
+          <div className="pt-6">
+            <Button 
+              onClick={() => setShowForm(!showForm)} 
+              size="lg" 
+              className={showForm ? "bg-slate-400 hover:bg-slate-500" : "bg-orange-500 hover:bg-orange-600"}
+            >
+              {showForm ? "Cancel" : "New Report"}
             </Button>
           </div>
         </div>
 
-        <Tabs defaultValue="all" className="space-y-6">
-          <TabsList>
-            <TabsTrigger value="all">All Reports</TabsTrigger>
-            <TabsTrigger value="my-report">My Report</TabsTrigger>
-            <TabsTrigger value="team">My Team</TabsTrigger>
-          </TabsList>
+        {/* Quick Stats */}
+        <div className="mb-6 bg-orange-50 border-l-4 border-orange-500 p-4 rounded">
+          <p className="text-sm font-bold text-orange-900">Your daily reports feed Mission 50. Every execution counts toward your 50% salary increase.</p>
+        </div>
 
-          <TabsContent value="all" className="space-y-6">
-            {showForm && (
-              <div className="bg-white border-2 border-orange-200 rounded-lg p-8 shadow-sm">
-                <div className="mb-6 space-y-2">
-                  <h2 className="text-3xl font-black text-slate-900">What Did You Execute Today?</h2>
-                  <p className="text-lg text-slate-600">Log your daily performance. Update quantitative progress, document accomplishments, highlight wins, note blockers, and plan tomorrow.</p>
-                </div>
-                <DailyReportForm onSubmit={handleSubmitReport} />
-              </div>
-            )}
+        {/* Form Section */}
+        {showForm && (
+          <div className="mb-8 bg-white border-2 border-orange-200 rounded-lg p-6 shadow-sm">
+            <h2 className="text-2xl font-black text-slate-900 mb-2">What Did You Execute Today?</h2>
+            <p className="text-slate-600 mb-6">Log your power moves, accomplishments, wins, blockers, and tomorrow's priorities.</p>
+            <DailyReportForm onSubmit={handleSubmitReport} />
+          </div>
+        )}
 
-            <div className="space-y-6">
-              <div className="flex items-center justify-between">
-                <h2 className="text-xl font-semibold">Team Reports</h2>
-                <span className="text-muted-foreground">{mockReports.length} submitted</span>
-              </div>
+        {/* Reports */}
+        <div>
+          <div className="mb-4 flex items-center justify-between">
+            <h2 className="text-xl font-bold text-slate-900">Reports for {new Date(selectedDate).toLocaleDateString("en-US", { month: "short", day: "numeric" })}</h2>
+            <span className="text-sm text-slate-600">{mockReports.length} submitted</span>
+          </div>
 
-              {mockReports.length === 0 ? (
-                <div className="text-center py-12 bg-gray-50 rounded-lg border-2 border-dashed">
-                  <Calendar className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                  <h3 className="text-lg font-semibold text-gray-700 mb-2">No Reports Yet</h3>
-                  <p className="text-gray-600 mb-4">Be the first to submit a daily report for today!</p>
-                  <Button onClick={() => setShowForm(true)}>
-                    <Plus className="h-4 w-4 mr-2" />
-                    Submit Report
-                  </Button>
-                </div>
-              ) : (
-                <div className="grid gap-6">
-                  {mockReports.map((report) => (
-                    <DailyReportCard key={report.id} report={report} />
-                  ))}
-                </div>
-              )}
+          {mockReports.length === 0 ? (
+            <div className="text-center py-12 bg-slate-50 rounded-lg border-2 border-dashed border-slate-300">
+              <Calendar className="h-10 w-10 text-slate-400 mx-auto mb-3" />
+              <p className="text-slate-600">No reports submitted yet for this date</p>
             </div>
-          </TabsContent>
-
-          <TabsContent value="my-report">
-            <div className="text-center py-12 bg-gray-50 rounded-lg">
-              <p className="text-gray-600">Your daily report will appear here</p>
+          ) : (
+            <div className="space-y-4">
+              {mockReports.map((report) => (
+                <DailyReportCard key={report.id} report={report} />
+              ))}
             </div>
-          </TabsContent>
-
-          <TabsContent value="team">
-            <div className="text-center py-12 bg-gray-50 rounded-lg">
-              <p className="text-gray-600">Your team's reports will appear here</p>
-            </div>
-          </TabsContent>
-        </Tabs>
+          )}
+        </div>
       </div>
     </PageTransition>
   )
