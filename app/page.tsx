@@ -5,7 +5,7 @@ export default function HomePage() {
     <div className="min-h-screen bg-white text-slate-900">
       {/* Header */}
       <header className="mx-auto flex w-full max-w-7xl items-center justify-between px-6 py-6 border-b border-slate-200">
-        <div className="flex items-center gap-3">
+        <Link href="/dashboard" className="flex items-center gap-3 hover:opacity-80 transition">
           <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-orange-500 text-lg font-bold text-white">
             ✦
           </div>
@@ -13,7 +13,7 @@ export default function HomePage() {
             <p className="text-xs uppercase tracking-[0.15em] text-orange-600 font-bold">ArkMedis</p>
             <p className="text-base font-bold text-slate-900">Mission 50</p>
           </div>
-        </div>
+        </Link>
         <nav className="flex items-center gap-3">
           <Link
             href="/signin"
