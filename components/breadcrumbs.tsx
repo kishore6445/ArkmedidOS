@@ -16,7 +16,7 @@ export function Breadcrumbs() {
   // Generate breadcrumb items from pathname
   const generateBreadcrumbs = (): BreadcrumbItem[] => {
     const paths = pathname.split("/").filter(Boolean)
-    const breadcrumbs: BreadcrumbItem[] = [{ label: "Home", href: "/" }]
+    const breadcrumbs: BreadcrumbItem[] = [{ label: "Home", href: "/dashboard" }]
 
     const labelMap: Record<string, string> = {
       dashboard: "My Dashboard",
@@ -45,8 +45,8 @@ export function Breadcrumbs() {
 
   const breadcrumbs = generateBreadcrumbs()
 
-  // Don't show breadcrumbs on home page
-  if (pathname === "/") return null
+  // Don't show breadcrumbs on home page or dashboard (they're landing pages)
+  if (pathname === "/" || pathname === "/dashboard") return null
 
   return (
     <nav aria-label="Breadcrumb" className="mb-4 lg:mb-6">
