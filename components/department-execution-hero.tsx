@@ -7,7 +7,7 @@ import type { VictoryTarget, PowerMove, Task, Commitment } from '@/components/de
 import { calculateDepartmentScore } from '@/lib/score-calculations'
 import { QuarterSelector, type QuarterOption } from '@/components/quarter-selector'
 import { MissionContextSection } from '@/components/mission-context-section'
-import { CheckCircle, AlertCircle, XCircle, Target } from 'lucide-react'
+import { CheckCircle, AlertCircle, XCircle, Target, Plus } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 interface DepartmentExecutionHeroProps {
@@ -78,6 +78,13 @@ export function DepartmentExecutionHero({
             {/* Selectors - Right side */}
             <div className='flex items-start gap-4'>
               <QuarterSelector value={selectedQuarter} onChange={onQuarterChange} />
+              <Button 
+                onClick={onAddPowerMove}
+                className='bg-orange-500 hover:bg-orange-600 text-white font-bold'
+              >
+                <Plus className='h-4 w-4 mr-2' />
+                Add Power Move
+              </Button>
             </div>
           </div>
         </div>
