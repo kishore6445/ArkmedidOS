@@ -44,6 +44,8 @@ export function DepartmentExecutionHero({
   const { brandConfig } = useBrand()
   const companyWIG = brandConfig?.companyWIG
 
+  console.log("[v0] DepartmentExecutionHero rendering with onAddPowerMove:", onAddPowerMove)
+
   const score = useMemo(() => {
     if (calculatedScore) return calculatedScore
     return calculateDepartmentScore(victoryTargets, powerMoves)
@@ -77,13 +79,15 @@ export function DepartmentExecutionHero({
 
             {/* Selectors - Right side */}
             <div className='flex items-center gap-3'>
-              <Button 
-                onClick={onAddPowerMove}
-                className='bg-orange-500 hover:bg-orange-600 text-white font-bold px-4 py-2 rounded-lg flex items-center gap-2'
-              >
-                <Plus className='h-5 w-5' />
-                Add Power Move
-              </Button>
+              {onAddPowerMove && (
+                <Button 
+                  onClick={onAddPowerMove}
+                  className='bg-orange-500 hover:bg-orange-600 text-white font-bold px-4 py-2 rounded-lg flex items-center gap-2'
+                >
+                  <Plus className='h-5 w-5' />
+                  Add Power Move
+                </Button>
+              )}
               <QuarterSelector value={selectedQuarter} onChange={onQuarterChange} />
             </div>
           </div>
