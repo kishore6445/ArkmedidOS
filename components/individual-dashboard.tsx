@@ -452,161 +452,89 @@ export function IndividualDashboard({
           </div>
         </div>
 
-        {/* PROGRESS LADDER - Linear Narrative Flow: Action → Outcome → Reward */}
-        <div className='space-y-0 py-8 px-6 md:px-8 lg:px-12 bg-white'>
+        {/* PROGRESS FLOW - Compact Horizontal Timeline */}
+        <div className='py-4 px-6 md:px-8 lg:px-12 bg-white'>
           
-          {/* STEP 1: Daily Execution (Power Moves) */}
-          <div className='bg-white border-b-2 border-orange-300 pb-8 mb-8'>
-            <div className='flex items-start gap-4'>
-              <div className='flex-shrink-0 flex items-center justify-center h-8 w-8 rounded-full bg-orange-500 text-white font-bold text-sm'>1</div>
-              <div className='flex-1'>
-                <h3 className='text-lg font-black text-slate-900 mb-1'>Daily Power Moves</h3>
-                <p className='text-xs text-slate-500 mb-6'>Recurring execution actions</p>
-                
-                <div className='grid grid-cols-2 gap-6 md:gap-8'>
-                  {/* Big Number + Status */}
-                  <div className='col-span-2 md:col-span-1'>
-                    <div className='rounded-lg border-2 border-slate-200 bg-white p-6 text-center'>
-                      <div className='flex items-baseline justify-center gap-2 mb-4'>
-                        <span className='text-6xl font-black text-slate-900 tabular-nums'>{periodData.completed}</span>
-                        <span className='text-2xl font-bold text-slate-400'>{periodData.total && `/ ${periodData.total}`}</span>
-                      </div>
-                      <div className='w-full h-3 rounded-full bg-slate-200 mb-3 overflow-hidden'>
-                        <div 
-                          className='h-full transition-all duration-500' 
-                          style={{ 
-                            width: `${Math.min((periodData.completed / (periodData.total || 1)) * 100, 100)}%`,
-                            backgroundColor: status.color
-                          }}
-                        />
-                      </div>
-                      <div className='flex items-center justify-center gap-2 mb-3'>
-                        {status.color === '#16A34A' && <CheckCircle className='h-5 w-5 text-green-600' />}
-                        {status.color === '#F59E0B' && <AlertCircle className='h-5 w-5 text-amber-600' />}
-                        {status.color === '#DC2626' && <XCircle className='h-5 w-5 text-red-600' />}
-                        <Badge className={cn(
-                          'text-xs font-bold px-3 py-1',
-                          status.color === '#16A34A' ? 'bg-green-100 text-green-800' :
-                          status.color === '#F59E0B' ? 'bg-amber-100 text-amber-800' :
-                          'bg-red-100 text-red-800'
-                        )}>
-                          {status.badge}
-                        </Badge>
-                      </div>
-                      <p className='text-xs text-slate-600 font-semibold'>{Math.round((periodData.completed / (periodData.total || 1)) * 100)}% Complete</p>
-                    </div>
-                  </div>
-
-                  {/* CTA Button */}
-                  <div className='col-span-2 md:col-span-1 flex items-end'>
-                    <Button className='w-full h-auto py-4 bg-orange-500 hover:bg-orange-600 text-white font-bold rounded-lg'>
-                      <ArrowRight className='h-4 w-4 mr-2' />
-                      Log Today's Action
-                    </Button>
-                  </div>
-                </div>
+          {/* Compact Flow Timeline */}
+          <div className='flex items-center justify-between gap-2 md:gap-4 mb-8'>
+            
+            {/* STEP 1 */}
+            <div className='flex-1 min-w-0'>
+              <div className='flex items-center gap-2 mb-2'>
+                <div className='flex-shrink-0 flex items-center justify-center h-7 w-7 rounded-full bg-orange-500 text-white font-bold text-xs'>1</div>
+                <h4 className='text-xs font-bold text-slate-900 truncate'>Power Moves</h4>
+              </div>
+              <div className='flex items-center gap-2'>
+                <span className='text-2xl font-black text-slate-900'>{periodData.completed}</span>
+                <span className='text-xs text-slate-500'>/ {periodData.total}</span>
+              </div>
+              <div className='flex items-center gap-1 mt-1'>
+                {status.color === '#16A34A' && <CheckCircle className='h-3 w-3 text-green-600' />}
+                {status.color === '#F59E0B' && <AlertCircle className='h-3 w-3 text-amber-600' />}
+                {status.color === '#DC2626' && <XCircle className='h-3 w-3 text-red-600' />}
+                <span className='text-xs font-bold' style={{ color: status.color }}>{status.badge}</span>
               </div>
             </div>
-          </div>
 
-          {/* Connecting Arrow */}
-          <div className='flex justify-center mb-8'>
-            <div className='text-center'>
-              <ArrowDown className='h-6 w-6 text-orange-400 mx-auto mb-2' />
-              <p className='text-xs text-slate-500 font-semibold'>Feeds into</p>
+            {/* Arrow */}
+            <div className='flex-shrink-0 flex items-center justify-center h-8 w-8 rounded-full bg-orange-100'>
+              <ArrowRight className='h-4 w-4 text-orange-600' />
             </div>
-          </div>
 
-          {/* STEP 2: Your Contribution (Victory Targets) */}
-          <div className='bg-white border-b-2 border-blue-300 pb-8 mb-8'>
-            <div className='flex items-start gap-4'>
-              <div className='flex-shrink-0 flex items-center justify-center h-8 w-8 rounded-full bg-blue-500 text-white font-bold text-sm'>2</div>
-              <div className='flex-1'>
-                <h3 className='text-lg font-black text-slate-900 mb-1'>Company Outcomes</h3>
-                <p className='text-xs text-slate-500 mb-6'>Victory targets impacted by your actions</p>
-                
-                {linkedVictoryTargets.length === 0 ? (
-                  <div className='rounded-lg border-2 border-dashed border-blue-300 bg-blue-50 p-8 text-center'>
-                    <Target className='h-8 w-8 text-blue-300 mx-auto mb-3' />
-                    <p className='text-sm font-semibold text-blue-700 mb-2'>No Victory Targets Linked</p>
-                    <p className='text-xs text-blue-600 mb-4'>Ask your manager to link company targets to your contributions</p>
-                    <a href='/admin?tab=personal-targets' className='text-xs text-blue-600 font-bold hover:underline inline-block'>
-                      Configure in Admin →
-                    </a>
+            {/* STEP 2 */}
+            <div className='flex-1 min-w-0'>
+              <div className='flex items-center gap-2 mb-2'>
+                <div className='flex-shrink-0 flex items-center justify-center h-7 w-7 rounded-full bg-blue-500 text-white font-bold text-xs'>2</div>
+                <h4 className='text-xs font-bold text-slate-900 truncate'>Outcomes</h4>
+              </div>
+              {linkedVictoryTargets.length > 0 ? (
+                <>
+                  <div className='flex items-center gap-2'>
+                    <span className='text-2xl font-black text-slate-900'>{linkedVictoryTargets.filter(vt => vt.progress >= 70).length}</span>
+                    <span className='text-xs text-slate-500'>/ {linkedVictoryTargets.length}</span>
                   </div>
-                ) : (
-                  <div className='grid grid-cols-2 gap-6 md:gap-8'>
-                    {/* Big Number + Status */}
-                    <div className='col-span-2 md:col-span-1'>
-                      <div className='rounded-lg border-2 border-slate-200 bg-white p-6 text-center'>
-                        <div className='flex items-baseline justify-center gap-2 mb-4'>
-                          <span className='text-6xl font-black text-slate-900 tabular-nums'>
-                            {linkedVictoryTargets.filter(vt => vt.progress >= 70).length}
-                          </span>
-                          <span className='text-2xl font-bold text-slate-400'>/ {linkedVictoryTargets.length}</span>
-                        </div>
-                        <div className='w-full h-3 rounded-full bg-slate-200 mb-3 overflow-hidden'>
-                          <div 
-                            className='h-full transition-all duration-500 bg-blue-500' 
-                            style={{ width: `${(linkedVictoryTargets.filter(vt => vt.progress >= 70).length / linkedVictoryTargets.length) * 100}%` }}
-                          />
-                        </div>
-                        <div className='flex items-center justify-center gap-2 mb-3'>
-                          {linkedVictoryTargets.filter(vt => vt.progress >= 70).length === linkedVictoryTargets.length && <CheckCircle className='h-5 w-5 text-green-600' />}
-                          {linkedVictoryTargets.filter(vt => vt.progress >= 70).length > 0 && linkedVictoryTargets.filter(vt => vt.progress >= 70).length < linkedVictoryTargets.length && <AlertCircle className='h-5 w-5 text-amber-600' />}
-                          {linkedVictoryTargets.filter(vt => vt.progress >= 70).length === 0 && <XCircle className='h-5 w-5 text-red-600' />}
-                          <Badge className={cn(
-                            'text-xs font-bold px-3 py-1',
-                            linkedVictoryTargets.filter(vt => vt.progress >= 70).length === linkedVictoryTargets.length ? 'bg-green-100 text-green-800' :
-                            linkedVictoryTargets.filter(vt => vt.progress >= 70).length > 0 ? 'bg-amber-100 text-amber-800' :
-                            'bg-red-100 text-red-800'
-                          )}>
-                            {linkedVictoryTargets.filter(vt => vt.progress >= 70).length === linkedVictoryTargets.length ? 'On Track' : linkedVictoryTargets.filter(vt => vt.progress >= 70).length > 0 ? 'At Risk' : 'Behind'}
-                          </Badge>
-                        </div>
-                        <p className='text-xs text-slate-600 font-semibold'>{Math.round((linkedVictoryTargets.filter(vt => vt.progress >= 70).length / linkedVictoryTargets.length) * 100)}% On Track</p>
-                      </div>
-                    </div>
+                  <div className='flex items-center gap-1 mt-1'>
+                    {linkedVictoryTargets.filter(vt => vt.progress >= 70).length === linkedVictoryTargets.length && <CheckCircle className='h-3 w-3 text-green-600' />}
+                    {linkedVictoryTargets.filter(vt => vt.progress >= 70).length > 0 && linkedVictoryTargets.filter(vt => vt.progress >= 70).length < linkedVictoryTargets.length && <AlertCircle className='h-3 w-3 text-amber-600' />}
+                    {linkedVictoryTargets.filter(vt => vt.progress >= 70).length === 0 && <XCircle className='h-3 w-3 text-red-600' />}
+                    <span className='text-xs font-bold truncate'>
+                      {linkedVictoryTargets.filter(vt => vt.progress >= 70).length === linkedVictoryTargets.length ? 'On Track' : linkedVictoryTargets.filter(vt => vt.progress >= 70).length > 0 ? 'At Risk' : 'Behind'}
+                    </span>
+                  </div>
+                </>
+              ) : (
+                <div className='text-xs text-blue-600 font-semibold'>Pending Setup</div>
+              )}
+            </div>
 
-                    {/* View Targets */}
-                    <div className='col-span-2 md:col-span-1 flex items-end'>
-                      <Button variant='outline' className='w-full h-auto py-4 border-2 border-blue-300 text-blue-600 font-bold rounded-lg hover:bg-blue-50'>
-                        <ArrowRight className='h-4 w-4 mr-2' />
-                        View Targets
-                      </Button>
-                    </div>
-                  </div>
-                )}
+            {/* Arrow */}
+            <div className='flex-shrink-0 flex items-center justify-center h-8 w-8 rounded-full bg-orange-100'>
+              <ArrowRight className='h-4 w-4 text-orange-600' />
+            </div>
+
+            {/* STEP 3 */}
+            <div className='flex-1 min-w-0'>
+              <div className='flex items-center gap-2 mb-2'>
+                <div className='flex-shrink-0 flex items-center justify-center h-7 w-7 rounded-full bg-green-500 text-white font-bold text-xs'>3</div>
+                <h4 className='text-xs font-bold text-slate-900 truncate'>Your Reward</h4>
+              </div>
+              <div className='flex items-center gap-2'>
+                <span className='text-2xl font-black text-slate-900'>50%</span>
+              </div>
+              <div className='flex items-center gap-1 mt-1'>
+                <CheckCircle className='h-3 w-3 text-green-600' />
+                <span className='text-xs font-bold text-green-600 truncate'>Achievable</span>
               </div>
             </div>
+
           </div>
 
-          {/* Connecting Arrow */}
-          <div className='flex justify-center mb-8'>
-            <div className='text-center'>
-              <ArrowDown className='h-6 w-6 text-orange-400 mx-auto mb-2' />
-              <p className='text-xs text-slate-500 font-semibold'>Unlocks</p>
-            </div>
-          </div>
-
-          {/* STEP 3: Your Reward (Salary Growth) */}
-          <div className='bg-white'>
-            <div className='flex items-start gap-4'>
-              <div className='flex-shrink-0 flex items-center justify-center h-8 w-8 rounded-full bg-green-500 text-white font-bold text-sm'>3</div>
-              <div className='flex-1'>
-                <h3 className='text-lg font-black text-slate-900 mb-1'>Your Reward</h3>
-                <p className='text-xs text-slate-500 mb-6'>Salary growth potential (50% increase when all targets are on track)</p>
-                
-                <div className='rounded-lg border-2 border-green-300 bg-green-50 p-8 text-center'>
-                  <div className='text-6xl font-black text-slate-900 tabular-nums mb-4'>50%</div>
-                  <div className='flex items-center justify-center gap-2 mb-4'>
-                    <CheckCircle className='h-5 w-5 text-green-600' />
-                    <Badge className='bg-green-100 text-green-800 text-xs font-bold px-3 py-1'>ACHIEVABLE</Badge>
-                  </div>
-                  <p className='text-xs text-slate-600 font-semibold'>Quarterly & Annual Goals</p>
-                </div>
-              </div>
-            </div>
+          {/* Quick Action - Sticky CTA */}
+          <div className='border-t border-slate-200 pt-4 flex items-center gap-3'>
+            <Button className='flex-1 bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 rounded'>
+              <ArrowRight className='h-4 w-4 mr-2' />
+              Log Today's Action
+            </Button>
           </div>
 
         </div>
