@@ -495,34 +495,8 @@ export function DepartmentPage({ config, departmentKey }: DepartmentPageProps) {
       {/* EXECUTION TAB */}
       {activeTab === 'execute' && (
         <>
-          <DepartmentExecutionHero
-            departmentName={config.name}
-            victoryTargets={filteredVictoryTargets}
-            powerMoves={filteredPowerMoves}
-            calculatedScore={calculatedDepartmentScore}
-            selectedPeriod={selectedPeriod}
-            onPeriodChange={handlePeriodChange}
-            currentWeekStart={currentWeekStart}
-            onNavigate={handleNavigate}
-            onWeeklyReview={() => setShowWeeklyReview(true)}
-            onAddPowerMove={() => setShowPowerMoveModal(true)}
-            onAddTask={() => setShowTaskModal(true)}
-            onAddCommitment={() => setShowCommitmentModal(true)}
-            selectedQuarter={selectedQuarter}
-            onQuarterChange={setSelectedQuarter}
-            coreObjective={config.coreObjective}
-          />
-
-          {/* COMPANY GOAL CONTEXT STRIP (MOVED TO BOTTOM) - Thin, non-interactive, reduced emphasis */}
-          <div className='max-w-7xl mx-auto px-4 py-2 text-xs font-semibold text-stone-500 border-t border-stone-200 mt-8'>
-            <p>
-              <span className='font-semibold text-stone-600'>Company Goal (Context):</span> Warrior Systems: 30 clients | Story Marketing: 10 clients{' '}
-              <span className='text-stone-400 mx-2'>•</span> {config.name} contributes via execution discipline
-            </p>
-          </div>
-
           {/* PERIOD EXECUTION SECTION - Power Moves, Tasks, Commitments */}
-          <div className='max-w-7xl mx-auto px-4 py-8 space-y-6'>
+          <div className='max-w-7xl mx-auto px-4 py-8 space-y-8'>
             {/* Power Moves Section */}
             <div>
               <div className='flex items-center gap-2 mb-4'>
