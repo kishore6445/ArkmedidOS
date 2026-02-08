@@ -401,6 +401,10 @@ export function DailyReportForm({ onSubmit }: DailyReportFormProps) {
     </div>
   )
 }
+      )}
+    </div>
+  )
+}
 
   const [wins, setWins] = useState<string[]>([""])
   const [blockers, setBlockers] = useState<string[]>([""])

@@ -8,10 +8,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { DailyReportForm } from "@/components/daily-report-form"
 import { DailyReportCard } from "@/components/daily-report-card"
 import { Plus, Calendar } from "lucide-react"
-import { useBrand } from "@/lib/brand-context"
 
 export default function DailyReportPage() {
-  const { selectedBrand } = useBrand()
   const [showForm, setShowForm] = useState(false)
   const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split("T")[0])
 
