@@ -51,12 +51,12 @@ export default function SignInPage() {
           <div className="flex w-full flex-col justify-center lg:max-w-md">
             <div className="space-y-6">
               <div className="space-y-3">
-                <p className="text-xs uppercase tracking-[0.2em] text-orange-400 font-bold">Welcome back</p>
-                <h1 className="text-4xl font-bold leading-tight">
-                  Ready to execute?
+                <p className="text-xs uppercase tracking-[0.2em] text-orange-500 font-bold">Welcome back</p>
+                <h1 className="text-5xl font-black leading-tight">
+                  Let's go.
                 </h1>
-                <p className="text-lg text-slate-300">
-                  Enter your credentials to access your dashboard and track Mission 50 progress.
+                <p className="text-base text-slate-400">
+                  Sign in to your dashboard.
                 </p>
               </div>
 
@@ -96,7 +96,7 @@ export default function SignInPage() {
                     <input type="checkbox" className="h-4 w-4 rounded border-white/20 bg-slate-950" />
                     Remember me
                   </label>
-                  <button type="button" className="text-orange-400 hover:text-orange-300 font-semibold">
+                  <button type="button" className="text-orange-500 hover:text-orange-400 font-semibold">
                     Forgot password?
                   </button>
                 </div>
@@ -105,7 +105,7 @@ export default function SignInPage() {
                   disabled={isLoading}
                   className="w-full rounded-lg bg-orange-500 px-6 py-3 text-base font-bold text-white transition hover:bg-orange-600 disabled:opacity-50"
                 >
-                  {isLoading ? "Signing in..." : "Enter Dashboard"}
+                  {isLoading ? "Signing in..." : "Continue"}
                 </button>
                 {errorMessage ? (
                   <p className="text-sm text-rose-300 font-semibold">{errorMessage}</p>
@@ -117,7 +117,7 @@ export default function SignInPage() {
 
               <div className="text-center text-sm text-slate-400">
                 New here?{" "}
-                <Link href="/signup" className="font-bold text-orange-400 hover:text-orange-300">
+                <Link href="/signup" className="font-bold text-orange-500 hover:text-orange-400">
                   Create an account
                 </Link>
               </div>
@@ -126,32 +126,29 @@ export default function SignInPage() {
 
           {/* Right Column - Motivational Message */}
           <div className="hidden flex-col justify-center lg:flex lg:max-w-md">
-            <div className="space-y-6 rounded-lg border-2 border-orange-500 bg-gradient-to-br from-orange-600 to-orange-700 p-8">
+            <div className="space-y-6 rounded-xl border-2 border-orange-500 bg-gradient-to-br from-orange-500 to-orange-600 p-8">
               <div className="space-y-4">
-                <p className="text-white text-sm uppercase tracking-widest font-bold opacity-90">Your Mission</p>
-                <h2 className="text-3xl font-black text-white leading-tight">
+                <p className="text-white text-xs uppercase tracking-widest font-bold opacity-90">Your Mission</p>
+                <h2 className="text-4xl font-black text-white leading-tight">
                   Win. Execute. Earn.
                 </h2>
               </div>
 
               <div className="space-y-4 bg-white rounded-lg p-6">
                 <div className="space-y-2">
-                  <p className="text-slate-900 font-bold">Mission 50</p>
-                  <p className="text-slate-700 text-sm">50 clients. 3 brands. Your execution powers it all.</p>
+                  <p className="text-slate-900 font-bold text-sm">Mission 50</p>
+                  <p className="text-slate-600 text-sm">50 clients. 3 brands. Your execution powers it all.</p>
                 </div>
-                <div className="h-1 bg-orange-300 rounded-full"></div>
+                <div className="h-1 bg-orange-200 rounded-full"></div>
                 <div className="space-y-2">
-                  <p className="text-slate-900 font-bold">When we win</p>
-                  <p className="text-slate-700 text-sm">You earn 50% salary growth. Aligned by your contribution.</p>
+                  <p className="text-slate-900 font-bold text-sm">When we win</p>
+                  <p className="text-slate-600 text-sm">You earn 50% salary growth. Aligned by your contribution.</p>
                 </div>
               </div>
 
               <div className="space-y-3 text-sm">
-                <p className="text-white">
-                  Every Power Move counts. Every day matters. Track your progress. See your impact.
-                </p>
-                <p className="text-orange-100 font-semibold">
-                  Strong execution builds strong companies. You're building both.
+                <p className="text-white font-medium">
+                  Every action moves the needle.
                 </p>
               </div>
             </div>
