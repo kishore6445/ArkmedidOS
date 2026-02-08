@@ -79,10 +79,44 @@ export default function DailyReportPage() {
       <div className="p-6 lg:p-8 max-w-[1600px] mx-auto">
         <Breadcrumbs />
 
+        {/* Hero Section - Why Daily Reports Matter */}
+        <div className="mb-8 bg-gradient-to-r from-slate-950 to-slate-900 rounded-xl p-8 text-white">
+          <div className="space-y-4">
+            <div className="flex items-center gap-3">
+              <Calendar className="h-8 w-8 text-orange-500" />
+              <h1 className="text-4xl font-black">Daily Performance</h1>
+            </div>
+            <p className="text-xl text-slate-300">
+              Your daily updates are how we track execution. Every day matters. Every action counts toward Mission 50.
+            </p>
+            <div className="grid grid-cols-3 gap-4 pt-4 border-t border-slate-700">
+              <div>
+                <p className="text-sm text-slate-400">Your 50% Hike Depends On</p>
+                <p className="text-2xl font-black text-orange-500">Daily Execution</p>
+              </div>
+              <div>
+                <p className="text-sm text-slate-400">Mission 50 Tracked By</p>
+                <p className="text-2xl font-black text-orange-500">Daily Reports</p>
+              </div>
+              <div>
+                <p className="text-sm text-slate-400">Your Growth Shown In</p>
+                <p className="text-2xl font-black text-orange-500">30-Day Trends</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">Daily Reports</h1>
-            <p className="text-gray-600">Track daily execution and team accountability</p>
+            <h2 className="text-2xl font-bold text-gray-900">
+              {new Date(selectedDate).toLocaleDateString("en-US", {
+                weekday: "long",
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}
+            </h2>
+            <p className="text-gray-600">Submit your daily report to track progress</p>
           </div>
 
           <div className="flex items-center gap-3">
@@ -92,7 +126,7 @@ export default function DailyReportPage() {
               onChange={(e) => setSelectedDate(e.target.value)}
               className="px-4 py-2 border-2 rounded-lg"
             />
-            <Button onClick={() => setShowForm(!showForm)} size="lg">
+            <Button onClick={() => setShowForm(!showForm)} size="lg" className={showForm ? "bg-red-600 hover:bg-red-700" : "bg-orange-500 hover:bg-orange-600"}>
               <Plus className="h-5 w-5 mr-2" />
               {showForm ? "Cancel" : "Submit Report"}
             </Button>
@@ -108,24 +142,17 @@ export default function DailyReportPage() {
 
           <TabsContent value="all" className="space-y-6">
             {showForm && (
-              <div className="bg-white border-2 border-blue-200 rounded-lg p-6">
-                <h2 className="text-2xl font-bold mb-6">Submit Your Daily Report</h2>
+              <div className="bg-white border-2 border-orange-200 rounded-lg p-6">
+                <h2 className="text-2xl font-bold mb-2">What Did You Execute Today?</h2>
+                <p className="text-slate-600 mb-6">Update your power move progress, highlight wins, share blockers, and plan tomorrow.</p>
                 <DailyReportForm onSubmit={handleSubmitReport} />
               </div>
             )}
 
             <div className="space-y-6">
               <div className="flex items-center justify-between">
-                <h2 className="text-xl font-semibold">
-                  Reports for{" "}
-                  {new Date(selectedDate).toLocaleDateString("en-US", {
-                    weekday: "long",
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                  })}
-                </h2>
-                <span className="text-muted-foreground">{mockReports.length} reports submitted</span>
+                <h2 className="text-xl font-semibold">Team Reports</h2>
+                <span className="text-muted-foreground">{mockReports.length} submitted</span>
               </div>
 
               {mockReports.length === 0 ? (
