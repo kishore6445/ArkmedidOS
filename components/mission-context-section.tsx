@@ -63,7 +63,7 @@ export function MissionContextSection({
       <div className='px-6 sm:px-8 lg:px-12 py-8 bg-white border-b border-slate-100'>
         <div className='max-w-7xl mx-auto'>
           <div className='flex items-center gap-2 mb-6'>
-            <span className='text-xs font-bold uppercase tracking-wide text-slate-500'>{departmentName}'s contribution to</span>
+            <span className='text-xs font-bold uppercase tracking-wide text-slate-500'>Your Role in</span>
             <span className='text-sm font-black text-slate-900'>{mission.name}</span>
           </div>
 

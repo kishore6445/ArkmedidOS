@@ -75,13 +75,13 @@ export function DepartmentExecutionHero({
               )}
               
               {/* Status Badge - Show urgent items */}
-              {powerMoveStats.total > 0 && (
+              {powerMoveStats.total > 0 && score?.statusColor && (
                 <div className='flex items-center gap-3 mt-4'>
                   {score.statusColor === '#DC2626' && (
                     <div className='inline-flex items-center gap-2 bg-red-500/20 px-3 py-1.5 rounded-lg border border-red-400/30'>
                       <div className='h-2 w-2 rounded-full bg-red-500'></div>
                       <span className='text-xs font-bold text-red-200'>
-                        {powerMoveStats.total - powerMoveStats.completed} Power Moves Behind
+                        {powerMoveStats.total - powerMoveStats.completed} Behind
                       </span>
                     </div>
                   )}
@@ -89,7 +89,15 @@ export function DepartmentExecutionHero({
                     <div className='inline-flex items-center gap-2 bg-amber-500/20 px-3 py-1.5 rounded-lg border border-amber-400/30'>
                       <div className='h-2 w-2 rounded-full bg-amber-500'></div>
                       <span className='text-xs font-bold text-amber-200'>
-                        At Risk - Action Needed
+                        At Risk
+                      </span>
+                    </div>
+                  )}
+                  {score.statusColor === '#16A34A' && (
+                    <div className='inline-flex items-center gap-2 bg-green-500/20 px-3 py-1.5 rounded-lg border border-green-400/30'>
+                      <div className='h-2 w-2 rounded-full bg-green-500'></div>
+                      <span className='text-xs font-bold text-green-200'>
+                        On Track
                       </span>
                     </div>
                   )}

@@ -175,11 +175,6 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
           {/* Page content */}
           <main className="flex-1 overflow-y-auto bg-gray-50">
-            <div className="max-w-7xl mx-auto px-4 lg:px-8">
-              <div className="pt-4 lg:pt-6">
-                <Breadcrumbs />
-              </div>
-            </div>
             {children}
           </main>
         </div>
