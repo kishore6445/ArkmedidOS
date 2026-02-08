@@ -520,6 +520,73 @@ export function DepartmentPage({ config, departmentKey }: DepartmentPageProps) {
               <span className='text-stone-400 mx-2'>•</span> {config.name} contributes via execution discipline
             </p>
           </div>
+
+          {/* PERIOD EXECUTION SECTION - Power Moves, Tasks, Commitments */}
+          <div className='max-w-7xl mx-auto px-4 py-8 space-y-6'>
+            {/* Power Moves Section */}
+            <div>
+              <div className='flex items-center gap-2 mb-4'>
+                <div className='h-3 w-3 rounded-full bg-green-500'></div>
+                <h3 className='text-sm font-bold uppercase tracking-wider text-slate-900'>Power Moves (Lead Measures)</h3>
+                {filteredPowerMoves.length > 0 && <span className='text-xs text-slate-500'>Recurring Actions</span>}
+              </div>
+              {filteredPowerMoves.length > 0 ? (
+                <PowerMovesTable powerMoves={filteredPowerMoves} />
+              ) : (
+                <div className='text-center py-8 text-slate-500'>
+                  <p className='text-sm font-semibold'>No power moves for this period</p>
+                  <Button onClick={() => setShowPowerMoveModal(true)} className='mt-4'>
+                    Add Power Move
+                  </Button>
+                </div>
+              )}
+            </div>
+
+            {/* Tasks Section */}
+            {safeTasks.length > 0 && (
+              <div>
+                <div className='flex items-center gap-2 mb-4'>
+                  <div className='h-3 w-3 rounded-full bg-yellow-500'></div>
+                  <h3 className='text-sm font-bold uppercase tracking-wider text-slate-900'>Tasks</h3>
+                  <span className='text-xs text-slate-500'>One-time activities</span>
+                </div>
+                <div className='space-y-2'>
+                  {safeTasks.map((task) => (
+                    <div key={task.id} className='flex items-center gap-3 p-3 bg-slate-50 rounded-lg'>
+                      <Checkbox checked={task.completed} disabled />
+                      <span className={cn('text-sm', task.completed && 'line-through text-slate-400')}>
+                        {task.name}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Commitments Section */}
+            {safeCommitments.length > 0 && (
+              <div>
+                <div className='flex items-center gap-2 mb-4'>
+                  <div className='h-3 w-3 rounded-full bg-red-500'></div>
+                  <h3 className='text-sm font-bold uppercase tracking-wider text-slate-900'>Commitments</h3>
+                  <span className='text-xs text-slate-500'>Team promises mentioned in weekly calls</span>
+                </div>
+                <div className='space-y-2'>
+                  {safeCommitments.map((commitment) => (
+                    <div key={commitment.id} className='flex items-center justify-between p-3 bg-slate-50 rounded-lg'>
+                      <div>
+                        <p className='text-sm font-semibold text-slate-900'>{commitment.description}</p>
+                        <p className='text-xs text-slate-500'>Due: {commitment.dueDate}</p>
+                      </div>
+                      <Badge variant={commitment.completed ? 'outline' : 'default'}>
+                        {commitment.completed ? 'Done' : 'Pending'}
+                      </Badge>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
         </>
       )}
 
