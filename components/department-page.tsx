@@ -484,6 +484,37 @@ export function DepartmentPage({ config, departmentKey }: DepartmentPageProps) {
         onWeeklyReview={() => setShowWeeklyReview(true)}
       />
 
+      {/* PERIOD EXECUTION SECTION - Power Moves inline, visible without scrolling */}
+      <div className='max-w-7xl mx-auto px-4 py-8 bg-white'>
+        {/* Power Moves Section */}
+        <div>
+          <div className='flex items-center justify-between mb-4'>
+            <div className='flex items-center gap-2'>
+              <div className='h-3 w-3 rounded-full bg-green-500'></div>
+              <h3 className='text-sm font-bold uppercase tracking-wider text-slate-900'>Power Moves (Lead Measures)</h3>
+              {filteredPowerMoves.length > 0 && <span className='text-xs text-slate-500'>Recurring Actions</span>}
+            </div>
+            <Button 
+              onClick={() => setShowPowerMoveModal(true)}
+              className='bg-orange-500 hover:bg-orange-600 text-white font-bold px-4 py-2 rounded-lg flex items-center gap-2'
+            >
+              <Plus className='h-4 w-4' />
+              Add Power Move
+            </Button>
+          </div>
+          {filteredPowerMoves.length > 0 ? (
+            <PowerMovesTable powerMoves={filteredPowerMoves} />
+          ) : (
+            <div className='text-center py-8 text-slate-500'>
+              <p className='text-sm font-semibold'>No power moves for this period</p>
+              <Button onClick={() => setShowPowerMoveModal(true)} className='mt-4'>
+                Add Power Move
+              </Button>
+            </div>
+          )}
+        </div>
+      </div>
+
       {/* TAB NAVIGATION */}
       <div className='max-w-7xl mx-auto px-4 py-6 border-b border-slate-200'>
         <div className='flex items-center gap-4'>
@@ -515,36 +546,8 @@ export function DepartmentPage({ config, departmentKey }: DepartmentPageProps) {
       {/* EXECUTION TAB */}
       {activeTab === 'execute' && (
         <>
-          {/* PERIOD EXECUTION SECTION - Power Moves, Tasks, Commitments */}
+          {/* PERIOD EXECUTION SECTION - Tasks, Commitments (Power Moves moved above tabs) */}
           <div className='max-w-7xl mx-auto px-4 py-8 space-y-8'>
-            {/* Power Moves Section */}
-            <div>
-              <div className='flex items-center justify-between mb-4'>
-                <div className='flex items-center gap-2'>
-                  <div className='h-3 w-3 rounded-full bg-green-500'></div>
-                  <h3 className='text-sm font-bold uppercase tracking-wider text-slate-900'>Power Moves (Lead Measures)</h3>
-                  {filteredPowerMoves.length > 0 && <span className='text-xs text-slate-500'>Recurring Actions</span>}
-                </div>
-                <Button 
-                  onClick={() => setShowPowerMoveModal(true)}
-                  className='bg-orange-500 hover:bg-orange-600 text-white font-bold px-4 py-2 rounded-lg flex items-center gap-2'
-                >
-                  <Plus className='h-4 w-4' />
-                  Add Power Move
-                </Button>
-              </div>
-              {filteredPowerMoves.length > 0 ? (
-                <PowerMovesTable powerMoves={filteredPowerMoves} />
-              ) : (
-                <div className='text-center py-8 text-slate-500'>
-                  <p className='text-sm font-semibold'>No power moves for this period</p>
-                  <Button onClick={() => setShowPowerMoveModal(true)} className='mt-4'>
-                    Add Power Move
-                  </Button>
-                </div>
-              )}
-            </div>
-
             {/* Tasks Section */}
             {safeTasks.length > 0 && (
               <div>

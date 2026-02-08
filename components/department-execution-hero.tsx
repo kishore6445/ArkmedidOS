@@ -63,7 +63,7 @@ export function DepartmentExecutionHero({
         <div className='max-w-7xl mx-auto'>
           <div className='flex items-start gap-8 justify-between'>
             {/* Department Identity */}
-            <div>
+            <div className='flex-1'>
               <h1 id='department-execution-heading' className='text-5xl font-black tracking-tight mb-2'>
                 {departmentName}
               </h1>
@@ -73,10 +73,32 @@ export function DepartmentExecutionHero({
               {coreObjective?.description && (
                 <p className='text-sm text-slate-300 max-w-2xl'>{coreObjective.description}</p>
               )}
+              
+              {/* Status Badge - Show urgent items */}
+              {powerMoveStats.total > 0 && (
+                <div className='flex items-center gap-3 mt-4'>
+                  {score.statusColor === '#DC2626' && (
+                    <div className='inline-flex items-center gap-2 bg-red-500/20 px-3 py-1.5 rounded-lg border border-red-400/30'>
+                      <div className='h-2 w-2 rounded-full bg-red-500'></div>
+                      <span className='text-xs font-bold text-red-200'>
+                        {powerMoveStats.total - powerMoveStats.completed} Power Moves Behind
+                      </span>
+                    </div>
+                  )}
+                  {score.statusColor === '#F59E0B' && (
+                    <div className='inline-flex items-center gap-2 bg-amber-500/20 px-3 py-1.5 rounded-lg border border-amber-400/30'>
+                      <div className='h-2 w-2 rounded-full bg-amber-500'></div>
+                      <span className='text-xs font-bold text-amber-200'>
+                        At Risk - Action Needed
+                      </span>
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
 
             {/* Selectors - Right side */}
-            <div className='flex items-center gap-3'>
+            <div className='flex items-center gap-3 flex-shrink-0'>
               {onAddPowerMove && (
                 <Button 
                   onClick={onAddPowerMove}
