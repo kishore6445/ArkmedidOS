@@ -23,7 +23,7 @@ interface ReviewTeamMeetingModalProps {
   open: boolean
   onOpenChange: (open: boolean) => void
   departmentName?: string
-  meeting: TeamMeeting
+  meeting?: TeamMeeting | null
   onSave?: (meetingData: TeamMeeting) => void
 }
 
@@ -34,21 +34,22 @@ export function ReviewTeamMeetingModal({
   meeting,
   onSave,
 }: ReviewTeamMeetingModalProps) {
+  const { toast } = useToast()
   const [isLoading, setIsLoading] = useState(false)
   const [errors, setErrors] = useState<Record<string, string>>({})
 
-  // Form state - START WITH CURRENT MEETING DATA
-  const [meetingDate, setMeetingDate] = useState(meeting.date)
-  const [attendeeCount, setAttendeeCount] = useState(meeting.attendeeCount)
+  // Form state - START WITH CURRENT MEETING DATA (only if meeting exists)
+  const [meetingDate, setMeetingDate] = useState(meeting?.date || "")
+  const [attendeeCount, setAttendeeCount] = useState(meeting?.attendeeCount || 0)
   const [moms, setMoms] = useState<MOMInput[]>(
-    meeting.moms.map(m => ({
+    meeting?.moms?.map(m => ({
       id: m.id,
       owner: m.owner,
       commitment: m.commitment,
       dueDate: m.dueDate,
-    }))
+    })) || []
   )
-  const [notes, setNotes] = useState(meeting.notes || "")
+  const [notes, setNotes] = useState(meeting?.notes || "")
 
   // Validate form
   const validateForm = () => {
@@ -123,8 +124,10 @@ export function ReviewTeamMeetingModal({
   }
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog open={open && !!meeting} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-5xl max-h-[90vh] overflow-y-auto">
+        {meeting ? (
+          <>
         <DialogHeader>
           <DialogTitle className="text-2xl font-black">Review Meeting - {departmentName}</DialogTitle>
           <DialogDescription>
@@ -133,13 +136,13 @@ export function ReviewTeamMeetingModal({
         </DialogHeader>
 
         <div className="grid grid-cols-2 gap-6 py-6">
-          {/* LEFT PANEL: PREVIOUS WEEK - ACCOUNTABILITY VIEW */}
+          {/* LEFT PANEL: THIS MEETING'S MOMs - ACCOUNTABILITY VIEW */}
           <div className="border-r border-slate-200 pr-6">
-            <h3 className="text-sm font-bold uppercase text-slate-700 mb-4">Last Week's Commitments</h3>
+            <h3 className="text-sm font-bold uppercase text-slate-700 mb-4">Meeting MOMs - Accountability Check</h3>
             
-            {previousMeeting && previousMeeting.moms.length > 0 ? (
+            {meeting.moms && meeting.moms.length > 0 ? (
               <div className="space-y-3">
-                {previousMeeting.moms.map((mom) => {
+                {meeting.moms.map((mom) => {
                   const statusIcon = mom.status === 'on-track' 
                     ? <CheckCircle2 className="h-4 w-4 text-green-600" />
                     : mom.status === 'at-risk'
@@ -163,7 +166,7 @@ export function ReviewTeamMeetingModal({
                       </div>
                       <p className="text-xs text-slate-500 flex items-center gap-1">
                         <Calendar className="h-3 w-3" />
-                        {mom.dueDate}
+                        Due: {mom.dueDate}
                       </p>
                       <div className="mt-2 pt-2 border-t border-current border-opacity-10">
                         <span className={cn(
@@ -181,8 +184,8 @@ export function ReviewTeamMeetingModal({
               </div>
             ) : (
               <div className="text-center py-8 text-slate-500">
-                <p className="text-xs font-semibold">No previous meeting found</p>
-                <p className="text-xs text-slate-400 mt-1">Start fresh with this week's MOMs</p>
+                <p className="text-xs font-semibold">No MOMs recorded</p>
+                <p className="text-xs text-slate-400 mt-1">Add commitments for this meeting</p>
               </div>
             )}
           </div>
@@ -309,6 +312,10 @@ export function ReviewTeamMeetingModal({
             Save Meeting
           </Button>
         </div>
+          </>
+        ) : (
+          <p className="text-center text-slate-500 py-8">No meeting data available</p>
+        )}
       </DialogContent>
     </Dialog>
   )
