@@ -44,8 +44,6 @@ export function DepartmentExecutionHero({
   const { brandConfig } = useBrand()
   const companyWIG = brandConfig?.companyWIG
 
-  console.log("[v0] DepartmentExecutionHero rendering with onAddPowerMove:", onAddPowerMove)
-
   const score = useMemo(() => {
     if (calculatedScore) return calculatedScore
     return calculateDepartmentScore(victoryTargets, powerMoves)
