@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { Badge } from '@/components/ui/badge'
 import { cn } from '@/lib/utils'
 import { AlertCircle } from 'lucide-react'
+import { SectionNavigation } from '@/components/section-navigation'
 
 // Hardcoded 2026 targets
 const TOTAL_PLANNED_CLIENTS = 50
@@ -41,9 +42,11 @@ export function CompanyPerformance() {
   const verdictStatus = actualForQuarter >= plannedForQuarter * 0.9 ? 'on-track' : actualForQuarter >= plannedForQuarter * 0.7 ? 'at-risk' : 'off-track'
 
   return (
-    <main className="space-y-0">
+    <main className="space-y-0 relative">
+      <SectionNavigation />
+      
       {/* SECTION 1: FIXED HEADER */}
-      <section className="sticky top-0 z-10 bg-slate-950 px-6 py-8 border-b-2 border-orange-500">
+      <section data-section="header" className="sticky top-0 z-10 bg-slate-950 px-6 py-8 border-b-2 border-orange-500">
         <div className="mx-auto max-w-7xl">
           <p className="text-orange-400 text-sm font-bold uppercase tracking-widest mb-2">Mission 2026</p>
           <h1 className="text-5xl font-black text-white mb-6">Onboard 50 Clients</h1>
@@ -65,7 +68,7 @@ export function CompanyPerformance() {
       </section>
 
       {/* SECTION 2: QUARTER REVIEW CARD */}
-      <section className="bg-white px-6 py-16">
+      <section data-section="quarter-review" className="bg-white px-6 py-16">
         <div className="mx-auto max-w-7xl">
           <div className="space-y-8">
             <div>
@@ -124,7 +127,7 @@ export function CompanyPerformance() {
       </section>
 
       {/* SECTION 3: DEPARTMENT EXECUTION HEALTH */}
-      <section className="bg-slate-950 px-6 py-16">
+      <section data-section="execution-health" className="bg-slate-950 px-6 py-16">
         <div className="mx-auto max-w-7xl">
           <div className="space-y-8">
             <div>
@@ -157,7 +160,7 @@ export function CompanyPerformance() {
       </section>
 
       {/* SECTION 4: CURRENT QUARTER CONSTRAINT */}
-      <section className="bg-white px-6 py-16">
+      <section data-section="constraint" className="bg-white px-6 py-16">
         <div className="mx-auto max-w-7xl">
           <div className="space-y-8">
             <div>
@@ -184,7 +187,7 @@ export function CompanyPerformance() {
       </section>
 
       {/* SECTION 5: CLIENT MOVEMENT EVIDENCE */}
-      <section className="bg-slate-950 px-6 py-16">
+      <section data-section="client-movement" className="bg-slate-950 px-6 py-16">
         <div className="mx-auto max-w-7xl">
           <div className="space-y-8">
             <div>
@@ -240,7 +243,7 @@ export function CompanyPerformance() {
       </section>
 
       {/* SECTION 6: FOUNDER VERDICT */}
-      <section className="bg-white px-6 py-16">
+      <section data-section="founder-verdict" className="bg-white px-6 py-16">
         <div className="mx-auto max-w-7xl">
           <div className="space-y-8">
             <div>
@@ -258,7 +261,7 @@ export function CompanyPerformance() {
       </section>
 
       {/* SECTION 7: STRATEGIC DECISION */}
-      <section className="bg-slate-950 px-6 py-16 border-t-2 border-orange-500">
+      <section data-section="strategic-decision" className="bg-slate-950 px-6 py-16 border-t-2 border-orange-500">
         <div className="mx-auto max-w-7xl">
           <div className="space-y-8">
             <div>

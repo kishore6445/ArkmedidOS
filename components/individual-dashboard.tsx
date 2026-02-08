@@ -2,7 +2,7 @@
 import { useEffect, useMemo, useState } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Calendar, ChevronDown, ArrowRight, ArrowDown, CheckCircle, AlertCircle, XCircle } from "lucide-react"
+import { Calendar, ChevronDown, ArrowRight, ArrowDown, CheckCircle, AlertCircle, XCircle, Target } from "lucide-react"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Button } from "@/components/ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
@@ -479,6 +479,13 @@ export function IndividualDashboard({
                       {status.badge}
                     </p>
                   </div>
+                  <div className='w-full mt-4 bg-amber-100 rounded-full h-2 overflow-hidden'>
+                    <div 
+                      className='h-full bg-amber-500 transition-all duration-500'
+                      style={{ width: `${(periodData.completed / periodData.total) * 100}%` }}
+                    />
+                  </div>
+                  <p className='text-xs text-amber-600 font-semibold mt-2'>{Math.round((periodData.completed / periodData.total) * 100)}% Complete</p>
                 </div>
               </div>
             </div>
@@ -497,9 +504,13 @@ export function IndividualDashboard({
               <div className='w-full flex items-end justify-center'>
                 <div className='text-center flex-shrink-0'>
                   {linkedVictoryTargets.length === 0 ? (
-                    <div className='space-y-2'>
-                      <p className='text-xs text-blue-600 font-semibold'>No targets linked yet</p>
-                      <p className='text-xs text-blue-500 italic'>Link targets to see your impact</p>
+                    <div className='space-y-3'>
+                      <div className='flex items-center justify-center'>
+                        <Target className='h-8 w-8 text-blue-300' />
+                      </div>
+                      <p className='text-xs text-blue-600 font-semibold'>No Victory Targets Linked</p>
+                      <p className='text-xs text-blue-500'>Ask your manager to link company targets to your personal contributions.</p>
+                      <a href='/admin?tab=personal-targets' className='text-xs text-blue-600 font-bold hover:underline'>View in Admin →</a>
                     </div>
                   ) : (
                     <>
@@ -518,6 +529,13 @@ export function IndividualDashboard({
                           {linkedVictoryTargets.filter(vt => vt.progress >= 70).length === linkedVictoryTargets.length ? 'On Track' : linkedVictoryTargets.filter(vt => vt.progress >= 70).length > 0 ? 'At Risk' : 'Behind'}
                         </p>
                       </div>
+                      <div className='w-full mt-4 bg-blue-100 rounded-full h-2 overflow-hidden'>
+                        <div 
+                          className='h-full bg-blue-500 transition-all duration-500'
+                          style={{ width: `${(linkedVictoryTargets.filter(vt => vt.progress >= 70).length / linkedVictoryTargets.length) * 100}%` }}
+                        />
+                      </div>
+                      <p className='text-xs text-blue-600 font-semibold mt-2'>{Math.round((linkedVictoryTargets.filter(vt => vt.progress >= 70).length / linkedVictoryTargets.length) * 100)}% on Track</p>
                     </>
                   )}
                 </div>
@@ -540,7 +558,13 @@ export function IndividualDashboard({
                     <CheckCircle className='h-4 w-4 text-green-600' />
                     <p className='text-xs font-bold uppercase tracking-widest text-green-600'>Achievable</p>
                   </div>
-                  <p className='text-xs text-purple-600 font-semibold mt-3'>Quarterly & Annual Goals</p>
+                  <div className='w-full mt-4 bg-purple-100 rounded-full h-2 overflow-hidden'>
+                    <div 
+                      className='h-full bg-purple-600 transition-all duration-500'
+                      style={{ width: '100%' }}
+                    />
+                  </div>
+                  <p className='text-xs text-purple-600 font-semibold mt-4'>Quarterly & Annual Goals</p>
                 </div>
               </div>
             </div>

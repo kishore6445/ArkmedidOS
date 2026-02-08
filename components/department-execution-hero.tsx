@@ -423,9 +423,19 @@ export function DepartmentExecutionHero({
           </div>
 
           {/* MAIN SCOREBOARD - Visual Hierarchy with Section Differentiation */}
-          <div className='relative overflow-hidden'>
+          <div className='relative overflow-visible'>
             {/* Desktop 3-Card Grid - Enhanced Visual Hierarchy */}
-            <div className='hidden lg:flex lg:items-stretch lg:gap-0 p-6 bg-stone-50'>
+            <div className='hidden lg:flex lg:items-stretch lg:gap-0 p-6 bg-stone-50 relative'>
+              {/* Flow Connectors - Arrows between cards */}
+              <svg className='absolute top-1/2 -translate-y-1/2 left-0 right-0 w-full h-12 pointer-events-none' style={{ zIndex: 5 }}>
+                {/* Arrow 1 -> 2 */}
+                <line x1='33%' y1='50%' x2='50%' y2='50%' stroke='#d4d4d8' strokeWidth='2' strokeDasharray='4' />
+                <polygon points='50%,50% 47%,47% 47%,53%' fill='#a1a1aa' />
+                
+                {/* Arrow 2 -> 3 */}
+                <line x1='67%' y1='50%' x2='85%' y2='50%' stroke='#d4d4d8' strokeWidth='2' strokeDasharray='4' />
+                <polygon points='85%,50% 82%,47% 82%,53%' fill='#a1a1aa' />
+              </svg>
               {/* Step 1 Badge */}
               <div className='absolute left-20 top-2 z-10 bg-amber-400 text-amber-900 font-black px-3 py-1 rounded-full text-xs'>STEP 1 – Execution Discipline</div>
 
@@ -474,9 +484,12 @@ export function DepartmentExecutionHero({
                 {/* Victory Target Cards - Compact */}
                 {victoryTargets.length === 0 ? (
                   <div className='w-full flex items-center justify-center min-h-[100px]'>
-                    <div className='text-center space-y-2'>
-                      <p className='text-xs text-blue-600 font-semibold'>No victory targets set</p>
-                      <p className='text-xs text-blue-500 italic'>Configure targets from the admin panel</p>
+                    <div className='text-center space-y-3'>
+                      <div className='flex justify-center'>
+                        <Target className='h-6 w-6 text-blue-300' />
+                      </div>
+                      <p className='text-xs text-blue-600 font-semibold'>No Victory Targets Set</p>
+                      <a href='/admin?tab=victory-targets' className='text-xs text-blue-600 font-bold hover:underline inline-block'>Configure in Admin →</a>
                     </div>
                   </div>
                 ) : (
@@ -561,6 +574,12 @@ export function DepartmentExecutionHero({
                       {companyWIG?.achieved && companyWIG?.target ? 
                         Math.round((companyWIG.achieved / companyWIG.target) * 100) : 0}% Complete
                     </p>
+                    <div className='w-full mt-5 bg-purple-200 rounded-full h-2 overflow-hidden'>
+                      <div 
+                        className='h-full bg-purple-600 transition-all duration-500'
+                        style={{ width: `${Math.min((((companyWIG?.achieved ?? 0) / (companyWIG?.target ?? 1)) * 100), 100)}%` }}
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
