@@ -4,6 +4,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { ChevronRight, Home } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { useEffect, useState } from "react"
 
 interface BreadcrumbItem {
   label: string
@@ -12,6 +13,15 @@ interface BreadcrumbItem {
 
 export function Breadcrumbs() {
   const pathname = usePathname()
+  const [isMounted, setIsMounted] = useState(false)
+
+  // Only render after mount to avoid hydration issues
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
+
+  // Don't show breadcrumbs on home page or dashboard (they're landing pages)
+  if (!isMounted || pathname === "/" || pathname === "/dashboard") return null
 
   // Generate breadcrumb items from pathname
   const generateBreadcrumbs = (): BreadcrumbItem[] => {
@@ -44,9 +54,6 @@ export function Breadcrumbs() {
   }
 
   const breadcrumbs = generateBreadcrumbs()
-
-  // Don't show breadcrumbs on home page or dashboard (they're landing pages)
-  if (pathname === "/" || pathname === "/dashboard") return null
 
   return (
     <nav aria-label="Breadcrumb" className="mb-4 lg:mb-6">
