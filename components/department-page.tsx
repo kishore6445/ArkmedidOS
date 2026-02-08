@@ -28,6 +28,7 @@ import type { QuarterOption } from "@/components/quarter-selector"
 import { useBrand } from "@/lib/brand-context"
 import { TeamMeetingsSection, type TeamMeeting } from "@/components/team-meetings-section"
 import { CreateTeamMeetingModal } from "@/components/create-team-meeting-modal"
+import { ReviewTeamMeetingModal } from "@/components/review-team-meeting-modal"
 
 export interface VictoryTarget {
   id: string
@@ -137,6 +138,7 @@ export function DepartmentPage({ config, departmentKey }: DepartmentPageProps) {
   const [showTaskModal, setShowTaskModal] = useState(false)
   const [showCommitmentModal, setShowCommitmentModal] = useState(false)
   const [showTeamMeetingModal, setShowTeamMeetingModal] = useState(false)
+  const [selectedMeetingForReview, setSelectedMeetingForReview] = useState<TeamMeeting | null>(null)
   const [displayedCommitments, setDisplayedCommitments] = useState(5)
   const [isLoading, setIsLoading] = useState(false)
   const [activeTab, setActiveTab] = useState("execute")
@@ -540,6 +542,7 @@ export function DepartmentPage({ config, departmentKey }: DepartmentPageProps) {
           <TeamMeetingsSection
             meetings={safeConfig.teamMeetings}
             onCreateMeeting={() => setShowTeamMeetingModal(true)}
+            onReviewMeeting={(meeting) => setSelectedMeetingForReview(meeting)}
           />
         </div>
       )}
@@ -577,13 +580,27 @@ export function DepartmentPage({ config, departmentKey }: DepartmentPageProps) {
         open={showTeamMeetingModal}
         onOpenChange={setShowTeamMeetingModal}
         departmentName={config.name}
-        previousMeeting={safeConfig.teamMeetings && safeConfig.teamMeetings.length > 0 ? safeConfig.teamMeetings[safeConfig.teamMeetings.length - 1] : undefined}
         onSave={(meetingData) => {
           toast({
             title: "Success!",
             description: `Team meeting created with ${meetingData.attendeeCount} attendees`,
           })
           setShowTeamMeetingModal(false)
+        }}
+      />
+      <ReviewTeamMeetingModal
+        open={selectedMeetingForReview !== null}
+        onOpenChange={(open) => {
+          if (!open) setSelectedMeetingForReview(null)
+        }}
+        departmentName={config.name}
+        meeting={selectedMeetingForReview!}
+        onSave={(meetingData) => {
+          toast({
+            title: "Success!",
+            description: "Meeting updated with latest MOMs",
+          })
+          setSelectedMeetingForReview(null)
         }}
       />
     </PageTransition>

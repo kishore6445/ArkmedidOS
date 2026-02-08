@@ -25,9 +25,10 @@ export interface TeamMeeting {
 interface TeamMeetingsSectionProps {
   meetings: TeamMeeting[]
   onCreateMeeting?: () => void
+  onReviewMeeting?: (meeting: TeamMeeting) => void
 }
 
-export function TeamMeetingsSection({ meetings, onCreateMeeting }: TeamMeetingsSectionProps) {
+export function TeamMeetingsSection({ meetings, onCreateMeeting, onReviewMeeting }: TeamMeetingsSectionProps) {
   const [expandedMeetingId, setExpandedMeetingId] = useState<string | null>(null)
 
   if (meetings.length === 0) {
@@ -108,37 +109,47 @@ export function TeamMeetingsSection({ meetings, onCreateMeeting }: TeamMeetingsS
 
           {/* MOMs List - Expands on Click */}
           {expandedMeetingId === meeting.id && (
-            <div className='border-t border-slate-200 bg-slate-50 p-6 space-y-2'>
+            <div className='border-t border-slate-200 bg-slate-50 p-6 space-y-4'>
               {meeting.moms.length === 0 ? (
                 <p className='text-xs text-slate-500 text-center py-4'>No commitments recorded</p>
               ) : (
-                meeting.moms.map((mom) => (
-                  <div key={mom.id} className='flex items-start gap-3 py-2'>
-                    <div className='flex-shrink-0 mt-1'>
-                      {getStatusIcon(mom.status)}
-                    </div>
-                    <div className='flex-1 min-w-0'>
-                      <div className='flex items-center gap-2 flex-wrap'>
-                        <span className='text-xs font-bold text-slate-900'>{mom.owner}</span>
-                        <span className='text-xs text-slate-600'>—</span>
-                        <span className='text-xs text-slate-700 flex-1'>{mom.commitment}</span>
+                <div className='space-y-2'>
+                  {meeting.moms.map((mom) => (
+                    <div key={mom.id} className='flex items-start gap-3 py-2'>
+                      <div className='flex-shrink-0 mt-1'>
+                        {getStatusIcon(mom.status)}
                       </div>
-                      <p className={cn('text-xs font-semibold mt-1', getStatusColor(mom.status))}>
-                        Due: {formatDate(mom.dueDate)}
-                      </p>
+                      <div className='flex-1 min-w-0'>
+                        <div className='flex items-center gap-2 flex-wrap'>
+                          <span className='text-xs font-bold text-slate-900'>{mom.owner}</span>
+                          <span className='text-xs text-slate-600'>—</span>
+                          <span className='text-xs text-slate-700 flex-1'>{mom.commitment}</span>
+                        </div>
+                        <p className={cn('text-xs font-semibold mt-1', getStatusColor(mom.status))}>
+                          Due: {formatDate(mom.dueDate)}
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                ))
+                  ))}
+                </div>
               )}
 
-              {/* View Full Notes Button */}
-              {meeting.notes && (
-                <div className='mt-4 pt-4 border-t border-slate-200'>
+              {/* Action Buttons */}
+              <div className='mt-4 pt-4 border-t border-slate-200 flex gap-2'>
+                <Button 
+                  variant='outline' 
+                  size='sm' 
+                  className='text-xs'
+                  onClick={() => onReviewMeeting?.(meeting)}
+                >
+                  Review & Update
+                </Button>
+                {meeting.notes && (
                   <Button variant='outline' size='sm' className='text-xs'>
                     View Full Notes
                   </Button>
-                </div>
-              )}
+                )}
+              </div>
             </div>
           )}
         </div>

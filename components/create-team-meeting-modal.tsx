@@ -1,90 +1,80 @@
-"use client"
+'use client'
 
-import type React from "react"
-import { useState } from "react"
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { useToast } from "@/hooks/use-toast"
-import { Loader2, Plus, Trash2, CheckCircle2, AlertCircle, XCircle, Calendar } from "lucide-react"
-import { cn } from "@/lib/utils"
-import type { TeamMeeting } from "./team-meetings-section"
+import { useState } from 'react'
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from '@/components/ui/dialog'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Textarea } from '@/components/ui/textarea'
+import { X, Plus, Loader2 } from 'lucide-react'
+import { Badge } from '@/components/ui/badge'
+import type { TeamMeeting } from './team-meetings-section'
 
-interface MOMInput {
-  id: string
-  owner: string
-  commitment: string
-  dueDate: string
+export interface CreateTeamMeetingData {
+  date: string
+  attendees: string[]
+  notes?: string
 }
 
 interface CreateTeamMeetingModalProps {
   open: boolean
   onOpenChange: (open: boolean) => void
-  departmentName?: string
-  previousMeeting?: TeamMeeting
-  onSave?: (meetingData: TeamMeeting) => void
+  departmentName: string
+  onSave: (meetingData: TeamMeeting) => void
 }
 
 export function CreateTeamMeetingModal({
   open,
   onOpenChange,
-  departmentName = "Department",
-  previousMeeting,
+  departmentName,
   onSave,
 }: CreateTeamMeetingModalProps) {
-  const { toast } = useToast()
+  const [date, setDate] = useState(new Date().toISOString().split('T')[0])
+  const [attendees, setAttendees] = useState<string[]>([])
+  const [attendeeInput, setAttendeeInput] = useState('')
+  const [notes, setNotes] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [errors, setErrors] = useState<Record<string, string>>({})
 
-  // Form state for THIS WEEK
-  const [meetingDate, setMeetingDate] = useState(new Date().toISOString().split('T')[0])
-  const [attendeeCount, setAttendeeCount] = useState(0)
-  const [moms, setMoms] = useState<MOMInput[]>([
-    { id: "1", owner: "", commitment: "", dueDate: "" },
-  ])
-  const [notes, setNotes] = useState("")
+  const handleAddAttendee = () => {
+    if (attendeeInput.trim() && !attendees.includes(attendeeInput.trim())) {
+      setAttendees([...attendees, attendeeInput.trim()])
+      setAttendeeInput('')
+    }
+  }
 
-  // Validate form
+  const handleRemoveAttendee = (attendee: string) => {
+    setAttendees(attendees.filter((a) => a !== attendee))
+  }
+
   const validateForm = () => {
     const newErrors: Record<string, string> = {}
-    
-    if (!meetingDate) newErrors.meetingDate = "Meeting date is required"
-    if (attendeeCount === 0) newErrors.attendeeCount = "Add at least one attendee"
-    
-    const validMoms = moms.filter(m => m.owner && m.commitment && m.dueDate)
-    if (validMoms.length === 0) {
-      newErrors.moms = "Add at least one commitment"
-    }
-
+    if (!date) newErrors.date = 'Meeting date is required'
+    if (attendees.length === 0) newErrors.attendees = 'Add at least one attendee'
     setErrors(newErrors)
     return Object.keys(newErrors).length === 0
   }
 
-  // Handle save
   const handleSave = async () => {
     if (!validateForm()) return
 
     setIsLoading(true)
     try {
-      const validMoms = moms.filter(m => m.owner && m.commitment && m.dueDate)
-      
       const newMeeting: TeamMeeting = {
         id: Date.now().toString(),
-        date: meetingDate,
-        attendeeCount,
-        moms: validMoms.map(m => ({
-          id: m.id,
-          owner: m.owner,
-          commitment: m.commitment,
-          dueDate: m.dueDate,
-          status: 'on-track',
-        })),
-        notes,
+        date,
+        attendeeCount: attendees.length,
+        moms: [],
+        notes: notes || undefined,
       }
 
-      onSave?.(newMeeting)
+      onSave(newMeeting)
       resetForm()
     } finally {
       setIsLoading(false)
@@ -92,205 +82,115 @@ export function CreateTeamMeetingModal({
   }
 
   const resetForm = () => {
-    setMeetingDate(new Date().toISOString().split('T')[0])
-    setAttendeeCount(0)
-    setMoms([{ id: "1", owner: "", commitment: "", dueDate: "" }])
-    setNotes("")
+    setDate(new Date().toISOString().split('T')[0])
+    setAttendees([])
+    setAttendeeInput('')
+    setNotes('')
     setErrors({})
     onOpenChange(false)
   }
 
-  // Add new MOM row
-  const addMOM = () => {
-    setMoms([
-      ...moms,
-      { id: Date.now().toString(), owner: "", commitment: "", dueDate: "" },
-    ])
-  }
-
-  // Remove MOM row
-  const removeMOM = (id: string) => {
-    setMoms(moms.filter(m => m.id !== id))
-  }
-
-  // Update MOM field
-  const updateMOM = (id: string, field: string, value: string) => {
-    setMoms(moms.map(m => (m.id === id ? { ...m, [field]: value } : m)))
-  }
-
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-5xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className='max-w-md'>
         <DialogHeader>
-          <DialogTitle className="text-2xl font-black">Weekly Meeting - {departmentName}</DialogTitle>
-          <DialogDescription>
-            Review last week's commitments, then record this week's MOMs
-          </DialogDescription>
+          <DialogTitle className='text-xl font-black'>Create Team Meeting</DialogTitle>
+          <DialogDescription>{departmentName}</DialogDescription>
         </DialogHeader>
 
-        <div className="grid grid-cols-2 gap-6 py-6">
-          {/* LEFT PANEL: PREVIOUS WEEK - ACCOUNTABILITY VIEW */}
-          <div className="border-r border-slate-200 pr-6">
-            <h3 className="text-sm font-bold uppercase text-slate-700 mb-4">Last Week's Commitments</h3>
-            
-            {previousMeeting && previousMeeting.moms.length > 0 ? (
-              <div className="space-y-3">
-                {previousMeeting.moms.map((mom) => {
-                  const statusIcon = mom.status === 'on-track' 
-                    ? <CheckCircle2 className="h-4 w-4 text-green-600" />
-                    : mom.status === 'at-risk'
-                    ? <AlertCircle className="h-4 w-4 text-amber-600" />
-                    : <XCircle className="h-4 w-4 text-red-600" />
-
-                  const statusColor = mom.status === 'on-track'
-                    ? 'bg-green-50 border-green-200'
-                    : mom.status === 'at-risk'
-                    ? 'bg-amber-50 border-amber-200'
-                    : 'bg-red-50 border-red-200'
-
-                  return (
-                    <div key={mom.id} className={cn("border rounded-lg p-3", statusColor)}>
-                      <div className="flex items-start gap-2 mb-2">
-                        {statusIcon}
-                        <div className="flex-1 min-w-0">
-                          <p className="text-xs font-bold text-slate-700">{mom.owner}</p>
-                          <p className="text-xs text-slate-600 mt-1 line-clamp-2">{mom.commitment}</p>
-                        </div>
-                      </div>
-                      <p className="text-xs text-slate-500 flex items-center gap-1">
-                        <Calendar className="h-3 w-3" />
-                        {mom.dueDate}
-                      </p>
-                      <div className="mt-2 pt-2 border-t border-current border-opacity-10">
-                        <span className={cn(
-                          "text-xs font-bold px-2 py-0.5 rounded inline-block",
-                          mom.status === 'on-track' ? 'bg-green-100 text-green-800' :
-                          mom.status === 'at-risk' ? 'bg-amber-100 text-amber-800' :
-                          'bg-red-100 text-red-800'
-                        )}>
-                          {mom.status === 'on-track' ? 'Completed' : mom.status === 'at-risk' ? 'In Progress' : 'Overdue'}
-                        </span>
-                      </div>
-                    </div>
-                  )
-                })}
-              </div>
-            ) : (
-              <div className="text-center py-8 text-slate-500">
-                <p className="text-xs font-semibold">No previous meeting found</p>
-                <p className="text-xs text-slate-400 mt-1">Start fresh with this week's MOMs</p>
-              </div>
-            )}
+        <div className='space-y-5 py-4'>
+          {/* Meeting Date */}
+          <div className='space-y-2'>
+            <Label htmlFor='meeting-date' className='text-sm font-bold'>
+              Meeting Date
+            </Label>
+            <Input
+              id='meeting-date'
+              type='date'
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+              className='border-slate-300'
+            />
+            {errors.date && <p className='text-xs text-red-600'>{errors.date}</p>}
           </div>
 
-          {/* RIGHT PANEL: THIS WEEK - NEW COMMITMENTS FORM */}
-          <div className="pl-6">
-            <h3 className="text-sm font-bold uppercase text-slate-700 mb-4">This Week's Commitments</h3>
-
-            <div className="space-y-4">
-              {/* Meeting Date */}
-              <div>
-                <Label htmlFor="meeting-date" className="text-xs font-bold text-slate-700">Meeting Date</Label>
-                <Input
-                  id="meeting-date"
-                  type="date"
-                  value={meetingDate}
-                  onChange={(e) => setMeetingDate(e.target.value)}
-                  className="mt-1 text-sm"
-                />
-                {errors.meetingDate && <p className="text-xs text-red-600 mt-1">{errors.meetingDate}</p>}
-              </div>
-
-              {/* Attendee Count */}
-              <div>
-                <Label htmlFor="attendee-count" className="text-xs font-bold text-slate-700">Number of Attendees</Label>
-                <Input
-                  id="attendee-count"
-                  type="number"
-                  min="1"
-                  value={attendeeCount}
-                  onChange={(e) => setAttendeeCount(parseInt(e.target.value) || 0)}
-                  className="mt-1 text-sm"
-                />
-                {errors.attendeeCount && <p className="text-xs text-red-600 mt-1">{errors.attendeeCount}</p>}
-              </div>
-
-              {/* MOMs Section */}
-              <div>
-                <div className="flex items-center justify-between mb-2">
-                  <Label className="text-xs font-bold text-slate-700">Commitments (MOMs)</Label>
-                  <span className="text-xs text-slate-500">{moms.filter(m => m.owner && m.commitment && m.dueDate).length} added</span>
-                </div>
-
-                <div className="space-y-3 max-h-48 overflow-y-auto">
-                  {moms.map((mom, index) => (
-                    <div key={mom.id} className="flex gap-2 items-start">
-                      <div className="flex-1 space-y-2">
-                        <Input
-                          placeholder="Owner name"
-                          value={mom.owner}
-                          onChange={(e) => updateMOM(mom.id, 'owner', e.target.value)}
-                          className="text-xs h-8"
-                        />
-                        <Input
-                          placeholder="What's the commitment?"
-                          value={mom.commitment}
-                          onChange={(e) => updateMOM(mom.id, 'commitment', e.target.value)}
-                          className="text-xs h-8"
-                        />
-                        <Input
-                          type="date"
-                          value={mom.dueDate}
-                          onChange={(e) => updateMOM(mom.id, 'dueDate', e.target.value)}
-                          className="text-xs h-8"
-                        />
-                      </div>
-                      {moms.length > 1 && (
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => removeMOM(mom.id)}
-                          className="mt-8 h-8 w-8 p-0"
-                        >
-                          <Trash2 className="h-4 w-4 text-red-600" />
-                        </Button>
-                      )}
-                    </div>
-                  ))}
-                </div>
-
-                {errors.moms && <p className="text-xs text-red-600 mt-1">{errors.moms}</p>}
-
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={addMOM}
-                  className="w-full mt-3 text-xs"
-                >
-                  <Plus className="h-3 w-3 mr-1" />
-                  Add Another Commitment
-                </Button>
-              </div>
-
-              {/* Notes */}
-              <div>
-                <Label htmlFor="notes" className="text-xs font-bold text-slate-700">Meeting Notes (Optional)</Label>
-                <Textarea
-                  id="notes"
-                  placeholder="Key decisions, discussion points, etc."
-                  value={notes}
-                  onChange={(e) => setNotes(e.target.value)}
-                  className="mt-1 text-xs min-h-20 resize-none"
-                />
-              </div>
+          {/* Attendees */}
+          <div className='space-y-2'>
+            <Label htmlFor='attendee-input' className='text-sm font-bold'>
+              Attendees
+            </Label>
+            <div className='flex gap-2'>
+              <Input
+                id='attendee-input'
+                type='text'
+                placeholder='Add team member name'
+                value={attendeeInput}
+                onChange={(e) => setAttendeeInput(e.target.value)}
+                onKeyPress={(e) => {
+                  if (e.key === 'Enter') {
+                    e.preventDefault()
+                    handleAddAttendee()
+                  }
+                }}
+                className='border-slate-300 text-sm'
+              />
+              <Button
+                type='button'
+                onClick={handleAddAttendee}
+                variant='outline'
+                size='sm'
+                className='px-3'
+              >
+                <Plus className='h-4 w-4' />
+              </Button>
             </div>
+
+            {/* Attendee Tags */}
+            {attendees.length > 0 && (
+              <div className='flex flex-wrap gap-2'>
+                {attendees.map((attendee) => (
+                  <Badge
+                    key={attendee}
+                    variant='secondary'
+                    className='flex items-center gap-2 px-3 py-1'
+                  >
+                    {attendee}
+                    <button
+                      onClick={() => handleRemoveAttendee(attendee)}
+                      className='hover:opacity-70'
+                    >
+                      <X className='h-3 w-3' />
+                    </button>
+                  </Badge>
+                ))}
+              </div>
+            )}
+
+            {errors.attendees && <p className='text-xs text-red-600'>{errors.attendees}</p>}
+            <p className='text-xs text-slate-500'>
+              {attendees.length} attendee{attendees.length !== 1 ? 's' : ''} added
+            </p>
+          </div>
+
+          {/* Optional Notes */}
+          <div className='space-y-2'>
+            <Label htmlFor='meeting-notes' className='text-sm font-bold'>
+              Notes (Optional)
+            </Label>
+            <Textarea
+              id='meeting-notes'
+              placeholder='Key discussion points, agenda items...'
+              value={notes}
+              onChange={(e) => setNotes(e.target.value)}
+              rows={3}
+              className='border-slate-300 resize-none text-sm'
+            />
           </div>
         </div>
 
-        {/* ACTION BUTTONS */}
-        <div className="border-t border-slate-200 pt-4 flex items-center justify-end gap-2">
+        <div className='flex gap-2 justify-end pt-4 border-t border-slate-200'>
           <Button
-            variant="outline"
+            variant='outline'
             onClick={() => onOpenChange(false)}
             disabled={isLoading}
           >
@@ -298,11 +198,11 @@ export function CreateTeamMeetingModal({
           </Button>
           <Button
             onClick={handleSave}
-            disabled={isLoading}
-            className="bg-blue-600 hover:bg-blue-700 text-white"
+            disabled={isLoading || !date || attendees.length === 0}
+            className='bg-blue-600 hover:bg-blue-700 text-white'
           >
-            {isLoading && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
-            Save Meeting
+            {isLoading && <Loader2 className='h-4 w-4 mr-2 animate-spin' />}
+            Create Meeting
           </Button>
         </div>
       </DialogContent>
