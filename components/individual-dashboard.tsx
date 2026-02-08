@@ -452,119 +452,158 @@ export function IndividualDashboard({
           </div>
         </div>
 
-        {/* SIMPLIFIED HORIZONTAL SCOREBOARD - Three Cards Left to Right */}
-        <div className='grid gap-6 md:gap-8 py-8 px-6 md:px-8 lg:px-12 bg-white grid-cols-1 md:grid-cols-3'>
+        {/* PROGRESS LADDER - Linear Narrative Flow: Action → Outcome → Reward */}
+        <div className='space-y-0 py-8 px-6 md:px-8 lg:px-12 bg-white'>
           
-          {/* CARD 1: Daily Power Moves - Amber */}
-          <div className='bg-gradient-to-br from-amber-50 to-orange-50 border-l-4 border-amber-400 rounded-lg p-8 lg:p-10 shadow-sm hover:shadow-xl transition-all duration-300'>
-            <div className='flex flex-col items-start justify-between h-full gap-6'>
-              <div className='w-full space-y-2'>
-                <p className='text-xs font-bold uppercase tracking-widest text-amber-700'>Daily Execution</p>
-                <p className='text-xs text-amber-600 font-semibold'>You completed</p>
-              </div>
-              <div className='w-full flex items-end justify-center'>
-                <div className='text-center flex-shrink-0'>
-                  <p className='text-xs font-semibold text-amber-600 mb-2'>Power Moves Done</p>
-                  <div className='flex items-baseline gap-1 justify-center'>
-                    <span className='text-9xl font-black tabular-nums leading-none' style={{ color: status.color }}>
-                      {periodData.completed}
-                    </span>
-                    <span className='text-3xl font-bold' style={{ color: status.color }}>/{periodData.total}</span>
-                  </div>
-                  <div className='flex items-center justify-center gap-2 mt-3'>
-                    {status.color === '#16A34A' && <CheckCircle className='h-4 w-4 text-green-600' />}
-                    {status.color === '#F59E0B' && <AlertCircle className='h-4 w-4 text-amber-600' />}
-                    {status.color === '#DC2626' && <XCircle className='h-4 w-4 text-red-600' />}
-                    <p className='text-xs font-bold uppercase tracking-widest' style={{ color: status.color }}>
-                      {status.badge}
-                    </p>
-                  </div>
-                  <div className='w-full mt-4 bg-amber-100 rounded-full h-2 overflow-hidden'>
-                    <div 
-                      className='h-full bg-amber-500 transition-all duration-500'
-                      style={{ width: `${(periodData.completed / periodData.total) * 100}%` }}
-                    />
-                  </div>
-                  <p className='text-xs text-amber-600 font-semibold mt-2'>{Math.round((periodData.completed / periodData.total) * 100)}% Complete</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* CARD 2: Your Contribution - Blue (PRIMARY/EMPHASIZED) */}
-          <div className='bg-gradient-to-br from-blue-50 to-cyan-50 border-l-4 border-blue-400 rounded-lg p-8 lg:p-10 shadow-md hover:shadow-xl transition-all duration-300 ring-2 ring-blue-200 ring-opacity-0 hover:ring-opacity-100'>
-            <div className='flex flex-col items-start justify-between h-full gap-6'>
-              <div className='w-full space-y-2'>
-                <div className='flex items-center gap-2'>
-                  <p className='text-xs font-bold uppercase tracking-widest text-blue-700'>Your Contribution to the Company</p>
-                  <span className='bg-blue-600 text-white text-xs px-2 py-0.5 rounded-full font-bold'>Primary</span>
-                </div>
-                <p className='text-xs text-blue-600 font-semibold italic'>These targets move because of your execution.</p>
-              </div>
-              <div className='w-full flex items-end justify-center'>
-                <div className='text-center flex-shrink-0'>
-                  {linkedVictoryTargets.length === 0 ? (
-                    <div className='space-y-3'>
-                      <div className='flex items-center justify-center'>
-                        <Target className='h-8 w-8 text-blue-300' />
+          {/* STEP 1: Daily Execution (Power Moves) */}
+          <div className='bg-white border-b-2 border-orange-300 pb-8 mb-8'>
+            <div className='flex items-start gap-4'>
+              <div className='flex-shrink-0 flex items-center justify-center h-8 w-8 rounded-full bg-orange-500 text-white font-bold text-sm'>1</div>
+              <div className='flex-1'>
+                <h3 className='text-lg font-black text-slate-900 mb-1'>Daily Power Moves</h3>
+                <p className='text-xs text-slate-500 mb-6'>Recurring execution actions</p>
+                
+                <div className='grid grid-cols-2 gap-6 md:gap-8'>
+                  {/* Big Number + Status */}
+                  <div className='col-span-2 md:col-span-1'>
+                    <div className='rounded-lg border-2 border-slate-200 bg-white p-6 text-center'>
+                      <div className='flex items-baseline justify-center gap-2 mb-4'>
+                        <span className='text-6xl font-black text-slate-900 tabular-nums'>{periodData.completed}</span>
+                        <span className='text-2xl font-bold text-slate-400'>{periodData.total && `/ ${periodData.total}`}</span>
                       </div>
-                      <p className='text-xs text-blue-600 font-semibold'>No Victory Targets Linked</p>
-                      <p className='text-xs text-blue-500'>Ask your manager to link company targets to your personal contributions.</p>
-                      <a href='/admin?tab=personal-targets' className='text-xs text-blue-600 font-bold hover:underline'>View in Admin →</a>
-                    </div>
-                  ) : (
-                    <>
-                      <p className='text-xs font-semibold text-blue-600 mb-2'>Targets on Track</p>
-                      <div className='flex items-baseline gap-1 justify-center'>
-                        <span className='text-9xl font-black text-blue-900 tabular-nums leading-none'>
-                          {linkedVictoryTargets.filter(vt => vt.progress >= 70).length}
-                        </span>
-                        <span className='text-3xl text-blue-400 font-bold'>/{linkedVictoryTargets.length}</span>
-                      </div>
-                      <div className='flex items-center justify-center gap-2 mt-3'>
-                        {linkedVictoryTargets.filter(vt => vt.progress >= 70).length === linkedVictoryTargets.length && <CheckCircle className='h-4 w-4 text-green-600' />}
-                        {linkedVictoryTargets.filter(vt => vt.progress >= 70).length > 0 && linkedVictoryTargets.filter(vt => vt.progress >= 70).length < linkedVictoryTargets.length && <AlertCircle className='h-4 w-4 text-amber-600' />}
-                        {linkedVictoryTargets.filter(vt => vt.progress >= 70).length === 0 && <XCircle className='h-4 w-4 text-red-600' />}
-                        <p className='text-xs font-bold uppercase tracking-widest'>
-                          {linkedVictoryTargets.filter(vt => vt.progress >= 70).length === linkedVictoryTargets.length ? 'On Track' : linkedVictoryTargets.filter(vt => vt.progress >= 70).length > 0 ? 'At Risk' : 'Behind'}
-                        </p>
-                      </div>
-                      <div className='w-full mt-4 bg-blue-100 rounded-full h-2 overflow-hidden'>
+                      <div className='w-full h-3 rounded-full bg-slate-200 mb-3 overflow-hidden'>
                         <div 
-                          className='h-full bg-blue-500 transition-all duration-500'
-                          style={{ width: `${(linkedVictoryTargets.filter(vt => vt.progress >= 70).length / linkedVictoryTargets.length) * 100}%` }}
+                          className='h-full transition-all duration-500' 
+                          style={{ 
+                            width: `${Math.min((periodData.completed / (periodData.total || 1)) * 100, 100)}%`,
+                            backgroundColor: status.color
+                          }}
                         />
                       </div>
-                      <p className='text-xs text-blue-600 font-semibold mt-2'>{Math.round((linkedVictoryTargets.filter(vt => vt.progress >= 70).length / linkedVictoryTargets.length) * 100)}% on Track</p>
-                    </>
-                  )}
+                      <div className='flex items-center justify-center gap-2 mb-3'>
+                        {status.color === '#16A34A' && <CheckCircle className='h-5 w-5 text-green-600' />}
+                        {status.color === '#F59E0B' && <AlertCircle className='h-5 w-5 text-amber-600' />}
+                        {status.color === '#DC2626' && <XCircle className='h-5 w-5 text-red-600' />}
+                        <Badge className={cn(
+                          'text-xs font-bold px-3 py-1',
+                          status.color === '#16A34A' ? 'bg-green-100 text-green-800' :
+                          status.color === '#F59E0B' ? 'bg-amber-100 text-amber-800' :
+                          'bg-red-100 text-red-800'
+                        )}>
+                          {status.badge}
+                        </Badge>
+                      </div>
+                      <p className='text-xs text-slate-600 font-semibold'>{Math.round((periodData.completed / (periodData.total || 1)) * 100)}% Complete</p>
+                    </div>
+                  </div>
+
+                  {/* CTA Button */}
+                  <div className='col-span-2 md:col-span-1 flex items-end'>
+                    <Button className='w-full h-auto py-4 bg-orange-500 hover:bg-orange-600 text-white font-bold rounded-lg'>
+                      <ArrowRight className='h-4 w-4 mr-2' />
+                      Log Today's Action
+                    </Button>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* CARD 3: Your Reward - Purple */}
-          <div className='bg-gradient-to-br from-purple-50 to-violet-50 border-l-4 border-purple-400 rounded-lg p-8 lg:p-10 shadow-sm hover:shadow-xl transition-all duration-300'>
-            <div className='flex flex-col items-start justify-between h-full gap-6'>
-              <div className='w-full space-y-2'>
-                <p className='text-xs font-bold uppercase tracking-widest text-purple-700'>Your Reward</p>
-                <p className='text-xs text-purple-600 font-semibold'>Salary growth potential</p>
+          {/* Connecting Arrow */}
+          <div className='flex justify-center mb-8'>
+            <div className='text-center'>
+              <ArrowDown className='h-6 w-6 text-orange-400 mx-auto mb-2' />
+              <p className='text-xs text-slate-500 font-semibold'>Feeds into</p>
+            </div>
+          </div>
+
+          {/* STEP 2: Your Contribution (Victory Targets) */}
+          <div className='bg-white border-b-2 border-blue-300 pb-8 mb-8'>
+            <div className='flex items-start gap-4'>
+              <div className='flex-shrink-0 flex items-center justify-center h-8 w-8 rounded-full bg-blue-500 text-white font-bold text-sm'>2</div>
+              <div className='flex-1'>
+                <h3 className='text-lg font-black text-slate-900 mb-1'>Company Outcomes</h3>
+                <p className='text-xs text-slate-500 mb-6'>Victory targets impacted by your actions</p>
+                
+                {linkedVictoryTargets.length === 0 ? (
+                  <div className='rounded-lg border-2 border-dashed border-blue-300 bg-blue-50 p-8 text-center'>
+                    <Target className='h-8 w-8 text-blue-300 mx-auto mb-3' />
+                    <p className='text-sm font-semibold text-blue-700 mb-2'>No Victory Targets Linked</p>
+                    <p className='text-xs text-blue-600 mb-4'>Ask your manager to link company targets to your contributions</p>
+                    <a href='/admin?tab=personal-targets' className='text-xs text-blue-600 font-bold hover:underline inline-block'>
+                      Configure in Admin →
+                    </a>
+                  </div>
+                ) : (
+                  <div className='grid grid-cols-2 gap-6 md:gap-8'>
+                    {/* Big Number + Status */}
+                    <div className='col-span-2 md:col-span-1'>
+                      <div className='rounded-lg border-2 border-slate-200 bg-white p-6 text-center'>
+                        <div className='flex items-baseline justify-center gap-2 mb-4'>
+                          <span className='text-6xl font-black text-slate-900 tabular-nums'>
+                            {linkedVictoryTargets.filter(vt => vt.progress >= 70).length}
+                          </span>
+                          <span className='text-2xl font-bold text-slate-400'>/ {linkedVictoryTargets.length}</span>
+                        </div>
+                        <div className='w-full h-3 rounded-full bg-slate-200 mb-3 overflow-hidden'>
+                          <div 
+                            className='h-full transition-all duration-500 bg-blue-500' 
+                            style={{ width: `${(linkedVictoryTargets.filter(vt => vt.progress >= 70).length / linkedVictoryTargets.length) * 100}%` }}
+                          />
+                        </div>
+                        <div className='flex items-center justify-center gap-2 mb-3'>
+                          {linkedVictoryTargets.filter(vt => vt.progress >= 70).length === linkedVictoryTargets.length && <CheckCircle className='h-5 w-5 text-green-600' />}
+                          {linkedVictoryTargets.filter(vt => vt.progress >= 70).length > 0 && linkedVictoryTargets.filter(vt => vt.progress >= 70).length < linkedVictoryTargets.length && <AlertCircle className='h-5 w-5 text-amber-600' />}
+                          {linkedVictoryTargets.filter(vt => vt.progress >= 70).length === 0 && <XCircle className='h-5 w-5 text-red-600' />}
+                          <Badge className={cn(
+                            'text-xs font-bold px-3 py-1',
+                            linkedVictoryTargets.filter(vt => vt.progress >= 70).length === linkedVictoryTargets.length ? 'bg-green-100 text-green-800' :
+                            linkedVictoryTargets.filter(vt => vt.progress >= 70).length > 0 ? 'bg-amber-100 text-amber-800' :
+                            'bg-red-100 text-red-800'
+                          )}>
+                            {linkedVictoryTargets.filter(vt => vt.progress >= 70).length === linkedVictoryTargets.length ? 'On Track' : linkedVictoryTargets.filter(vt => vt.progress >= 70).length > 0 ? 'At Risk' : 'Behind'}
+                          </Badge>
+                        </div>
+                        <p className='text-xs text-slate-600 font-semibold'>{Math.round((linkedVictoryTargets.filter(vt => vt.progress >= 70).length / linkedVictoryTargets.length) * 100)}% On Track</p>
+                      </div>
+                    </div>
+
+                    {/* View Targets */}
+                    <div className='col-span-2 md:col-span-1 flex items-end'>
+                      <Button variant='outline' className='w-full h-auto py-4 border-2 border-blue-300 text-blue-600 font-bold rounded-lg hover:bg-blue-50'>
+                        <ArrowRight className='h-4 w-4 mr-2' />
+                        View Targets
+                      </Button>
+                    </div>
+                  </div>
+                )}
               </div>
-              <div className='w-full flex items-end justify-center'>
-                <div className='text-center flex-shrink-0'>
-                  <p className='text-xs font-semibold text-purple-600 mb-2'>Growth Potential</p>
-                  <span className='text-9xl font-black text-purple-900 tabular-nums leading-none'>50%</span>
-                  <div className='flex items-center justify-center gap-2 mt-3'>
-                    <CheckCircle className='h-4 w-4 text-green-600' />
-                    <p className='text-xs font-bold uppercase tracking-widest text-green-600'>Achievable</p>
+            </div>
+          </div>
+
+          {/* Connecting Arrow */}
+          <div className='flex justify-center mb-8'>
+            <div className='text-center'>
+              <ArrowDown className='h-6 w-6 text-orange-400 mx-auto mb-2' />
+              <p className='text-xs text-slate-500 font-semibold'>Unlocks</p>
+            </div>
+          </div>
+
+          {/* STEP 3: Your Reward (Salary Growth) */}
+          <div className='bg-white'>
+            <div className='flex items-start gap-4'>
+              <div className='flex-shrink-0 flex items-center justify-center h-8 w-8 rounded-full bg-green-500 text-white font-bold text-sm'>3</div>
+              <div className='flex-1'>
+                <h3 className='text-lg font-black text-slate-900 mb-1'>Your Reward</h3>
+                <p className='text-xs text-slate-500 mb-6'>Salary growth potential (50% increase when all targets are on track)</p>
+                
+                <div className='rounded-lg border-2 border-green-300 bg-green-50 p-8 text-center'>
+                  <div className='text-6xl font-black text-slate-900 tabular-nums mb-4'>50%</div>
+                  <div className='flex items-center justify-center gap-2 mb-4'>
+                    <CheckCircle className='h-5 w-5 text-green-600' />
+                    <Badge className='bg-green-100 text-green-800 text-xs font-bold px-3 py-1'>ACHIEVABLE</Badge>
                   </div>
-                  <div className='w-full mt-4 bg-purple-100 rounded-full h-2 overflow-hidden'>
-                    <div 
-                      className='h-full bg-purple-600 transition-all duration-500'
-                      style={{ width: '100%' }}
-                    />
-                  </div>
-                  <p className='text-xs text-purple-600 font-semibold mt-4'>Quarterly & Annual Goals</p>
+                  <p className='text-xs text-slate-600 font-semibold'>Quarterly & Annual Goals</p>
                 </div>
               </div>
             </div>
