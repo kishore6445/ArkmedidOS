@@ -134,15 +134,15 @@ export default function SignInPage() {
                 </h2>
               </div>
 
-              <div className="space-y-4 bg-white bg-opacity-15 rounded-lg p-6">
+              <div className="space-y-4 bg-white rounded-lg p-6">
                 <div className="space-y-2">
-                  <p className="text-white font-bold">Mission 50</p>
-                  <p className="text-orange-100 text-sm">50 clients. 3 brands. Your execution powers it all.</p>
+                  <p className="text-slate-900 font-bold">Mission 50</p>
+                  <p className="text-slate-700 text-sm">50 clients. 3 brands. Your execution powers it all.</p>
                 </div>
-                <div className="h-1 bg-white bg-opacity-30 rounded-full"></div>
+                <div className="h-1 bg-orange-300 rounded-full"></div>
                 <div className="space-y-2">
-                  <p className="text-white font-bold">When we win</p>
-                  <p className="text-orange-100 text-sm">You earn 50% salary growth. Aligned by your contribution.</p>
+                  <p className="text-slate-900 font-bold">When we win</p>
+                  <p className="text-slate-700 text-sm">You earn 50% salary growth. Aligned by your contribution.</p>
                 </div>
               </div>
 
