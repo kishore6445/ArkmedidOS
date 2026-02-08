@@ -8,453 +8,485 @@ import { Badge } from '@/components/ui/badge'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Textarea } from '@/components/ui/textarea'
-import { Search, Plus, Edit, Trash2, Settings, AlertCircle } from 'lucide-react'
+import { AlertCircle, Info, Plus, Trash2, Lock } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
-interface Client {
+interface ClientEvent {
   id: string
   name: string
-  monthlyFee: number
   brand: 'Warrior Systems' | 'Story Marketing'
-  joinMonth: string
-  origin: 'Existing' | 'Planned' | 'Bonus'
-  status: 'active' | 'dropped'
+  eventType: 'Added' | 'Dropped'
+  month: string
 }
 
-interface QuarterlyTarget {
+interface QuarterlyOutcome {
   quarter: string
   plannedClients: number
-  plannedRevenue: number
+  actualClients: number
+  verdict: 'On Track' | 'At Risk' | 'Off Track'
+  explanation: string
 }
 
-interface BPRNote {
-  quarter: string
-  verdict: string
-  whatWentWrong: string
-  decisionMade: string
-  nextChanges: string
-}
-
-const COMPANY_TARGETS = {
-  total: 40,
-  warriorSystems: 30,
-  storyMarketing: 10,
-  plannedFeeBaseline: 30000,
-  mrrGoal: 1200000,
-}
-
-const ECONOMIC_MODEL = {
-  targetClients: 40,
-  revenuePerClient: 30000,
-  targetMRR: 40 * 30000,
+interface DepartmentHealth {
+  department: string
+  status: 'Stable' | 'At Risk' | 'Off Track'
+  explanation: string
 }
 
 export function CompanyPerformanceAdmin() {
-  const [clients, setClients] = useState<Client[]>([
-    { id: '1', name: 'Client A', monthlyFee: 50000, brand: 'Warrior Systems', joinMonth: 'Jan 2026', origin: 'Existing', status: 'active' },
-    { id: '2', name: 'Client B', monthlyFee: 75000, brand: 'Story Marketing', joinMonth: 'Feb 2026', origin: 'Existing', status: 'active' },
-    { id: '3', name: 'Client C', monthlyFee: 60000, brand: 'Warrior Systems', joinMonth: 'Feb 2026', origin: 'Existing', status: 'active' },
-  ])
+  const [missionTitle, setMissionTitle] = useState('Onboard 50 Clients')
+  const [missionYear, setMissionYear] = useState('2026')
+  const [totalTarget, setTotalTarget] = useState('50')
+  const [baselineMonth, setBaselineMonth] = useState('Jan')
+  const [currentActiveClients, setCurrentActiveClients] = useState('3')
 
-  const [quarterlyTargets, setQuarterlyTargets] = useState<QuarterlyTarget[]>([
+  const [quarterlyTargets, setQuarterlyTargets] = useState([
     { quarter: 'Q1', plannedClients: 0, plannedRevenue: 0 },
     { quarter: 'Q2', plannedClients: 10, plannedRevenue: 350000 },
     { quarter: 'Q3', plannedClients: 20, plannedRevenue: 700000 },
     { quarter: 'Q4', plannedClients: 30, plannedRevenue: 1050000 },
   ])
 
-  const [targets, setTargets] = useState(COMPANY_TARGETS)
-  const [baselineCutoffMonth, setBaselineCutoffMonth] = useState('Mar 2026')
-  const [searchQuery, setSearchQuery] = useState('')
-  const [statusFilter, setStatusFilter] = useState<'all' | 'active' | 'dropped'>('all')
-  const [newClient, setNewClient] = useState({
-    name: '',
-    fee: '',
-    brand: 'Warrior Systems' as 'Warrior Systems' | 'Story Marketing',
-    joinMonth: '',
-    origin: 'Planned' as 'Existing' | 'Planned' | 'Bonus',
-  })
-  const [editingClient, setEditingClient] = useState<Client | null>(null)
-
-  const activeClients = clients.filter(c => c.status === 'active')
-  const droppedClients = clients.filter(c => c.status === 'dropped')
-  const wsCount = activeClients.filter(c => c.brand === 'Warrior Systems').length
-  const smCount = activeClients.filter(c => c.brand === 'Story Marketing').length
-
-  const addClient = () => {
-    if (newClient.name && newClient.fee && newClient.joinMonth) {
-      const client: Client = {
-        id: Date.now().toString(),
-        name: newClient.name,
-        monthlyFee: parseInt(newClient.fee),
-        brand: newClient.brand,
-        joinMonth: newClient.joinMonth,
-        origin: newClient.origin,
-        status: 'active',
-      }
-      setClients([...clients, client])
-      setNewClient({ name: '', fee: '', brand: 'Warrior Systems', joinMonth: '', origin: 'Planned' })
-    }
-  }
-
-  const deleteClient = (id: string) => {
-    if (confirm('Are you sure? This will remove the client from the system.')) {
-      setClients(clients.filter(c => c.id !== id))
-    }
-  }
-
-  const toggleClientStatus = (id: string) => {
-    setClients(
-      clients.map(c =>
-        c.id === id ? { ...c, status: c.status === 'active' ? 'dropped' : 'active' } : c
-      )
-    )
-  }
-
-  const filteredClients = clients.filter(c => {
-    const matchesSearch = c.name.toLowerCase().includes(searchQuery.toLowerCase())
-    const matchesStatus = statusFilter === 'all' || c.status === statusFilter
-    return matchesSearch && matchesStatus
+  const [selectedQuarter, setSelectedQuarter] = useState('Q1')
+  const [quarterlyOutcome, setQuarterlyOutcome] = useState<QuarterlyOutcome>({
+    quarter: 'Q1',
+    plannedClients: 0,
+    actualClients: 3,
+    verdict: 'On Track',
+    explanation: 'Q1 serves as baseline. Growth tracking begins Q2.'
   })
 
-  const updateQuarterlyTarget = (idx: number, field: 'plannedClients' | 'plannedRevenue', value: number) => {
-    const updated = [...quarterlyTargets]
-    updated[idx] = { ...updated[idx], [field]: value }
-    setQuarterlyTargets(updated)
+  const [departmentHealth, setDepartmentHealth] = useState<DepartmentHealth[]>([
+    { department: 'Sales', status: 'At Risk', explanation: 'Follow-up discipline weak. Pipeline needs acceleration.' },
+    { department: 'Marketing', status: 'At Risk', explanation: 'Lead flow inconsistent across weeks.' },
+    { department: 'Delivery', status: 'Stable', explanation: 'Client retention strong. No escalations.' },
+    { department: 'Operations', status: 'Stable', explanation: 'No bottlenecks. Systems running smoothly.' }
+  ])
+
+  const [constraintTitle, setConstraintTitle] = useState('Sales Conversion Discipline')
+  const [constraintDesc, setConstraintDesc] = useState('Leads exist, but follow-up rhythm and closure consistency are breaking.')
+  const [constraintSeverity, setConstraintSeverity] = useState('Critical')
+
+  const [clientEvents, setClientEvents] = useState<ClientEvent[]>([
+    { id: '1', name: 'Client A', brand: 'Warrior Systems', eventType: 'Added', month: 'Jan 2026' },
+    { id: '2', name: 'Client B', brand: 'Story Marketing', eventType: 'Added', month: 'Feb 2026' },
+    { id: '3', name: 'Client C', brand: 'Warrior Systems', eventType: 'Added', month: 'Mar 2026' }
+  ])
+
+  const [founderVerdict, setFounderVerdict] = useState('Q1 focus was fragmented. Core sales cadence weakened while experiments increased. We need discipline—not perfection—to hit Mission 50.')
+
+  const [strategyTitle, setStrategyTitle] = useState('Freeze acquisition experiments')
+  const [strategyDesc, setStrategyDesc] = useState('Reinforce sales cadence and follow-up rhythm.')
+  const [strategyActions, setStrategyActions] = useState(['Pause new initiatives', 'Focus 100% on operational excellence', 'Weekly rhythm reviews'])
+
+  const [reviewDate, setReviewDate] = useState('2026-03-31')
+  const [reviewedBy, setReviewedBy] = useState('Founder')
+  const [isLocked, setIsLocked] = useState(false)
+
+  const verdictColors = {
+    'On Track': 'border-green-500 bg-green-50',
+    'At Risk': 'border-amber-500 bg-amber-50',
+    'Off Track': 'border-red-500 bg-red-50'
   }
 
-  const formatCurrency = (value: number) => {
-    if (value >= 1000000) return `₹${(value / 1000000).toFixed(2)}M`
-    if (value >= 100000) return `₹${(value / 100000).toFixed(1)}L`
-    return `₹${value.toLocaleString()}`
+  const statusColors = {
+    'Stable': 'bg-green-100 text-green-800',
+    'At Risk': 'bg-amber-100 text-amber-800',
+    'Off Track': 'bg-red-100 text-red-800'
   }
 
   return (
-    <div className='space-y-8 max-w-7xl mx-auto px-4'>
-      {/* HEADER */}
-      <div className='border-b border-stone-200 pb-6'>
-        <h1 className='text-4xl font-black text-stone-900 mb-2'>Company Performance Admin</h1>
-        <p className='text-lg font-semibold text-stone-600'>Truth Engine — Configure targets, plans, and client reality (admin only)</p>
+    <div className="space-y-6 p-6 max-w-6xl mx-auto">
+      <div className="mb-8">
+        <h1 className="text-4xl font-bold text-slate-900 mb-2">Company Performance Admin</h1>
+        <p className="text-slate-600">Truth Engine — Configure targets, plans, and client reality (admin only)</p>
       </div>
 
-      {/* ADMIN SECTION 1: COMPANY TARGETS CONFIGURATION */}
-      <Card className='border-2 border-stone-300 bg-stone-50'>
-        <CardHeader>
-          <CardTitle className='text-xl font-black text-stone-900 flex items-center gap-2'>
-            <Settings className='w-5 h-5' />
-            Company Targets Configuration
-          </CardTitle>
+      {/* 1️⃣ MISSION & YEAR SETUP */}
+      <Card className="border-2 border-slate-200">
+        <CardHeader className="border-b bg-slate-50">
+          <div className="flex items-center gap-2">
+            <CardTitle className="text-xl">Mission & Year Setup</CardTitle>
+            <div className="relative group">
+              <Info className="w-4 h-4 text-blue-600 cursor-help" />
+              <div className="absolute bottom-full left-0 mb-2 bg-slate-900 text-white text-xs rounded p-2 w-48 hidden group-hover:block z-10">
+                This defines the company's North Star. Change carefully.
+              </div>
+            </div>
+          </div>
         </CardHeader>
-        <CardContent className='space-y-6'>
-          <div className='grid grid-cols-3 gap-6'>
-            <div className='space-y-2'>
-              <label className='text-sm font-black uppercase tracking-wider text-stone-700'>Year-End Active Clients Target (Dec 2026)</label>
-              <Input
-                type='number'
-                value={targets.total}
-                onChange={(e) => setTargets({ ...targets, total: parseInt(e.target.value) })}
-                className='text-2xl font-black h-14'
-              />
-              <p className='text-xs font-semibold text-stone-600'>Current Active: {activeClients.length}</p>
+        <CardContent className="pt-6 space-y-6">
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-bold text-slate-700 mb-2">Mission Title</label>
+              <Input value={missionTitle} onChange={(e) => setMissionTitle(e.target.value)} disabled={isLocked} />
             </div>
-            <div className='space-y-2'>
-              <label className='text-sm font-black uppercase tracking-wider text-stone-700'>Year-End Active Target — Warrior Systems</label>
-              <Input
-                type='number'
-                value={targets.warriorSystems}
-                onChange={(e) => setTargets({ ...targets, warriorSystems: parseInt(e.target.value) })}
-                className='text-2xl font-black h-14'
-              />
-              <p className='text-xs font-semibold text-stone-600'>Current Active: {wsCount}</p>
+            <div>
+              <label className="block text-sm font-bold text-slate-700 mb-2">Year</label>
+              <Input value={missionYear} onChange={(e) => setMissionYear(e.target.value)} disabled={isLocked} />
             </div>
-            <div className='space-y-2'>
-              <label className='text-sm font-black uppercase tracking-wider text-stone-700'>Year-End Active Target — Story Marketing</label>
-              <Input
-                type='number'
-                value={targets.storyMarketing}
-                onChange={(e) => setTargets({ ...targets, storyMarketing: parseInt(e.target.value) })}
-                className='text-2xl font-black h-14'
-              />
-              <p className='text-xs font-semibold text-stone-600'>Current Active: {smCount}</p>
+            <div>
+              <label className="block text-sm font-bold text-slate-700 mb-2">Total Client Target</label>
+              <Input value={totalTarget} onChange={(e) => setTotalTarget(e.target.value)} disabled={isLocked} type="number" />
             </div>
-            <div className='space-y-2'>
-              <label className='text-sm font-black uppercase tracking-wider text-stone-700'>Planned Fee Baseline (Monthly)</label>
-              <Input
-                type='number'
-                value={targets.plannedFeeBaseline}
-                onChange={(e) => setTargets({ ...targets, plannedFeeBaseline: parseInt(e.target.value) })}
-                className='text-2xl font-black h-14'
-              />
+            <div>
+              <label className="block text-sm font-bold text-slate-700 mb-2">Baseline / Cutoff Month</label>
+              <Select value={baselineMonth} onValueChange={setBaselineMonth} disabled={isLocked}>
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'].map(m => (
+                    <SelectItem key={m} value={m}>{m}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
-            <div className='space-y-2'>
-              <label className='text-sm font-black uppercase tracking-wider text-stone-700'>2026 MRR Goal</label>
-              <Input
-                type='number'
-                value={targets.mrrGoal}
-                onChange={(e) => setTargets({ ...targets, mrrGoal: parseInt(e.target.value) })}
-                className='text-2xl font-black h-14'
-              />
-              <p className='text-xs font-semibold text-stone-600'>Auto-calculated</p>
-            </div>
-            <div className='space-y-2'>
-              <label className='text-sm font-black uppercase tracking-wider text-stone-700'>Baseline Cutoff Month</label>
-              <Input
-                type='text'
-                placeholder='e.g., Mar 2026'
-                value={baselineCutoffMonth}
-                onChange={(e) => setBaselineCutoffMonth(e.target.value)}
-                className='text-2xl font-black h-14'
-              />
-              <p className='text-xs font-semibold text-stone-600'>Existing clients with join month ≤ cutoff are counted as baseline (Q1).</p>
+            <div>
+              <label className="block text-sm font-bold text-slate-700 mb-2">Current Active Clients</label>
+              <Input value={currentActiveClients} onChange={(e) => setCurrentActiveClients(e.target.value)} disabled={isLocked} type="number" />
             </div>
           </div>
-          <div className='bg-amber-50 border border-amber-300 rounded-lg p-4 flex gap-3'>
-            <AlertCircle className='w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5' />
-            <div className='text-sm font-semibold text-amber-900'>
-              These values are the foundation of all planning. Any changes require board approval and should be rare.
-            </div>
-          </div>
+          <Button onClick={() => alert('Mission updated')} disabled={isLocked} className="w-full bg-blue-600 hover:bg-blue-700">Save Mission</Button>
         </CardContent>
       </Card>
 
-      {/* ADMIN SECTION 2: QUARTERLY TARGETS */}
-      <Card className='border-2 border-stone-200'>
-        <CardHeader>
-          <CardTitle className='text-xl font-black text-stone-900'>2026 Quarterly Targets — Growth Planning</CardTitle>
+      {/* 2️⃣ QUARTERLY TARGETS (LAG PLANNING) */}
+      <Card className="border-2 border-slate-200">
+        <CardHeader className="border-b bg-slate-50">
+          <CardTitle className="text-xl">Quarterly Targets — Growth Planning</CardTitle>
         </CardHeader>
-        <CardContent className='space-y-4'>
-          <div className='overflow-x-auto'>
+        <CardContent className="pt-6">
+          <div className="overflow-x-auto mb-4">
             <Table>
               <TableHeader>
-                <TableRow className='border-b-2 border-stone-300 hover:bg-transparent'>
-                  <TableHead className='font-black text-stone-900'>Quarter</TableHead>
-                  <TableHead className='font-black text-stone-900'>Planned NEW Clients</TableHead>
-                  <TableHead className='font-black text-stone-900'>Planned Revenue</TableHead>
-                  <TableHead className='font-black text-stone-900'>Actions</TableHead>
+                <TableRow>
+                  <TableHead className="font-bold">Quarter</TableHead>
+                  <TableHead className="font-bold">Planned Clients</TableHead>
+                  <TableHead className="font-bold">Planned Revenue</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {quarterlyTargets.map((qt, idx) => (
-                  <TableRow key={idx} className='border-b border-stone-200'>
-                    <TableCell className='font-semibold text-stone-900'>{qt.quarter}</TableCell>
-                    <TableCell className='font-black text-stone-900'>
+                  <TableRow key={idx}>
+                    <TableCell className="font-bold">{qt.quarter}</TableCell>
+                    <TableCell>
                       <Input
-                        type='number'
+                        type="number"
                         value={qt.plannedClients}
-                        onChange={(e) => updateQuarterlyTarget(idx, 'plannedClients', parseInt(e.target.value))}
-                        className='w-24'
+                        onChange={(e) => {
+                          const updated = [...quarterlyTargets]
+                          updated[idx].plannedClients = parseInt(e.target.value)
+                          setQuarterlyTargets(updated)
+                        }}
+                        disabled={isLocked}
+                        className="w-24"
                       />
                     </TableCell>
-                    <TableCell className='font-black text-stone-900'>
+                    <TableCell>
                       <Input
-                        type='number'
+                        type="number"
                         value={qt.plannedRevenue}
-                        onChange={(e) => updateQuarterlyTarget(idx, 'plannedRevenue', parseInt(e.target.value))}
-                        className='w-32'
+                        onChange={(e) => {
+                          const updated = [...quarterlyTargets]
+                          updated[idx].plannedRevenue = parseInt(e.target.value)
+                          setQuarterlyTargets(updated)
+                        }}
+                        disabled={isLocked}
+                        className="w-32"
                       />
-                    </TableCell>
-                    <TableCell className='font-black text-stone-900'>
-                      <Button variant='outline' size='sm'>
-                        Save
-                      </Button>
                     </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
             </Table>
           </div>
-          <p className='text-xs font-semibold text-stone-600 italic'>
-            Quarterly targets represent NEW clients onboarded in that quarter (not total active clients). Q1 represents baseline with zero planned growth.
-          </p>
+          <p className="text-xs text-slate-600 italic mb-4">These are outcome targets. Execution lives in departments.</p>
+          <Button onClick={() => alert('Targets saved')} disabled={isLocked} className="w-full bg-blue-600 hover:bg-blue-700">Save Quarterly Targets</Button>
         </CardContent>
       </Card>
 
-      {/* ADMIN SECTION 3: CLIENT MANAGEMENT (REALITY INPUT) */}
-      <Card className='border-2 border-stone-200'>
-        <CardHeader>
-          <CardTitle className='text-xl font-black text-stone-900'>Client Management</CardTitle>
-          <p className='text-sm font-semibold text-stone-600 mt-2'>
-            Add, edit, or remove clients. System auto-calculates active clients, run-rate, and quarterly actuals.
-          </p>
+      {/* 3️⃣ QUARTERLY OUTCOME (THE MOST IMPORTANT) */}
+      <Card className={cn('border-4', verdictColors[quarterlyOutcome.verdict])}>
+        <CardHeader className="border-b bg-slate-50">
+          <CardTitle className="text-xl">{selectedQuarter} Outcome — Leadership Verdict</CardTitle>
         </CardHeader>
-        <CardContent className='space-y-6'>
-          {/* Summary Stats */}
-          <div className='grid grid-cols-3 gap-4'>
-            <div className='bg-emerald-50 border border-emerald-200 rounded p-4'>
-              <p className='text-xs font-bold uppercase tracking-wider text-stone-700 mb-2'>Active Clients</p>
-              <p className='text-3xl font-black text-stone-900'>{activeClients.length}</p>
+        <CardContent className="pt-6 space-y-4">
+          <div className="grid grid-cols-4 gap-4">
+            <div>
+              <label className="block text-sm font-bold text-slate-700 mb-2">Quarter</label>
+              <Select value={selectedQuarter} onValueChange={(q) => {
+                setSelectedQuarter(q)
+                setQuarterlyOutcome({...quarterlyOutcome, quarter: q})
+              }} disabled={isLocked}>
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {['Q1', 'Q2', 'Q3', 'Q4'].map(q => (
+                    <SelectItem key={q} value={q}>{q}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
-            <div className='bg-rose-50 border border-rose-200 rounded p-4'>
-              <p className='text-xs font-bold uppercase tracking-wider text-stone-700 mb-2'>Dropped Clients</p>
-              <p className='text-3xl font-black text-stone-900'>{droppedClients.length}</p>
+            <div>
+              <label className="block text-sm font-bold text-slate-700 mb-2">Planned Clients</label>
+              <Input value={quarterlyOutcome.plannedClients} disabled className="bg-slate-100" type="number" />
             </div>
-            <div className='bg-stone-50 border border-stone-200 rounded p-4'>
-              <p className='text-xs font-bold uppercase tracking-wider text-stone-700 mb-2'>Current MRR</p>
-              <p className='text-2xl font-black text-stone-900'>{formatCurrency(activeClients.reduce((sum, c) => sum + c.monthlyFee, 0))}</p>
-            </div>
-          </div>
-
-          {/* Add Client Form */}
-          <div className='bg-stone-50 border border-stone-200 rounded-lg p-6 space-y-4'>
-            <h3 className='text-lg font-black text-stone-900'>Add New Client</h3>
-            <div className='grid grid-cols-2 md:grid-cols-5 gap-3'>
-              <Input placeholder='Client name' value={newClient.name} onChange={(e) => setNewClient({ ...newClient, name: e.target.value })} className='font-semibold' />
+            <div>
+              <label className="block text-sm font-bold text-slate-700 mb-2">Actual Clients</label>
               <Input
-                placeholder='Monthly fee (₹)'
-                type='number'
-                value={newClient.fee}
-                onChange={(e) => setNewClient({ ...newClient, fee: e.target.value })}
-                className='font-semibold'
+                type="number"
+                value={quarterlyOutcome.actualClients}
+                onChange={(e) => setQuarterlyOutcome({...quarterlyOutcome, actualClients: parseInt(e.target.value)})}
+                disabled={isLocked}
               />
-              <Input placeholder='Join month (e.g., Jan 2026)' value={newClient.joinMonth} onChange={(e) => setNewClient({ ...newClient, joinMonth: e.target.value })} className='font-semibold' />
-              <Select value={newClient.brand} onValueChange={(value: any) => setNewClient({ ...newClient, brand: value })}>
-                <SelectTrigger className='font-semibold'>
+            </div>
+            <div>
+              <label className="block text-sm font-bold text-slate-700 mb-2">Verdict</label>
+              <Select value={quarterlyOutcome.verdict} onValueChange={(v) => setQuarterlyOutcome({...quarterlyOutcome, verdict: v as any})} disabled={isLocked}>
+                <SelectTrigger>
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value='Warrior Systems'>Warrior Systems</SelectItem>
-                  <SelectItem value='Story Marketing'>Story Marketing</SelectItem>
-                </SelectContent>
-              </Select>
-              <Select value={newClient.origin} onValueChange={(value: any) => setNewClient({ ...newClient, origin: value })}>
-                <SelectTrigger className='font-semibold'>
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value='Existing'>Existing</SelectItem>
-                  <SelectItem value='Planned'>Planned</SelectItem>
-                  <SelectItem value='Bonus'>Bonus</SelectItem>
+                  <SelectItem value="On Track">✅ On Track</SelectItem>
+                  <SelectItem value="At Risk">⚠️ At Risk</SelectItem>
+                  <SelectItem value="Off Track">❌ Off Track</SelectItem>
                 </SelectContent>
               </Select>
             </div>
-            <Button onClick={addClient} className='gap-2 font-bold'>
-              <Plus className='w-4 h-4' />
-              Add Client
-            </Button>
           </div>
-
-          {/* Search and Filter */}
-          <div className='flex gap-4'>
-            <div className='relative flex-1'>
-              <Search className='absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400' />
-              <Input placeholder='Search clients...' value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className='pl-10 font-semibold' />
-            </div>
-            <Select value={statusFilter} onValueChange={(value: any) => setStatusFilter(value)}>
-              <SelectTrigger className='w-[150px] font-semibold'>
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value='all'>All Status</SelectItem>
-                <SelectItem value='active'>Active</SelectItem>
-                <SelectItem value='dropped'>Dropped</SelectItem>
-              </SelectContent>
-            </Select>
+          <div>
+            <label className="block text-sm font-bold text-slate-700 mb-2">Verdict Explanation (Required)</label>
+            <Textarea
+              value={quarterlyOutcome.explanation}
+              onChange={(e) => setQuarterlyOutcome({...quarterlyOutcome, explanation: e.target.value})}
+              disabled={isLocked}
+              placeholder="Explain what happened and why."
+              rows={3}
+            />
           </div>
+          <Button onClick={() => alert('Outcome saved')} disabled={isLocked} className="w-full bg-blue-600 hover:bg-blue-700">Save Quarterly Outcome</Button>
+        </CardContent>
+      </Card>
 
-          {/* Clients Table */}
-          <div className='border rounded-lg overflow-x-auto'>
+      {/* 4️⃣ DEPARTMENT EXECUTION HEALTH */}
+      <Card className="border-2 border-slate-200">
+        <CardHeader className="border-b bg-slate-50">
+          <CardTitle className="text-xl">Department Execution Health (Quarter Summary)</CardTitle>
+        </CardHeader>
+        <CardContent className="pt-6">
+          <div className="overflow-x-auto mb-4">
             <Table>
-              <TableHeader className='bg-stone-50'>
-                <TableRow className='border-b-2 border-stone-300 hover:bg-transparent'>
-                  <TableHead className='font-black text-stone-900'>Client Name</TableHead>
-                  <TableHead className='font-black text-stone-900'>Monthly Fee</TableHead>
-                  <TableHead className='font-black text-stone-900'>Brand</TableHead>
-                  <TableHead className='font-black text-stone-900'>Join Month</TableHead>
-                  <TableHead className='font-black text-stone-900'>Origin</TableHead>
-                  <TableHead className='font-black text-stone-900'>Status</TableHead>
-                  <TableHead className='font-black text-stone-900'>Actions</TableHead>
+              <TableHeader>
+                <TableRow>
+                  <TableHead className="font-bold">Department</TableHead>
+                  <TableHead className="font-bold">Status</TableHead>
+                  <TableHead className="font-bold">Explanation</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {filteredClients.map((client) => (
-                  <TableRow key={client.id} className='border-b border-stone-200'>
-                    <TableCell className='font-semibold text-stone-900'>{client.name}</TableCell>
-                    <TableCell className='font-black text-stone-900'>{formatCurrency(client.monthlyFee)}</TableCell>
-                    <TableCell className='font-semibold text-stone-700'>{client.brand}</TableCell>
-                    <TableCell className='text-stone-700'>{client.joinMonth}</TableCell>
+                {departmentHealth.map((dept, idx) => (
+                  <TableRow key={idx}>
+                    <TableCell className="font-bold">{dept.department}</TableCell>
                     <TableCell>
-                      <Badge
-                        variant='outline'
-                        className={cn(
-                          'font-black',
-                          client.origin === 'Existing' ? 'bg-blue-100 text-blue-800' : client.origin === 'Planned' ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'
-                        )}
-                      >
-                        {client.origin}
-                      </Badge>
+                      <Select value={dept.status} onValueChange={(s) => {
+                        const updated = [...departmentHealth]
+                        updated[idx].status = s as any
+                        setDepartmentHealth(updated)
+                      }} disabled={isLocked}>
+                        <SelectTrigger className="w-32">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="Stable">🟢 Stable</SelectItem>
+                          <SelectItem value="At Risk">🟡 At Risk</SelectItem>
+                          <SelectItem value="Off Track">🔴 Off Track</SelectItem>
+                        </SelectContent>
+                      </Select>
                     </TableCell>
                     <TableCell>
-                      <Badge
-                        className={cn(
-                          'font-black',
-                          client.status === 'active' ? 'bg-emerald-100 text-emerald-800 hover:bg-emerald-100' : 'bg-rose-100 text-rose-800 hover:bg-rose-100'
-                        )}
-                      >
-                        {client.status === 'active' ? 'Active' : 'Dropped'}
-                      </Badge>
-                    </TableCell>
-                    <TableCell>
-                      <div className='flex gap-2'>
-                        <Button variant='ghost' size='sm' onClick={() => toggleClientStatus(client.id)} className='font-semibold'>
-                          {client.status === 'active' ? 'Drop' : 'Restore'}
-                        </Button>
-                        <Button variant='ghost' size='sm' onClick={() => deleteClient(client.id)}>
-                          <Trash2 className='w-4 h-4 text-rose-600' />
-                        </Button>
-                      </div>
+                      <Input
+                        value={dept.explanation}
+                        onChange={(e) => {
+                          const updated = [...departmentHealth]
+                          updated[idx].explanation = e.target.value
+                          setDepartmentHealth(updated)
+                        }}
+                        disabled={isLocked}
+                        className="w-96"
+                      />
                     </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
             </Table>
           </div>
+          <p className="text-xs text-slate-600 italic mb-4">Derived from department scorecards. Do not restate metrics.</p>
+          <Button onClick={() => alert('Department health saved')} disabled={isLocked} className="w-full bg-blue-600 hover:bg-blue-700">Save Department Health</Button>
         </CardContent>
       </Card>
 
-      {/* ADMIN SECTION 4: CEO VERDICT & BPR NOTES */}
-      <Card className='border-2 border-stone-200'>
-        <CardHeader>
-          <CardTitle className='text-xl font-black text-stone-900'>CEO Verdict & Quarterly BPR Notes</CardTitle>
-          <p className='text-sm font-semibold text-stone-600 mt-2'>Update verdict and capture quarterly insights (read-only in CEO view)</p>
+      {/* 5️⃣ CURRENT QUARTER CONSTRAINT */}
+      <Card className="border-4 border-red-500 bg-red-50">
+        <CardHeader className="border-b bg-red-100">
+          <CardTitle className="text-xl flex items-center gap-2">
+            <AlertCircle className="w-5 h-5 text-red-600" />
+            Primary Constraint — This Quarter (Only ONE)
+          </CardTitle>
         </CardHeader>
-        <CardContent className='space-y-6'>
-          {/* Founder Verdict */}
-          <div className='space-y-3'>
-            <label className='text-sm font-black uppercase tracking-wider text-stone-700'>Current Founder Verdict</label>
-            <Select value='Slightly Behind' onValueChange={() => {}}>
-              <SelectTrigger className='font-bold h-12'>
+        <CardContent className="pt-6 space-y-4">
+          <div>
+            <label className="block text-sm font-bold text-red-900 mb-2">Constraint Title</label>
+            <Input value={constraintTitle} onChange={(e) => setConstraintTitle(e.target.value)} disabled={isLocked} />
+          </div>
+          <div>
+            <label className="block text-sm font-bold text-red-900 mb-2">Constraint Description</label>
+            <Textarea value={constraintDesc} onChange={(e) => setConstraintDesc(e.target.value)} disabled={isLocked} rows={2} />
+          </div>
+          <div>
+            <label className="block text-sm font-bold text-red-900 mb-2">Severity</label>
+            <Select value={constraintSeverity} onValueChange={setConstraintSeverity} disabled={isLocked}>
+              <SelectTrigger>
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value='On Track'>On Track</SelectItem>
-                <SelectItem value='Slightly Behind'>Slightly Behind</SelectItem>
-                <SelectItem value='At Risk'>At Risk</SelectItem>
+                <SelectItem value="Critical">🔴 Critical</SelectItem>
+                <SelectItem value="Moderate">🟡 Moderate</SelectItem>
               </SelectContent>
             </Select>
-            <p className='text-xs font-semibold text-stone-600 italic'>This appears prominently in CEO view. Update when status changes.</p>
           </div>
+          <p className="text-xs text-red-700 font-bold italic">Everything else is secondary this quarter.</p>
+          <Button onClick={() => alert('Constraint saved')} disabled={isLocked} className="w-full bg-red-600 hover:bg-red-700">Save Constraint</Button>
+        </CardContent>
+      </Card>
 
-          {/* BPR Notes by Quarter */}
-          <div className='space-y-6 pt-4 border-t border-stone-200'>
-            {['Q1', 'Q2', 'Q3', 'Q4'].map((quarter, idx) => (
-              <div key={quarter} className='space-y-4 pb-6 border-b border-stone-100'>
-                <h4 className='text-lg font-black text-stone-900'>{quarter} BPR Notes</h4>
-                <div>
-                  <label className='text-sm font-bold text-stone-700 block mb-2'>What went wrong this quarter?</label>
-                  <Textarea placeholder='Document challenges, obstacles, or missed expectations...' className='font-semibold min-h-20' />
-                </div>
-                <div>
-                  <label className='text-sm font-bold text-stone-700 block mb-2'>What decision was taken?</label>
-                  <Textarea placeholder='Describe leadership decisions, pivots, or course corrections...' className='font-semibold min-h-20' />
-                </div>
-                <div>
-                  <label className='text-sm font-bold text-stone-700 block mb-2'>What changes for next quarter?</label>
-                  <Textarea placeholder='Outline actions, process changes, or revised targets...' className='font-semibold min-h-20' />
-                </div>
-              </div>
-            ))}
+      {/* 6️⃣ CLIENT MOVEMENT (EVIDENCE) */}
+      <Card className="border-2 border-slate-200">
+        <CardHeader className="border-b bg-slate-50">
+          <CardTitle className="text-xl">Client Movement — This Quarter</CardTitle>
+        </CardHeader>
+        <CardContent className="pt-6 space-y-4">
+          <div className="flex gap-2 mb-4">
+            <Button onClick={() => {
+              const name = prompt('Client name:')
+              if (name) setClientEvents([...clientEvents, {
+                id: `c-${Date.now()}`,
+                name,
+                brand: 'Warrior Systems',
+                eventType: 'Added',
+                month: 'Mar 2026'
+              }])
+            }} disabled={isLocked} className="gap-2 bg-blue-600 hover:bg-blue-700">
+              <Plus className="w-4 h-4" />
+              Add Client Event
+            </Button>
           </div>
-          <p className='text-xs font-semibold text-stone-600 italic'>BPR notes create organizational memory and enable CEO to tell the company story at board meetings.</p>
+          <div className="overflow-x-auto">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead className="font-bold">Client</TableHead>
+                  <TableHead className="font-bold">Brand</TableHead>
+                  <TableHead className="font-bold">Event</TableHead>
+                  <TableHead className="font-bold">Month</TableHead>
+                  <TableHead className="font-bold">Actions</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {clientEvents.map((client) => (
+                  <TableRow key={client.id}>
+                    <TableCell className="font-semibold">{client.name}</TableCell>
+                    <TableCell>{client.brand}</TableCell>
+                    <TableCell><Badge className={client.eventType === 'Added' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}>{client.eventType}</Badge></TableCell>
+                    <TableCell>{client.month}</TableCell>
+                    <TableCell>
+                      <button onClick={() => setClientEvents(clientEvents.filter(c => c.id !== client.id))} disabled={isLocked}>
+                        <Trash2 className="w-4 h-4 text-red-600" />
+                      </button>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+          <p className="text-xs text-slate-600 italic">This feeds frontend read-only. This is evidence, not analysis.</p>
+        </CardContent>
+      </Card>
+
+      {/* 7️⃣ FOUNDER / CEO VERDICT */}
+      <Card className="border-2 border-slate-200">
+        <CardHeader className="border-b bg-slate-50">
+          <CardTitle className="text-xl">Founder / CEO Verdict</CardTitle>
+        </CardHeader>
+        <CardContent className="pt-6 space-y-4">
+          <div>
+            <label className="block text-sm font-bold text-slate-700 mb-2">Verdict Narrative (2-4 lines max)</label>
+            <Textarea value={founderVerdict} onChange={(e) => setFounderVerdict(e.target.value)} disabled={isLocked} rows={3} placeholder="Your judgment, not reporting." />
+          </div>
+          <p className="text-xs text-slate-600 italic">No metrics allowed here. This is judgment.</p>
+          <Button onClick={() => alert('Verdict saved')} disabled={isLocked} className="w-full bg-blue-600 hover:bg-blue-700">Save Founder Verdict</Button>
+        </CardContent>
+      </Card>
+
+      {/* 8️⃣ STRATEGIC DECISION FOR NEXT QUARTER */}
+      <Card className="border-2 border-orange-500 bg-orange-50">
+        <CardHeader className="border-b bg-orange-100">
+          <CardTitle className="text-xl">Strategic Decision for Next Quarter</CardTitle>
+        </CardHeader>
+        <CardContent className="pt-6 space-y-4">
+          <div>
+            <label className="block text-sm font-bold text-orange-900 mb-2">Decision Title</label>
+            <Input value={strategyTitle} onChange={(e) => setStrategyTitle(e.target.value)} disabled={isLocked} />
+          </div>
+          <div>
+            <label className="block text-sm font-bold text-orange-900 mb-2">Decision Description</label>
+            <Textarea value={strategyDesc} onChange={(e) => setStrategyDesc(e.target.value)} disabled={isLocked} rows={2} />
+          </div>
+          <div>
+            <label className="block text-sm font-bold text-orange-900 mb-2">Supporting Actions (Max 3)</label>
+            <div className="space-y-2">
+              {strategyActions.map((action, idx) => (
+                <div key={idx} className="flex gap-2">
+                  <Input value={action} onChange={(e) => {
+                    const updated = [...strategyActions]
+                    updated[idx] = e.target.value
+                    setStrategyActions(updated)
+                  }} disabled={isLocked} />
+                </div>
+              ))}
+            </div>
+          </div>
+          <Button onClick={() => alert('Strategy saved')} disabled={isLocked} className="w-full bg-orange-600 hover:bg-orange-700">Save Strategic Decision</Button>
+        </CardContent>
+      </Card>
+
+      {/* 9️⃣ REVIEW LOCK & AUDIT */}
+      <Card className="border-2 border-slate-200">
+        <CardHeader className="border-b bg-slate-50">
+          <CardTitle className="text-xl flex items-center gap-2">
+            <Lock className="w-5 h-5" />
+            Quarter Closure & Review Lock
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="pt-6 space-y-4">
+          <div className="grid grid-cols-3 gap-4">
+            <div>
+              <label className="block text-sm font-bold text-slate-700 mb-2">Review Date</label>
+              <Input type="date" value={reviewDate} onChange={(e) => setReviewDate(e.target.value)} disabled={isLocked} />
+            </div>
+            <div>
+              <label className="block text-sm font-bold text-slate-700 mb-2">Reviewed By</label>
+              <Input value={reviewedBy} onChange={(e) => setReviewedBy(e.target.value)} disabled={isLocked} />
+            </div>
+            <div>
+              <label className="block text-sm font-bold text-slate-700 mb-2">Lock Quarter</label>
+              <Button onClick={() => setIsLocked(!isLocked)} className={isLocked ? 'bg-red-600 hover:bg-red-700 w-full' : 'bg-green-600 hover:bg-green-700 w-full'}>
+                {isLocked ? '🔒 LOCKED' : '🔓 UNLOCK'}
+              </Button>
+            </div>
+          </div>
+          <p className="text-xs text-slate-600 italic">Once locked: fields become read-only. Frontend reflects "Reviewed".</p>
         </CardContent>
       </Card>
     </div>
