@@ -481,7 +481,7 @@ export function DepartmentExecutionHero({
                   <p className='text-xs text-blue-600 font-semibold mt-2'>Every individual's Power Moves roll up here.</p>
                 </div>
 
-                {/* Victory Target Cards - Compact */}
+                {/* Victory Target Cards - Side by Side */}
                 {victoryTargets.length === 0 ? (
                   <div className='w-full flex items-center justify-center min-h-[100px]'>
                     <div className='text-center space-y-3'>
@@ -493,43 +493,49 @@ export function DepartmentExecutionHero({
                     </div>
                   </div>
                 ) : (
-                  <div className='w-full space-y-2 flex-1 min-h-[100px]'>
-                    {victoryTargets.slice(0, 2).map((vt, index) => {
-                      const quarters = (vt as any).quarters || []
-                      const quarterIndex = ['Q1', 'Q2', 'Q3', 'Q4'].indexOf(selectedQuarter)
-                      const quarterData = quarterIndex >= 0 ? quarters[quarterIndex] : null
-                      const achieved = quarterData?.achieved ?? vt.achieved
-                      const target = quarterData?.target ?? vt.target
-                      const progress = target > 0 ? (achieved / target) * 100 : 0
-                      
-                      const vtStatusColor = progress >= 70 ? '#16A34A' : progress >= 50 ? '#F59E0B' : '#DC2626'
-                      const StatusIcon = progress >= 70 ? CheckCircle : progress >= 50 ? AlertCircle : XCircle
-                      const statusLabel = progress >= 70 ? 'On Track' : progress >= 50 ? 'At Risk' : 'Behind'
+                  <div className='w-full space-y-4 flex-1 min-h-[160px]'>
+                    {/* Display up to 2 targets in a grid */}
+                    <div className={cn(
+                      'grid gap-3',
+                      victoryTargets.length >= 2 ? 'grid-cols-2' : 'grid-cols-1'
+                    )}>
+                      {victoryTargets.slice(0, 2).map((vt, index) => {
+                        const quarters = (vt as any).quarters || []
+                        const quarterIndex = ['Q1', 'Q2', 'Q3', 'Q4'].indexOf(selectedQuarter)
+                        const quarterData = quarterIndex >= 0 ? quarters[quarterIndex] : null
+                        const achieved = quarterData?.achieved ?? vt.achieved
+                        const target = quarterData?.target ?? vt.target
+                        const progress = target > 0 ? (achieved / target) * 100 : 0
+                        
+                        const vtStatusColor = progress >= 70 ? '#16A34A' : progress >= 50 ? '#F59E0B' : '#DC2626'
+                        const StatusIcon = progress >= 70 ? CheckCircle : progress >= 50 ? AlertCircle : XCircle
+                        const statusLabel = progress >= 70 ? 'On Track' : progress >= 50 ? 'At Risk' : 'Behind'
 
-                      return (
-                        <div key={vt.id} className='bg-blue-100 border border-blue-300 rounded-lg p-3 text-left hover:bg-blue-200 hover:shadow-md transition-all duration-200 cursor-pointer'>
-                          <p className='text-xs font-bold text-blue-900 flex-1 mb-2'>{(vt as any).title || vt.name}</p>
-                          <div className='flex items-baseline gap-1 mb-2'>
-                            <span className='text-2xl font-black tabular-nums' style={{ color: vtStatusColor }}>{achieved}</span>
-                            <span className='text-xs font-bold text-blue-600'>/</span>
-                            <span className='text-lg font-black text-blue-700'>{target}</span>
+                        return (
+                          <div key={vt.id} className='bg-white border-2 border-blue-300 rounded-lg p-4 text-left hover:bg-blue-50 hover:shadow-md transition-all duration-200 cursor-pointer'>
+                            <p className='text-xs font-bold text-blue-900 mb-3'>{(vt as any).title || vt.name}</p>
+                            <div className='flex items-baseline gap-2 mb-3'>
+                              <span className='text-3xl font-black tabular-nums' style={{ color: vtStatusColor }}>{achieved}</span>
+                              <span className='text-xs font-bold text-blue-600'>/</span>
+                              <span className='text-lg font-black text-blue-700'>{target}</span>
+                            </div>
+                            <div className='h-2 rounded-full overflow-hidden bg-blue-200 mb-3'>
+                              <div 
+                                className='h-full transition-all duration-500' 
+                                style={{ 
+                                  width: `${Math.min(progress, 100)}%`,
+                                  backgroundColor: vtStatusColor
+                                }}
+                              />
+                            </div>
+                            <div className='flex items-center gap-1'>
+                              <StatusIcon className='h-3.5 w-3.5' style={{ color: vtStatusColor }} />
+                              <p className='text-xs font-bold uppercase tracking-widest' style={{ color: vtStatusColor }}>{statusLabel}</p>
+                            </div>
                           </div>
-                          <div className='h-1.5 rounded-full overflow-hidden bg-blue-200 mb-2'>
-                            <div 
-                              className='h-full transition-all duration-500' 
-                              style={{ 
-                                width: `${Math.min(progress, 100)}%`,
-                                backgroundColor: vtStatusColor
-                              }}
-                            />
-                          </div>
-                          <div className='flex items-center gap-1'>
-                            <StatusIcon className='h-3 w-3' style={{ color: vtStatusColor }} />
-                            <p className='text-xs font-bold uppercase tracking-widest' style={{ color: vtStatusColor }}>{statusLabel}</p>
-                          </div>
-                        </div>
-                      )
-                    })}
+                        )
+                      })}
+                    </div>
                   </div>
                 )}
 
