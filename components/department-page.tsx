@@ -27,6 +27,7 @@ import { getCurrentQuarter } from "@/lib/brand-structure"
 import type { QuarterOption } from "@/components/quarter-selector"
 import { useBrand } from "@/lib/brand-context"
 import { TeamMeetingsSection, type TeamMeeting } from "@/components/team-meetings-section"
+import { CreateTeamMeetingModal } from "@/components/create-team-meeting-modal"
 
 export interface VictoryTarget {
   id: string
@@ -135,6 +136,7 @@ export function DepartmentPage({ config, departmentKey }: DepartmentPageProps) {
   const [showPowerMoveModal, setShowPowerMoveModal] = useState(false)
   const [showTaskModal, setShowTaskModal] = useState(false)
   const [showCommitmentModal, setShowCommitmentModal] = useState(false)
+  const [showTeamMeetingModal, setShowTeamMeetingModal] = useState(false)
   const [displayedCommitments, setDisplayedCommitments] = useState(5)
   const [isLoading, setIsLoading] = useState(false)
   const [activeTab, setActiveTab] = useState("execute")
@@ -522,18 +524,22 @@ export function DepartmentPage({ config, departmentKey }: DepartmentPageProps) {
       {/* TEAM MEETINGS TAB */}
       {activeTab === 'meetings' && (
         <div className='max-w-7xl mx-auto px-4 py-8'>
-          <div className='mb-8'>
-            <h2 className='text-2xl font-black text-slate-900 mb-2'>Team Meetings</h2>
-            <p className='text-sm text-slate-600'>Track meeting notes and commitments (MOMs) for {config.name}</p>
+          <div className='mb-8 flex items-center justify-between'>
+            <div>
+              <h2 className='text-2xl font-black text-slate-900 mb-2'>Team Meetings</h2>
+              <p className='text-sm text-slate-600'>Track meeting notes and commitments (MOMs) for {config.name}</p>
+            </div>
+            <Button 
+              onClick={() => setShowTeamMeetingModal(true)}
+              className='bg-blue-600 hover:bg-blue-700 text-white'
+            >
+              <Plus className='h-4 w-4 mr-2' />
+              Create Meeting
+            </Button>
           </div>
           <TeamMeetingsSection
             meetings={safeConfig.teamMeetings}
-            onCreateMeeting={() => {
-              toast({
-                title: 'Coming Soon',
-                description: 'Meeting creation will be available soon',
-              })
-            }}
+            onCreateMeeting={() => setShowTeamMeetingModal(true)}
           />
         </div>
       )}
@@ -566,6 +572,18 @@ export function DepartmentPage({ config, departmentKey }: DepartmentPageProps) {
         victoryTargets={filteredVictoryTargets}
         addAnother={addAnotherCommitment}
         setAddAnother={setAddAnotherCommitment}
+      />
+      <CreateTeamMeetingModal
+        open={showTeamMeetingModal}
+        onOpenChange={setShowTeamMeetingModal}
+        departmentName={config.name}
+        onSave={(meetingData) => {
+          toast({
+            title: "Success!",
+            description: `Team meeting created with ${meetingData.attendeeCount} attendees`,
+          })
+          setShowTeamMeetingModal(false)
+        }}
       />
     </PageTransition>
   )
