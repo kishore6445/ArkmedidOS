@@ -76,15 +76,15 @@ export function DepartmentExecutionHero({
             </div>
 
             {/* Selectors - Right side */}
-            <div className='flex items-start gap-4'>
-              <QuarterSelector value={selectedQuarter} onChange={onQuarterChange} />
+            <div className='flex items-center gap-3'>
               <Button 
                 onClick={onAddPowerMove}
-                className='bg-orange-500 hover:bg-orange-600 text-white font-bold'
+                className='bg-orange-500 hover:bg-orange-600 text-white font-bold px-4 py-2 rounded-lg flex items-center gap-2'
               >
-                <Plus className='h-4 w-4 mr-2' />
+                <Plus className='h-5 w-5' />
                 Add Power Move
               </Button>
+              <QuarterSelector value={selectedQuarter} onChange={onQuarterChange} />
             </div>
           </div>
         </div>
