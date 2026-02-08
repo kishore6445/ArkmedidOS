@@ -464,6 +464,29 @@ export function DepartmentPage({ config, departmentKey }: DepartmentPageProps) {
 
       <KeyboardShortcuts onQuickAdd={() => setShowVictoryModal(true)} />
 
+      {/* DEPARTMENT EXECUTION HERO - Mission, 3-step flow, mission context */}
+      <DepartmentExecutionHero
+        departmentName={config.name}
+        coreObjective={config.coreObjective}
+        powerMoveStats={{
+          completed: activePowerMoves.filter((pm) => pm.progress >= pm.targetPerCycle).length,
+          total: filteredPowerMoves.length,
+          percentage: filteredPowerMoves.length > 0 
+            ? Math.round((activePowerMoves.filter((pm) => pm.progress >= pm.targetPerCycle).length / filteredPowerMoves.length) * 100)
+            : 0
+        }}
+        score={calculateDepartmentScore(
+          filteredPowerMoves,
+          updatedVictoryTargets,
+          config.missionData,
+        )}
+        victoryTargets={updatedVictoryTargets}
+        companyWIG={config.missionData}
+        selectedQuarter={selectedQuarter}
+        onQuarterChange={setSelectedQuarter}
+        onAddPowerMove={() => setShowPowerMoveModal(true)}
+      />
+
       {/* TAB NAVIGATION */}
       <div className='max-w-7xl mx-auto px-4 py-6 border-b border-slate-200'>
         <div className='flex items-center gap-4'>
