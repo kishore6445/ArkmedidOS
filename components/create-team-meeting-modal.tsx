@@ -1,15 +1,16 @@
 "use client"
 
 import type React from "react"
-import { useState, useRef } from "react"
+import { useState } from "react"
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { useToast } from "@/hooks/use-toast"
-import { Loader2, Plus, Trash2 } from "lucide-react"
+import { Loader2, Plus, Trash2, CheckCircle2, AlertCircle, XCircle, Calendar } from "lucide-react"
 import { cn } from "@/lib/utils"
+import type { TeamMeeting } from "./team-meetings-section"
 
 interface MOMInput {
   id: string
@@ -22,373 +23,288 @@ interface CreateTeamMeetingModalProps {
   open: boolean
   onOpenChange: (open: boolean) => void
   departmentName?: string
-  teamMembers?: Array<{ id: string; name: string }>
-  onSave?: (meetingData: any) => void
+  previousMeeting?: TeamMeeting
+  onSave?: (meetingData: TeamMeeting) => void
 }
 
 export function CreateTeamMeetingModal({
   open,
   onOpenChange,
   departmentName = "Department",
-  teamMembers = [],
+  previousMeeting,
   onSave,
 }: CreateTeamMeetingModalProps) {
   const { toast } = useToast()
   const [isLoading, setIsLoading] = useState(false)
   const [errors, setErrors] = useState<Record<string, string>>({})
-  const [hasChanges, setHasChanges] = useState(false)
-  const dateInputRef = useRef<HTMLInputElement>(null)
 
-  // Form state
-  const [meetingDate, setMeetingDate] = useState("")
-  const [attendees, setAttendees] = useState<string[]>([])
-  const [attendeeInput, setAttendeeInput] = useState("")
+  // Form state for THIS WEEK
+  const [meetingDate, setMeetingDate] = useState(new Date().toISOString().split('T')[0])
+  const [attendeeCount, setAttendeeCount] = useState(0)
   const [moms, setMoms] = useState<MOMInput[]>([
     { id: "1", owner: "", commitment: "", dueDate: "" },
   ])
   const [notes, setNotes] = useState("")
 
-  const validateField = (field: string, value: any) => {
-    const newErrors = { ...errors }
-
-    switch (field) {
-      case "meetingDate":
-        if (!value) {
-          newErrors.meetingDate = "Meeting date is required"
-        } else {
-          delete newErrors.meetingDate
-        }
-        break
-      case "attendees":
-        if (!value || value.length === 0) {
-          newErrors.attendees = "At least one attendee is required"
-        } else {
-          delete newErrors.attendees
-        }
-        break
+  // Validate form
+  const validateForm = () => {
+    const newErrors: Record<string, string> = {}
+    
+    if (!meetingDate) newErrors.meetingDate = "Meeting date is required"
+    if (attendeeCount === 0) newErrors.attendeeCount = "Add at least one attendee"
+    
+    const validMoms = moms.filter(m => m.owner && m.commitment && m.dueDate)
+    if (validMoms.length === 0) {
+      newErrors.moms = "Add at least one commitment"
     }
 
     setErrors(newErrors)
+    return Object.keys(newErrors).length === 0
   }
 
-  const handleAddAttendee = () => {
-    if (attendeeInput.trim() && !attendees.includes(attendeeInput)) {
-      setAttendees([...attendees, attendeeInput])
-      setAttendeeInput("")
-      setHasChanges(true)
-    }
-  }
-
-  const handleRemoveAttendee = (attendee: string) => {
-    setAttendees(attendees.filter((a) => a !== attendee))
-    setHasChanges(true)
-  }
-
-  const handleAddMOM = () => {
-    setMoms([
-      ...moms,
-      { id: Date.now().toString(), owner: "", commitment: "", dueDate: "" },
-    ])
-    setHasChanges(true)
-  }
-
-  const handleRemoveMOM = (id: string) => {
-    if (moms.length > 1) {
-      setMoms(moms.filter((m) => m.id !== id))
-      setHasChanges(true)
-    }
-  }
-
-  const handleMOMChange = (id: string, field: string, value: string) => {
-    setMoms(
-      moms.map((m) => (m.id === id ? { ...m, [field]: value } : m))
-    )
-    setHasChanges(true)
-  }
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-
-    const newErrors: Record<string, string> = {}
-
-    if (!meetingDate) {
-      newErrors.meetingDate = "Meeting date is required"
-    }
-    if (attendees.length === 0) {
-      newErrors.attendees = "At least one attendee is required"
-    }
-
-    // Validate MOMs
-    const hasValidMOM = moms.some(
-      (m) => m.owner.trim() && m.commitment.trim() && m.dueDate
-    )
-    if (!hasValidMOM) {
-      newErrors.moms = "Add at least one commitment (MOM)"
-    }
-
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors)
-      toast({
-        title: "Validation Error",
-        description: "Please fill in all required fields",
-        variant: "destructive",
-      })
-      return
-    }
+  // Handle save
+  const handleSave = async () => {
+    if (!validateForm()) return
 
     setIsLoading(true)
-
     try {
-      await new Promise((resolve) => setTimeout(resolve, 800))
-
-      const meetingData = {
+      const validMoms = moms.filter(m => m.owner && m.commitment && m.dueDate)
+      
+      const newMeeting: TeamMeeting = {
+        id: Date.now().toString(),
         date: meetingDate,
-        attendees,
-        attendeeCount: attendees.length,
-        moms: moms.filter((m) => m.owner.trim() && m.commitment.trim()),
+        attendeeCount,
+        moms: validMoms.map(m => ({
+          id: m.id,
+          owner: m.owner,
+          commitment: m.commitment,
+          dueDate: m.dueDate,
+          status: 'on-track',
+        })),
         notes,
       }
 
-      toast({
-        title: "Success!",
-        description: `Meeting created for ${departmentName}`,
-      })
-
-      if (onSave) {
-        onSave(meetingData)
-      }
-
-      // Reset form
-      setMeetingDate("")
-      setAttendees([])
-      setAttendeeInput("")
-      setMoms([{ id: "1", owner: "", commitment: "", dueDate: "" }])
-      setNotes("")
-      setErrors({})
-      setHasChanges(false)
-      onOpenChange(false)
-    } catch (error) {
-      toast({
-        title: "Error",
-        description: "Failed to create meeting. Please try again.",
-        variant: "destructive",
-      })
+      onSave?.(newMeeting)
+      resetForm()
     } finally {
       setIsLoading(false)
     }
   }
 
-  const handleOpenChange = (newOpen: boolean) => {
-    if (!newOpen && hasChanges) {
-      const confirm = window.confirm("You have unsaved changes. Are you sure you want to close?")
-      if (!confirm) return
-    }
-    onOpenChange(newOpen)
+  const resetForm = () => {
+    setMeetingDate(new Date().toISOString().split('T')[0])
+    setAttendeeCount(0)
+    setMoms([{ id: "1", owner: "", commitment: "", dueDate: "" }])
+    setNotes("")
+    setErrors({})
+    onOpenChange(false)
+  }
+
+  // Add new MOM row
+  const addMOM = () => {
+    setMoms([
+      ...moms,
+      { id: Date.now().toString(), owner: "", commitment: "", dueDate: "" },
+    ])
+  }
+
+  // Remove MOM row
+  const removeMOM = (id: string) => {
+    setMoms(moms.filter(m => m.id !== id))
+  }
+
+  // Update MOM field
+  const updateMOM = (id: string, field: string, value: string) => {
+    setMoms(moms.map(m => (m.id === id ? { ...m, [field]: value } : m)))
   }
 
   return (
-    <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="max-w-5xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>Create Team Meeting</DialogTitle>
+          <DialogTitle className="text-2xl font-black">Weekly Meeting - {departmentName}</DialogTitle>
           <DialogDescription>
-            Record meeting notes and commitments (MOMs) for {departmentName}
+            Review last week's commitments, then record this week's MOMs
           </DialogDescription>
         </DialogHeader>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Meeting Date */}
-          <div className="space-y-2">
-            <Label htmlFor="meeting-date" className="text-sm font-bold">
-              Meeting Date <span className="text-red-500">*</span>
-            </Label>
-            <Input
-              ref={dateInputRef}
-              id="meeting-date"
-              type="date"
-              value={meetingDate}
-              onChange={(e) => {
-                setMeetingDate(e.target.value)
-                validateField("meetingDate", e.target.value)
-                setHasChanges(true)
-              }}
-              className={cn(
-                errors.meetingDate && "border-red-500"
-              )}
-            />
-            {errors.meetingDate && (
-              <p className="text-xs text-red-500">{errors.meetingDate}</p>
-            )}
-          </div>
-
-          {/* Attendees */}
-          <div className="space-y-2">
-            <Label className="text-sm font-bold">
-              Attendees <span className="text-red-500">*</span>
-            </Label>
-            <div className="flex gap-2 mb-2">
-              <Input
-                placeholder="Enter attendee name"
-                value={attendeeInput}
-                onChange={(e) => setAttendeeInput(e.target.value)}
-                onKeyPress={(e) => {
-                  if (e.key === "Enter") {
-                    e.preventDefault()
-                    handleAddAttendee()
-                  }
-                }}
-              />
-              <Button
-                type="button"
-                onClick={handleAddAttendee}
-                variant="outline"
-                className="px-3"
-              >
-                <Plus className="h-4 w-4" />
-              </Button>
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {attendees.map((attendee) => (
-                <div
-                  key={attendee}
-                  className="flex items-center gap-2 bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-semibold"
-                >
-                  {attendee}
-                  <button
-                    type="button"
-                    onClick={() => handleRemoveAttendee(attendee)}
-                    className="hover:text-blue-900"
-                  >
-                    ×
-                  </button>
-                </div>
-              ))}
-            </div>
-            {errors.attendees && (
-              <p className="text-xs text-red-500">{errors.attendees}</p>
-            )}
-          </div>
-
-          {/* Commitments (MOMs) */}
-          <div className="space-y-2">
-            <Label className="text-sm font-bold">
-              Commitments (MOMs) <span className="text-red-500">*</span>
-            </Label>
-            <p className="text-xs text-slate-500 mb-3">Who committed to what by when?</p>
+        <div className="grid grid-cols-2 gap-6 py-6">
+          {/* LEFT PANEL: PREVIOUS WEEK - ACCOUNTABILITY VIEW */}
+          <div className="border-r border-slate-200 pr-6">
+            <h3 className="text-sm font-bold uppercase text-slate-700 mb-4">Last Week's Commitments</h3>
             
-            <div className="space-y-3 max-h-64 overflow-y-auto">
-              {moms.map((mom) => (
-                <div key={mom.id} className="border border-slate-200 rounded-lg p-4 space-y-3">
-                  <div className="grid grid-cols-3 gap-3">
-                    <div>
-                      <Label className="text-xs font-semibold mb-1 block">Owner</Label>
-                      <Input
-                        placeholder="Person responsible"
-                        value={mom.owner}
-                        onChange={(e) =>
-                          handleMOMChange(mom.id, "owner", e.target.value)
-                        }
-                        className="text-sm"
-                      />
-                    </div>
-                    <div className="col-span-2">
-                      <Label className="text-xs font-semibold mb-1 block">Commitment</Label>
-                      <Input
-                        placeholder="What must be done?"
-                        value={mom.commitment}
-                        onChange={(e) =>
-                          handleMOMChange(mom.id, "commitment", e.target.value)
-                        }
-                        className="text-sm"
-                      />
-                    </div>
-                  </div>
-                  <div className="flex justify-between items-end gap-3">
-                    <div className="flex-1">
-                      <Label className="text-xs font-semibold mb-1 block">Due Date</Label>
-                      <Input
-                        type="date"
-                        value={mom.dueDate}
-                        onChange={(e) =>
-                          handleMOMChange(mom.id, "dueDate", e.target.value)
-                        }
-                        className="text-sm"
-                      />
-                    </div>
-                    {moms.length > 1 && (
-                      <Button
-                        type="button"
-                        onClick={() => handleRemoveMOM(mom.id)}
-                        variant="ghost"
-                        size="sm"
-                        className="text-red-600 hover:text-red-700 hover:bg-red-50"
-                      >
-                        <Trash2 className="h-4 w-4" />
-                      </Button>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
+            {previousMeeting && previousMeeting.moms.length > 0 ? (
+              <div className="space-y-3">
+                {previousMeeting.moms.map((mom) => {
+                  const statusIcon = mom.status === 'on-track' 
+                    ? <CheckCircle2 className="h-4 w-4 text-green-600" />
+                    : mom.status === 'at-risk'
+                    ? <AlertCircle className="h-4 w-4 text-amber-600" />
+                    : <XCircle className="h-4 w-4 text-red-600" />
 
-            <Button
-              type="button"
-              onClick={handleAddMOM}
-              variant="outline"
-              className="w-full text-blue-600 border-blue-300 hover:bg-blue-50"
-            >
-              <Plus className="h-4 w-4 mr-2" />
-              Add Commitment
-            </Button>
+                  const statusColor = mom.status === 'on-track'
+                    ? 'bg-green-50 border-green-200'
+                    : mom.status === 'at-risk'
+                    ? 'bg-amber-50 border-amber-200'
+                    : 'bg-red-50 border-red-200'
 
-            {errors.moms && (
-              <p className="text-xs text-red-500">{errors.moms}</p>
+                  return (
+                    <div key={mom.id} className={cn("border rounded-lg p-3", statusColor)}>
+                      <div className="flex items-start gap-2 mb-2">
+                        {statusIcon}
+                        <div className="flex-1 min-w-0">
+                          <p className="text-xs font-bold text-slate-700">{mom.owner}</p>
+                          <p className="text-xs text-slate-600 mt-1 line-clamp-2">{mom.commitment}</p>
+                        </div>
+                      </div>
+                      <p className="text-xs text-slate-500 flex items-center gap-1">
+                        <Calendar className="h-3 w-3" />
+                        {mom.dueDate}
+                      </p>
+                      <div className="mt-2 pt-2 border-t border-current border-opacity-10">
+                        <span className={cn(
+                          "text-xs font-bold px-2 py-0.5 rounded inline-block",
+                          mom.status === 'on-track' ? 'bg-green-100 text-green-800' :
+                          mom.status === 'at-risk' ? 'bg-amber-100 text-amber-800' :
+                          'bg-red-100 text-red-800'
+                        )}>
+                          {mom.status === 'on-track' ? 'Completed' : mom.status === 'at-risk' ? 'In Progress' : 'Overdue'}
+                        </span>
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+            ) : (
+              <div className="text-center py-8 text-slate-500">
+                <p className="text-xs font-semibold">No previous meeting found</p>
+                <p className="text-xs text-slate-400 mt-1">Start fresh with this week's MOMs</p>
+              </div>
             )}
           </div>
 
-          {/* Meeting Notes */}
-          <div className="space-y-2">
-            <Label htmlFor="notes" className="text-sm font-bold">
-              Meeting Notes
-            </Label>
-            <Textarea
-              id="notes"
-              placeholder="Key discussion points, decisions, etc."
-              value={notes}
-              onChange={(e) => {
-                setNotes(e.target.value)
-                setHasChanges(true)
-              }}
-              className="min-h-24"
-            />
-          </div>
+          {/* RIGHT PANEL: THIS WEEK - NEW COMMITMENTS FORM */}
+          <div className="pl-6">
+            <h3 className="text-sm font-bold uppercase text-slate-700 mb-4">This Week's Commitments</h3>
 
-          {/* Actions */}
-          <div className="flex justify-end gap-3 pt-4 border-t">
-            <Button
-              type="button"
-              variant="outline"
-              onClick={() => handleOpenChange(false)}
-              disabled={isLoading}
-            >
-              Cancel
-            </Button>
-            <Button
-              type="submit"
-              className="bg-blue-600 hover:bg-blue-700 text-white"
-              disabled={isLoading}
-            >
-              {isLoading ? (
-                <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Creating...
-                </>
-              ) : (
-                "Create Meeting"
-              )}
-            </Button>
+            <div className="space-y-4">
+              {/* Meeting Date */}
+              <div>
+                <Label htmlFor="meeting-date" className="text-xs font-bold text-slate-700">Meeting Date</Label>
+                <Input
+                  id="meeting-date"
+                  type="date"
+                  value={meetingDate}
+                  onChange={(e) => setMeetingDate(e.target.value)}
+                  className="mt-1 text-sm"
+                />
+                {errors.meetingDate && <p className="text-xs text-red-600 mt-1">{errors.meetingDate}</p>}
+              </div>
+
+              {/* Attendee Count */}
+              <div>
+                <Label htmlFor="attendee-count" className="text-xs font-bold text-slate-700">Number of Attendees</Label>
+                <Input
+                  id="attendee-count"
+                  type="number"
+                  min="1"
+                  value={attendeeCount}
+                  onChange={(e) => setAttendeeCount(parseInt(e.target.value) || 0)}
+                  className="mt-1 text-sm"
+                />
+                {errors.attendeeCount && <p className="text-xs text-red-600 mt-1">{errors.attendeeCount}</p>}
+              </div>
+
+              {/* MOMs Section */}
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <Label className="text-xs font-bold text-slate-700">Commitments (MOMs)</Label>
+                  <span className="text-xs text-slate-500">{moms.filter(m => m.owner && m.commitment && m.dueDate).length} added</span>
+                </div>
+
+                <div className="space-y-3 max-h-48 overflow-y-auto">
+                  {moms.map((mom, index) => (
+                    <div key={mom.id} className="flex gap-2 items-start">
+                      <div className="flex-1 space-y-2">
+                        <Input
+                          placeholder="Owner name"
+                          value={mom.owner}
+                          onChange={(e) => updateMOM(mom.id, 'owner', e.target.value)}
+                          className="text-xs h-8"
+                        />
+                        <Input
+                          placeholder="What's the commitment?"
+                          value={mom.commitment}
+                          onChange={(e) => updateMOM(mom.id, 'commitment', e.target.value)}
+                          className="text-xs h-8"
+                        />
+                        <Input
+                          type="date"
+                          value={mom.dueDate}
+                          onChange={(e) => updateMOM(mom.id, 'dueDate', e.target.value)}
+                          className="text-xs h-8"
+                        />
+                      </div>
+                      {moms.length > 1 && (
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => removeMOM(mom.id)}
+                          className="mt-8 h-8 w-8 p-0"
+                        >
+                          <Trash2 className="h-4 w-4 text-red-600" />
+                        </Button>
+                      )}
+                    </div>
+                  ))}
+                </div>
+
+                {errors.moms && <p className="text-xs text-red-600 mt-1">{errors.moms}</p>}
+
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={addMOM}
+                  className="w-full mt-3 text-xs"
+                >
+                  <Plus className="h-3 w-3 mr-1" />
+                  Add Another Commitment
+                </Button>
+              </div>
+
+              {/* Notes */}
+              <div>
+                <Label htmlFor="notes" className="text-xs font-bold text-slate-700">Meeting Notes (Optional)</Label>
+                <Textarea
+                  id="notes"
+                  placeholder="Key decisions, discussion points, etc."
+                  value={notes}
+                  onChange={(e) => setNotes(e.target.value)}
+                  className="mt-1 text-xs min-h-20 resize-none"
+                />
+              </div>
+            </div>
           </div>
-        </form>
+        </div>
+
+        {/* ACTION BUTTONS */}
+        <div className="border-t border-slate-200 pt-4 flex items-center justify-end gap-2">
+          <Button
+            variant="outline"
+            onClick={() => onOpenChange(false)}
+            disabled={isLoading}
+          >
+            Cancel
+          </Button>
+          <Button
+            onClick={handleSave}
+            disabled={isLoading}
+            className="bg-blue-600 hover:bg-blue-700 text-white"
+          >
+            {isLoading && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
+            Save Meeting
+          </Button>
+        </div>
       </DialogContent>
     </Dialog>
   )

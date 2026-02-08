@@ -577,6 +577,7 @@ export function DepartmentPage({ config, departmentKey }: DepartmentPageProps) {
         open={showTeamMeetingModal}
         onOpenChange={setShowTeamMeetingModal}
         departmentName={config.name}
+        previousMeeting={safeConfig.teamMeetings && safeConfig.teamMeetings.length > 0 ? safeConfig.teamMeetings[safeConfig.teamMeetings.length - 1] : undefined}
         onSave={(meetingData) => {
           toast({
             title: "Success!",
