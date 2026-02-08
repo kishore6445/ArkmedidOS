@@ -10,14 +10,14 @@ export default function HomePage() {
             ✦
           </div>
           <div>
-            <p className="text-xs uppercase tracking-[0.15em] text-orange-600 font-bold">ArkMedis</p>
+            <p className="text-xs uppercase tracking-[0.15em] text-slate-600 font-bold">ArkMedis</p>
             <p className="text-base font-bold text-slate-900">Mission 50</p>
           </div>
         </Link>
         <nav className="flex items-center gap-3">
           <Link
             href="/signin"
-            className="rounded px-4 py-2 text-sm font-bold text-orange-600 transition hover:text-orange-700 border-2 border-orange-500 hover:bg-orange-50"
+            className="rounded px-4 py-2 text-sm font-bold text-slate-600 transition hover:text-slate-900"
           >
             Sign in
           </Link>
@@ -25,67 +25,50 @@ export default function HomePage() {
       </header>
 
       <main className="space-y-0">
-        {/* Hero - What You Get */}
-        <section className="bg-slate-950 px-6 py-32">
+        {/* Hero Section - Mission Statement & Value Prop */}
+        <section className="bg-slate-950 px-6 py-40">
           <div className="mx-auto max-w-7xl">
-            <div className="grid gap-12 lg:grid-cols-2 items-center">
-              {/* Left Content */}
+            <div className="grid gap-16 lg:grid-cols-2 items-center">
+              {/* Left: Headline & Core Message */}
               <div className="space-y-8">
-                <div className="space-y-6">
-                  <h1 className="text-5xl font-bold leading-tight lg:text-6xl text-white">
-                    Win Mission 50.<br/>
-                    <span className="text-orange-400">Earn 50% salary growth.</span>
+                <div className="space-y-4">
+                  <h1 className="text-6xl lg:text-7xl font-black leading-tight text-white">
+                    Win. Execute. Earn.
                   </h1>
-                  <p className="text-xl text-slate-300">
-                    Earned by contribution. Tracked transparently.
+                  <p className="text-xl text-slate-300 leading-relaxed">
+                    50% salary growth when Mission 50 wins. Your execution determines your hike. Transparent. Fair. Real.
                   </p>
                 </div>
-                <div className="space-y-4">
-                  <div className="flex items-start gap-4">
-                    <div className="text-orange-400 text-2xl font-bold mt-1">✓</div>
-                    <div>
-                      <p className="text-white font-bold text-lg">Fair & Transparent</p>
-                      <p className="text-slate-400">Your work is measured. Your results speak.</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-4">
-                    <div className="text-orange-400 text-2xl font-bold mt-1">✓</div>
-                    <div>
-                      <p className="text-white font-bold text-lg">Every Role Counts</p>
-                      <p className="text-slate-400">Execution, marketing, knowledge—everyone contributes.</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="pt-4">
-                  <Link
-                    href="/signin"
-                    className="inline-block rounded bg-orange-500 px-8 py-3 text-base font-bold text-white transition hover:bg-orange-600"
-                  >
-                    Enter Dashboard
-                  </Link>
-                </div>
+                <Link
+                  href="/signin"
+                  className="inline-block rounded bg-orange-500 px-8 py-3 text-base font-bold text-white transition hover:bg-orange-600"
+                >
+                  Start here
+                </Link>
               </div>
 
-              {/* Right Visual - Mission 50 Poster */}
+              {/* Right Visual - Mission 50 Card */}
               <div className="flex items-center justify-center">
-                <div className="w-full rounded-lg border-4 border-orange-500 bg-gradient-to-br from-orange-500 to-orange-600 p-12 text-center shadow-2xl">
-                  <div className="space-y-8">
-                    <h2 className="text-6xl font-black text-white">Mission 50</h2>
-                    <div className="bg-white rounded-lg p-8 space-y-6">
-                      <p className="text-orange-600 text-2xl font-black">50 clients. 3 brands.</p>
-                      <div className="space-y-3 text-left">
-                        <p className="text-slate-700 font-bold">
-                          <span className="text-orange-600 text-3xl font-black">30</span> · Warrior Systems
-                        </p>
-                        <p className="text-slate-700 font-bold">
-                          <span className="text-orange-600 text-3xl font-black">18</span> · Story Marketing
-                        </p>
-                        <p className="text-slate-700 font-bold">
-                          <span className="text-orange-600 text-3xl font-black">2</span> · MetaGurukul
-                        </p>
+                <div className="w-full rounded-lg bg-white border border-slate-200 p-8 shadow-lg">
+                  <div className="space-y-6">
+                    <h2 className="text-3xl font-black text-slate-900">Mission 50</h2>
+                    <div className="space-y-3 border-t border-slate-200 pt-6">
+                      <div className="flex items-baseline gap-3">
+                        <span className="text-3xl font-black text-orange-500">30</span>
+                        <span className="text-slate-700">Warrior Systems</span>
+                      </div>
+                      <div className="flex items-baseline gap-3">
+                        <span className="text-3xl font-black text-orange-500">18</span>
+                        <span className="text-slate-700">Story Marketing</span>
+                      </div>
+                      <div className="flex items-baseline gap-3">
+                        <span className="text-3xl font-black text-orange-500">2</span>
+                        <span className="text-slate-700">MetaGurukul</span>
                       </div>
                     </div>
-                    <p className="text-white font-bold text-lg">Deadline: Dec 31, 2026</p>
+                    <div className="text-sm text-slate-500 border-t border-slate-200 pt-6">
+                      3 brands. 50 clients. One mission.
+                    </div>
                   </div>
                 </div>
               </div>
@@ -93,125 +76,66 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* How You Earn Growth */}
+        {/* How It Works - 3 Step Flow */}
         <section className="bg-white px-6 py-24">
-          <div className="mx-auto max-w-7xl space-y-12">
-            <div>
-              <h2 className="text-4xl font-bold text-slate-900 mb-4">How You Earn This Growth</h2>
-              <p className="text-xl text-slate-700">Every person. Every quarter. Same system.</p>
-            </div>
-            <div className="grid gap-6 lg:grid-cols-3">
-              {[
-                {
-                  num: "1",
-                  title: "Define Your Power Moves",
-                  desc: "Clear actions that move the needle. You own them. No ambiguity."
-                },
-                {
-                  num: "2",
-                  title: "Execute & Get Measured",
-                  desc: "Every outcome tracked transparently. Dashboards show the truth. No politics."
-                },
-                {
-                  num: "3",
-                  title: "Earn Your Share",
-                  desc: "When Mission 50 succeeds, your contribution determines your hike. Fair. Aligned. Real."
-                }
-              ].map((item) => (
-                <div key={item.num} className="bg-orange-50 rounded-lg p-8 border-l-4 border-orange-500">
-                  <div className="text-4xl font-black text-orange-500 mb-3">{item.num}</div>
-                  <h3 className="text-xl font-bold text-slate-900 mb-2">{item.title}</h3>
-                  <p className="text-slate-700">{item.desc}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* What You Get Beyond Money */}
-        <section className="bg-slate-950 px-6 py-24">
-          <div className="mx-auto max-w-7xl space-y-12">
-            <div className="text-center">
-              <h2 className="text-4xl font-bold text-orange-400 mb-4">What Else You Get</h2>
+          <div className="mx-auto max-w-7xl space-y-16">
+            <div className="space-y-4">
+              <h2 className="text-4xl font-black text-slate-900">How it works</h2>
+              <p className="text-lg text-slate-600">Define. Execute. Earn.</p>
             </div>
             <div className="grid gap-8 lg:grid-cols-3">
               {[
                 {
-                  title: "Work From Home & Flexibility",
-                  desc: "Execution earns freedom. Consistent delivery builds trust. Trust enables flexibility. You control your environment."
+                  step: "01",
+                  title: "Define Power Moves",
+                  desc: "Clear actions. Measurable outcomes. You own them."
                 },
                 {
-                  title: "Recognition Without Politics",
-                  desc: "Dashboards show your contribution. No gossip. No hidden agendas. Your work speaks for itself. Always."
+                  step: "02",
+                  title: "Execute Consistently",
+                  desc: "Track daily. Dashboard shows the truth. No politics."
                 },
                 {
-                  title: "Growth That Compounds",
-                  desc: "Your hike reinvested in your skills. You get better. Opportunities expand. Your market value rises."
+                  step: "03",
+                  title: "Earn Growth",
+                  desc: "Your contribution = your hike. Transparent. Fair. Real."
                 }
               ].map((item) => (
-                <div key={item.title} className="bg-slate-900 rounded-lg p-8 border-l-4 border-orange-500">
-                  <h3 className="text-xl font-bold text-white mb-4">{item.title}</h3>
-                  <p className="text-slate-300">{item.desc}</p>
+                <div key={item.step} className="space-y-4">
+                  <div className="text-sm font-black text-slate-400 uppercase tracking-wide">{item.step}</div>
+                  <h3 className="text-2xl font-black text-slate-900">{item.title}</h3>
+                  <p className="text-slate-700 leading-relaxed">{item.desc}</p>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* The Three Brands You're Part Of */}
-        <section className="bg-white px-6 py-24">
-          <div className="mx-auto max-w-7xl space-y-12">
-            <div className="text-center">
-              <h2 className="text-4xl font-bold text-slate-900 mb-4">The Three Brands You Build</h2>
-              <p className="text-xl text-slate-700 max-w-2xl mx-auto">
-                You're not just working at ArkMedis. You're part of three focused missions solving real Indian problems.
-              </p>
-            </div>
-            <div className="grid gap-8 lg:grid-cols-3">
-              {[
-                {
-                  name: "The Warrior Systems",
-                  target: "30 Indian companies",
-                  mission: "Execution discipline that scales globally"
-                },
-                {
-                  name: "Story Marketing",
-                  target: "18 manufacturing brands",
-                  mission: "Global recognition for Indian quality"
-                },
-                {
-                  name: "MetaGurukul",
-                  target: "2 coaching platforms",
-                  mission: "Reviving India's knowledge traditions"
-                }
-              ].map((brand) => (
-                <div key={brand.name} className="bg-slate-50 rounded-lg p-8 border-2 border-slate-200 hover:border-orange-500 transition">
-                  <h3 className="text-2xl font-bold text-slate-900 mb-2">{brand.name}</h3>
-                  <p className="text-orange-600 font-bold text-sm mb-4">{brand.target}</p>
-                  <p className="text-slate-700">{brand.mission}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Why This Matters */}
+        {/* Why This Matters - Single Powerful Message */}
         <section className="bg-slate-950 px-6 py-24">
           <div className="mx-auto max-w-7xl">
-            <div className="rounded-lg bg-slate-900 border-2 border-orange-500 p-12 text-center space-y-8">
-              <div className="space-y-4">
-                <h2 className="text-3xl font-bold text-white mb-6">You're Not Just Earning Money</h2>
-                <p className="text-slate-300 text-lg">
-                  You're part of something that builds <span className="text-orange-400 font-bold">better Indian companies</span> while you grow.
+            <div className="space-y-12 text-center">
+              <div className="space-y-4 max-w-2xl mx-auto">
+                <h2 className="text-5xl font-black text-white">
+                  Better execution. Better rewards.
+                </h2>
+                <p className="text-lg text-slate-300">
+                  You build Indian companies that win globally. You grow alongside them. That's the alignment.
                 </p>
               </div>
-              <div className="border-t border-slate-700 pt-8 space-y-3">
-                <p className="text-slate-200">
-                  Your Power Moves → Company wins Mission 50 → Indian businesses get stronger → You grow alongside.
-                </p>
-                <p className="text-sm text-orange-400 font-bold mt-6">
-                  Profit and purpose. Both real. Both happening.
-                </p>
+              <div className="flex gap-8 justify-center flex-wrap">
+                <div className="space-y-2">
+                  <p className="text-sm text-slate-400 uppercase tracking-wide font-bold">No ambiguity</p>
+                  <p className="text-white font-semibold">Clear metrics. Clear outcomes.</p>
+                </div>
+                <div className="space-y-2">
+                  <p className="text-sm text-slate-400 uppercase tracking-wide font-bold">No politics</p>
+                  <p className="text-white font-semibold">Dashboards show the truth.</p>
+                </div>
+                <div className="space-y-2">
+                  <p className="text-sm text-slate-400 uppercase tracking-wide font-bold">No shortcuts</p>
+                  <p className="text-white font-semibold">Execution builds trust.</p>
+                </div>
               </div>
             </div>
           </div>
@@ -220,27 +144,27 @@ export default function HomePage() {
         {/* Final CTA */}
         <section className="bg-white px-6 py-24">
           <div className="mx-auto max-w-7xl text-center space-y-8">
-            <h2 className="text-4xl font-bold text-slate-900">
-              Ready to Grow?
+            <h2 className="text-5xl font-black text-slate-900">
+              Ready?
             </h2>
-            <p className="text-xl text-slate-700 max-w-2xl mx-auto">
-              No shortcuts. No politics. Transparent execution. Fair rewards. This is how we work.
+            <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+              Sign in to your dashboard. Define your power moves. Start executing.
             </p>
             <Link
               href="/signin"
-              className="inline-block rounded bg-orange-500 px-8 py-4 text-lg font-bold text-white transition hover:bg-orange-600"
+              className="inline-block rounded bg-orange-500 px-8 py-3 text-base font-bold text-white transition hover:bg-orange-600"
             >
-              Sign in to your account
+              Enter dashboard
             </Link>
           </div>
         </section>
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-slate-200 px-6 py-8">
+      <footer className="border-t border-slate-200 px-6 py-8 bg-slate-50">
         <div className="mx-auto max-w-7xl flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-slate-600">
           <p>© 2026 ArkMedis. All rights reserved.</p>
-          <Link href="/signin" className="hover:text-orange-600 transition font-semibold">
+          <Link href="/signin" className="hover:text-slate-900 transition font-semibold">
             Sign in
           </Link>
         </div>
