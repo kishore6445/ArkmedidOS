@@ -422,221 +422,334 @@ export function DepartmentExecutionHero({
             </div>
           </div>
 
-          {/* MAIN SCOREBOARD - Visual Hierarchy with Section Differentiation */}
+          {/* MAIN SCOREBOARD - Simplified Visual Hierarchy */}
           <div className='relative overflow-visible'>
-            {/* Desktop 3-Card Grid - Enhanced Visual Hierarchy */}
-            <div className='hidden lg:flex lg:items-stretch lg:gap-0 p-6 bg-stone-50 relative'>
-              {/* Flow Connectors - Arrows between cards */}
-              <svg className='absolute top-1/2 -translate-y-1/2 left-0 right-0 w-full h-12 pointer-events-none' style={{ zIndex: 5 }}>
-                {/* Arrow 1 -> 2 */}
-                <line x1='33%' y1='50%' x2='50%' y2='50%' stroke='#d4d4d8' strokeWidth='2' strokeDasharray='4' />
-                <polygon points='50%,50% 47%,47% 47%,53%' fill='#a1a1aa' />
-                
-                {/* Arrow 2 -> 3 */}
-                <line x1='67%' y1='50%' x2='85%' y2='50%' stroke='#d4d4d8' strokeWidth='2' strokeDasharray='4' />
-                <polygon points='85%,50% 82%,47% 82%,53%' fill='#a1a1aa' />
-              </svg>
-              {/* Step 1 Badge */}
-              <div className='absolute left-20 top-2 z-10 bg-amber-400 text-amber-900 font-black px-3 py-1 rounded-full text-xs'>STEP 1 – Execution Discipline</div>
-
-              {/* Column 1: WEEKLY POWER MOVES - AMBER Theme */}
-              <div className={cn(
-                'flex flex-col items-start justify-between flex-1 min-h-[340px] bg-gradient-to-br from-amber-50 to-orange-50 border-l-4 border-t-4 border-b-4 border-amber-400 border-r-2 border-r-amber-200 rounded-l-lg p-8 shadow-md hover:shadow-lg transition-shadow duration-300',
-                status.borderAccent
-              )}>
-                <div className='w-full space-y-2'>
-                  {/* Section Label */}
-                  <p className='text-xs font-black uppercase tracking-widest text-amber-700'>Weekly Power Moves</p>
-                  <p className='text-xs font-semibold text-amber-600'>Actions executed this week</p>
+            {/* Desktop 3-Card Grid - Clean, Minimal Design */}
+            <div className='hidden lg:grid lg:grid-cols-3 lg:gap-0 p-4 bg-white relative'>
+              
+              {/* STEP 1: Execution Discipline */}
+              <div className='border-t-4 border-r border-slate-200 border-t-orange-500 p-8 flex flex-col justify-between min-h-[280px]'>
+                <div>
+                  <div className='flex items-center gap-2 mb-6'>
+                    <span className='text-xs font-black bg-orange-500 text-white px-2 py-1 rounded'>STEP 1</span>
+                    <p className='text-xs font-bold uppercase text-slate-700'>Execution Discipline</p>
+                  </div>
                 </div>
-
-                {/* HERO METRIC - Dramatically Larger */}
-                <div className='w-full text-center'>
-                  <div className='flex flex-col items-center'>
+                
+                <div className='text-center space-y-4'>
+                  <div>
+                    <div className='text-6xl font-black text-slate-900 tabular-nums'>{powerMoveStats.percentage}</div>
+                    <div className='flex items-baseline justify-center gap-1 mt-2'>
+                      <span className='text-sm font-bold text-slate-500'>{powerMoveStats.completed}</span>
+                      <span className='text-xs text-slate-400'>/</span>
+                      <span className='text-sm font-bold text-slate-500'>{powerMoveStats.total}</span>
+                    </div>
+                  </div>
+                  <div className='h-2 rounded-full bg-slate-200 overflow-hidden'>
                     <div 
-                      className='text-9xl font-black tabular-nums leading-none drop-shadow-sm'
-                      style={{ color: status.color }}
-                    >
-                      {powerMoveStats.percentage}
-                    </div>
-                    <div className='text-2xl font-bold mt-3 uppercase tracking-widest' style={{ color: status.color }}>
+                      className='h-full transition-all duration-500' 
+                      style={{ 
+                        width: `${Math.min((powerMoveStats.completed / (powerMoveStats.total || 1)) * 100, 100)}%`,
+                        backgroundColor: status.color
+                      }}
+                    />
+                  </div>
+                  <div className='flex items-center justify-center gap-2'>
+                    {status.color === '#16A34A' && <CheckCircle className='h-4 w-4 text-green-600' />}
+                    {status.color === '#F59E0B' && <AlertCircle className='h-4 w-4 text-amber-600' />}
+                    {status.color === '#DC2626' && <XCircle className='h-4 w-4 text-red-600' />}
+                    <span className='text-xs font-bold uppercase' style={{ color: status.color }}>
                       {status.badge}
-                    </div>
-                    <p className='text-sm font-black text-amber-600 mt-4'>
-                      {powerMoveStats.completed} / {powerMoveStats.total} complete
-                    </p>
+                    </span>
                   </div>
                 </div>
               </div>
 
-              {/* Step 2 Badge */}
-              <div className='absolute left-1/2 -translate-x-1/2 top-2 z-10 bg-blue-400 text-blue-900 font-black px-3 py-1 rounded-full text-xs'>STEP 2 – Team Outcomes</div>
-
-              {/* Column 2: DEPARTMENT VICTORY TARGETS - BLUE Theme */}
-              <div className='flex flex-col items-start justify-between flex-1 min-h-[340px] bg-gradient-to-br from-blue-50 to-cyan-50 border-l-2 border-l-blue-200 border-t-4 border-b-4 border-blue-400 border-r-2 border-r-blue-200 p-8 overflow-y-auto shadow-md hover:shadow-lg transition-shadow duration-300'>
-                <div className='w-full space-y-2'>
-                  {/* Section Label */}
-                  <p className='text-xs font-black uppercase tracking-widest text-blue-700'>Department Victory Targets</p>
-                  <p className='text-xs font-semibold text-blue-600'>Results measured monthly / quarterly</p>
-                  <p className='text-xs text-blue-600 font-semibold mt-2'>Every individual's Power Moves roll up here.</p>
+              {/* STEP 2: Team Outcomes */}
+              <div className='border-t-4 border-r border-slate-200 border-t-blue-500 p-8 flex flex-col justify-between min-h-[280px]'>
+                <div>
+                  <div className='flex items-center gap-2 mb-6'>
+                    <span className='text-xs font-black bg-blue-500 text-white px-2 py-1 rounded'>STEP 2</span>
+                    <p className='text-xs font-bold uppercase text-slate-700'>Team Outcomes</p>
+                  </div>
                 </div>
 
-                {/* Victory Target Cards - Side by Side */}
                 {victoryTargets.length === 0 ? (
-                  <div className='w-full flex items-center justify-center min-h-[100px]'>
-                    <div className='text-center space-y-3'>
-                      <div className='flex justify-center'>
-                        <Target className='h-6 w-6 text-blue-300' />
-                      </div>
-                      <p className='text-xs text-blue-600 font-semibold'>No Victory Targets Set</p>
-                      <a href='/admin?tab=victory-targets' className='text-xs text-blue-600 font-bold hover:underline inline-block'>Configure in Admin →</a>
-                    </div>
+                  <div className='text-center space-y-3 flex-1 flex flex-col items-center justify-center'>
+                    <Target className='h-8 w-8 text-blue-300' />
+                    <p className='text-xs font-semibold text-slate-600'>No Targets Set</p>
+                    <Button 
+                      variant='outline' 
+                      size='sm'
+                      className='text-xs mt-2 border-blue-300 text-blue-600 hover:bg-blue-50'
+                      onClick={() => window.location.href = '/admin?tab=victory-targets'}
+                    >
+                      Configure
+                    </Button>
                   </div>
                 ) : (
-                  <div className='w-full space-y-4 flex-1 min-h-[160px]'>
-                    {/* Display up to 2 targets in a grid */}
-                    <div className={cn(
-                      'grid gap-3',
-                      victoryTargets.length >= 2 ? 'grid-cols-2' : 'grid-cols-1'
-                    )}>
-                      {victoryTargets.slice(0, 2).map((vt, index) => {
-                        const quarters = (vt as any).quarters || []
-                        const quarterIndex = ['Q1', 'Q2', 'Q3', 'Q4'].indexOf(selectedQuarter)
-                        const quarterData = quarterIndex >= 0 ? quarters[quarterIndex] : null
-                        const achieved = quarterData?.achieved ?? vt.achieved
-                        const target = quarterData?.target ?? vt.target
+                  <div className='text-center space-y-4'>
+                    <div>
+                      <div className='text-6xl font-black text-slate-900 tabular-nums'>
+                        {victoryTargets.filter(vt => {
+                          const achieved = vt.achieved ?? 0
+                          const target = vt.target ?? 0
+                          const progress = target > 0 ? (achieved / target) * 100 : 0
+                          return progress >= 70
+                        }).length}
+                      </div>
+                      <div className='flex items-baseline justify-center gap-1 mt-2'>
+                        <span className='text-xs text-slate-400'>/</span>
+                        <span className='text-sm font-bold text-slate-500'>{victoryTargets.length}</span>
+                      </div>
+                    </div>
+                    <div className='h-2 rounded-full bg-slate-200 overflow-hidden'>
+                      <div 
+                        className='h-full transition-all duration-500 bg-blue-500' 
+                        style={{ width: `${(victoryTargets.filter(vt => {
+                          const achieved = vt.achieved ?? 0
+                          const target = vt.target ?? 0
+                          const progress = target > 0 ? (achieved / target) * 100 : 0
+                          return progress >= 70
+                        }).length / victoryTargets.length) * 100}%` }}
+                      />
+                    </div>
+                    <div className='flex items-center justify-center gap-2'>
+                      {victoryTargets.filter(vt => {
+                        const achieved = vt.achieved ?? 0
+                        const target = vt.target ?? 0
                         const progress = target > 0 ? (achieved / target) * 100 : 0
-                        
-                        const vtStatusColor = progress >= 70 ? '#16A34A' : progress >= 50 ? '#F59E0B' : '#DC2626'
-                        const StatusIcon = progress >= 70 ? CheckCircle : progress >= 50 ? AlertCircle : XCircle
-                        const statusLabel = progress >= 70 ? 'On Track' : progress >= 50 ? 'At Risk' : 'Behind'
-
-                        return (
-                          <div key={vt.id} className='bg-white border-2 border-blue-300 rounded-lg p-4 text-left hover:bg-blue-50 hover:shadow-md transition-all duration-200 cursor-pointer'>
-                            <p className='text-xs font-bold text-blue-900 mb-3'>{(vt as any).title || vt.name}</p>
-                            <div className='flex items-baseline gap-2 mb-3'>
-                              <span className='text-3xl font-black tabular-nums' style={{ color: vtStatusColor }}>{achieved}</span>
-                              <span className='text-xs font-bold text-blue-600'>/</span>
-                              <span className='text-lg font-black text-blue-700'>{target}</span>
-                            </div>
-                            <div className='h-2 rounded-full overflow-hidden bg-blue-200 mb-3'>
-                              <div 
-                                className='h-full transition-all duration-500' 
-                                style={{ 
-                                  width: `${Math.min(progress, 100)}%`,
-                                  backgroundColor: vtStatusColor
-                                }}
-                              />
-                            </div>
-                            <div className='flex items-center gap-1'>
-                              <StatusIcon className='h-3.5 w-3.5' style={{ color: vtStatusColor }} />
-                              <p className='text-xs font-bold uppercase tracking-widest' style={{ color: vtStatusColor }}>{statusLabel}</p>
-                            </div>
-                          </div>
-                        )
-                      })}
+                        return progress >= 70
+                      }).length === victoryTargets.length && <CheckCircle className='h-4 w-4 text-green-600' />}
+                      {victoryTargets.filter(vt => {
+                        const achieved = vt.achieved ?? 0
+                        const target = vt.target ?? 0
+                        const progress = target > 0 ? (achieved / target) * 100 : 0
+                        return progress >= 70
+                      }).length > 0 && victoryTargets.filter(vt => {
+                        const achieved = vt.achieved ?? 0
+                        const target = vt.target ?? 0
+                        const progress = target > 0 ? (achieved / target) * 100 : 0
+                        return progress >= 70
+                      }).length < victoryTargets.length && <AlertCircle className='h-4 w-4 text-amber-600' />}
+                      {victoryTargets.filter(vt => {
+                        const achieved = vt.achieved ?? 0
+                        const target = vt.target ?? 0
+                        const progress = target > 0 ? (achieved / target) * 100 : 0
+                        return progress >= 70
+                      }).length === 0 && <XCircle className='h-4 w-4 text-red-600' />}
+                      <span className='text-xs font-bold uppercase'>
+                        {victoryTargets.filter(vt => {
+                          const achieved = vt.achieved ?? 0
+                          const target = vt.target ?? 0
+                          const progress = target > 0 ? (achieved / target) * 100 : 0
+                          return progress >= 70
+                        }).length === victoryTargets.length ? 'On Track' : victoryTargets.filter(vt => {
+                          const achieved = vt.achieved ?? 0
+                          const target = vt.target ?? 0
+                          const progress = target > 0 ? (achieved / target) * 100 : 0
+                          return progress >= 70
+                        }).length > 0 ? 'At Risk' : 'Behind'}
+                      </span>
                     </div>
                   </div>
                 )}
+              </div>
 
-                {/* Summary Metric */}
-                <div className='w-full text-center'>
-                  <p className='text-xs font-semibold text-blue-600 mb-2'>Targets on Track</p>
-                  <div className='flex items-baseline gap-1 justify-center'>
-                    <span className='text-9xl font-black text-blue-900 tabular-nums leading-none'>
+              {/* STEP 3: Company Mission */}
+              <div className='border-t-4 border-slate-200 border-t-purple-500 p-8 flex flex-col justify-between min-h-[280px] rounded-r'>
+                <div>
+                  <div className='flex items-center gap-2 mb-6'>
+                    <span className='text-xs font-black bg-purple-500 text-white px-2 py-1 rounded'>STEP 3</span>
+                    <p className='text-xs font-bold uppercase text-slate-700'>Company Mission</p>
+                  </div>
+                </div>
+
+                <div className='text-center space-y-4'>
+                  <div>
+                    <div className='text-6xl font-black text-slate-900 tabular-nums'>
+                      {companyWIG?.achieved ?? 0}
+                    </div>
+                    <div className='flex items-baseline justify-center gap-1 mt-2'>
+                      <span className='text-xs text-slate-400'>/</span>
+                      <span className='text-sm font-bold text-slate-500'>{companyWIG?.target ?? 0}</span>
+                    </div>
+                  </div>
+                  <div className='h-2 rounded-full bg-slate-200 overflow-hidden'>
+                    <div 
+                      className='h-full bg-purple-600 transition-all duration-500'
+                      style={{ width: `${Math.min((((companyWIG?.achieved ?? 0) / (companyWIG?.target ?? 1)) * 100), 100)}%` }}
+                    />
+                  </div>
+                  <div className='flex items-center justify-center gap-2'>
+                    {(companyWIG?.achieved ?? 0) / (companyWIG?.target ?? 1) >= 0.7 ? <CheckCircle className='h-4 w-4 text-green-600' /> :
+                     (companyWIG?.achieved ?? 0) / (companyWIG?.target ?? 1) >= 0.5 ? <AlertCircle className='h-4 w-4 text-amber-600' /> :
+                     <XCircle className='h-4 w-4 text-red-600' />}
+                    <span className='text-xs font-bold uppercase'>
+                      {(companyWIG?.achieved ?? 0) / (companyWIG?.target ?? 1) >= 0.7 ? 'On Track' :
+                       (companyWIG?.achieved ?? 0) / (companyWIG?.target ?? 1) >= 0.5 ? 'At Risk' : 'Behind'}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Mobile/Tablet Stack - Simplified */}
+            <div className='lg:hidden space-y-0 p-4 bg-white'>
+              {/* Step 1 */}
+              <div className='border-t-4 border-b border-slate-200 border-t-orange-500 p-6 text-center'>
+                <div className='flex items-center justify-center gap-2 mb-6'>
+                  <span className='text-xs font-black bg-orange-500 text-white px-2 py-1 rounded'>STEP 1</span>
+                  <p className='text-xs font-bold uppercase text-slate-700'>Execution Discipline</p>
+                </div>
+                <div className='text-5xl font-black text-slate-900 mb-2'>{powerMoveStats.percentage}</div>
+                <div className='flex items-center justify-center gap-1 mb-3'>
+                  <span className='text-xs text-slate-500'>{powerMoveStats.completed}/{powerMoveStats.total}</span>
+                </div>
+                <div className='h-2 rounded-full bg-slate-200 overflow-hidden mb-3'>
+                  <div 
+                    className='h-full transition-all duration-500' 
+                    style={{ 
+                      width: `${Math.min((powerMoveStats.completed / (powerMoveStats.total || 1)) * 100, 100)}%`,
+                      backgroundColor: status.color
+                    }}
+                  />
+                </div>
+                <div className='flex items-center justify-center gap-2'>
+                  {status.color === '#16A34A' && <CheckCircle className='h-4 w-4 text-green-600' />}
+                  {status.color === '#F59E0B' && <AlertCircle className='h-4 w-4 text-amber-600' />}
+                  {status.color === '#DC2626' && <XCircle className='h-4 w-4 text-red-600' />}
+                  <span className='text-xs font-bold uppercase' style={{ color: status.color }}>
+                    {status.badge}
+                  </span>
+                </div>
+              </div>
+
+              {/* Arrow indicator */}
+              <div className='flex justify-center py-2 bg-slate-50'>
+                <ArrowDown className='h-5 w-5 text-slate-300' />
+              </div>
+
+              {/* Step 2 */}
+              <div className='border-t-4 border-b border-slate-200 border-t-blue-500 p-6 text-center'>
+                <div className='flex items-center justify-center gap-2 mb-6'>
+                  <span className='text-xs font-black bg-blue-500 text-white px-2 py-1 rounded'>STEP 2</span>
+                  <p className='text-xs font-bold uppercase text-slate-700'>Team Outcomes</p>
+                </div>
+                
+                {victoryTargets.length === 0 ? (
+                  <div className='space-y-3'>
+                    <Target className='h-8 w-8 text-blue-300 mx-auto' />
+                    <p className='text-xs font-semibold text-slate-600'>No Targets Set</p>
+                    <Button 
+                      variant='outline' 
+                      size='sm'
+                      className='text-xs border-blue-300 text-blue-600 hover:bg-blue-50'
+                      onClick={() => window.location.href = '/admin?tab=victory-targets'}
+                    >
+                      Configure
+                    </Button>
+                  </div>
+                ) : (
+                  <>
+                    <div className='text-5xl font-black text-slate-900 mb-2'>
                       {victoryTargets.filter(vt => {
                         const achieved = vt.achieved ?? 0
                         const target = vt.target ?? 0
                         const progress = target > 0 ? (achieved / target) * 100 : 0
                         return progress >= 70
                       }).length}
-                    </span>
-                    <span className='text-3xl text-blue-400 font-bold'>/{victoryTargets.length}</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Step 3 Badge */}
-              <div className='absolute right-20 top-2 z-10 bg-purple-400 text-purple-900 font-black px-3 py-1 rounded-full text-xs'>STEP 3 – Company Mission</div>
-
-              {/* Column 3: WAR GOAL - PURPLE Theme */}
-              <div className='flex flex-col items-start justify-between flex-1 min-h-[340px] bg-gradient-to-br from-purple-50 to-violet-50 border-l-2 border-l-purple-200 border-t-4 border-b-4 border-purple-400 border-r-4 border-r-purple-400 rounded-r-lg p-8 shadow-md hover:shadow-lg transition-shadow duration-300'>
-                <div className='w-full space-y-2'>
-                  {/* Section Label */}
-                  <p className='text-xs font-black uppercase tracking-widest text-purple-700'>Company Mission</p>
-                  <p className='text-xs font-semibold text-purple-600'>Strategic company outcome</p>
-                </div>
-
-                {/* HERO METRIC - Dramatically Larger */}
-                <div className='w-full text-center'>
-                  <div className='flex flex-col items-center'>
-                    <div className='text-6xl font-black text-purple-900 tabular-nums leading-none'>
-                      {companyWIG?.achieved ?? 0}
                     </div>
-                    <div className='text-2xl font-bold text-purple-400 mt-1'>
-                      / {companyWIG?.target ?? 0}
+                    <div className='flex items-center justify-center gap-1 mb-3'>
+                      <span className='text-xs text-slate-500'>/ {victoryTargets.length}</span>
                     </div>
-                    <p className='text-xs font-bold text-purple-700 mt-4 uppercase tracking-widest'>
-                      {companyWIG?.achieved && companyWIG?.target ? 
-                        Math.round((companyWIG.achieved / companyWIG.target) * 100) : 0}% Complete
-                    </p>
-                    <div className='w-full mt-5 bg-purple-200 rounded-full h-2 overflow-hidden'>
+                    <div className='h-2 rounded-full bg-slate-200 overflow-hidden mb-3'>
                       <div 
-                        className='h-full bg-purple-600 transition-all duration-500'
-                        style={{ width: `${Math.min((((companyWIG?.achieved ?? 0) / (companyWIG?.target ?? 1)) * 100), 100)}%` }}
+                        className='h-full transition-all duration-500 bg-blue-500' 
+                        style={{ width: `${(victoryTargets.filter(vt => {
+                          const achieved = vt.achieved ?? 0
+                          const target = vt.target ?? 0
+                          const progress = target > 0 ? (achieved / target) * 100 : 0
+                          return progress >= 70
+                        }).length / victoryTargets.length) * 100}%` }}
                       />
                     </div>
-                  </div>
+                    <div className='flex items-center justify-center gap-2'>
+                      {victoryTargets.filter(vt => {
+                        const achieved = vt.achieved ?? 0
+                        const target = vt.target ?? 0
+                        const progress = target > 0 ? (achieved / target) * 100 : 0
+                        return progress >= 70
+                      }).length === victoryTargets.length && <CheckCircle className='h-4 w-4 text-green-600' />}
+                      {victoryTargets.filter(vt => {
+                        const achieved = vt.achieved ?? 0
+                        const target = vt.target ?? 0
+                        const progress = target > 0 ? (achieved / target) * 100 : 0
+                        return progress >= 70
+                      }).length > 0 && victoryTargets.filter(vt => {
+                        const achieved = vt.achieved ?? 0
+                        const target = vt.target ?? 0
+                        const progress = target > 0 ? (achieved / target) * 100 : 0
+                        return progress >= 70
+                      }).length < victoryTargets.length && <AlertCircle className='h-4 w-4 text-amber-600' />}
+                      {victoryTargets.filter(vt => {
+                        const achieved = vt.achieved ?? 0
+                        const target = vt.target ?? 0
+                        const progress = target > 0 ? (achieved / target) * 100 : 0
+                        return progress >= 70
+                      }).length === 0 && <XCircle className='h-4 w-4 text-red-600' />}
+                      <span className='text-xs font-bold uppercase'>
+                        {victoryTargets.filter(vt => {
+                          const achieved = vt.achieved ?? 0
+                          const target = vt.target ?? 0
+                          const progress = target > 0 ? (achieved / target) * 100 : 0
+                          return progress >= 70
+                        }).length === victoryTargets.length ? 'On Track' : victoryTargets.filter(vt => {
+                          const achieved = vt.achieved ?? 0
+                          const target = vt.target ?? 0
+                          const progress = target > 0 ? (achieved / target) * 100 : 0
+                          return progress >= 70
+                        }).length > 0 ? 'At Risk' : 'Behind'}
+                      </span>
+                    </div>
+                  </>
+                )}
+              </div>
+
+              {/* Arrow indicator */}
+              <div className='flex justify-center py-2 bg-slate-50'>
+                <ArrowDown className='h-5 w-5 text-slate-300' />
+              </div>
+
+              {/* Step 3 */}
+              <div className='border-t-4 border-slate-200 border-t-purple-500 p-6 text-center'>
+                <div className='flex items-center justify-center gap-2 mb-6'>
+                  <span className='text-xs font-black bg-purple-500 text-white px-2 py-1 rounded'>STEP 3</span>
+                  <p className='text-xs font-bold uppercase text-slate-700'>Company Mission</p>
+                </div>
+                <div className='text-5xl font-black text-slate-900 mb-2'>
+                  {companyWIG?.achieved ?? 0}
+                </div>
+                <div className='flex items-center justify-center gap-1 mb-3'>
+                  <span className='text-xs text-slate-500'>/ {companyWIG?.target ?? 0}</span>
+                </div>
+                <div className='h-2 rounded-full bg-slate-200 overflow-hidden mb-3'>
+                  <div 
+                    className='h-full bg-purple-600 transition-all duration-500'
+                    style={{ width: `${Math.min((((companyWIG?.achieved ?? 0) / (companyWIG?.target ?? 1)) * 100), 100)}%` }}
+                  />
+                </div>
+                <div className='flex items-center justify-center gap-2'>
+                  {(companyWIG?.achieved ?? 0) / (companyWIG?.target ?? 1) >= 0.7 ? <CheckCircle className='h-4 w-4 text-green-600' /> :
+                   (companyWIG?.achieved ?? 0) / (companyWIG?.target ?? 1) >= 0.5 ? <AlertCircle className='h-4 w-4 text-amber-600' /> :
+                   <XCircle className='h-4 w-4 text-red-600' />}
+                  <span className='text-xs font-bold uppercase'>
+                    {(companyWIG?.achieved ?? 0) / (companyWIG?.target ?? 1) >= 0.7 ? 'On Track' :
+                     (companyWIG?.achieved ?? 0) / (companyWIG?.target ?? 1) >= 0.5 ? 'At Risk' : 'Behind'}
+                  </span>
                 </div>
               </div>
             </div>
-
-            {/* Mobile/Tablet Stack */}
-            <div className='lg:hidden space-y-4 p-6 bg-stone-50'>
-              {/* Step 1 Badge */}
-              <div className='flex justify-center mb-2'>
-                <span className='bg-amber-400 text-amber-900 font-black px-3 py-1 rounded-full text-xs'>STEP 1 – Execution Discipline</span>
-              </div>
-
-              {/* Card 1 - Amber Theme */}
-              <div className={cn(
-                'flex flex-col items-center justify-center text-center bg-gradient-to-br from-amber-50 to-orange-50 border-l-4 border-t-4 border-b-4 border-amber-400 border-r-2 border-r-amber-200 rounded-lg p-7 shadow-md hover:shadow-lg transition-shadow duration-300',
-                status.borderAccent
-              )}>
-                <div className='space-y-4 w-full'>
-                  <div className='space-y-1'>
-                    <p className='text-lg font-black uppercase tracking-[0.2em] text-amber-900'>Weekly Power Moves</p>
-                    <div className='h-0.5 w-12 bg-amber-300 mx-auto rounded-full'></div>
-                  </div>
-                  <p className='text-xs font-semibold text-amber-700'>Actions executed this week (Lead Measures)</p>
-                  <div className='py-5'>
-                    <div 
-                      className='text-8xl font-black tabular-nums leading-none drop-shadow-sm'
-                      style={{ color: status.color }}
-                    >
-                      {powerMoveStats.percentage}
-                    </div>
-                    <div className='text-xl font-bold text-amber-400 mt-3'>/100</div>
-                  </div>
-                  <div className={cn(
-                    'inline-flex items-center gap-2 px-5 py-2.5 rounded-lg shadow-md text-sm font-black',
-                    status.bg,
-                    status.text
-                  )}>
-                    <StatusIcon className='h-5 w-5' />
-                    <span>{status.badge}</span>
-                  </div>
-                  <div className='mt-5 pt-5 border-t-2 border-amber-200 space-y-2'>
-                    <p className='text-3xl font-black text-amber-900 tabular-nums'>
-                      {powerMoveStats.completed} <span className='text-amber-300'>/</span> {powerMoveStats.total}
-                    </p>
-                    <p className='text-xs font-bold text-amber-700 mt-1 uppercase tracking-wider'>Power Moves Complete</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Flow Indicator */}
-              <div className='flex flex-col items-center gap-2 py-2'>
                 <ArrowDown className='h-6 w-6 text-amber-500 font-bold' aria-hidden="true" />
                 <span className='text-xs font-black text-amber-700'>DRIVES</span>
               </div>
