@@ -140,9 +140,11 @@ export default function DailyReportPage() {
 
           <TabsContent value="all" className="space-y-6">
             {showForm && (
-              <div className="bg-white border-2 border-orange-200 rounded-lg p-6">
-                <h2 className="text-2xl font-bold mb-2">What Did You Execute Today?</h2>
-                <p className="text-slate-600 mb-6">Update your power move progress, highlight wins, share blockers, and plan tomorrow.</p>
+              <div className="bg-white border-2 border-orange-200 rounded-lg p-8 shadow-sm">
+                <div className="mb-6 space-y-2">
+                  <h2 className="text-3xl font-black text-slate-900">What Did You Execute Today?</h2>
+                  <p className="text-lg text-slate-600">Log your daily performance. Update quantitative progress, document accomplishments, highlight wins, note blockers, and plan tomorrow.</p>
+                </div>
                 <DailyReportForm onSubmit={handleSubmitReport} />
               </div>
             )}
