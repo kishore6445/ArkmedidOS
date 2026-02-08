@@ -19,6 +19,7 @@ type PersonalTarget = {
   targetValue: number
   currentValue: number
   status: "On Track" | "At Risk" | "Behind"
+  goalType: "Quantitative" | "Qualitative" | "Learning"
   createdAt: string
 }
 
@@ -40,6 +41,7 @@ export function PersonalVictoryTargetManagement() {
       targetValue: 25,
       currentValue: 10,
       status: "At Risk",
+      goalType: "Quantitative",
       createdAt: "2026-01-15",
     },
     {
@@ -52,6 +54,7 @@ export function PersonalVictoryTargetManagement() {
       targetValue: 30,
       currentValue: 28,
       status: "On Track",
+      goalType: "Quantitative",
       createdAt: "2026-01-15",
     },
     {
@@ -64,6 +67,7 @@ export function PersonalVictoryTargetManagement() {
       targetValue: 25,
       currentValue: 0,
       status: "Behind",
+      goalType: "Quantitative",
       createdAt: "2026-01-15",
     },
   ])
@@ -77,6 +81,7 @@ export function PersonalVictoryTargetManagement() {
   const [selectedQuarter, setSelectedQuarter] = useState("Q1")
   const [searchQuery, setSearchQuery] = useState("")
   const [selectedEmployee, setSelectedEmployee] = useState("")
+  const [selectedGoalType, setSelectedGoalType] = useState<"Quantitative" | "Qualitative" | "Learning">("Quantitative")
   const [error, setError] = useState("")
 
   const filteredTargets = personalTargets.filter((target) => {
@@ -121,6 +126,7 @@ export function PersonalVictoryTargetManagement() {
       targetValue: 0,
       currentValue: 0,
       status: "Behind",
+      goalType: selectedGoalType,
       createdAt: new Date().toISOString().split("T")[0],
     }
     setPersonalTargets([...personalTargets, newTarget])
@@ -152,6 +158,19 @@ export function PersonalVictoryTargetManagement() {
   const getProgressPercentage = (current: number, target: number) => {
     if (target === 0) return 0
     return Math.round((current / target) * 100)
+  }
+
+  const getGoalTypeColor = (goalType: string) => {
+    switch (goalType) {
+      case "Quantitative":
+        return "bg-blue-100 text-blue-800"
+      case "Qualitative":
+        return "bg-amber-100 text-amber-800"
+      case "Learning":
+        return "bg-purple-100 text-purple-800"
+      default:
+        return "bg-gray-100 text-gray-800"
+    }
   }
 
   return (
@@ -193,8 +212,8 @@ export function PersonalVictoryTargetManagement() {
 
       {/* Employee Selection and Add Target */}
       <div className="border rounded-lg p-4 bg-blue-50">
-        <div className="flex gap-4 items-end">
-          <div className="flex-1">
+        <div className="flex gap-4 items-end flex-wrap">
+          <div className="flex-1 min-w-[200px]">
             <label className="block text-sm font-semibold text-gray-700 mb-2">Select Employee to Add Target</label>
             <Select value={selectedEmployee} onValueChange={setSelectedEmployee}>
               <SelectTrigger>
@@ -206,6 +225,19 @@ export function PersonalVictoryTargetManagement() {
                     {emp.employeeName} ({personalTargets.filter((t) => t.employeeId === emp.employeeId && t.quarter === selectedQuarter).length}/2 targets for {selectedQuarter})
                   </SelectItem>
                 ))}
+              </SelectContent>
+            </Select>
+          </div>
+          <div className="min-w-[200px]">
+            <label className="block text-sm font-semibold text-gray-700 mb-2">Goal Type</label>
+            <Select value={selectedGoalType} onValueChange={(value) => setSelectedGoalType(value as "Quantitative" | "Qualitative" | "Learning")}>
+              <SelectTrigger>
+                <SelectValue placeholder="Select goal type" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="Quantitative">Quantitative (Measurable)</SelectItem>
+                <SelectItem value="Qualitative">Qualitative (Observable)</SelectItem>
+                <SelectItem value="Learning">Learning (Development)</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -224,6 +256,7 @@ export function PersonalVictoryTargetManagement() {
             <TableRow className="bg-gray-50">
               <TableHead>Employee</TableHead>
               <TableHead>Victory Target</TableHead>
+              <TableHead>Type</TableHead>
               <TableHead className="text-right">Target</TableHead>
               <TableHead className="text-right">Current</TableHead>
               <TableHead className="text-right">Progress</TableHead>
@@ -239,6 +272,9 @@ export function PersonalVictoryTargetManagement() {
                   <div className="max-w-xs">
                     <p className="font-medium text-sm">{target.victoryTargetName}</p>
                   </div>
+                </TableCell>
+                <TableCell>
+                  <Badge className={getGoalTypeColor(target.goalType)}>{target.goalType}</Badge>
                 </TableCell>
                 <TableCell className="text-right font-mono font-semibold">{target.targetValue}</TableCell>
                 <TableCell className="text-right font-mono">{target.currentValue}</TableCell>
