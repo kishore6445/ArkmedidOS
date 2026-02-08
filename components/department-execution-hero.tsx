@@ -6,6 +6,7 @@ import { useBrand } from '@/lib/brand-context'
 import type { VictoryTarget, PowerMove, Task, Commitment } from '@/components/department-page'
 import { calculateDepartmentScore } from '@/lib/score-calculations'
 import { QuarterSelector, type QuarterOption } from '@/components/quarter-selector'
+import { MissionContextSection } from '@/components/mission-context-section'
 import { CheckCircle, AlertCircle, XCircle, Target } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -179,6 +180,9 @@ export function DepartmentExecutionHero({
           </div>
         </div>
       </div>
+
+      {/* MISSION CONTEXT - Show department's role in company mission */}
+      <MissionContextSection type="department" departmentName={departmentName} />
     </section>
   )
 }

@@ -13,6 +13,7 @@ import { cn } from "@/lib/utils"
 import { BrandSwitcher } from "@/components/brand-switcher"
 import { UserBrandSelector } from "@/components/user-brand-selector"
 import { Breadcrumbs } from "@/components/breadcrumbs"
+import { MissionBar } from "@/components/mission-bar"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { supabase } from "@/lib/supabase/client"
 import { useUser } from "@/lib/user-context"
@@ -168,6 +169,9 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               </DropdownMenu>
             </div>
           </header>
+
+          {/* MISSION BAR - Global context */}
+          <MissionBar />
 
           {/* Page content */}
           <main className="flex-1 overflow-y-auto bg-gray-50">

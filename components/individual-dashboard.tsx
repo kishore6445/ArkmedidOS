@@ -8,7 +8,9 @@ import { Button } from "@/components/ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { cn } from "@/lib/utils"
 import { useUser } from "@/lib/user-context"
+import { useBrand } from "@/lib/brand-context"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
+import { MissionContextSection } from "@/components/mission-context-section"
 import Image from "next/image"
 
 type TimePeriod = "today" | "this-week" | "this-month" | "this-quarter"
@@ -25,6 +27,7 @@ export function IndividualDashboard({
   currentUserId = "",
 }: IndividualDashboardProps) {
   const { currentUser, isLoading: isUserLoading } = useUser()
+  const { brandConfig } = useBrand()
   const [tasks, setTasks] = useState([])
   const [commitments, setCommitments] = useState([])
   const [powerMoves, setPowerMoves] = useState<any[]>([])
@@ -452,6 +455,9 @@ export function IndividualDashboard({
           </div>
         </div>
       </div>
+
+      {/* MISSION CONTEXT - Show brand contribution to company mission */}
+      <MissionContextSection type="individual" brandName={brandConfig.name} />
 
       {/* HERO STATUS FLOW - Elevated, dramatic, interactive */}
       <div className='px-6 sm:px-8 lg:px-12 py-16 bg-white'>
