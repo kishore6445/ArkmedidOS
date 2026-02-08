@@ -2,7 +2,7 @@
 import { useEffect, useMemo, useState } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Calendar, ChevronDown, ArrowRight, ArrowDown, CheckCircle, AlertCircle, XCircle, Target } from "lucide-react"
+import { Calendar, ChevronDown, ArrowRight, ArrowDown, CheckCircle, AlertCircle, XCircle, Target, Plus } from "lucide-react"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Button } from "@/components/ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
@@ -11,6 +11,7 @@ import { useUser } from "@/lib/user-context"
 import { useBrand } from "@/lib/brand-context"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
 import { MissionContextSection } from "@/components/mission-context-section"
+import { PowerMoveModal, type PowerMoveFormData } from "@/components/power-move-modal"
 import Image from "next/image"
 
 type TimePeriod = "today" | "this-week" | "this-month" | "this-quarter"
@@ -36,7 +37,8 @@ export function IndividualDashboard({
   const [isTrackingLoading, setIsTrackingLoading] = useState(true)
   const [supportingWorkOpen, setSupportingWorkOpen] = useState(false)
   const [selectedPeriod, setSelectedPeriod] = useState<TimePeriod>("today")
-  const [linkedPowerMove, setLinkedPowerMove] = useState<string | null>(null) // Declare linkedPowerMove variable
+  const [linkedPowerMove, setLinkedPowerMove] = useState<string | null>(null)
+  const [showPowerMoveModal, setShowPowerMoveModal] = useState(false)
 
   const toggleTask = (id: string) => {
     setTasks((prev) => prev.map((t) => (t.id === id ? { ...t, completed: !t.completed } : t)))
@@ -48,6 +50,24 @@ export function IndividualDashboard({
         c.id === id ? { ...c, completed: !c.completed, status: !c.completed ? "Completed" : "In Progress" } : c,
       ),
     )
+  }
+
+  const handleAddPowerMove = async (data: PowerMoveFormData) => {
+    try {
+      const response = await fetch("/api/admin/power-moves", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      })
+      if (!response.ok) throw new Error("Failed to create power move")
+      setShowPowerMoveModal(false)
+      // Reload power moves
+      const pmResponse = await fetch("/api/admin/power-moves", { cache: "no-store" })
+      const pmResult = await pmResponse.json().catch(() => ({}))
+      setPowerMoves(Array.isArray(pmResult.powerMoves) ? pmResult.powerMoves : [])
+    } catch (error) {
+      console.error("Error adding power move:", error)
+    }
   }
 
   useEffect(() => {
@@ -467,12 +487,24 @@ export function IndividualDashboard({
             
             {/* STEP 1 - Power Moves */}
             <button
-              onClick={() => {/* Navigate to add power move */}}
+              onClick={() => setShowPowerMoveModal(true)}
               className='group text-left p-8 rounded-xl border-2 border-slate-200 hover:border-orange-400 hover:bg-orange-50 transition-all duration-300 cursor-pointer'
             >
-              <div className='flex items-center gap-3 mb-6'>
-                <div className='h-10 w-10 rounded-full bg-orange-500 text-white font-bold flex items-center justify-center text-lg'>1</div>
-                <span className='text-xs font-bold uppercase text-slate-600 tracking-wide'>Execution Discipline</span>
+              <div className='flex items-center justify-between mb-6'>
+                <div className='flex items-center gap-3'>
+                  <div className='h-10 w-10 rounded-full bg-orange-500 text-white font-bold flex items-center justify-center text-lg'>1</div>
+                  <span className='text-xs font-bold uppercase text-slate-600 tracking-wide'>Execution Discipline</span>
+                </div>
+                <Button
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    setShowPowerMoveModal(true)
+                  }}
+                  className='bg-orange-500 hover:bg-orange-600 text-white font-bold px-3 py-1.5 rounded-lg flex items-center gap-1.5 text-sm'
+                >
+                  <Plus className='h-4 w-4' />
+                  Add
+                </Button>
               </div>
               <div className='mb-6'>
                 <div className='text-7xl font-black text-slate-900 leading-none mb-2'>
@@ -762,5 +794,13 @@ export function IndividualDashboard({
         </div>
       </div>
     </section>
+
+    {/* Power Move Modal */}
+    <PowerMoveModal
+      open={showPowerMoveModal}
+      onOpenChange={setShowPowerMoveModal}
+      onSave={handleAddPowerMove}
+      victoryTargets={victoryTargets}
+    />
   )
 }
